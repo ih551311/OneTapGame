@@ -25,7 +25,26 @@ namespace LastBullet.UI
                 var texture = PaintingLibrary.LoadTexture(PaintingLibrary.Find(SaveManager.GetTitleFrame(i)));
                 pictures[i].texture = texture;
                 pictures[i].enabled = texture != null; // 그림이 없으면 액자 안쪽(빈 액자)이 보인다
+                if (texture != null)
+                    KeepAspect(pictures[i], texture);
             }
+        }
+
+        [Tooltip("액자 테두리 두께 (그림은 이 안쪽에 들어간다)")]
+        [SerializeField] float frameBorder = 30f;
+
+        // 그림 비율을 지킨 채 액자 테두리 안쪽에 맞춰 가운데에 둔다 (정사각형 그림이 늘어나지 않게)
+        void KeepAspect(RawImage picture, Texture texture)
+        {
+            var rect = picture.rectTransform;
+            Vector2 area = ((RectTransform)rect.parent).rect.size - Vector2.one * (frameBorder * 2f);
+            float aspect = (float)texture.width / texture.height;
+            Vector2 size = area.x / area.y > aspect
+                ? new Vector2(area.y * aspect, area.y)  // 액자가 더 넓으면 높이에 맞춘다
+                : new Vector2(area.x, area.x / aspect); // 액자가 더 길쭉하면 너비에 맞춘다
+            rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = Vector2.zero;
+            rect.sizeDelta = size;
         }
     }
 }
