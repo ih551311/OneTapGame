@@ -9,6 +9,22 @@
 - 프로젝트는 아직 유니티 기본 템플릿 상태다. 커밋은 "Initial commit", "유니티 열기" 두 개뿐이다.
 - 모델을 `Sonnet 5.5`에서 `Opus 5.5`(`claude-opus-5-5`)로 바꿨다. 노력 수준(effort)은 마지막 확인 때 `medium`이었다.
 
+## 게임 개발 진행 (LAST BULLET)
+
+기획서: `docs/LAST_BULLET_Plan.md`
+
+| Phase | 상태 |
+|---|---|
+| 1 프로젝트 설정 | ✅ 완료 (2026-10-29, 브랜치 `phase1/project-setup`) |
+| 2 플레이어 | 다음 차례. 첫 작업: 바닥, 임시 Capsule 플레이어, CharacterController |
+
+Phase 1에서 한 일 (2026-10-29):
+- [x] Unity 6 URP 프로젝트, New Input System 활성화 (`activeInputHandler: 1` 확인)
+- [x] 3.3 폴더 구조, `Assets/Credits.txt`
+- [x] `Hideout` 씬 (`SampleScene` 복사본: 카메라, 조명, Global Volume만 있음)
+- [x] Cinemachine 3.1.7을 `Packages/manifest.json`에 추가. TextMeshPro는 uGUI 2.0.0에 포함
+- [x] 사용자 확인: `Hideout` 재생 시 Console 빨간 오류 없음, Cinemachine 설치됨 (`packages-lock.json`)
+
 ## 해결되지 않은 문제: Ultracode가 회색으로 표시됨
 
 **증상**: 앱의 모델 표시줄에 `Sonnet 5.5 · medium effort · Ultracode`가 보이는데, `Ultracode`만 회색이다. 사용자는 이것이 켜지기(반짝이기)를 원한다.

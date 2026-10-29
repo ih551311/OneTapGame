@@ -1,5 +1,17 @@
 # OneTapGame - Claude 작업 지침
 
+## 게임 기획 (가장 먼저 읽기)
+
+- 이 프로젝트는 **LAST BULLET : 마지막 탄환**을 만든다. 폴더 이름만 OneTapGame이다.
+- 기획서: [`docs/LAST_BULLET_Plan.md`](docs/LAST_BULLET_Plan.md). 기획은 끝났다. 다시 논의하지 않는다.
+- 기획서 **0장 지침**을 그대로 따른다. 특히:
+  - 4장 Phase 순서대로, 한 번에 작은 기능 하나만 진행하고 테스트 후 넘어간다.
+  - 확정 사양은 바꾸지 않는다. **(기본값)**은 바꾸면 알린다.
+  - 1.2 제외 항목은 다시 제안하지 않는다.
+  - 실제 동작을 확인하기 전에는 완성이라고 하지 않는다.
+  - **매 답변 끝에 현재 Phase와 다음 할 일을 한 줄로 알린다.**
+- 진행 상황: [`docs/claude/SESSION_HANDOFF.md`](docs/claude/SESSION_HANDOFF.md)
+
 ## 대화
 
 - 항상 **한국어**로 답한다.
@@ -14,7 +26,8 @@
 - 유니티 버전: **6000.3.23f1** (Unity 6)
 - 렌더 파이프라인: URP 17.3.0
 - 입력: Input System 1.20.0
-- 씬: `Assets/Scenes/SampleScene.unity` (아직 템플릿 상태)
+- 씬: `Assets/Scenes/Hideout.unity` (미술관), `SampleScene.unity` (템플릿 기본 씬)
+- 패키지: Cinemachine 3.1.7. TextMeshPro는 Unity 6에서 uGUI(`com.unity.ugui`)에 포함되어 있다.
 - GitHub: https://github.com/ih551311/OneTapGame (기본 브랜치 `main`)
 
 ## 환경
