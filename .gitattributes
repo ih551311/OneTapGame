@@ -1,0 +1,3 @@
+# GitHub 언어 표시용: Unity 창 배치 파일(.wlt)을 Wolfram 언어로 잘못 세지 않게 한다.
+*.wlt linguist-vendored
+Assets/TutorialInfo/** linguist-vendored
