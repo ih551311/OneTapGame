@@ -23,12 +23,18 @@ namespace LastBullet.Combat
         [Tooltip("맞은 자리에 잠깐 보이는 점의 머티리얼")]
         [SerializeField] Material impactMaterial;
 
+        [Tooltip("빗나갔을 때 바닥에 떨어지는 탄환. Prefabs/DroppedBullet")]
+        [SerializeField] GameObject droppedBulletPrefab;
+
         [Tooltip("최대 사거리 (기본값)")]
         [SerializeField] float maxRange = 50f;
 
         [SerializeField] float tracerTime = 0.08f;
 
         public BulletState State { get; private set; } = BulletState.Loaded;
+
+        // 지금 떨어져 있는 탄환. 회수(Phase 3-3)할 때 쓴다.
+        public GameObject DroppedBullet { get; private set; }
 
         Camera cam;
         ThirdPersonCamera look;
@@ -78,18 +84,33 @@ namespace LastBullet.Combat
 
             ShowTracer(origin, impact);
             if (hit)
-            {
                 SpawnImpactMarker(impact);
-                Debug.Log($"[OneBulletGun] 명중: {muzzleHit.collider.name} ({Vector3.Distance(origin, impact):0.0}m)");
-            }
-            else
+
+            // 적(Hitbox)에 맞으면 탄환을 바로 다시 쓸 수 있다.
+            var hitbox = hit ? muzzleHit.collider.GetComponent<Hitbox>() : null;
+            if (hitbox != null)
             {
-                Debug.Log("[OneBulletGun] 아무것도 맞지 않음");
+                Debug.Log($"[OneBulletGun] 적 명중: {muzzleHit.collider.name} ({hitbox.Part})");
+                State = BulletState.Loaded;
+                return;
             }
 
-            // Phase 3-1에서는 쏜 뒤 바로 다시 장전한다.
-            // Phase 3-2에서 바꿀 부분: 적에게 맞으면 Loaded, 빗나가면 Dropped (탄환 오브젝트 생성).
-            State = BulletState.Loaded;
+            // 빗나가면 탄환이 떨어지고, 회수할 때까지 쏠 수 없다.
+            // 벽에 맞으면 벽 앞 바닥에, 아무것도 안 맞으면 최대 사거리 지점 아래 바닥에 떨어진다.
+            Vector3 dropFrom = hit ? impact + muzzleHit.normal * 0.2f : impact;
+            DropBullet(dropFrom);
+            Debug.Log($"[OneBulletGun] 빗나감: {(hit ? muzzleHit.collider.name : "허공")} → 탄환이 떨어짐");
+            State = BulletState.Dropped;
+        }
+
+        void DropBullet(Vector3 from)
+        {
+            // 아래로 레이를 쏴서 바닥을 찾는다. 바닥이 없으면(맵 밖) 그 자리에 둔다. 15초 뒤 자동 복귀(Phase 3-3).
+            Vector3 position = RaycastIgnoringSelf(from + Vector3.up * 0.1f, Vector3.down, 200f, out var groundHit)
+                ? groundHit.point + Vector3.up * 0.05f
+                : from;
+            DroppedBullet = Instantiate(droppedBulletPrefab, position, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
+            DroppedBullet.name = "DroppedBullet";
         }
 
         // 레이에 걸린 것 중 플레이어 자신을 빼고 가장 가까운 것을 찾는다.

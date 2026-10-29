@@ -17,7 +17,7 @@
 |---|---|
 | 1 프로젝트 설정 | ✅ 완료 (2026-10-29, 브랜치 `phase1/project-setup`) |
 | 2 플레이어 | ✅ 완료 (2026-10-29, 사용자가 WASD·Shift·Space·Q·카메라 확인). 2-1 바닥·캡슐·CharacterController ✅. 2-2 3인칭 카메라(Cinemachine ThirdPersonFollow + `ThirdPersonCamera`)·크로스헤어 ✅ (오류 없음, 마우스 회전은 사용자 실제 확인 필요). 2-3 이동·달리기·점프·회피(`PlayerMovement`, 화면 왼쪽 위 테스트 표시) ✅ |
-| 3 한 발 탄환 | 진행 중. 3-1 발사·명중 판정(`OneBulletGun`, 탄도선, 맞은 자리 노란 점, 임시 과녁 `TestTargets (임시)`) 작성, 명중 로그 확인. 지금은 쏜 뒤 바로 재장전 (3-2에서 빗나감 → Dropped). 최대 사거리 50m (기본값) |
+| 3 한 발 탄환 | 진행 중. 3-1 발사·명중 판정(`OneBulletGun`, 탄도선, 맞은 자리 노란 점, 임시 과녁 `TestTargets (임시)`) 작성, 조준점 일치 확인 ✅. 최대 사거리 50m (기본값). 3-2 `Hitbox`(Body/Head), 적 명중 → Loaded, 빗나감 → `Prefabs/DroppedBullet` 바닥에 생성 + Dropped, 임시 허수아비 `Target_Dummy` 작성 (빗나감 확인, 허수아비 명중은 사용자 확인 대기). 다음: 3-3 E키 회수, 15초 자동 복귀, 원형 게이지 |
 
 Phase 1에서 한 일 (2026-10-29):
 - [x] Unity 6 URP 프로젝트, New Input System 활성화 (`activeInputHandler: 1` 확인)
