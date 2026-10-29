@@ -15,8 +15,8 @@ namespace LastBullet.EditorTools
     // 메뉴: LastBullet > Phase 4-5 미술관 전투 장소 선택 만들기
     public static class Phase4StageSelectSetup
     {
-        const float PanelBorder = 32f;   // Popup_Panel.png 9-slice 모서리
-        const float ButtonBorder = 24f;  // Button_*.png 9-slice 모서리
+        internal const float PanelBorder = 32f;   // Popup_Panel.png 9-slice 모서리
+        internal const float ButtonBorder = 24f;  // Button_*.png 9-slice 모서리
 
         [MenuItem("LastBullet/Phase 4-5 미술관 전투 장소 선택 만들기")]
         static void Create()
@@ -106,7 +106,7 @@ namespace LastBullet.EditorTools
         }
 
         // 버튼: 상태별 그림(보통/마우스 올림/누름/잠김) + 글자 그림
-        static Button CreateStageButton(string name, Transform parent, string labelPath, Vector2 position)
+        internal static Button CreateStageButton(string name, Transform parent, string labelPath, Vector2 position)
         {
             var go = CreateImage(name, parent, "Assets/UI/Button_Normal.png", ButtonBorder);
             var image = go.GetComponent<Image>();
@@ -130,7 +130,7 @@ namespace LastBullet.EditorTools
             return button;
         }
 
-        static GameObject CreateImage(string name, Transform parent, string spritePath, float border = 0f)
+        internal static GameObject CreateImage(string name, Transform parent, string spritePath, float border = 0f)
         {
             var go = new GameObject(name, typeof(RectTransform), typeof(Image));
             go.transform.SetParent(parent, false);
@@ -142,7 +142,7 @@ namespace LastBullet.EditorTools
             return go;
         }
 
-        static void SetRect(GameObject go, Vector2 anchor, Vector2 position, Vector2 size)
+        internal static void SetRect(GameObject go, Vector2 anchor, Vector2 position, Vector2 size)
         {
             var rect = go.GetComponent<RectTransform>();
             rect.anchorMin = rect.anchorMax = anchor;
@@ -150,7 +150,7 @@ namespace LastBullet.EditorTools
             rect.sizeDelta = size;
         }
 
-        static void Stretch(RectTransform rect)
+        internal static void Stretch(RectTransform rect)
         {
             rect.anchorMin = Vector2.zero;
             rect.anchorMax = Vector2.one;

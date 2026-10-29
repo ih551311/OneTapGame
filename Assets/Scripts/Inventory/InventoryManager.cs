@@ -6,10 +6,11 @@ namespace LastBullet.Inventory
     // 창고 (기획서 2.7). 씬을 옮겨도 유지된다 (DontDestroyOnLoad).
     // 종이조각, 그림용 종이, 물감 9색. 물감은 색마다 최대 500, 넘치는 양은 버리고 PaintOverflow를 알린다.
     // 처음 InventoryManager.Instance를 부를 때 자동으로 만들어진다 (씬에 놓을 필요 없음).
-    // Phase 5-3: 종이 합성, Phase 5-4: 저장·불러오기.
+    // Phase 5-4: 저장·불러오기.
     public class InventoryManager : MonoBehaviour
     {
         public const int PaintMax = 500;
+        public const int ScrapsPerPaper = 5; // 종이조각 5개 → 그림용 종이 1장 (기획서 2.7)
 
         static InventoryManager instance;
         static bool quitting;
@@ -46,6 +47,20 @@ namespace LastBullet.Inventory
             Changed?.Invoke();
         }
 
+        public bool CanCraftPaper => PaperScraps >= ScrapsPerPaper;
+
+        // 종이 합성대: 종이조각 5개로 그림용 종이 1장을 만든다. 조각이 모자라면 false.
+        public bool CraftPaper()
+        {
+            if (!CanCraftPaper)
+                return false;
+            PaperScraps -= ScrapsPerPaper;
+            DrawingPaper++;
+            Debug.Log($"[Inventory] 종이 합성: 종이조각 {PaperScraps}개 남음, 그림용 종이 {DrawingPaper}장");
+            Changed?.Invoke();
+            return true;
+        }
+
         // 넣고 남아서 버린 양을 돌려준다
         public int AddPaint(PaintColor color, int amount)
         {
@@ -74,6 +89,12 @@ namespace LastBullet.Inventory
             for (int i = 0; i < paints.Length; i++)
                 paints[i] = Mathf.Clamp(amount, 0, PaintMax);
             Changed?.Invoke();
+        }
+
+        // 테스트용: 종이조각을 더한다
+        public void DebugAddPaperScraps(int amount)
+        {
+            AddPaperScraps(amount);
         }
 #endif
     }
