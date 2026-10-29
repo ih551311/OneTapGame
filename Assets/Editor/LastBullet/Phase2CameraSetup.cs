@@ -70,7 +70,7 @@ namespace LastBullet.EditorTools
             follow.AvoidObstacles.CollisionFilter = 1;           // Default 레이어만 벽으로 본다
             follow.AvoidObstacles.IgnoreTag = "Player";
 
-            // 5. 화면 가운데 크로스헤어 (흰 점 8px)
+            // 5. 화면 가운데 크로스헤어
             var hud = new GameObject("HUD", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             Undo.RegisterCreatedObjectUndo(hud, "Create HUD");
             hud.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
@@ -78,21 +78,72 @@ namespace LastBullet.EditorTools
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920f, 1080f);
             scaler.matchWidthOrHeight = 0.5f;
-
-            var crosshair = new GameObject("Crosshair", typeof(RectTransform), typeof(Image));
-            crosshair.transform.SetParent(hud.transform, false);
-            var rect = crosshair.GetComponent<RectTransform>();
-            rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
-            rect.anchoredPosition = Vector2.zero;
-            rect.sizeDelta = new Vector2(8f, 8f);
-            var image = crosshair.GetComponent<Image>();
-            image.color = Color.white;
-            image.raycastTarget = false; // 마우스 클릭을 막지 않게
+            BuildCrosshair(hud.transform);
 
             Selection.activeGameObject = followCamera;
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
             Debug.Log("[LastBullet] Phase 2-2: 3인칭 카메라와 크로스헤어를 만들고 Hideout 씬을 저장했어요.");
+        }
+
+        // 기존 크로스헤어를 지우고 십자 모양으로 다시 만든다.
+        [MenuItem("LastBullet/크로스헤어 다시 만들기 (십자)")]
+        static void RebuildCrosshair()
+        {
+            var scene = EditorSceneManager.GetActiveScene();
+            var hud = GameObject.Find("HUD");
+            if (scene.name != "Hideout" || hud == null)
+            {
+                EditorUtility.DisplayDialog("LastBullet", "Hideout 씬을 열고 Phase 2-2 메뉴를 먼저 실행하세요.", "확인");
+                return;
+            }
+
+            var old = hud.transform.Find("Crosshair");
+            if (old != null)
+                Undo.DestroyObjectImmediate(old.gameObject);
+            BuildCrosshair(hud.transform);
+
+            EditorSceneManager.MarkSceneDirty(scene);
+            EditorSceneManager.SaveScene(scene);
+            Debug.Log("[LastBullet] 크로스헤어를 십자 모양으로 다시 만들고 Hideout 씬을 저장했어요.");
+        }
+
+        // 십자 크로스헤어: 가운데를 비우고 위·아래·왼쪽·오른쪽에 짧은 선 4개 (1920x1080 기준 px)
+        static void BuildCrosshair(Transform hud)
+        {
+            const float length = 12f;    // 선 길이
+            const float thickness = 2f;  // 선 굵기
+            const float gap = 5f;        // 가운데 빈 공간 (중심에서 선까지)
+
+            var crosshair = new GameObject("Crosshair", typeof(RectTransform));
+            Undo.RegisterCreatedObjectUndo(crosshair, "Create Crosshair");
+            crosshair.transform.SetParent(hud, false);
+            var rect = crosshair.GetComponent<RectTransform>();
+            rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = Vector2.zero;
+            rect.sizeDelta = Vector2.zero;
+
+            float offset = gap + length / 2f;
+            CreateLine(crosshair.transform, "Top", new Vector2(0f, offset), new Vector2(thickness, length));
+            CreateLine(crosshair.transform, "Bottom", new Vector2(0f, -offset), new Vector2(thickness, length));
+            CreateLine(crosshair.transform, "Left", new Vector2(-offset, 0f), new Vector2(length, thickness));
+            CreateLine(crosshair.transform, "Right", new Vector2(offset, 0f), new Vector2(length, thickness));
+        }
+
+        static void CreateLine(Transform parent, string name, Vector2 position, Vector2 size)
+        {
+            var line = new GameObject(name, typeof(RectTransform), typeof(Image));
+            line.transform.SetParent(parent, false);
+            var rect = line.GetComponent<RectTransform>();
+            rect.anchoredPosition = position;
+            rect.sizeDelta = size;
+            var image = line.GetComponent<Image>();
+            image.color = Color.white;
+            image.raycastTarget = false; // 마우스 클릭을 막지 않게
+            // 밝은 바닥 위에서도 보이도록 검은 테두리
+            var outline = line.AddComponent<Outline>();
+            outline.effectColor = new Color(0f, 0f, 0f, 0.6f);
+            outline.effectDistance = new Vector2(1f, -1f);
         }
     }
 }

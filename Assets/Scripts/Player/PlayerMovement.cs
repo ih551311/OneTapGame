@@ -27,10 +27,6 @@ namespace LastBullet.Player
         [SerializeField] float dodgeCooldown = 1.2f;       // 초
         [SerializeField] float dodgeInvincibleTime = 0.3f; // 초
 
-        [Header("테스트")]
-        [Tooltip("재생 중 화면 왼쪽 위에 상태와 속도를 표시한다")]
-        [SerializeField] bool showDebug = true;
-
         CharacterController controller;
         ThirdPersonCamera look;
 
@@ -39,7 +35,6 @@ namespace LastBullet.Player
         float dodgeEndTime;
         float invincibleEndTime;
         float nextDodgeTime;
-        float currentSpeed;       // 테스트 표시용 수평 속도
 
         public PlayerState State { get; private set; } = PlayerState.Idle;
 
@@ -100,7 +95,6 @@ namespace LastBullet.Player
             }
 
             controller.Move((horizontal + Vector3.up * verticalVelocity) * Time.deltaTime);
-            currentSpeed = horizontal.magnitude;
 
             if (State != PlayerState.Dodge)
             {
@@ -125,19 +119,6 @@ namespace LastBullet.Player
             input.Normalize(); // 대각선이 더 빠르지 않게
             float yaw = look != null ? look.Yaw : transform.eulerAngles.y;
             return Quaternion.Euler(0f, yaw, 0f) * new Vector3(input.x, 0f, input.y);
-        }
-
-        void OnGUI()
-        {
-            if (!showDebug)
-                return;
-            float cooldown = Mathf.Max(0f, nextDodgeTime - Time.time);
-            // 화면 해상도가 커도 읽을 수 있게 글자 크기를 화면 높이에 맞춘다.
-            var style = new GUIStyle(GUI.skin.label) { fontSize = Mathf.Max(14, Screen.height / 30) };
-            style.normal.textColor = Color.black;
-            GUI.Label(new Rect(10, 10, Screen.width, Screen.height / 4f),
-                $"상태: {State}\n속도: {currentSpeed:0.0} m/s   높이: {transform.position.y:0.00} m\n" +
-                $"무적: {(IsInvincible ? "예" : "아니오")}   회피 쿨타임: {cooldown:0.0}초", style);
         }
     }
 }
