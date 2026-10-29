@@ -17,14 +17,17 @@ namespace LastBullet.EditorTools
         }
 
         // PNG를 UI용 스프라이트로 가져오도록 설정한다.
-        public static Sprite LoadSprite(string path)
+        // border > 0이면 9-slice: 네 모서리 border px은 늘리지 않고 가운데만 늘린다 (버튼, 창).
+        public static Sprite LoadSprite(string path, float border = 0f)
         {
             var importer = (TextureImporter)AssetImporter.GetAtPath(path);
-            if (importer != null && importer.textureType != TextureImporterType.Sprite)
+            var wantBorder = new Vector4(border, border, border, border);
+            if (importer != null && (importer.textureType != TextureImporterType.Sprite || importer.spriteBorder != wantBorder))
             {
                 importer.textureType = TextureImporterType.Sprite;
                 importer.alphaIsTransparency = true;
                 importer.mipmapEnabled = false;
+                importer.spriteBorder = wantBorder;
                 importer.SaveAndReimport();
             }
             return AssetDatabase.LoadAssetAtPath<Sprite>(path);

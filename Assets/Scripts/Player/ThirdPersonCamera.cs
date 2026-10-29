@@ -37,10 +37,9 @@ namespace LastBullet.Player
             if (mouse == null)
                 return;
 
-            // 테스트용: ESC로 마우스 커서를 풀고, 화면을 클릭하면 다시 잠근다.
-            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
-                SetCursorLocked(false);
-            else if (Cursor.lockState != CursorLockMode.Locked && mouse.leftButton.wasPressedThisFrame)
+            // 커서가 풀려 있으면(에디터에서 ESC를 눌렀을 때 등) 화면을 클릭해서 다시 잠근다.
+            // ESC는 팝업 닫기와 일시정지(Phase 9)에 쓰므로 여기서는 쓰지 않는다.
+            if (Cursor.lockState != CursorLockMode.Locked && mouse.leftButton.wasPressedThisFrame)
                 SetCursorLocked(true);
 
             if (Cursor.lockState == CursorLockMode.Locked)

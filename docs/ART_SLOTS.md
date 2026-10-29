@@ -20,6 +20,16 @@
 | `Assets/UI/HealthBar_Back.png` | 체력바 배경 (왼쪽 아래) | 256×32 | 화면에서는 400×40으로 보인다 |
 | `Assets/UI/HealthBar_Fill.png` | 체력바 채움 | 256×32 | 체력만큼 왼쪽부터 채워진다. 배경 테두리 안쪽에 맞게 그린다 |
 | `Assets/UI/StageClear.png` | 스테이지 클리어 문구 (화면 가운데) | 1024×256 | 화면에서는 800×200 안에 비율 유지 |
+| `Assets/UI/Prompt_StageSelect.png` | 지도 탁자 근처 안내 "[E] 전투 장소 선택" (화면 아래) | 768×96 | |
+| `Assets/UI/Popup_Panel.png` | 팝업 창 배경 | 128×128 | **9-slice**, 모서리 32px. 창 크기 900×560으로 늘어난다 |
+| `Assets/UI/StageSelect_Title.png` | 팝업 제목 "전투 장소 선택" | 768×128 | |
+| `Assets/UI/Button_Normal.png` | 버튼 (보통) | 96×96 | **9-slice**, 모서리 24px. 모든 버튼이 같이 쓴다 |
+| `Assets/UI/Button_Highlighted.png` | 버튼 (마우스 올림) | 96×96 | 9-slice 24px |
+| `Assets/UI/Button_Pressed.png` | 버튼 (누름) | 96×96 | 9-slice 24px |
+| `Assets/UI/Button_Disabled.png` | 버튼 (잠김) | 96×96 | 9-slice 24px |
+| `Assets/UI/Button_Close.png` | 팝업 닫기 (X) | 64×64 | |
+| `Assets/UI/StageLabel_Training.png` | 버튼 글자 "훈련장" | 512×128 | |
+| `Assets/UI/StageLabel_Forest.png` | 버튼 글자 "숲 (잠김)" | 512×128 | |
 
 UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 크기는 Hierarchy에서 `Canvas` 안의 UI를 고르고 Scene 창(2D 보기)에서 끌어서 바꿀 수 있다.
 
@@ -39,6 +49,7 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/LightPillar.mat` | 탄환 위 빛 기둥 (반투명) | 프리팹 `Prefabs/DroppedBullet`의 `LightPillar` |
 | `Materials/Tracer.mat` | 탄도선, 맞은 자리 점 | `Player/BulletTracer` |
 | `Materials/Ground.mat` | 바닥 | `Ground` |
+| `Materials/StageMap.mat` | 미술관 지도 탁자 (전투 장소 선택) | Hideout의 `StageMap` |
 
 ## 앞으로 생길 UI (만들 때 이 표에 추가)
 
