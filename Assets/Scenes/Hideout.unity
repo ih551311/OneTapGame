@@ -240,6 +240,7 @@ MonoBehaviour:
   droppedBulletPrefab: {fileID: 7315599827420822265, guid: 152527b288ad306438665cc622979399, type: 3}
   maxRange: 50
   tracerTime: 0.08
+  impactMarkerTime: 0.4
 --- !u!1 &38933019
 GameObject:
   m_ObjectHideFlags: 0
