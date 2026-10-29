@@ -11,7 +11,9 @@
   - 실제 동작을 확인하기 전에는 완성이라고 하지 않는다.
   - **매 답변 끝에 현재 Phase와 다음 할 일을 한 줄로 알린다.**
 - 진행 상황: [`docs/claude/SESSION_HANDOFF.md`](docs/claude/SESSION_HANDOFF.md)
-- **claude.ai 프로젝트용 요약** (2026-10-30 사용자 요청): 사용자는 컴퓨터를 끈 상태에서도 휴대폰의 claude.ai 프로젝트에서 질문한다. 그 프로젝트의 지식 파일이 [`docs/claude_project/PROGRESS_SUMMARY.md`](docs/claude_project/PROGRESS_SUMMARY.md)다. **기능이 완료되거나 결정이 바뀔 때마다 이 요약을 갱신**하고, 사용자에게 "프로젝트 지식 파일을 새로 올려 주세요"라고 알린다.
+- **claude.ai 프로젝트 "LAST BULLET"** (2026-10-30 사용자 요청): 사용자는 컴퓨터를 끈 상태에서도 휴대폰의 claude.ai 프로젝트에서 질문한다 ("어떤 리소스가 필요해?", "뭐가 부족해?" 등). 고치는 건 이 Code 세션에서 한다.
+  - 프로젝트는 **GitHub 저장소 `ih551311/OneTapGame`의 `main`**과 연결되어 있다 (선택: `docs/`, `CLAUDE.md`, `Assets/Scripts/`, `Assets/Editor/`).
+  - **기능이 완료되거나 결정이 바뀔 때마다**: [`docs/claude_project/PROGRESS_SUMMARY.md`](docs/claude_project/PROGRESS_SUMMARY.md)(진행 상황, 필요한 리소스/부족한 것)를 갱신 → 커밋 → 사용자 확인 후 `main`에 올리기(push) → 사용자에게 "claude.ai 프로젝트에서 GitHub 동기화를 눌러 주세요"라고 알린다.
 
 ## 역할 분담 (2026-10-29 사용자 결정)
 
