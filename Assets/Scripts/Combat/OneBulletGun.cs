@@ -31,6 +31,9 @@ namespace LastBullet.Combat
 
         [SerializeField] float tracerTime = 0.08f;
 
+        [Tooltip("맞은 자리 노란 점이 남아 있는 시간 (초)")]
+        [SerializeField] float impactMarkerTime = 0.4f;
+
         public BulletState State { get; private set; } = BulletState.Loaded;
 
         // 지금 떨어져 있는 탄환. 회수(Phase 3-3)할 때 쓴다.
@@ -165,7 +168,7 @@ namespace LastBullet.Combat
             marker.transform.localScale = Vector3.one * 0.15f;
             if (impactMaterial != null)
                 marker.GetComponent<Renderer>().sharedMaterial = impactMaterial;
-            Destroy(marker, 2f);
+            Destroy(marker, impactMarkerTime);
         }
     }
 }
