@@ -30,14 +30,12 @@ namespace LastBullet.EditorTools
                 return;
             }
 
-            // 1. 돌진형 적 프리팹: 몸(상자)과 머리(공)에 Hitbox, 맨 위에 EnemyHealth (체력 30)
+            // 1. 돌진형 적 프리팹: 몸(상자)과 머리(공)에 Hitbox, 맨 위에 EnemyHealth (헤드샷 원탭)
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);
             if (prefab == null)
             {
                 var root = new GameObject("Enemy_Charger");
-                var health = new SerializedObject(root.AddComponent<EnemyHealth>());
-                health.FindProperty("maxHp").intValue = 30;
-                health.ApplyModifiedPropertiesWithoutUndo();
+                root.AddComponent<EnemyHealth>();
 
                 var body = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 body.name = "Body";

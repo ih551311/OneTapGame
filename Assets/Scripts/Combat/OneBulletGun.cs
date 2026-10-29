@@ -26,9 +26,6 @@ namespace LastBullet.Combat
         [Tooltip("빗나갔을 때 바닥에 떨어지는 탄환. Prefabs/DroppedBullet")]
         [SerializeField] GameObject droppedBulletPrefab;
 
-        [Tooltip("몸에 맞았을 때 피해 (기획서 2.4-4). 머리는 즉사")]
-        [SerializeField] int bodyDamage = 15;
-
         [Tooltip("최대 사거리 (기본값)")]
         [SerializeField] float maxRange = 50f;
 
@@ -92,21 +89,24 @@ namespace LastBullet.Combat
             if (hit)
                 SpawnImpactMarker(impact);
 
-            // 적(Hitbox)에 맞으면 탄환을 바로 다시 쓸 수 있다.
+            // 헤드샷 원탭 (2026-10-30 변경): 머리에 맞아야만 처치되고 탄환을 바로 다시 쓸 수 있다.
             var hitbox = hit ? muzzleHit.collider.GetComponent<Hitbox>() : null;
             if (hitbox != null)
+                hitbox.TakeHit(); // 머리면 처치, 몸이면 깜빡임·멈칫만 (피해 없음)
+
+            if (hitbox != null && hitbox.Part == HitPart.Head)
             {
-                Debug.Log($"[OneBulletGun] 적 명중: {muzzleHit.collider.name} ({hitbox.Part})");
-                State = BulletState.Loaded; // 적 체력과 관계없이 명중하면 바로 다시 쓸 수 있다
-                hitbox.TakeHit(bodyDamage);
+                Debug.Log($"[OneBulletGun] 헤드샷: {hitbox.transform.parent.name}");
+                State = BulletState.Loaded;
                 return;
             }
 
-            // 빗나가면 탄환이 떨어지고, 회수할 때까지 쏠 수 없다.
-            // 벽에 맞으면 벽 앞 바닥에, 아무것도 안 맞으면 최대 사거리 지점 아래 바닥에 떨어진다.
+            // 몸샷이나 빗나가면 탄환이 떨어지고, 회수할 때까지 쏠 수 없다.
+            // 벽·적의 몸에 맞으면 그 앞 바닥에, 아무것도 안 맞으면 최대 사거리 지점 아래 바닥에 떨어진다.
             Vector3 dropFrom = hit ? impact + muzzleHit.normal * 0.2f : impact;
             DropBullet(dropFrom);
-            Debug.Log($"[OneBulletGun] 빗나감: {(hit ? muzzleHit.collider.name : "허공")} → 탄환이 떨어짐");
+            string what = hitbox != null ? "몸샷" : hit ? $"빗나감 ({muzzleHit.collider.name})" : "빗나감 (허공)";
+            Debug.Log($"[OneBulletGun] {what} → 탄환이 떨어짐");
             State = BulletState.Dropped;
         }
 

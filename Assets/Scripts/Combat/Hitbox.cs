@@ -20,11 +20,11 @@ namespace LastBullet.Combat
             health = GetComponentInParent<EnemyHealth>(); // 허수아비처럼 체력이 없으면 null
         }
 
-        // 총이 부른다. 체력이 있는 적이면 피해를 준다.
-        public void TakeHit(int bodyDamage)
+        // 총이 부른다. 머리면 처치, 몸이면 맞은 반응만.
+        public void TakeHit()
         {
             if (health != null)
-                health.TakeHit(part, bodyDamage);
+                health.TakeHit(part);
         }
     }
 }
