@@ -80,4 +80,24 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 2. `Assets/Models/`에 넣는다.
 3. 넣었다고 알려 주면 Claude가 크기·축 설정을 맞추고 `Player/Body` 자리에 넣는다.
 
+## 3ds Max 적 모델과 헤드 판정
+
+보이는 모델과 맞는 판정을 따로 둔다. 판정은 보이지 않는 단순한 도형(콜라이더)이다.
+
+```
+Enemy_Charger            ← 기능 (EnemyHealth, EnemyAI, EnemyDrop, NavMeshAgent), Enemy 태그
+ ├ Model                 ← 3ds Max FBX. 보이기만 함 (콜라이더 없음)
+ ├ Body                  ← 상자/캡슐 콜라이더 + Hitbox(Body), 겉모습 끔
+ └ Head                  ← 구(Sphere) 콜라이더 + Hitbox(Head), 겉모습 끔
+```
+
+3ds Max에서:
+1. 머리를 몸과 다른 오브젝트로 나누고 이름을 `Head`, `Body`로 한다.
+2. 머리를 몸보다 약간 크게 만든다 (기획서 2.11).
+3. 실제 크기, 기준점(피벗)은 발바닥.
+4. 애니메이션이 있으면 머리 뼈 이름도 `Head`로 한다. 머리 판정을 그 뼈 아래에 붙여 함께 움직이게 한다.
+5. FBX로 `Assets/Models/`에 넣고 알려 주면, Claude가 크기·축을 맞추고 판정 크기를 모델에 맞춘다.
+
+복잡한 모델 모양(MeshCollider)으로 판정하지 않는다: 느리고 판정이 들쭉날쭉하다.
+
 새 UI나 오브젝트가 생길 때마다 이 표에 추가한다.
