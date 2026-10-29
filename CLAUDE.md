@@ -23,6 +23,10 @@
 
 사용자가 UI와 겉모습을 나중에 직접 그려서 넣는다. 그래서 새로 만드는 모든 그림 요소에 바꿔 끼울 자리를 만든다.
 - **UI**: 그림마다 `Assets/UI/<이름>.png` 임시 그림을 만들고, `Image`가 그 스프라이트를 쓴다. Image 색은 흰색(그림 색 그대로), `preserveAspect` 켬. 색·테두리는 코드가 아니라 PNG 안에 그린다. 스프라이트 설정은 `ArtSlots.LoadSprite` 사용.
+  - 체력바 같은 **게이지**: 배경 PNG + 채움 PNG 두 장, 채움은 `Image.Type.Filled`.
+  - **버튼·패널·창**: 크기가 늘어나도 모서리가 안 깨지게 9-slice(스프라이트 border)로 설정하고 `Image.Type.Sliced`. 버튼 상태(보통/마우스 올림/누름)도 각각 PNG 칸을 만든다.
+  - 글자는 TextMeshPro. 글꼴도 바꿀 수 있게 `Assets/UI/Fonts/`에 둔다.
+- **플레이어 모델**: 사용자가 **3ds Max**로 만든다 (FBX로 `Assets/Models/`). 모델이 오기 전까지 캡슐을 쓰고, 교체 때 FBX 가져오기 설정(크기, 축, 피벗)을 같이 맞춘다.
 - **오브젝트**: 오브젝트 종류마다 전용 머티리얼 `Assets/Materials/<이름>.mat` (`ArtSlots.GetOrCreateMaterial`). 기본 머티리얼을 같이 쓰지 않는다. 기능 스크립트는 위쪽 오브젝트에, 겉모습은 자식 오브젝트에 둔다 (모델 교체 자리).
 - 만들 때마다 [`docs/ART_SLOTS.md`](docs/ART_SLOTS.md) 표에 추가한다.
 
