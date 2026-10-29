@@ -32,6 +32,8 @@
 | `Assets/UI/StageLabel_Forest.png` | 버튼 글자 "숲 (잠김)" | 512×128 | |
 | `Assets/UI/BagPanel.png` | 전투 가방 표시 배경 (전투 중 오른쪽 위) | 128×128 | **9-slice**, 모서리 24px |
 | `Assets/UI/Icon_PaperScrap.png` | 종이조각 아이콘 | 64×64 | |
+| `Assets/UI/Icon_Paper.png` | 그림용 종이 아이콘 (미술관 창고 표시) | 64×64 | |
+| `Assets/UI/Toast_PaintFull.png` | "가득 참!" 알림 글자 (물감 500 초과 시) | 256×64 | 알림 한 줄의 배경은 BagPanel.png |
 | `Assets/UI/Icon_Paint_Red.png` 외 8개 | 물감 아이콘 (Red, Orange, Yellow, Green, Blue, Indigo, Purple, White, Black) | 64×64 | 색마다 한 장. 인벤토리·그림판에서도 같이 쓴다 |
 
 숫자 글자는 TextMeshPro 기본 글꼴(LiberationSans)이다. 글꼴을 바꾸려면 글꼴 파일을 `Assets/UI/Fonts/`에 넣고 알려 주면 된다.

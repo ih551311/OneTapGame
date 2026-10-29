@@ -5,7 +5,7 @@ using UnityEngine;
 namespace LastBullet.Stage
 {
     // 전투 가방 (기획서 2.1, 2.6). 이번 판에서 얻은 재료를 임시로 담는다.
-    // 클리어하면 창고로 정산하고, 사망하면 전부 사라진다 (정산·삭제는 Phase 5-2).
+    // 클리어하면 창고로 정산(Settle)하고, 사망하면 전부 사라진다(Clear).
     // 스테이지 씬마다 하나. 적의 EnemyDrop이 RunBag.Current에 넣는다.
     // 붙일 곳: 스테이지 씬의 StageManager 오브젝트
     public class RunBag : MonoBehaviour
@@ -35,6 +35,34 @@ namespace LastBullet.Stage
             PaperScraps += paperScraps;
             paints[(int)color] += paintAmount;
             Debug.Log($"[RunBag] 종이조각 +{paperScraps} (합계 {PaperScraps}), {PaintColors.KoreanNames[(int)color]} 물감 +{paintAmount} (합계 {paints[(int)color]})");
+            Changed?.Invoke();
+        }
+
+        // 클리어: 가방의 재료를 창고로 옮긴다. 물감이 500을 넘으면 창고가 넘친 양을 버린다.
+        public void Settle()
+        {
+            var inventory = InventoryManager.Instance;
+            inventory.AddPaperScraps(PaperScraps);
+            for (int i = 0; i < paints.Length; i++)
+            {
+                if (paints[i] > 0)
+                    inventory.AddPaint((PaintColor)i, paints[i]);
+            }
+            Debug.Log($"[RunBag] 정산: 종이조각 {PaperScraps}개와 물감을 창고로 옮김 → 창고 종이조각 {inventory.PaperScraps}");
+            Empty();
+        }
+
+        // 사망: 이번 판 재료를 모두 잃는다. 창고는 그대로다.
+        public void Clear()
+        {
+            Debug.Log($"[RunBag] 사망: 이번 판 재료를 잃음 (종이조각 {PaperScraps}개)");
+            Empty();
+        }
+
+        void Empty()
+        {
+            PaperScraps = 0;
+            Array.Clear(paints, 0, paints.Length);
             Changed?.Invoke();
         }
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using LastBullet.Combat;
 using LastBullet.Core;
+using LastBullet.Stage;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +11,7 @@ namespace LastBullet.Player
     // 플레이어 체력 (기획서 2.3). 최대 100, 전투 중 회복 없음.
     // 회피 무적 중에는 피해를 받지 않는다.
     // 사망하면 조작을 막고 쓰러진 뒤, 잠시 뒤 미술관(1_Museum)으로 돌아간다 (기획서 2.6).
-    // Phase 5에서 더할 부분: 사망 시 전투 가방 비우기(RunBag.Clear).
+    // 사망하면 이번 판 재료(전투 가방)를 모두 잃는다 (RunBag.Clear).
     // 붙일 곳: Player
     public class PlayerHealth : MonoBehaviour
     {
@@ -55,6 +56,8 @@ namespace LastBullet.Player
         {
             IsDead = true;
             Debug.Log("[PlayerHealth] 사망");
+            if (RunBag.Current != null)
+                RunBag.Current.Clear();
 
             // 조작을 막는다 (카메라는 계속 돌릴 수 있다)
             if (movement != null)

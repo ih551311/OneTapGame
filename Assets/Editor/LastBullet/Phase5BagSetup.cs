@@ -99,7 +99,7 @@ namespace LastBullet.EditorTools
         }
 
         // 패널 왼쪽 위 기준 위치(center)에 아이콘 그림
-        static void CreateIcon(Transform parent, string name, string spritePath, Vector2 center, float size)
+        internal static void CreateIcon(Transform parent, string name, string spritePath, Vector2 center, float size)
         {
             var go = new GameObject(name, typeof(RectTransform), typeof(Image));
             go.transform.SetParent(parent, false);
@@ -114,7 +114,7 @@ namespace LastBullet.EditorTools
             image.raycastTarget = false;
         }
 
-        static TMP_Text CreateCount(Transform parent, string name, Vector2 center, Vector2 size, float fontSize, TextAlignmentOptions alignment)
+        internal static TMP_Text CreateCount(Transform parent, string name, Vector2 center, Vector2 size, float fontSize, TextAlignmentOptions alignment)
         {
             var go = new GameObject(name, typeof(RectTransform), typeof(TextMeshProUGUI));
             go.transform.SetParent(parent, false);
