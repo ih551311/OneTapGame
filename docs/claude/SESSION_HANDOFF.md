@@ -16,7 +16,8 @@
 | Phase | 상태 |
 |---|---|
 | 1 프로젝트 설정 | ✅ 완료 (2026-10-29, 브랜치 `phase1/project-setup`) |
-| 2 플레이어 | 진행 중. 2-1 바닥·캡슐·CharacterController ✅. 2-2 3인칭 카메라(Cinemachine ThirdPersonFollow + `ThirdPersonCamera`)·크로스헤어 ✅ (오류 없음, 마우스 회전은 사용자 실제 확인 필요). 2-3 이동·달리기·점프·회피(`PlayerMovement`, 화면 왼쪽 위 테스트 표시) 작성, 컴파일·재생 오류 없음, 키 조작은 사용자 확인 대기 |
+| 2 플레이어 | ✅ 완료 (2026-10-29, 사용자가 WASD·Shift·Space·Q·카메라 확인). 2-1 바닥·캡슐·CharacterController ✅. 2-2 3인칭 카메라(Cinemachine ThirdPersonFollow + `ThirdPersonCamera`)·크로스헤어 ✅ (오류 없음, 마우스 회전은 사용자 실제 확인 필요). 2-3 이동·달리기·점프·회피(`PlayerMovement`, 화면 왼쪽 위 테스트 표시) ✅ |
+| 3 한 발 탄환 | 다음 차례. 첫 작업: 발사와 명중 판정 (카메라 목표점 → 총구 재판정) |
 
 Phase 1에서 한 일 (2026-10-29):
 - [x] Unity 6 URP 프로젝트, New Input System 활성화 (`activeInputHandler: 1` 확인)
