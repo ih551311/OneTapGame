@@ -30,6 +30,11 @@
 | `Assets/UI/Button_Close.png` | 팝업 닫기 (X) | 64×64 | |
 | `Assets/UI/StageLabel_Training.png` | 버튼 글자 "훈련장" | 512×128 | |
 | `Assets/UI/StageLabel_Forest.png` | 버튼 글자 "숲 (잠김)" | 512×128 | |
+| `Assets/UI/BagPanel.png` | 전투 가방 표시 배경 (전투 중 오른쪽 위) | 128×128 | **9-slice**, 모서리 24px |
+| `Assets/UI/Icon_PaperScrap.png` | 종이조각 아이콘 | 64×64 | |
+| `Assets/UI/Icon_Paint_Red.png` 외 8개 | 물감 아이콘 (Red, Orange, Yellow, Green, Blue, Indigo, Purple, White, Black) | 64×64 | 색마다 한 장. 인벤토리·그림판에서도 같이 쓴다 |
+
+숫자 글자는 TextMeshPro 기본 글꼴(LiberationSans)이다. 글꼴을 바꾸려면 글꼴 파일을 `Assets/UI/Fonts/`에 넣고 알려 주면 된다.
 
 UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 크기는 Hierarchy에서 `Canvas` 안의 UI를 고르고 Scene 창(2D 보기)에서 끌어서 바꿀 수 있다.
 
@@ -55,7 +60,7 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 
 | UI | 나오는 Phase | 그림 칸 |
 |---|---|---|
-| 전투 가방 표시, 인벤토리 | 5 | 패널, 아이콘 (종이조각, 종이, 물감 9색) |
+| 인벤토리, 종이 합성대 | 5 | 패널, 아이콘 (종이), 버튼 |
 | 그림판 버튼 (펜 굵기, 색, 지우개, 완성, 취소) | 6~7 | 버튼 보통/마우스 올림/누름, 아이콘 |
 | 확인창, 작품 목록 | 7~8 | 패널, 버튼 |
 | 타이틀 메뉴, 일시정지 | 9 | 배경, 로고, 버튼 |
