@@ -2,12 +2,12 @@ using UnityEngine;
 
 namespace LastBullet.Combat
 {
-    // 떨어진 탄환은 위치와 관계없이 15초 뒤 자동으로 돌아온다 (기획서 2.4-7).
+    // 떨어진 탄환은 위치와 관계없이 7초 뒤 자동으로 돌아온다 (기획서 2.4-7, 2026-10-30 15초에서 변경).
     // 벽 안이나 맵 밖에 떨어져도 이 타이머가 있어서 탄환을 잃지 않는다.
     // 붙일 곳: Prefabs/DroppedBullet
     public class BulletAutoReturn : MonoBehaviour
     {
-        [SerializeField] float returnTime = 15f;
+        [SerializeField] float returnTime = 7f;
 
         OneBulletGun gun;
         float dropTime;
@@ -24,7 +24,7 @@ namespace LastBullet.Combat
         void Update()
         {
             if (gun != null && Time.time - dropTime >= returnTime)
-                gun.ReturnBullet("15초 자동 복귀");
+                gun.ReturnBullet("자동 복귀");
         }
     }
 }

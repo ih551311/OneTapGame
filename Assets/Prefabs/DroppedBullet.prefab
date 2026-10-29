@@ -240,4 +240,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d590ef3e543cda469f33148cf9163f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Combat.BulletAutoReturn
-  returnTime: 15
+  returnTime: 7

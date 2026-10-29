@@ -108,7 +108,7 @@ namespace LastBullet.Combat
 
         void DropBullet(Vector3 from)
         {
-            // 아래로 레이를 쏴서 바닥을 찾는다. 바닥이 없으면(맵 밖) 그 자리에 둔다. 15초 뒤 자동 복귀(Phase 3-3).
+            // 아래로 레이를 쏴서 바닥을 찾는다. 바닥이 없으면(맵 밖) 그 자리에 둔다. 7초 뒤 자동 복귀(Phase 3-3).
             Vector3 position = RaycastIgnoringSelf(from + Vector3.up * 0.1f, Vector3.down, 200f, out var groundHit)
                 ? groundHit.point + Vector3.up * 0.05f
                 : from;
@@ -118,7 +118,7 @@ namespace LastBullet.Combat
             DroppedBullet.GetComponent<BulletAutoReturn>().Init(this);
         }
 
-        // 떨어진 탄환을 돌려받는다. E키 회수(BulletPickup)와 15초 자동 복귀(BulletAutoReturn)가 부른다.
+        // 떨어진 탄환을 돌려받는다. E키 회수(BulletPickup)와 7초 자동 복귀(BulletAutoReturn)가 부른다.
         public void ReturnBullet(string reason)
         {
             if (State != BulletState.Dropped)
