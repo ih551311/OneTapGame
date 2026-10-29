@@ -111,6 +111,20 @@ namespace LastBullet.Combat
                 : from;
             DroppedBullet = Instantiate(droppedBulletPrefab, position, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
             DroppedBullet.name = "DroppedBullet";
+            DroppedBullet.GetComponent<BulletPickup>().Init(this);
+            DroppedBullet.GetComponent<BulletAutoReturn>().Init(this);
+        }
+
+        // 떨어진 탄환을 돌려받는다. E키 회수(BulletPickup)와 15초 자동 복귀(BulletAutoReturn)가 부른다.
+        public void ReturnBullet(string reason)
+        {
+            if (State != BulletState.Dropped)
+                return;
+            if (DroppedBullet != null)
+                Destroy(DroppedBullet);
+            DroppedBullet = null;
+            State = BulletState.Loaded;
+            Debug.Log($"[OneBulletGun] 탄환 돌아옴: {reason}");
         }
 
         // 레이에 걸린 것 중 플레이어 자신을 빼고 가장 가까운 것을 찾는다.
