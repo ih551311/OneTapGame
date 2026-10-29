@@ -1,3 +1,4 @@
+using LastBullet.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,7 +13,7 @@ namespace LastBullet.Player
         [Tooltip("카메라가 따라갈 대상. Player 아래의 CameraTarget")]
         [SerializeField] Transform cameraTarget;
 
-        [Tooltip("마우스 감도 (마우스 1픽셀당 회전 각도)")]
+        [Tooltip("기본 마우스 감도 (마우스 1픽셀당 회전 각도). 옵션의 마우스 감도 배율이 곱해진다")]
         [SerializeField] float sensitivity = 0.1f;
 
         [Tooltip("위아래로 볼 수 있는 각도 제한")]
@@ -44,7 +45,7 @@ namespace LastBullet.Player
 
             if (Cursor.lockState == CursorLockMode.Locked)
             {
-                Vector2 delta = mouse.delta.ReadValue();
+                Vector2 delta = mouse.delta.ReadValue() * GameSettings.Sensitivity;
                 yaw += delta.x * sensitivity;
                 pitch -= delta.y * sensitivity; // 마우스를 위로 올리면 위를 본다
                 pitch = Mathf.Clamp(pitch, minPitch, maxPitch);

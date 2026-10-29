@@ -35,6 +35,23 @@
 | `Assets/UI/PaperCraft_Owned.png` | 팝업의 "가진 것" 글자 | 384×96 | |
 | `Assets/UI/Arrow_Right.png` | 만드는 법 화살표 (재료 → 결과) | 96×64 | 오른쪽을 가리키게 그린다 |
 | `Assets/UI/ButtonLabel_Craft.png` | 버튼 글자 "합성" | 512×128 | 버튼 배경은 Button_*.png |
+| `Assets/UI/Title_Background.png` | 타이틀 배경 (화면 전체) | 1920×1080 | 화면 크기에 맞게 늘어난다 |
+| `Assets/UI/Title_Logo.png` | 타이틀 로고 "LAST BULLET 마지막 탄환" | 1024×320 | |
+| `Assets/UI/ButtonLabel_Start.png` | 버튼 글자 "시작" | 512×128 | |
+| `Assets/UI/ButtonLabel_Help.png` | 버튼 글자 "도움말" | 512×128 | |
+| `Assets/UI/ButtonLabel_Options.png` | 버튼 글자 "옵션" | 512×128 | |
+| `Assets/UI/ButtonLabel_Quit.png` | 버튼 글자 "게임 나가기" | 512×128 | |
+| `Assets/UI/Help_Title.png` | 도움말 팝업 제목 | 768×128 | |
+| `Assets/UI/Help_Content.png` | 도움말 내용 (조작, 규칙) | 1024×576 | |
+| `Assets/UI/Options_Title.png` | 옵션 팝업 제목 | 768×128 | |
+| `Assets/UI/Label_Volume.png` | "소리 크기" | 384×96 | |
+| `Assets/UI/Label_Sensitivity.png` | "마우스 감도" | 384×96 | |
+| `Assets/UI/Slider_Background.png` | 슬라이더 바탕 | 128×32 | **9-slice**, 모서리 12px |
+| `Assets/UI/Slider_Fill.png` | 슬라이더 채움 | 128×32 | **9-slice**, 모서리 12px |
+| `Assets/UI/Slider_Handle.png` | 슬라이더 손잡이 | 64×64 | |
+| `Assets/UI/Gallery_Title.png` | 그림 보기 팝업 제목 "내 그림" | 768×128 | |
+| `Assets/UI/Gallery_Empty.png` | "아직 그림이 없어요" | 768×128 | |
+| `Assets/UI/Gallery_Frame.png` | 그림 보기의 그림 한 칸 액자 | 128×128 | **9-slice**, 모서리 24px. 그림은 안쪽 26px 안에 들어간다 |
 | `Assets/UI/BagPanel.png` | 전투 가방 표시 배경 (전투 중 오른쪽 위) | 128×128 | **9-slice**, 모서리 24px |
 | `Assets/UI/Icon_PaperScrap.png` | 종이조각 아이콘 | 64×64 | |
 | `Assets/UI/Icon_Paper.png` | 그림용 종이 아이콘 (미술관 창고 표시) | 64×64 | |
@@ -70,7 +87,7 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 |---|---|---|
 | 그림판 버튼 (펜 굵기, 색, 지우개, 완성, 취소) | 6~7 | 버튼 보통/마우스 올림/누름, 아이콘 |
 | 확인창, 작품 목록 | 7~8 | 패널, 버튼 |
-| 타이틀 메뉴, 일시정지 | 9 | 배경, 로고, 버튼 |
+| 일시정지 | 9 | 패널, 버튼 |
 
 버튼과 패널은 **9-slice**로 만든다: 모서리 장식이 늘어나지 않고 가운데만 늘어난다. 그릴 때 모서리를 네 귀퉁이에 몰아서 그리면 된다.
 

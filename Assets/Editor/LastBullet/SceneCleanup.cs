@@ -29,12 +29,13 @@ namespace LastBullet.EditorTools
             if (AssetDatabase.LoadAssetAtPath<SceneAsset>("Assets/Scenes/SampleScene.unity") != null)
                 AssetDatabase.DeleteAsset("Assets/Scenes/SampleScene.unity");
 
-            // 빌드 목록: 첫 번째 씬이 게임 시작 씬 (미술관)
-            EditorBuildSettings.scenes = new[]
-            {
-                new EditorBuildSettingsScene("Assets/Scenes/1_Museum.unity", true),
-                new EditorBuildSettingsScene("Assets/Scenes/2_Training.unity", true),
-            };
+            // 빌드 목록: 첫 번째 씬이 게임 시작 씬 (타이틀이 있으면 타이틀, 없으면 미술관)
+            var scenes = new System.Collections.Generic.List<EditorBuildSettingsScene>();
+            if (AssetDatabase.LoadAssetAtPath<SceneAsset>("Assets/Scenes/0_Title.unity") != null)
+                scenes.Add(new EditorBuildSettingsScene("Assets/Scenes/0_Title.unity", true));
+            scenes.Add(new EditorBuildSettingsScene("Assets/Scenes/1_Museum.unity", true));
+            scenes.Add(new EditorBuildSettingsScene("Assets/Scenes/2_Training.unity", true));
+            EditorBuildSettings.scenes = scenes.ToArray();
 
             AssetDatabase.SaveAssets();
             EditorSceneManager.OpenScene("Assets/Scenes/1_Museum.unity");
