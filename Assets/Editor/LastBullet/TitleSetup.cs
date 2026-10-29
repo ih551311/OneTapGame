@@ -18,6 +18,9 @@ namespace LastBullet.EditorTools
         internal const string ScenePath = "Assets/Scenes/0_Title.unity";
         const float SliderBorder = 12f;
 
+        // 타이틀 액자 크기: 정사각형 고정 (그림 종이가 정사각형이라서)
+        internal const float TitleFrameSize = 360f;
+
         // 메뉴 버튼 위치 (화면 가운데 기준): 시작, 그림 보기, 도움말, 옵션
         internal static readonly Vector2[] MenuButtonPositions =
         {
@@ -118,6 +121,27 @@ namespace LastBullet.EditorTools
 
             AssetDatabase.SaveAssets();
             Debug.Log("[LastBullet] 타이틀 메인 메뉴 씬(0_Title)을 만들고 빌드 목록 맨 앞에 넣었어요.");
+        }
+
+        // 이미 만든 0_Title의 양쪽 액자를 정사각형으로 맞춘다.
+        [MenuItem("LastBullet/타이틀 액자 정사각형으로 맞추기")]
+        static void MakeTitleFramesSquare()
+        {
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                return;
+            var scene = EditorSceneManager.OpenScene(ScenePath);
+            var frames = ArtSlots.FindCanvas().transform.Find("TitleFrames");
+            if (frames == null)
+            {
+                EditorUtility.DisplayDialog("LastBullet", "TitleFrames가 없어요. '타이틀에 그림 보기·액자 추가'를 먼저 실행하세요.", "확인");
+                return;
+            }
+            foreach (Transform frame in frames)
+                frame.GetComponent<RectTransform>().sizeDelta = Vector2.one * TitleFrameSize;
+
+            EditorSceneManager.MarkSceneDirty(scene);
+            EditorSceneManager.SaveScene(scene);
+            Debug.Log($"[LastBullet] 타이틀 액자를 정사각형({TitleFrameSize}×{TitleFrameSize})으로 맞췄어요.");
         }
 
         // 이미 만든 0_Title에 "그림 보기" 버튼, 양쪽 액자, 새 그림 보기 팝업(고르기·걸기)을 더한다.
@@ -266,7 +290,7 @@ namespace LastBullet.EditorTools
                 var frame = Phase4StageSelectSetup.CreateImage(names[i], root.transform, "Assets/UI/TitleFrame.png", 32f);
                 frame.GetComponent<Image>().type = Image.Type.Sliced;
                 frame.GetComponent<Image>().preserveAspect = false;
-                Phase4StageSelectSetup.SetRect(frame, new Vector2(0.5f, 0.5f), new Vector2(xs[i], 20f), new Vector2(320f, 400f));
+                Phase4StageSelectSetup.SetRect(frame, new Vector2(0.5f, 0.5f), new Vector2(xs[i], 20f), Vector2.one * TitleFrameSize);
 
                 var picture = new GameObject("Picture", typeof(RectTransform), typeof(RawImage));
                 picture.transform.SetParent(frame.transform, false);

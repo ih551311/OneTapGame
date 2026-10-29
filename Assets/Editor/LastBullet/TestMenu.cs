@@ -17,7 +17,7 @@ namespace LastBullet.EditorTools
         {
             for (int n = 0; n < 3; n++)
             {
-                const int size = 256;
+                const int size = PaintingLibrary.CanvasSize;
                 var texture = new Texture2D(size, size, TextureFormat.RGBA32, false);
                 var pixels = new Color32[size * size];
                 for (int i = 0; i < pixels.Length; i++)

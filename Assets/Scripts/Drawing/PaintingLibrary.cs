@@ -27,6 +27,9 @@ namespace LastBullet.Drawing
     // 지금은 읽기와 등록(Add)만 있다. 그림판의 "완성"(Phase 7)이 Add를 쓴다.
     public static class PaintingLibrary
     {
+        // 그림 종이(그림판 캔버스)는 정사각형으로 고정한다 (사용자 결정, 2026-10-30). 크기는 기획서 2.8 기본값 256×256.
+        public const int CanvasSize = 256;
+
         public static string PaintingsFolder => Path.Combine(SaveManager.FolderPath, "Paintings");
         static string ListPath => Path.Combine(SaveManager.FolderPath, "paintings.json");
 
@@ -79,6 +82,11 @@ namespace LastBullet.Drawing
         // 새 작품 등록: PNG로 저장하고 목록에 추가한다. 저장에 실패하면 null (기획서 2.8: 저장 성공 후에만 종이 차감).
         public static PaintingInfo Add(Texture2D texture)
         {
+            if (texture.width != texture.height)
+            {
+                Debug.LogError($"[PaintingLibrary] 그림은 정사각형이어야 해요 ({texture.width}×{texture.height})");
+                return null;
+            }
             try
             {
                 Directory.CreateDirectory(PaintingsFolder);
