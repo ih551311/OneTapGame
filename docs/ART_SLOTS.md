@@ -51,6 +51,11 @@
 | `Assets/UI/Slider_Handle.png` | 슬라이더 손잡이 | 64×64 | |
 | `Assets/UI/Gallery_Title.png` | 그림 보기 팝업 제목 "내 그림" | 768×128 | |
 | `Assets/UI/Gallery_Empty.png` | "아직 그림이 없어요" | 768×128 | |
+| `Assets/UI/ButtonLabel_Gallery.png` | 버튼 글자 "그림 보기" | 512×128 | |
+| `Assets/UI/ButtonLabel_HangLeft.png` | 버튼 글자 "왼쪽에 걸기" | 512×128 | |
+| `Assets/UI/ButtonLabel_HangRight.png` | 버튼 글자 "오른쪽에 걸기" | 512×128 | |
+| `Assets/UI/Gallery_Selected.png` | 그림 보기에서 고른 그림 표시 (테두리) | 128×128 | **9-slice**, 모서리 24px. 가운데는 투명 |
+| `Assets/UI/TitleFrame.png` | 타이틀 양쪽 액자 (빈 액자일 때 안쪽이 보인다) | 128×128 | **9-slice**, 모서리 32px. 그림은 안쪽 30px 안에 걸린다 |
 | `Assets/UI/Gallery_Frame.png` | 그림 보기의 그림 한 칸 액자 | 128×128 | **9-slice**, 모서리 24px. 그림은 안쪽 26px 안에 들어간다 |
 | `Assets/UI/BagPanel.png` | 전투 가방 표시 배경 (전투 중 오른쪽 위) | 128×128 | **9-slice**, 모서리 24px |
 | `Assets/UI/Icon_PaperScrap.png` | 종이조각 아이콘 | 64×64 | |

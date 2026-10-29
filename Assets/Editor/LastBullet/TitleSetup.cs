@@ -15,8 +15,14 @@ namespace LastBullet.EditorTools
     // 메뉴: LastBullet > 타이틀 메인 메뉴 만들기
     public static class TitleSetup
     {
-        const string ScenePath = "Assets/Scenes/0_Title.unity";
+        internal const string ScenePath = "Assets/Scenes/0_Title.unity";
         const float SliderBorder = 12f;
+
+        // 메뉴 버튼 위치 (화면 가운데 기준): 시작, 그림 보기, 도움말, 옵션
+        internal static readonly Vector2[] MenuButtonPositions =
+        {
+            new Vector2(0f, -20f), new Vector2(0f, -150f), new Vector2(0f, -280f), new Vector2(0f, -410f),
+        };
 
         [MenuItem("LastBullet/타이틀 메인 메뉴 만들기")]
         static void Create()
@@ -57,13 +63,17 @@ namespace LastBullet.EditorTools
             var logo = Phase4StageSelectSetup.CreateImage("Logo", canvas, "Assets/UI/Title_Logo.png");
             Phase4StageSelectSetup.SetRect(logo, new Vector2(0.5f, 1f), new Vector2(0f, -240f), new Vector2(1000f, 312f));
 
-            // 메뉴 버튼
+            // 양쪽 액자 (그림 보기에서 고른 그림이 걸린다)
+            var titleFrames = CreateTitleFrames(canvas);
+
+            // 메뉴 버튼: 시작 / 그림 보기 / 도움말 / 옵션
             var menu = new GameObject("Menu", typeof(RectTransform));
             menu.transform.SetParent(canvas, false);
             Phase4StageSelectSetup.Stretch(menu.GetComponent<RectTransform>());
-            var startButton = Phase4StageSelectSetup.CreateStageButton("StartButton", menu.transform, "Assets/UI/ButtonLabel_Start.png", new Vector2(0f, -60f));
-            var helpButton = Phase4StageSelectSetup.CreateStageButton("HelpButton", menu.transform, "Assets/UI/ButtonLabel_Help.png", new Vector2(0f, -200f));
-            var optionsButton = Phase4StageSelectSetup.CreateStageButton("OptionsButton", menu.transform, "Assets/UI/ButtonLabel_Options.png", new Vector2(0f, -340f));
+            var startButton = Phase4StageSelectSetup.CreateStageButton("StartButton", menu.transform, "Assets/UI/ButtonLabel_Start.png", MenuButtonPositions[0]);
+            var galleryButton = Phase4StageSelectSetup.CreateStageButton("GalleryButton", menu.transform, "Assets/UI/ButtonLabel_Gallery.png", MenuButtonPositions[1]);
+            var helpButton = Phase4StageSelectSetup.CreateStageButton("HelpButton", menu.transform, "Assets/UI/ButtonLabel_Help.png", MenuButtonPositions[2]);
+            var optionsButton = Phase4StageSelectSetup.CreateStageButton("OptionsButton", menu.transform, "Assets/UI/ButtonLabel_Options.png", MenuButtonPositions[3]);
 
             // 도움말 팝업
             var help = CreatePopup<HelpPopup>("HelpPopup", canvas, new Vector2(1160f, 820f), "Assets/UI/Help_Title.png", out var helpPanel);
@@ -85,16 +95,18 @@ namespace LastBullet.EditorTools
             optionsSo.FindProperty("quitButton").objectReferenceValue = quitButton;
             optionsSo.ApplyModifiedPropertiesWithoutUndo();
 
-            // 그림 보기(갤러리) 팝업 틀 - 여는 버튼은 나중에 (Phase 9 "갤러리 보기" 등)
-            CreateGallery(canvas);
+            // 그림 보기 팝업: 그림을 골라 왼쪽/오른쪽 액자에 건다
+            var gallery = CreateGallery(canvas, titleFrames);
 
             var titleMenu = menu.AddComponent<TitleMenu>();
             var menuSo = new SerializedObject(titleMenu);
             menuSo.FindProperty("startButton").objectReferenceValue = startButton;
+            menuSo.FindProperty("galleryButton").objectReferenceValue = galleryButton;
             menuSo.FindProperty("helpButton").objectReferenceValue = helpButton;
             menuSo.FindProperty("optionsButton").objectReferenceValue = optionsButton;
             menuSo.FindProperty("helpPopup").objectReferenceValue = help;
             menuSo.FindProperty("optionsPopup").objectReferenceValue = options;
+            menuSo.FindProperty("galleryPopup").objectReferenceValue = gallery;
             menuSo.ApplyModifiedPropertiesWithoutUndo();
 
             EditorSceneManager.SaveScene(scene, ScenePath);
@@ -106,6 +118,53 @@ namespace LastBullet.EditorTools
 
             AssetDatabase.SaveAssets();
             Debug.Log("[LastBullet] 타이틀 메인 메뉴 씬(0_Title)을 만들고 빌드 목록 맨 앞에 넣었어요.");
+        }
+
+        // 이미 만든 0_Title에 "그림 보기" 버튼, 양쪽 액자, 새 그림 보기 팝업(고르기·걸기)을 더한다.
+        [MenuItem("LastBullet/타이틀에 그림 보기·액자 추가")]
+        static void AddGalleryToTitle()
+        {
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                return;
+            var scene = EditorSceneManager.OpenScene(ScenePath);
+            var canvas = ArtSlots.FindCanvas().transform;
+            if (canvas.Find("TitleFrames") != null)
+            {
+                EditorUtility.DisplayDialog("LastBullet", "이미 TitleFrames가 있어요.", "확인");
+                return;
+            }
+
+            // 1. 양쪽 액자 (로고 바로 뒤 = 버튼과 팝업보다 뒤에 그려진다)
+            var frames = CreateTitleFrames(canvas);
+            frames.transform.SetSiblingIndex(canvas.Find("Logo").GetSiblingIndex() + 1);
+
+            // 2. 메뉴 버튼 4개로 다시 배치
+            var menu = canvas.Find("Menu");
+            var galleryButton = Phase4StageSelectSetup.CreateStageButton("GalleryButton", menu, "Assets/UI/ButtonLabel_Gallery.png", MenuButtonPositions[1]);
+            galleryButton.transform.SetSiblingIndex(1);
+            menu.Find("StartButton").GetComponent<RectTransform>().anchoredPosition = MenuButtonPositions[0];
+            menu.Find("HelpButton").GetComponent<RectTransform>().anchoredPosition = MenuButtonPositions[2];
+            menu.Find("OptionsButton").GetComponent<RectTransform>().anchoredPosition = MenuButtonPositions[3];
+
+            // 3. 예전 그림 보기 팝업(틀만 있던 것)을 새것으로 바꾼다
+            var oldGallery = canvas.Find("GalleryPopup");
+            if (oldGallery != null)
+                Object.DestroyImmediate(oldGallery.gameObject);
+            var gallery = CreateGallery(canvas, frames);
+
+            // 팝업들은 맨 위에 그려지게 마지막 순서로
+            foreach (var popupName in new[] { "HelpPopup", "OptionsPopup", "GalleryPopup" })
+                canvas.Find(popupName)?.SetAsLastSibling();
+
+            var so = new SerializedObject(menu.GetComponent<TitleMenu>());
+            so.FindProperty("galleryButton").objectReferenceValue = galleryButton;
+            so.FindProperty("galleryPopup").objectReferenceValue = gallery;
+            so.ApplyModifiedPropertiesWithoutUndo();
+
+            EditorSceneManager.MarkSceneDirty(scene);
+            EditorSceneManager.SaveScene(scene);
+            AssetDatabase.SaveAssets();
+            Debug.Log("[LastBullet] 타이틀에 그림 보기 버튼, 양쪽 액자, 그림 고르기·걸기 팝업을 추가했어요.");
         }
 
         // 팝업 공통 모양: 어두운 막 + 9-slice 창 + 제목 + 닫기 버튼. 팝업은 꺼진 상태로 만든다.
@@ -192,14 +251,52 @@ namespace LastBullet.EditorTools
             return go;
         }
 
-        static void CreateGallery(Transform canvas)
+        // 타이틀 양쪽 액자 2개: 금색 액자(9-slice) 안에 그림(RawImage)
+        internal static TitleFrames CreateTitleFrames(Transform canvas)
         {
-            var gallery = CreatePopup<GalleryPopup>("GalleryPopup", canvas, new Vector2(1400f, 900f), "Assets/UI/Gallery_Title.png", out var panel);
+            var root = new GameObject("TitleFrames", typeof(RectTransform));
+            root.transform.SetParent(canvas, false);
+            Phase4StageSelectSetup.Stretch(root.GetComponent<RectTransform>());
+
+            var pictures = new RawImage[2];
+            string[] names = { "FrameLeft", "FrameRight" };
+            float[] xs = { -640f, 640f };
+            for (int i = 0; i < 2; i++)
+            {
+                var frame = Phase4StageSelectSetup.CreateImage(names[i], root.transform, "Assets/UI/TitleFrame.png", 32f);
+                frame.GetComponent<Image>().type = Image.Type.Sliced;
+                frame.GetComponent<Image>().preserveAspect = false;
+                Phase4StageSelectSetup.SetRect(frame, new Vector2(0.5f, 0.5f), new Vector2(xs[i], 20f), new Vector2(320f, 400f));
+
+                var picture = new GameObject("Picture", typeof(RectTransform), typeof(RawImage));
+                picture.transform.SetParent(frame.transform, false);
+                var rect = picture.GetComponent<RectTransform>();
+                Phase4StageSelectSetup.Stretch(rect);
+                rect.offsetMin = new Vector2(30f, 30f); // 액자 테두리 안쪽
+                rect.offsetMax = new Vector2(-30f, -30f);
+                pictures[i] = picture.GetComponent<RawImage>();
+                pictures[i].raycastTarget = false;
+                pictures[i].enabled = false;
+            }
+
+            var frames = root.AddComponent<TitleFrames>();
+            var so = new SerializedObject(frames);
+            var array = so.FindProperty("pictures");
+            array.arraySize = 2;
+            for (int i = 0; i < 2; i++)
+                array.GetArrayElementAtIndex(i).objectReferenceValue = pictures[i];
+            so.ApplyModifiedPropertiesWithoutUndo();
+            return frames;
+        }
+
+        internal static GalleryPopup CreateGallery(Transform canvas, TitleFrames titleFrames)
+        {
+            var gallery = CreatePopup<GalleryPopup>("GalleryPopup", canvas, new Vector2(1400f, 920f), "Assets/UI/Gallery_Title.png", out var panel);
 
             // 스크롤 영역: 보이는 창(Viewport, 넘치는 부분은 가림) 안에 그림 칸들(Content)
             var scroll = new GameObject("Scroll", typeof(RectTransform), typeof(ScrollRect));
             scroll.transform.SetParent(panel, false);
-            Phase4StageSelectSetup.SetRect(scroll, new Vector2(0.5f, 0.5f), new Vector2(0f, -50f), new Vector2(1300f, 700f));
+            Phase4StageSelectSetup.SetRect(scroll, new Vector2(0.5f, 0.5f), new Vector2(0f, 20f), new Vector2(1300f, 600f));
             var viewport = new GameObject("Viewport", typeof(RectTransform), typeof(RectMask2D));
             viewport.transform.SetParent(scroll.transform, false);
             Phase4StageSelectSetup.Stretch(viewport.GetComponent<RectTransform>());
@@ -221,10 +318,12 @@ namespace LastBullet.EditorTools
             scrollRect.content = contentRect;
             scrollRect.horizontal = false;
 
-            // 그림 한 칸의 틀: 액자(9-slice) 안에 그림(RawImage)
+            // 그림 한 칸의 틀: 누를 수 있는 액자(9-slice) 안에 그림(RawImage), 고르면 노란 테두리(Selected)
             var item = Phase4StageSelectSetup.CreateImage("Item", content.transform, "Assets/UI/Gallery_Frame.png", 24f);
             item.GetComponent<Image>().type = Image.Type.Sliced;
             item.GetComponent<Image>().preserveAspect = false;
+            item.GetComponent<Image>().raycastTarget = true;
+            item.AddComponent<Button>();
             var picture = new GameObject("Picture", typeof(RectTransform), typeof(RawImage));
             picture.transform.SetParent(item.transform, false);
             var pictureRect = picture.GetComponent<RectTransform>();
@@ -232,16 +331,31 @@ namespace LastBullet.EditorTools
             pictureRect.offsetMin = new Vector2(26f, 26f);
             pictureRect.offsetMax = new Vector2(-26f, -26f);
             picture.GetComponent<RawImage>().raycastTarget = false;
+            var selected = Phase4StageSelectSetup.CreateImage("Selected", item.transform, "Assets/UI/Gallery_Selected.png", 24f);
+            selected.GetComponent<Image>().type = Image.Type.Sliced;
+            selected.GetComponent<Image>().preserveAspect = false;
+            Phase4StageSelectSetup.Stretch(selected.GetComponent<RectTransform>());
+            selected.SetActive(false);
             item.SetActive(false);
 
             var empty = Phase4StageSelectSetup.CreateImage("EmptyMessage", panel, "Assets/UI/Gallery_Empty.png");
-            Phase4StageSelectSetup.SetRect(empty, new Vector2(0.5f, 0.5f), new Vector2(0f, -40f), new Vector2(600f, 100f));
+            Phase4StageSelectSetup.SetRect(empty, new Vector2(0.5f, 0.5f), new Vector2(0f, 20f), new Vector2(600f, 100f));
+
+            // 고른 그림을 타이틀 액자에 거는 버튼
+            var hangLeft = Phase4StageSelectSetup.CreateStageButton("HangLeftButton", panel, "Assets/UI/ButtonLabel_HangLeft.png", new Vector2(-240f, -360f));
+            var hangRight = Phase4StageSelectSetup.CreateStageButton("HangRightButton", panel, "Assets/UI/ButtonLabel_HangRight.png", new Vector2(240f, -360f));
+            hangLeft.GetComponent<RectTransform>().sizeDelta = new Vector2(420f, 100f);
+            hangRight.GetComponent<RectTransform>().sizeDelta = new Vector2(420f, 100f);
 
             var so = new SerializedObject(gallery);
             so.FindProperty("content").objectReferenceValue = contentRect;
             so.FindProperty("itemTemplate").objectReferenceValue = item;
             so.FindProperty("emptyMessage").objectReferenceValue = empty;
+            so.FindProperty("hangLeftButton").objectReferenceValue = hangLeft;
+            so.FindProperty("hangRightButton").objectReferenceValue = hangRight;
+            so.FindProperty("titleFrames").objectReferenceValue = titleFrames;
             so.ApplyModifiedPropertiesWithoutUndo();
+            return gallery;
         }
     }
 }

@@ -14,6 +14,9 @@ namespace LastBullet.Core
         public PaintAmounts paints = new PaintAmounts();
         public List<string> unlockedStages = new List<string> { "Training" };
         public bool endingSeen;
+
+        // 타이틀 화면 액자 2개(왼쪽, 오른쪽)에 건 그림의 작품 ID. 빈 문자열이면 빈 액자. (사용자 요청, 2026-10-30)
+        public List<string> titleFrames = new List<string> { "", "" };
     }
 
     // 물감 9색 양. JSON에서 "red": 350 처럼 보이도록 색마다 칸을 둔다.
@@ -114,6 +117,25 @@ namespace LastBullet.Core
                 return;
             Data.unlockedStages.Add(stage);
             Debug.Log($"[SaveManager] 스테이지 해금: {stage}");
+            Save();
+        }
+
+        public const int TitleFrameCount = 2;
+
+        public static string GetTitleFrame(int index)
+        {
+            var frames = Data.titleFrames;
+            return frames != null && index < frames.Count ? frames[index] : "";
+        }
+
+        // 타이틀 액자에 그림을 건다 (index 0 = 왼쪽, 1 = 오른쪽)
+        public static void SetTitleFrame(int index, string paintingId)
+        {
+            if (Data.titleFrames == null)
+                Data.titleFrames = new List<string>();
+            while (Data.titleFrames.Count < TitleFrameCount)
+                Data.titleFrames.Add("");
+            Data.titleFrames[index] = paintingId ?? "";
             Save();
         }
 
