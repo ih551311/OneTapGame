@@ -22,9 +22,12 @@ namespace LastBullet.EditorTools
         {
             var importer = (TextureImporter)AssetImporter.GetAtPath(path);
             var wantBorder = new Vector4(border, border, border, border);
-            if (importer != null && (importer.textureType != TextureImporterType.Sprite || importer.spriteBorder != wantBorder))
+            if (importer != null && (importer.textureType != TextureImporterType.Sprite
+                                     || importer.spriteImportMode != SpriteImportMode.Single
+                                     || importer.spriteBorder != wantBorder))
             {
                 importer.textureType = TextureImporterType.Sprite;
+                importer.spriteImportMode = SpriteImportMode.Single; // Multiple이면 9-slice 모서리가 적용되지 않는다
                 importer.alphaIsTransparency = true;
                 importer.mipmapEnabled = false;
                 importer.spriteBorder = wantBorder;

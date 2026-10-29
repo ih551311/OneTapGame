@@ -264,6 +264,7 @@ GameObject:
   - component: {fileID: 2543061261541412872}
   - component: {fileID: 5689047955541431933}
   - component: {fileID: 5554725401284255698}
+  - component: {fileID: 1571627698520832080}
   m_Layer: 0
   m_Name: Enemy_Charger
   m_TagString: Untagged
@@ -300,7 +301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eb7e1a3fcebb1148a8075fe9e06825d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Enemy.EnemyHealth
-  maxHp: 30
   hitFlashTime: 0.1
 --- !u!195 &5689047955541431933
 NavMeshAgent:
@@ -344,4 +344,20 @@ MonoBehaviour:
   dashSpeed: 9
   dashTime: 0.5
   recoverTime: 0.8
+  attackDamage: 15
+  contactRange: 1.3
   hitStunTime: 0.25
+--- !u!114 &1571627698520832080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8279691657505643053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1416a6ba431b65d4388229c3738884d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Enemy.EnemyDrop
+  paperScraps: 1
+  paintAmount: 50
