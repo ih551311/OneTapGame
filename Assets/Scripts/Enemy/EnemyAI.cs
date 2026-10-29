@@ -1,3 +1,4 @@
+using LastBullet.Player;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,7 +8,7 @@ namespace LastBullet.Enemy
     // Idle(대기) → 플레이어 발견 → Chase(추적, 4m/s) → 가까워지면 Attack:
     //   0.5초 예고(뒤로 젖히기) → 돌진(9m/s) → 잠깐 숨 고르기 → 다시 추적.
     // 맞으면 Hit(잠깐 멈칫). 처치(Dead)는 EnemyHealth가 처리한다.
-    // 공격 피해는 Phase 4-3에서 PlayerHealth와 연결한다.
+    // 돌진 중 플레이어에 닿으면 돌진 한 번에 한 번만 피해를 준다.
     // 붙일 곳: 적 프리팹의 맨 위 오브젝트 (NavMeshAgent, EnemyHealth와 함께)
     [RequireComponent(typeof(NavMeshAgent), typeof(EnemyHealth))]
     public class EnemyAI : MonoBehaviour
@@ -28,6 +29,8 @@ namespace LastBullet.Enemy
         [SerializeField] float dashSpeed = 9f;         // m/s
         [SerializeField] float dashTime = 0.5f;        // 돌진 시간 (0.5초 × 9m/s = 4.5m)
         [SerializeField] float recoverTime = 0.8f;     // 돌진 뒤 숨 고르는 시간 (플레이어가 반격할 틈)
+        [SerializeField] int attackDamage = 15;        // 기획서 2.5: 돌진형 공격력 15
+        [SerializeField] float contactRange = 1.3f;    // 돌진 중 이 거리 안이면 맞은 것으로 본다
 
         [Header("피격 (기본값)")]
         [SerializeField] float hitStunTime = 0.25f;    // 맞으면 멈칫하는 시간
@@ -37,6 +40,8 @@ namespace LastBullet.Enemy
         NavMeshAgent agent;
         EnemyHealth health;
         Transform player;
+        PlayerHealth playerHealth;
+        bool dashHit; // 이번 돌진에서 이미 피해를 줬는지
         AttackPhase attackPhase;
         float phaseEndTime;
         Vector3 dashDirection;
@@ -55,13 +60,21 @@ namespace LastBullet.Enemy
         {
             var playerObject = GameObject.FindWithTag("Player");
             if (playerObject != null)
+            {
                 player = playerObject.transform;
+                playerHealth = playerObject.GetComponent<PlayerHealth>();
+            }
         }
 
         void Update()
         {
             if (State == AIState.Dead || player == null)
                 return;
+            if (playerHealth != null && playerHealth.IsDead)
+            {
+                StopMoving(); // 플레이어가 쓰러지면 멈춘다
+                return;
+            }
 
             float distance = FlatDistance(player.position);
             switch (State)
@@ -115,11 +128,17 @@ namespace LastBullet.Enemy
                         FaceTowards(transform.position + dashDirection, 0f);
                         attackPhase = AttackPhase.Dash;
                         phaseEndTime = Time.time + dashTime;
+                        dashHit = false;
                     }
                     break;
 
                 case AttackPhase.Dash:
                     agent.Move(dashDirection * dashSpeed * Time.deltaTime); // NavMesh 밖으로는 나가지 않는다
+                    if (!dashHit && playerHealth != null && FlatDistance(player.position) <= contactRange)
+                    {
+                        dashHit = true; // 회피 무적으로 피했어도 이번 돌진은 끝
+                        playerHealth.TakeDamage(attackDamage);
+                    }
                     if (Time.time >= phaseEndTime)
                     {
                         attackPhase = AttackPhase.Recover;
