@@ -108,42 +108,21 @@ namespace LastBullet.EditorTools
             Debug.Log("[LastBullet] 크로스헤어를 십자 모양으로 다시 만들고 Hideout 씬을 저장했어요.");
         }
 
-        // 십자 크로스헤어: 가운데를 비우고 위·아래·왼쪽·오른쪽에 짧은 선 4개 (1920x1080 기준 px)
-        static void BuildCrosshair(Transform hud)
+        // 크로스헤어: Assets/UI/Crosshair.png 그림 한 장 (사용자가 같은 이름으로 덮어써서 바꿀 수 있다)
+        internal static void BuildCrosshair(Transform hud)
         {
-            const float length = 12f;    // 선 길이
-            const float thickness = 2f;  // 선 굵기
-            const float gap = 5f;        // 가운데 빈 공간 (중심에서 선까지)
-
-            var crosshair = new GameObject("Crosshair", typeof(RectTransform));
+            var crosshair = new GameObject("Crosshair", typeof(RectTransform), typeof(Image));
             Undo.RegisterCreatedObjectUndo(crosshair, "Create Crosshair");
             crosshair.transform.SetParent(hud, false);
             var rect = crosshair.GetComponent<RectTransform>();
             rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
             rect.anchoredPosition = Vector2.zero;
-            rect.sizeDelta = Vector2.zero;
-
-            float offset = gap + length / 2f;
-            CreateLine(crosshair.transform, "Top", new Vector2(0f, offset), new Vector2(thickness, length));
-            CreateLine(crosshair.transform, "Bottom", new Vector2(0f, -offset), new Vector2(thickness, length));
-            CreateLine(crosshair.transform, "Left", new Vector2(-offset, 0f), new Vector2(length, thickness));
-            CreateLine(crosshair.transform, "Right", new Vector2(offset, 0f), new Vector2(length, thickness));
-        }
-
-        static void CreateLine(Transform parent, string name, Vector2 position, Vector2 size)
-        {
-            var line = new GameObject(name, typeof(RectTransform), typeof(Image));
-            line.transform.SetParent(parent, false);
-            var rect = line.GetComponent<RectTransform>();
-            rect.anchoredPosition = position;
-            rect.sizeDelta = size;
-            var image = line.GetComponent<Image>();
-            image.color = Color.white;
+            rect.sizeDelta = new Vector2(40f, 40f); // 1920x1080 기준 px
+            var image = crosshair.GetComponent<Image>();
+            image.sprite = ArtSlots.LoadSprite("Assets/UI/Crosshair.png");
+            image.color = Color.white; // 흰색 = 그림 색 그대로
+            image.preserveAspect = true;
             image.raycastTarget = false; // 마우스 클릭을 막지 않게
-            // 밝은 바닥 위에서도 보이도록 검은 테두리
-            var outline = line.AddComponent<Outline>();
-            outline.effectColor = new Color(0f, 0f, 0f, 0.6f);
-            outline.effectDistance = new Vector2(1f, -1f);
         }
     }
 }
