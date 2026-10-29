@@ -18,7 +18,7 @@
 | 1 프로젝트 설정 | ✅ 완료 (2026-10-29, 브랜치 `phase1/project-setup`) |
 | 2 플레이어 | ✅ 완료 (2026-10-29, 사용자가 WASD·Shift·Space·Q·카메라 확인). 2-1 바닥·캡슐·CharacterController ✅. 2-2 3인칭 카메라(Cinemachine ThirdPersonFollow + `ThirdPersonCamera`)·크로스헤어 ✅ (오류 없음, 마우스 회전은 사용자 실제 확인 필요). 2-3 이동·달리기·점프·회피(`PlayerMovement`, 화면 왼쪽 위 테스트 표시) ✅ |
 | 3 한 발 탄환 | 진행 중. 3-1 발사·명중 판정(`OneBulletGun`, 탄도선, 맞은 자리 노란 점, 임시 과녁 `TestTargets (임시)`) 작성, 조준점 일치 확인 ✅. 최대 사거리 50m (기본값). 3-2 `Hitbox`(Body/Head), 적 명중 → Loaded, 빗나감 → `Prefabs/DroppedBullet` 바닥에 생성 + Dropped, 임시 허수아비 `Target_Dummy` 작성 ✅. 3-3 `BulletPickup`(E키, 2m 기본값)·`BulletAutoReturn`(15초)·`BulletIndicatorUI`(크로스헤어 둘레 노란 고리 `UI/Ring.png`) 작성, E키 회수 사용자 확인 ✅. 3-4 화면 밖 방향 화살표(`BulletIndicatorUI`, `UI/Arrow.png`)·빛 기둥(프리팹 `LightPillar`, 6m 반투명 `Materials/LightPillar`) 작성, 빛 기둥·화살표 사용자 확인 ✅. 사용자 요청으로 벽 자국 2초 → 0.4초. 2026-10-30 사용자 결정으로 자동 복귀 15초 → **항상 7초** (스크립트·프리팹·기획서 수정). ✅ 완료 (맵 밖 낙하 복귀는 코드상 보장, 사용자 직접 테스트는 생략) |
-| 4 전투 (돌진형) | 진행 중. 4-1 `Enemy_Charger` 프리팹(몸 상자·큰 머리 Hitbox, `EnemyHealth` 30, 헤드샷 즉사·몸 15, 맞으면 빨갛게 깜빡, 처치 시 사라짐), Hideout에 `TestEnemies (임시)` 3마리. 헤드/몸 사격은 사용자 확인 대기. 다음: 4-2 AI |
+| 4 전투 (돌진형) | 진행 중. 4-1 `Enemy_Charger` 프리팹(몸 상자·큰 머리 Hitbox, `EnemyHealth` 30, 헤드샷 즉사·몸 15, 맞으면 빨갛게 깜빡, 처치 시 사라짐), Hideout에 `TestEnemies (임시)` 3마리. 4-2 `EnemyAI`(감지 15m·추적 4m/s·공격 거리 4m·예고 0.5초 뒤로 젖힘·돌진 9m/s 0.5초·숨 고르기 0.8초·피격 멈칫 0.25초, 수치 대부분 기본값), NavMesh(`NavMesh` 오브젝트, `Scenes/Hideout/NavMesh-Hideout.asset`, Player는 굽기 제외) 작성, 재생 오류 없음. 4-1 사격·4-2 움직임 사용자 확인 대기. 다음: 4-3 플레이어 체력·사망, 돌진 피해 |
 
 그림 넣는 곳 (2026-10-30): UI는 `Assets/UI/*.png`, 오브젝트는 전용 머티리얼. 목록 `docs/ART_SLOTS.md`, 규칙 CLAUDE.md. 메뉴 `그림 넣는 곳 정리` 실행 완료. |
 

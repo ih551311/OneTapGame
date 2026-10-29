@@ -262,6 +262,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2792177413668734123}
   - component: {fileID: 2543061261541412872}
+  - component: {fileID: 5689047955541431933}
+  - component: {fileID: 5554725401284255698}
   m_Layer: 0
   m_Name: Enemy_Charger
   m_TagString: Untagged
@@ -300,3 +302,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Enemy.EnemyHealth
   maxHp: 30
   hitFlashTime: 0.1
+--- !u!195 &5689047955541431933
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8279691657505643053}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.6
+  m_Speed: 4
+  m_Acceleration: 30
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.5
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2.5
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &5554725401284255698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8279691657505643053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43ff91c6c0d31824bb5c3cec8d1b581d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Enemy.EnemyAI
+  detectRange: 15
+  chaseSpeed: 4
+  attackRange: 4
+  windupTime: 0.5
+  leanAngle: 20
+  dashSpeed: 9
+  dashTime: 0.5
+  recoverTime: 0.8
+  hitStunTime: 0.25

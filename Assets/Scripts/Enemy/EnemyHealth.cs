@@ -22,6 +22,9 @@ namespace LastBullet.Enemy
         // 처치되는 순간 한 번 불린다.
         public event Action<EnemyHealth> Died;
 
+        // 맞았지만 살아 있을 때 불린다. EnemyAI가 잠깐 멈칫(Hit 상태)하는 데 쓴다.
+        public event Action<EnemyHealth> Damaged;
+
         Renderer[] renderers;
         MaterialPropertyBlock flashBlock;
         float flashEndTime;
@@ -48,9 +51,14 @@ namespace LastBullet.Enemy
             Debug.Log($"[EnemyHealth] {name} {(part == HitPart.Head ? "헤드샷!" : $"몸 -{bodyDamage}")} → 체력 {Hp}/{maxHp}");
 
             if (Hp == 0)
+            {
                 Die();
+            }
             else
+            {
                 Flash();
+                Damaged?.Invoke(this);
+            }
         }
 
         void Die()
