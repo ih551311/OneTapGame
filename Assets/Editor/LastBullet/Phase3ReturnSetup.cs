@@ -28,7 +28,7 @@ namespace LastBullet.EditorTools
 
             var player = GameObject.Find("Player");
             var gun = player != null ? player.GetComponent<OneBulletGun>() : null;
-            var hud = GameObject.Find("HUD");
+            var hud = ArtSlots.FindCanvas();
             if (gun == null || hud == null || AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath) == null)
             {
                 EditorUtility.DisplayDialog("LastBullet", "Phase 3-2 메뉴를 먼저 실행하세요.", "확인");

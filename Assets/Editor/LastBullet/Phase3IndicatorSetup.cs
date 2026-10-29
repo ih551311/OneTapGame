@@ -29,7 +29,7 @@ namespace LastBullet.EditorTools
                 scene = EditorSceneManager.OpenScene("Assets/Scenes/Hideout.unity");
             }
 
-            var hud = GameObject.Find("HUD");
+            var hud = ArtSlots.FindCanvas();
             var indicator = hud != null ? hud.GetComponent<BulletIndicatorUI>() : null;
             if (indicator == null)
             {

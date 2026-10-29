@@ -23,7 +23,7 @@ namespace LastBullet.EditorTools
                 scene = EditorSceneManager.OpenScene("Assets/Scenes/Hideout.unity");
             }
 
-            var hud = GameObject.Find("HUD");
+            var hud = ArtSlots.FindCanvas();
             var player = GameObject.Find("Player");
             if (hud == null || player == null)
             {

@@ -26,6 +26,7 @@
   - 체력바 같은 **게이지**: 배경 PNG + 채움 PNG 두 장, 채움은 `Image.Type.Filled`.
   - **버튼·패널·창**: 크기가 늘어나도 모서리가 안 깨지게 9-slice(스프라이트 border)로 설정하고 `Image.Type.Sliced`. 버튼 상태(보통/마우스 올림/누름)도 각각 PNG 칸을 만든다.
   - 글자는 TextMeshPro. 글꼴도 바꿀 수 있게 `Assets/UI/Fonts/`에 둔다.
+  - **모든 UI는 씬의 `Canvas` 오브젝트 아래**에 uGUI 오브젝트로 만든다 (사용자가 Scene 창에서 위치를 옮길 수 있게). `OnGUI`, 코드로만 그리는 UI 금지. 에디터 스크립트는 `ArtSlots.FindCanvas()`로 찾는다.
 - **플레이어 모델**: 사용자가 **3ds Max**로 만든다 (FBX로 `Assets/Models/`). 모델이 오기 전까지 캡슐을 쓰고, 교체 때 FBX 가져오기 설정(크기, 축, 피벗)을 같이 맞춘다.
 - **오브젝트**: 오브젝트 종류마다 전용 머티리얼 `Assets/Materials/<이름>.mat` (`ArtSlots.GetOrCreateMaterial`). 기본 머티리얼을 같이 쓰지 않는다. 기능 스크립트는 위쪽 오브젝트에, 겉모습은 자식 오브젝트에 둔다 (모델 교체 자리).
 - 만들 때마다 [`docs/ART_SLOTS.md`](docs/ART_SLOTS.md) 표에 추가한다.

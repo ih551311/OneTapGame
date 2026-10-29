@@ -29,7 +29,7 @@ namespace LastBullet.EditorTools
             }
 
             var player = GameObject.Find("Player");
-            var hud = GameObject.Find("HUD");
+            var hud = ArtSlots.FindCanvas();
             if (player == null || hud == null || GameObject.Find("NavMesh") == null)
             {
                 EditorUtility.DisplayDialog("LastBullet", "Phase 4-2 메뉴를 먼저 실행하세요.", "확인");

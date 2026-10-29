@@ -9,6 +9,13 @@ namespace LastBullet.EditorTools
     // 목록: docs/ART_SLOTS.md
     public static class ArtSlots
     {
+        // 모든 UI가 들어가는 캔버스. 예전 이름(HUD)도 찾는다.
+        public static GameObject FindCanvas()
+        {
+            var canvas = GameObject.Find("Canvas");
+            return canvas != null ? canvas : GameObject.Find("HUD");
+        }
+
         // PNG를 UI용 스프라이트로 가져오도록 설정한다.
         public static Sprite LoadSprite(string path)
         {

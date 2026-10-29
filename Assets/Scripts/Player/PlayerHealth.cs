@@ -8,14 +8,16 @@ namespace LastBullet.Player
 {
     // 플레이어 체력 (기획서 2.3). 최대 100, 전투 중 회복 없음.
     // 회피 무적 중에는 피해를 받지 않는다.
-    // 사망하면 조작을 막고 쓰러진다.
-    // 지금(Phase 4-3)은 2초 뒤 같은 씬을 다시 시작한다.
-    // Phase 5에서 바꿀 부분: 전투 가방 비우기(RunBag.Clear) → 미술관(Hideout)으로 복귀.
+    // 사망하면 조작을 막고 쓰러진 뒤, 잠시 뒤 sceneAfterDeath로 간다 (스테이지에서는 미술관 Hideout).
+    // Phase 5에서 더할 부분: 사망 시 전투 가방 비우기(RunBag.Clear).
     // 붙일 곳: Player
     public class PlayerHealth : MonoBehaviour
     {
         [SerializeField] int maxHp = 100;
         [SerializeField] float restartDelay = 2f;
+
+        [Tooltip("사망 후 갈 씬. 비워 두면 같은 씬을 다시 시작한다")]
+        [SerializeField] string sceneAfterDeath = "";
 
         public int Hp { get; private set; }
         public int MaxHp => maxHp;
@@ -73,7 +75,10 @@ namespace LastBullet.Player
         IEnumerator RestartAfterDelay()
         {
             yield return new WaitForSeconds(restartDelay);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            if (string.IsNullOrEmpty(sceneAfterDeath))
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            else
+                SceneManager.LoadScene(sceneAfterDeath);
         }
     }
 }

@@ -71,7 +71,7 @@ namespace LastBullet.EditorTools
             follow.AvoidObstacles.IgnoreTag = "Player";
 
             // 5. 화면 가운데 크로스헤어
-            var hud = new GameObject("HUD", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            var hud = new GameObject("Canvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             Undo.RegisterCreatedObjectUndo(hud, "Create HUD");
             hud.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
             var scaler = hud.GetComponent<CanvasScaler>();
@@ -91,7 +91,7 @@ namespace LastBullet.EditorTools
         static void RebuildCrosshair()
         {
             var scene = EditorSceneManager.GetActiveScene();
-            var hud = GameObject.Find("HUD");
+            var hud = ArtSlots.FindCanvas();
             if (scene.name != "Hideout" || hud == null)
             {
                 EditorUtility.DisplayDialog("LastBullet", "Hideout 씬을 열고 Phase 2-2 메뉴를 먼저 실행하세요.", "확인");
