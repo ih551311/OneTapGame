@@ -10,11 +10,14 @@ namespace LastBullet.Stage
 {
     // 스테이지 진행 (기획서 2.6). 씬에 있는 적을 모두 처치하면 클리어.
     // 클리어하면 "클리어" 그림을 띄우고 잠시 뒤 미술관(1_Museum)으로 돌아간다.
-    // 클리어 시 전투 가방을 창고로 정산한다 (RunBag.Settle). 다음 스테이지 해금은 Phase 5-4(저장) 이후.
+    // 클리어 시 전투 가방을 창고로 정산하고(RunBag.Settle), 다음 스테이지를 해금해 저장한다.
     // 붙일 곳: 스테이지 씬의 StageManager 오브젝트
     public class StageManager : MonoBehaviour
     {
         [SerializeField] float returnDelay = 3f;
+
+        [Tooltip("클리어하면 해금할 스테이지 (훈련장 → Forest). 없으면 비워 둔다")]
+        [SerializeField] string unlockOnClear = "Forest";
 
         [Tooltip("클리어 때 켜는 UI (Assets/UI/StageClear.png)")]
         [SerializeField] GameObject clearMessage;
@@ -52,6 +55,8 @@ namespace LastBullet.Stage
             Debug.Log("[StageManager] 클리어!");
             if (RunBag.Current != null)
                 RunBag.Current.Settle();
+            if (!string.IsNullOrEmpty(unlockOnClear))
+                SaveManager.UnlockStage(unlockOnClear);
             if (clearMessage != null)
                 clearMessage.SetActive(true);
             Cleared?.Invoke();

@@ -31,6 +31,12 @@
 - **오브젝트**: 오브젝트 종류마다 전용 머티리얼 `Assets/Materials/<이름>.mat` (`ArtSlots.GetOrCreateMaterial`). 기본 머티리얼을 같이 쓰지 않는다. 기능 스크립트는 위쪽 오브젝트에, 겉모습은 자식 오브젝트에 둔다 (모델 교체 자리).
 - 만들 때마다 [`docs/ART_SLOTS.md`](docs/ART_SLOTS.md) 표에 추가한다.
 
+## 적 규칙 (2026-10-30 사용자 결정)
+
+- **모든 적은 `Enemy` 태그**를 가진다: 프리팹의 맨 위와 자식(몸·머리 등) 전부. 새 적을 만들 때도 붙인다 (`EnemyTagSetup` 메뉴 또는 `EnemyTagSetup.Tag`).
+- 적의 기능은 `EnemyHealth`(처치), `Hitbox`(머리/몸 콜라이더), `EnemyAI`, `EnemyDrop` 컴포넌트로 구성한다.
+- 헤드샷 원탭 전용: 몸샷은 피해 없음, 탄환이 떨어진다.
+
 ## 대화
 
 - 항상 **한국어**로 답한다.

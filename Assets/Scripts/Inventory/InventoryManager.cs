@@ -1,12 +1,13 @@
 using System;
+using LastBullet.Core;
 using UnityEngine;
 
 namespace LastBullet.Inventory
 {
     // 창고 (기획서 2.7). 씬을 옮겨도 유지된다 (DontDestroyOnLoad).
     // 종이조각, 그림용 종이, 물감 9색. 물감은 색마다 최대 500, 넘치는 양은 버리고 PaintOverflow를 알린다.
-    // 처음 InventoryManager.Instance를 부를 때 자동으로 만들어진다 (씬에 놓을 필요 없음).
-    // Phase 5-4: 저장·불러오기.
+    // 처음 InventoryManager.Instance를 부를 때 자동으로 만들어지고, save.json에서 불러온다.
+    // 수량이 바뀔 때마다 save.json에 저장한다 (SaveManager).
     public class InventoryManager : MonoBehaviour
     {
         public const int PaintMax = 500;
@@ -41,10 +42,20 @@ namespace LastBullet.Inventory
 
         public int GetPaint(PaintColor color) => paints[(int)color];
 
+        void Awake()
+        {
+            // 저장된 수량 불러오기
+            var save = SaveManager.Data;
+            PaperScraps = save.paperScraps;
+            DrawingPaper = save.drawingPaper;
+            for (int i = 0; i < paints.Length; i++)
+                paints[i] = Mathf.Clamp(save.paints[i], 0, PaintMax);
+        }
+
         public void AddPaperScraps(int amount)
         {
             PaperScraps += amount;
-            Changed?.Invoke();
+            SaveAndNotify();
         }
 
         public bool CanCraftPaper => PaperScraps >= ScrapsPerPaper;
@@ -57,7 +68,7 @@ namespace LastBullet.Inventory
             PaperScraps -= ScrapsPerPaper;
             DrawingPaper++;
             Debug.Log($"[Inventory] 종이 합성: 종이조각 {PaperScraps}개 남음, 그림용 종이 {DrawingPaper}장");
-            Changed?.Invoke();
+            SaveAndNotify();
             return true;
         }
 
@@ -73,13 +84,33 @@ namespace LastBullet.Inventory
                 Debug.Log($"[Inventory] {PaintColors.KoreanNames[index]} 물감 가득 참: {discarded} 버림");
                 PaintOverflow?.Invoke(color, discarded);
             }
-            Changed?.Invoke();
+            SaveAndNotify();
             return discarded;
+        }
+
+        // 바뀐 수량을 save.json에 쓰고 화면에 알린다
+        void SaveAndNotify()
+        {
+            var save = SaveManager.Data;
+            save.paperScraps = PaperScraps;
+            save.drawingPaper = DrawingPaper;
+            for (int i = 0; i < paints.Length; i++)
+                save.paints[i] = paints[i];
+            SaveManager.Save();
+            Changed?.Invoke();
         }
 
         void OnApplicationQuit()
         {
             quitting = true;
+        }
+
+        // 재생을 시작할 때 이전 재생의 값이 남지 않게 한다
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetOnPlay()
+        {
+            instance = null;
+            quitting = false;
         }
 
 #if UNITY_EDITOR
@@ -88,7 +119,7 @@ namespace LastBullet.Inventory
         {
             for (int i = 0; i < paints.Length; i++)
                 paints[i] = Mathf.Clamp(amount, 0, PaintMax);
-            Changed?.Invoke();
+            SaveAndNotify();
         }
 
         // 테스트용: 종이조각을 더한다
