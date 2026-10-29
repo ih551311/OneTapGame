@@ -17,13 +17,13 @@ namespace LastBullet.EditorTools
         [MenuItem("LastBullet/Phase 4-2 적 AI 붙이기")]
         static void Create()
         {
-            // Hideout 씬이 열려 있지 않으면 자동으로 연다.
+            // 1_Museum 씬이 열려 있지 않으면 자동으로 연다.
             var scene = EditorSceneManager.GetActiveScene();
-            if (scene.name != "Hideout")
+            if (scene.name != "1_Museum")
             {
                 if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
                     return;
-                scene = EditorSceneManager.OpenScene("Assets/Scenes/Hideout.unity");
+                scene = EditorSceneManager.OpenScene("Assets/Scenes/1_Museum.unity");
             }
 
             var player = GameObject.Find("Player");
@@ -70,15 +70,15 @@ namespace LastBullet.EditorTools
             surface.BuildNavMesh();
 
             // 구운 결과를 파일로 저장해야 씬을 다시 열어도 남는다
-            if (!AssetDatabase.IsValidFolder("Assets/Scenes/Hideout"))
-                AssetDatabase.CreateFolder("Assets/Scenes", "Hideout");
-            AssetDatabase.CreateAsset(surface.navMeshData, "Assets/Scenes/Hideout/NavMesh-Hideout.asset");
+            if (!AssetDatabase.IsValidFolder("Assets/Scenes/1_Museum"))
+                AssetDatabase.CreateFolder("Assets/Scenes", "1_Museum");
+            AssetDatabase.CreateAsset(surface.navMeshData, "Assets/Scenes/1_Museum/NavMesh-1_Museum.asset");
 
             Selection.activeGameObject = navMeshObject;
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
             AssetDatabase.SaveAssets();
-            Debug.Log("[LastBullet] Phase 4-2: NavMesh를 굽고 Enemy_Charger에 AI를 붙이고 Hideout 씬을 저장했어요.");
+            Debug.Log("[LastBullet] Phase 4-2: NavMesh를 굽고 Enemy_Charger에 AI를 붙이고 1_Museum 씬을 저장했어요.");
         }
     }
 }

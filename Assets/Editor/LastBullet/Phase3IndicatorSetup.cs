@@ -20,13 +20,13 @@ namespace LastBullet.EditorTools
         [MenuItem("LastBullet/Phase 3-4 빛 기둥과 방향 화살표 만들기")]
         static void Create()
         {
-            // Hideout 씬이 열려 있지 않으면 자동으로 연다.
+            // 1_Museum 씬이 열려 있지 않으면 자동으로 연다.
             var scene = EditorSceneManager.GetActiveScene();
-            if (scene.name != "Hideout")
+            if (scene.name != "1_Museum")
             {
                 if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
                     return;
-                scene = EditorSceneManager.OpenScene("Assets/Scenes/Hideout.unity");
+                scene = EditorSceneManager.OpenScene("Assets/Scenes/1_Museum.unity");
             }
 
             var hud = ArtSlots.FindCanvas();
@@ -82,7 +82,7 @@ namespace LastBullet.EditorTools
             Selection.activeGameObject = hud;
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
-            Debug.Log("[LastBullet] Phase 3-4: 빛 기둥과 방향 화살표를 만들고 Hideout 씬을 저장했어요.");
+            Debug.Log("[LastBullet] Phase 3-4: 빛 기둥과 방향 화살표를 만들고 1_Museum 씬을 저장했어요.");
         }
 
         // URP Unlit 반투명 머티리얼 (노랑, 투명도 35%)

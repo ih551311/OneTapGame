@@ -49,7 +49,7 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/LightPillar.mat` | 탄환 위 빛 기둥 (반투명) | 프리팹 `Prefabs/DroppedBullet`의 `LightPillar` |
 | `Materials/Tracer.mat` | 탄도선, 맞은 자리 점 | `Player/BulletTracer` |
 | `Materials/Ground.mat` | 바닥 | `Ground` |
-| `Materials/StageMap.mat` | 미술관 지도 탁자 (전투 장소 선택) | Hideout의 `StageMap` |
+| `Materials/StageMap.mat` | 미술관 지도 탁자 (전투 장소 선택) | `1_Museum` 씬의 `StageMap` |
 
 ## 앞으로 생길 UI (만들 때 이 표에 추가)
 

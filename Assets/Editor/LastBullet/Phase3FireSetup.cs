@@ -16,13 +16,13 @@ namespace LastBullet.EditorTools
         [MenuItem("LastBullet/Phase 3-1 총과 발사 만들기")]
         static void Create()
         {
-            // Hideout 씬이 열려 있지 않으면 자동으로 연다.
+            // 1_Museum 씬이 열려 있지 않으면 자동으로 연다.
             var scene = EditorSceneManager.GetActiveScene();
-            if (scene.name != "Hideout")
+            if (scene.name != "1_Museum")
             {
                 if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
                     return;
-                scene = EditorSceneManager.OpenScene("Assets/Scenes/Hideout.unity");
+                scene = EditorSceneManager.OpenScene("Assets/Scenes/1_Museum.unity");
             }
 
             var player = GameObject.Find("Player");
@@ -92,7 +92,7 @@ namespace LastBullet.EditorTools
             Selection.activeGameObject = player;
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
-            Debug.Log("[LastBullet] Phase 3-1: 총, 총구, 탄도선, OneBulletGun, 테스트 과녁을 만들고 Hideout 씬을 저장했어요.");
+            Debug.Log("[LastBullet] Phase 3-1: 총, 총구, 탄도선, OneBulletGun, 테스트 과녁을 만들고 1_Museum 씬을 저장했어요.");
         }
 
         static void CreateTarget(Transform parent, string name, Vector3 position, Vector3 scale)

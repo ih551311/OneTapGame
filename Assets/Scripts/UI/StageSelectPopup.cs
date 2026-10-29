@@ -1,3 +1,4 @@
+using LastBullet.Core;
 using LastBullet.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -29,7 +30,7 @@ namespace LastBullet.UI
             var player = GameObject.FindWithTag("Player");
             if (player != null)
                 playerLock = player.GetComponent<PlayerControlLock>();
-            trainingButton.onClick.AddListener(() => LoadStage("Stage_Training"));
+            trainingButton.onClick.AddListener(() => LoadStage(SceneNames.Training));
             forestButton.interactable = false; // 숲: 아직 잠김
             closeButton.onClick.AddListener(Close);
         }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace LastBullet.EditorTools
 {
-    // Phase 4-1: 돌진형 적 프리팹(임시 상자 + 큰 머리)을 만들고 Hideout에 테스트용으로 3마리 놓는다.
+    // Phase 4-1: 돌진형 적 프리팹(임시 상자 + 큰 머리)을 만들고 1_Museum에 테스트용으로 3마리 놓는다.
     // 아직 움직이지 않는다 (AI는 Phase 4-2).
     // 메뉴: LastBullet > Phase 4-1 돌진형 적 만들기
     public static class Phase4EnemySetup
@@ -16,13 +16,13 @@ namespace LastBullet.EditorTools
         [MenuItem("LastBullet/Phase 4-1 돌진형 적 만들기")]
         static void Create()
         {
-            // Hideout 씬이 열려 있지 않으면 자동으로 연다.
+            // 1_Museum 씬이 열려 있지 않으면 자동으로 연다.
             var scene = EditorSceneManager.GetActiveScene();
-            if (scene.name != "Hideout")
+            if (scene.name != "1_Museum")
             {
                 if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
                     return;
-                scene = EditorSceneManager.OpenScene("Assets/Scenes/Hideout.unity");
+                scene = EditorSceneManager.OpenScene("Assets/Scenes/1_Museum.unity");
             }
             if (GameObject.Find("TestEnemies (임시)") != null)
             {
@@ -75,7 +75,7 @@ namespace LastBullet.EditorTools
             Selection.activeGameObject = group;
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
-            Debug.Log("[LastBullet] Phase 4-1: Enemy_Charger 프리팹을 만들고 테스트용 3마리를 놓고 Hideout 씬을 저장했어요.");
+            Debug.Log("[LastBullet] Phase 4-1: Enemy_Charger 프리팹을 만들고 테스트용 3마리를 놓고 1_Museum 씬을 저장했어요.");
         }
     }
 }

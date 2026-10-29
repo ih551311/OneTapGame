@@ -45,7 +45,11 @@
 - 유니티 버전: **6000.3.23f1** (Unity 6)
 - 렌더 파이프라인: URP 17.3.0
 - 입력: Input System 1.20.0
-- 씬: `Assets/Scenes/Hideout.unity` (미술관), `SampleScene.unity` (템플릿 기본 씬)
+- 씬 (2026-10-30 사용자 요청으로 번호 + 영어 이름. 기획서 3.2의 이름과 다르다):
+  - `Assets/Scenes/1_Museum.unity` = 기획서 `Hideout` (미술관, 게임 시작 씬, 빌드 0번)
+  - `Assets/Scenes/2_Training.unity` = 기획서 `Stage_Training` (훈련장)
+  - 앞으로 만들 씬: `0_Title` (= MainMenu), `3_Forest` (= Stage_Forest)
+  - 게임 코드는 씬 이름을 `LastBullet.Core.SceneNames`에서만 쓴다.
 - 패키지: Cinemachine 3.1.7. TextMeshPro는 Unity 6에서 uGUI(`com.unity.ugui`)에 포함되어 있다.
 - GitHub: https://github.com/ih551311/OneTapGame (기본 브랜치 `main`)
 

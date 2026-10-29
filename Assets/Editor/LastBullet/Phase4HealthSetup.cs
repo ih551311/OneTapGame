@@ -10,18 +10,18 @@ using UnityEngine.UI;
 namespace LastBullet.EditorTools
 {
     // Phase 4-3: 플레이어 체력·사망과 체력바를 만든다.
-    // 테스트용 과녁(TestTargets)을 지우고 NavMesh를 다시 굽는다. Hideout을 빌드 목록에 넣는다(사망 후 다시 시작용).
+    // 테스트용 과녁(TestTargets)을 지우고 NavMesh를 다시 굽는다. 1_Museum을 빌드 목록에 넣는다(사망 후 다시 시작용).
     // 메뉴: LastBullet > Phase 4-3 플레이어 체력과 체력바 만들기
     public static class Phase4HealthSetup
     {
-        const string ScenePath = "Assets/Scenes/Hideout.unity";
+        const string ScenePath = "Assets/Scenes/1_Museum.unity";
 
         [MenuItem("LastBullet/Phase 4-3 플레이어 체력과 체력바 만들기")]
         static void Create()
         {
-            // Hideout 씬이 열려 있지 않으면 자동으로 연다.
+            // 1_Museum 씬이 열려 있지 않으면 자동으로 연다.
             var scene = EditorSceneManager.GetActiveScene();
-            if (scene.name != "Hideout")
+            if (scene.name != "1_Museum")
             {
                 if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
                     return;
@@ -49,7 +49,7 @@ namespace LastBullet.EditorTools
             // 2. 과녁이 사라졌으니 NavMesh를 다시 굽는다 (같은 파일에 덮어쓴다)
             var surface = GameObject.Find("NavMesh").GetComponent<NavMeshSurface>();
             var oldData = surface.navMeshData;
-            string navMeshPath = oldData != null ? AssetDatabase.GetAssetPath(oldData) : "Assets/Scenes/Hideout/NavMesh-Hideout.asset";
+            string navMeshPath = oldData != null ? AssetDatabase.GetAssetPath(oldData) : "Assets/Scenes/1_Museum/NavMesh-1_Museum.asset";
             surface.BuildNavMesh();
             if (oldData != null)
                 AssetDatabase.DeleteAsset(navMeshPath);
@@ -92,7 +92,7 @@ namespace LastBullet.EditorTools
             so.FindProperty("healthFill").objectReferenceValue = fill;
             so.ApplyModifiedPropertiesWithoutUndo();
 
-            // 5. 빌드 목록에 Hideout 추가 (씬을 다시 불러오려면 필요하다)
+            // 5. 빌드 목록에 1_Museum 추가 (씬을 다시 불러오려면 필요하다)
             if (!EditorBuildSettings.scenes.Any(s => s.path == ScenePath))
             {
                 var scenes = EditorBuildSettings.scenes.ToList();
@@ -104,7 +104,7 @@ namespace LastBullet.EditorTools
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
             AssetDatabase.SaveAssets();
-            Debug.Log("[LastBullet] Phase 4-3: 과녁 삭제, NavMesh 다시 굽기, PlayerHealth와 체력바를 만들고 Hideout 씬을 저장했어요.");
+            Debug.Log("[LastBullet] Phase 4-3: 과녁 삭제, NavMesh 다시 굽기, PlayerHealth와 체력바를 만들고 1_Museum 씬을 저장했어요.");
         }
     }
 }

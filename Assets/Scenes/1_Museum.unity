@@ -279,7 +279,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Player.PlayerHealth
   maxHp: 100
   restartDelay: 2
-  sceneAfterDeath: 
 --- !u!114 &2619189
 MonoBehaviour:
   m_ObjectHideFlags: 0

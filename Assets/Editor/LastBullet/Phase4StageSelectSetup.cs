@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace LastBullet.EditorTools
 {
-    // 미술관(Hideout)에 지도 탁자를 놓고, E로 여는 "전투 장소 선택" 팝업을 만든다.
+    // 미술관(1_Museum)에 지도 탁자를 놓고, E로 여는 "전투 장소 선택" 팝업을 만든다.
     // 팝업의 그림(창, 버튼 상태, 글자)은 모두 Assets/UI의 PNG라서 직접 그린 그림으로 바꿀 수 있다.
     // 메뉴: LastBullet > Phase 4-5 미술관 전투 장소 선택 만들기
     public static class Phase4StageSelectSetup
@@ -23,7 +23,7 @@ namespace LastBullet.EditorTools
         {
             if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
                 return;
-            var scene = EditorSceneManager.OpenScene("Assets/Scenes/Hideout.unity");
+            var scene = EditorSceneManager.OpenScene("Assets/Scenes/1_Museum.unity");
 
             var player = GameObject.Find("Player");
             var canvas = ArtSlots.FindCanvas();
@@ -102,7 +102,7 @@ namespace LastBullet.EditorTools
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
             AssetDatabase.SaveAssets();
-            Debug.Log("[LastBullet] Phase 4-5: 미술관에 StageMap(지도 탁자)과 전투 장소 선택 팝업을 만들고 Hideout 씬을 저장했어요.");
+            Debug.Log("[LastBullet] Phase 4-5: 미술관에 StageMap(지도 탁자)과 전투 장소 선택 팝업을 만들고 1_Museum 씬을 저장했어요.");
         }
 
         // 버튼: 상태별 그림(보통/마우스 올림/누름/잠김) + 글자 그림

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LastBullet.Core;
 using LastBullet.Enemy;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,14 +9,11 @@ using UnityEngine.SceneManagement;
 namespace LastBullet.Stage
 {
     // 스테이지 진행 (기획서 2.6). 씬에 있는 적을 모두 처치하면 클리어.
-    // 클리어하면 "클리어" 그림을 띄우고 잠시 뒤 미술관(Hideout)으로 돌아간다.
+    // 클리어하면 "클리어" 그림을 띄우고 잠시 뒤 미술관(1_Museum)으로 돌아간다.
     // Phase 5에서 더할 부분: 클리어 시 전투 가방 정산(RunBag.Settle), 다음 스테이지 해금.
     // 붙일 곳: 스테이지 씬의 StageManager 오브젝트
     public class StageManager : MonoBehaviour
     {
-        [Tooltip("클리어 후 돌아갈 씬")]
-        [SerializeField] string returnScene = "Hideout";
-
         [SerializeField] float returnDelay = 3f;
 
         [Tooltip("클리어 때 켜는 UI (Assets/UI/StageClear.png)")]
@@ -61,7 +59,7 @@ namespace LastBullet.Stage
         IEnumerator ReturnAfterDelay()
         {
             yield return new WaitForSeconds(returnDelay);
-            SceneManager.LoadScene(returnScene);
+            SceneManager.LoadScene(SceneNames.Museum);
         }
     }
 }

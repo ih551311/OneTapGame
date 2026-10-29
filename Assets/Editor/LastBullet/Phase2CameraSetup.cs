@@ -14,13 +14,13 @@ namespace LastBullet.EditorTools
         [MenuItem("LastBullet/Phase 2-2 3인칭 카메라와 크로스헤어 만들기")]
         static void Create()
         {
-            // Hideout 씬이 열려 있지 않으면 자동으로 연다.
+            // 1_Museum 씬이 열려 있지 않으면 자동으로 연다.
             var scene = EditorSceneManager.GetActiveScene();
-            if (scene.name != "Hideout")
+            if (scene.name != "1_Museum")
             {
                 if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
                     return;
-                scene = EditorSceneManager.OpenScene("Assets/Scenes/Hideout.unity");
+                scene = EditorSceneManager.OpenScene("Assets/Scenes/1_Museum.unity");
             }
 
             var player = GameObject.Find("Player");
@@ -83,7 +83,7 @@ namespace LastBullet.EditorTools
             Selection.activeGameObject = followCamera;
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
-            Debug.Log("[LastBullet] Phase 2-2: 3인칭 카메라와 크로스헤어를 만들고 Hideout 씬을 저장했어요.");
+            Debug.Log("[LastBullet] Phase 2-2: 3인칭 카메라와 크로스헤어를 만들고 1_Museum 씬을 저장했어요.");
         }
 
         // 기존 크로스헤어를 지우고 십자 모양으로 다시 만든다.
@@ -92,9 +92,9 @@ namespace LastBullet.EditorTools
         {
             var scene = EditorSceneManager.GetActiveScene();
             var hud = ArtSlots.FindCanvas();
-            if (scene.name != "Hideout" || hud == null)
+            if (scene.name != "1_Museum" || hud == null)
             {
-                EditorUtility.DisplayDialog("LastBullet", "Hideout 씬을 열고 Phase 2-2 메뉴를 먼저 실행하세요.", "확인");
+                EditorUtility.DisplayDialog("LastBullet", "1_Museum 씬을 열고 Phase 2-2 메뉴를 먼저 실행하세요.", "확인");
                 return;
             }
 
@@ -105,7 +105,7 @@ namespace LastBullet.EditorTools
 
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
-            Debug.Log("[LastBullet] 크로스헤어를 십자 모양으로 다시 만들고 Hideout 씬을 저장했어요.");
+            Debug.Log("[LastBullet] 크로스헤어를 십자 모양으로 다시 만들고 1_Museum 씬을 저장했어요.");
         }
 
         // 크로스헤어: Assets/UI/Crosshair.png 그림 한 장 (사용자가 같은 이름으로 덮어써서 바꿀 수 있다)
