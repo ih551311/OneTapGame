@@ -26,6 +26,9 @@ namespace LastBullet.Combat
         [Tooltip("빗나갔을 때 바닥에 떨어지는 탄환. Prefabs/DroppedBullet")]
         [SerializeField] GameObject droppedBulletPrefab;
 
+        [Tooltip("몸에 맞았을 때 피해 (기획서 2.4-4). 머리는 즉사")]
+        [SerializeField] int bodyDamage = 15;
+
         [Tooltip("최대 사거리 (기본값)")]
         [SerializeField] float maxRange = 50f;
 
@@ -94,7 +97,8 @@ namespace LastBullet.Combat
             if (hitbox != null)
             {
                 Debug.Log($"[OneBulletGun] 적 명중: {muzzleHit.collider.name} ({hitbox.Part})");
-                State = BulletState.Loaded;
+                State = BulletState.Loaded; // 적 체력과 관계없이 명중하면 바로 다시 쓸 수 있다
+                hitbox.TakeHit(bodyDamage);
                 return;
             }
 
