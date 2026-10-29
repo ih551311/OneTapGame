@@ -17,7 +17,7 @@
 |---|---|
 | 1 프로젝트 설정 | ✅ 완료 (2026-10-29, 브랜치 `phase1/project-setup`) |
 | 2 플레이어 | ✅ 완료 (2026-10-29, 사용자가 WASD·Shift·Space·Q·카메라 확인). 2-1 바닥·캡슐·CharacterController ✅. 2-2 3인칭 카메라(Cinemachine ThirdPersonFollow + `ThirdPersonCamera`)·크로스헤어 ✅ (오류 없음, 마우스 회전은 사용자 실제 확인 필요). 2-3 이동·달리기·점프·회피(`PlayerMovement`, 화면 왼쪽 위 테스트 표시) ✅ |
-| 3 한 발 탄환 | 다음 차례. 첫 작업: 발사와 명중 판정 (카메라 목표점 → 총구 재판정) |
+| 3 한 발 탄환 | 진행 중. 3-1 발사·명중 판정(`OneBulletGun`, 탄도선, 맞은 자리 노란 점, 임시 과녁 `TestTargets (임시)`) 작성, 명중 로그 확인. 지금은 쏜 뒤 바로 재장전 (3-2에서 빗나감 → Dropped). 최대 사거리 50m (기본값) |
 
 Phase 1에서 한 일 (2026-10-29):
 - [x] Unity 6 URP 프로젝트, New Input System 활성화 (`activeInputHandler: 1` 확인)
