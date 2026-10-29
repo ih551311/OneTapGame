@@ -71,6 +71,15 @@
 & "C:\Users\ih551\AppData\Local\Fork\gitInstance\2.50.1\bin\git.exe" status
 ```
 
+## 유니티 에디터 조작 (2026-10-30 연결)
+
+- **Unity MCP**(`unity-editor-mcp`, 프로젝트 루트 `.mcp.json`)와 **Unity CLI**(`C:\Users\ih551\AppData\Local\Unity\bin\unity.exe`), 프로젝트 패키지 `com.unity.pipeline`으로 열린 에디터를 직접 조작한다. 화면 클릭(computer-use)으로 메뉴를 누르지 않는다.
+- 먼저 `unity status --format json`으로 에디터 연결(`state: ready`)을 확인한다. 에디터가 꺼져 있으면 `unity open C:\Users\ih551\OneTapGame`.
+- 메뉴 실행: MCP 도구 `invoke_menu` 또는 `unity command invoke_menu --path "LastBullet/..."`.
+- 컴파일: `recompile` → `recompile_status` (에디터 창이 뒤에 있어도 된다). 씬 화면 확인: `scene_view`. 코드 실행: `eval`.
+- 연결이 안 되면 컴파일 오류로 Safe Mode일 수 있다: `unity pipeline list`로 확인 후 오류를 고친다.
+- MCP 도구는 세션을 새로 시작해야 보인다. 그 전에는 위 CLI 명령으로 같은 일을 한다.
+
 ## 유니티 작업 규칙
 
 - `Library/`, `Temp/`, `Logs/`, `UserSettings/`는 유니티가 자동으로 만드는 폴더다. 직접 고치거나 커밋하지 않는다.
