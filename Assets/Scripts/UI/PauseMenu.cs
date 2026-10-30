@@ -62,6 +62,8 @@ namespace LastBullet.UI
         {
             if (Keyboard.current == null || !Keyboard.current.escapeKey.wasPressedThisFrame)
                 return;
+            if (RunResultPopup.IsShowing)
+                return; // 결과 창이 떠 있을 때는 [미술관으로]로만 나간다
 
             if (IsOpen)
                 Resume();
@@ -102,10 +104,18 @@ namespace LastBullet.UI
 
         // 미술관으로 귀환: 이번 판에서 얻은 재료(전투 가방)를 창고로 정산하고 미술관으로 돌아간다.
         // 스테이지 클리어가 없는 자유 파밍에서 재료를 가져가는 방법이다 (죽으면 재료를 잃는다).
+        // 결과 창(RunResultPopup)이 있으면 이번 판 요약을 보여 주고, [미술관으로]를 누르면 미술관으로 간다.
         void GoHome()
         {
+            RunSummary summary = RunBag.Current != null ? RunBag.Current.Summary() : default; // 정산하면 가방이 비므로 먼저 받아 둔다
             if (RunBag.Current != null)
                 RunBag.Current.Settle();
+            if (RunResultPopup.Current != null)
+            {
+                window.SetActive(false); // 결과 창이 시간을 멈춘 채 떠 있는다
+                RunResultPopup.Current.Show(summary, false);
+                return;
+            }
             Time.timeScale = 1f; // 멈춘 채 씬을 옮기면 다음 씬도 멈춘다
             SceneManager.LoadScene(SceneNames.Museum);
         }

@@ -14,7 +14,14 @@ namespace LastBullet.Stage
         public static RunBag Current { get; private set; }
 
         public int PaperScraps { get; private set; }
+        public int Kills { get; private set; } // 이번 판에 처치한 적 수 (적을 잡을 때마다 Add가 불린다)
         readonly int[] paints = new int[PaintColors.Count];
+
+        // 이번 판 요약 (결과 창이 보여 준다). 정산·삭제(Settle, Clear)로 가방이 비워지기 전에 받아 둔다.
+        public RunSummary Summary()
+        {
+            return new RunSummary { kills = Kills, paperScraps = PaperScraps, paints = (int[])paints.Clone() };
+        }
 
         public event Action Changed; // 화면 표시(RunBagUI)가 듣는다
 
@@ -34,6 +41,7 @@ namespace LastBullet.Stage
         public void Add(int paperScraps, PaintColor color, int paintAmount)
         {
             PaperScraps += paperScraps;
+            Kills++;
             paints[(int)color] += paintAmount;
             Debug.Log($"[RunBag] 종이조각 +{paperScraps} (합계 {PaperScraps}), {PaintColors.KoreanNames[(int)color]} 물감 +{paintAmount} (합계 {paints[(int)color]})");
             Changed?.Invoke();
@@ -63,8 +71,17 @@ namespace LastBullet.Stage
         void Empty()
         {
             PaperScraps = 0;
+            Kills = 0;
             Array.Clear(paints, 0, paints.Length);
             Changed?.Invoke();
         }
+    }
+
+    // 한 판의 요약: 처치 수, 종이조각, 물감 9색 양
+    public struct RunSummary
+    {
+        public int kills;
+        public int paperScraps;
+        public int[] paints; // PaintColor 순서
     }
 }

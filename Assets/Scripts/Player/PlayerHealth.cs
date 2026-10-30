@@ -3,6 +3,7 @@ using System.Collections;
 using LastBullet.Combat;
 using LastBullet.Core;
 using LastBullet.Stage;
+using LastBullet.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +11,7 @@ namespace LastBullet.Player
 {
     // 플레이어 체력 (기획서 2.3). 최대 100, 전투 중 회복 없음.
     // 회피 무적 중에는 피해를 받지 않는다.
-    // 사망하면 조작을 막고 쓰러진 뒤, 잠시 뒤 미술관(1_Museum)으로 돌아간다 (기획서 2.6).
+    // 사망하면 조작을 막고 쓰러진 뒤, 잠시 뒤 결과 창(RunResultPopup)을 보여 주고 [미술관으로]로 미술관(1_Museum)에 돌아간다 (기획서 2.6).
     // 사망하면 이번 판 재료(전투 가방)를 모두 잃는다 (RunBag.Clear).
     // 붙일 곳: Player
     public class PlayerHealth : MonoBehaviour
@@ -58,6 +59,8 @@ namespace LastBullet.Player
         {
             IsDead = true;
             Debug.Log("[PlayerHealth] 사망");
+            // 잃는 양을 결과 창에 보여 주려고 비우기 전에 요약을 받아 둔다
+            RunSummary lost = RunBag.Current != null ? RunBag.Current.Summary() : default;
             if (RunBag.Current != null)
                 RunBag.Current.Clear();
 
@@ -72,13 +75,18 @@ namespace LastBullet.Player
             transform.rotation *= Quaternion.Euler(-80f, 0f, 0f);
 
             Died?.Invoke();
-            StartCoroutine(RestartAfterDelay());
+            StartCoroutine(ShowResultAfterDelay(lost));
         }
 
-        IEnumerator RestartAfterDelay()
+        // 쓰러진 뒤 잠시 있다가 "쓰러졌어요" 결과 창(잃은 재료)을 보여 준다. [미술관으로]를 누르면 미술관으로 돌아간다.
+        // 결과 창이 없는 씬에서는 예전처럼 바로 미술관으로 간다.
+        IEnumerator ShowResultAfterDelay(RunSummary lost)
         {
             yield return new WaitForSeconds(restartDelay);
-            SceneManager.LoadScene(SceneNames.Museum);
+            if (RunResultPopup.Current != null)
+                RunResultPopup.Current.Show(lost, true);
+            else
+                SceneManager.LoadScene(SceneNames.Museum);
         }
     }
 }
