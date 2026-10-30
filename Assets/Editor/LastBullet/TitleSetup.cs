@@ -320,7 +320,8 @@ namespace LastBullet.EditorTools
             // 스크롤 영역: 보이는 창(Viewport, 넘치는 부분은 가림) 안에 그림 칸들(Content)
             var scroll = new GameObject("Scroll", typeof(RectTransform), typeof(ScrollRect));
             scroll.transform.SetParent(panel, false);
-            Phase4StageSelectSetup.SetRect(scroll, new Vector2(0.5f, 0.5f), new Vector2(0f, 20f), new Vector2(1300f, 600f));
+            // 2026-10-31: 두 줄(칸 280 × 2 + 간격 30 + 위아래 여백 10 × 2 = 610)이 잘리지 않게 높이 620 (예전 600은 아래가 잘렸다)
+            Phase4StageSelectSetup.SetRect(scroll, new Vector2(0.5f, 0.5f), new Vector2(0f, 10f), new Vector2(1300f, 620f));
             var viewport = new GameObject("Viewport", typeof(RectTransform), typeof(RectMask2D));
             viewport.transform.SetParent(scroll.transform, false);
             Phase4StageSelectSetup.Stretch(viewport.GetComponent<RectTransform>());
@@ -334,7 +335,7 @@ namespace LastBullet.EditorTools
             var grid = content.GetComponent<GridLayoutGroup>();
             grid.cellSize = new Vector2(280f, 280f);
             grid.spacing = new Vector2(30f, 30f);
-            grid.padding = new RectOffset(20, 20, 20, 20);
+            grid.padding = new RectOffset(20, 20, 10, 10);
             grid.childAlignment = TextAnchor.UpperCenter;
             content.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
             var scrollRect = scroll.GetComponent<ScrollRect>();
