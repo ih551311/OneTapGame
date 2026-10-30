@@ -108,6 +108,8 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/StageMap.mat` | 미술관 지도 탁자 (전투 장소 선택) | `1_Museum` 씬의 `StageMap` |
 | `Materials/PaperCraftTable.mat` | 미술관 종이 합성대 | `1_Museum` 씬의 `PaperCraftTable` |
 | `Materials/PaintWorkbench.mat` | 미술관 그림 작업대 | `1_Museum` 씬의 `PaintWorkbench` |
+| `Materials/PaintBurst.mat` | 처치 때 터지는 물감 방울(작은 공 입자, 색은 떨어뜨린 물감 색으로 코드가 입힌다) | 프리팹 `Prefabs/PaintBurst`의 ParticleSystem (공 모양은 Renderer의 Mesh) |
+| `Materials/PaintSplat.mat` | 처치한 자리 바닥에 남는 물감 자국(납작한 원, 약간 젖은 느낌, 색은 코드가 입힌다) | 프리팹 `Prefabs/PaintBurst`의 `Puddle` |
 | `Materials/Enemy_Shield.mat` | 방어형 적 몸 (푸르스름한 회색 돌) | 프리팹 `Prefabs/Enemy_Shield`의 `Body`, `Head` (Hitbox 콜라이더 크기도 맞춘다) |
 | `Materials/EnemyShieldPlate.mat` | 방어형의 방패 판 (정면 ±60°를 막는다. 충돌 없는 겉모습) | 프리팹 `Prefabs/Enemy_Shield`의 `Shield` |
 | `Materials/Enemy_Thrower.mat` | 원거리형 적 몸 (소형 조각, 갈색 돌) | 프리팹 `Prefabs/Enemy_Thrower`의 `Body`, `Head`. 돌이 나가는 자리는 `ThrowPoint` |

@@ -31,7 +31,7 @@ namespace LastBullet.Enemy
         [SerializeField] float windupTime = 0.5f;       // 공격 예고 (기획서: 0.5초 전)
         [SerializeField] float leanAngle = 25f;         // 예고 동안 뒤로 젖히는 각도
         [SerializeField] float recoverTime = 0.4f;      // 던진 뒤 쉬는 시간
-        [SerializeField] float projectileSpeed = 12f;   // m/s
+        [SerializeField] float projectileSpeed = 16f;   // m/s (2026-10-30 사용자 요청: 기획서의 12에서 조금 빠르게)
         [SerializeField] int attackDamage = 12;         // 기획서 2.5: 원거리형 공격력 12
 
         [Header("피격 (기본값)")]

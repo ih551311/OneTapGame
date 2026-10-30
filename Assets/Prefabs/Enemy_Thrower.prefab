@@ -370,6 +370,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Enemy.EnemyDrop
   paperScraps: 1
   paintAmount: 30
+  burstPrefab: {fileID: 2879663683518160130, guid: f12c70f52bc02bc409e67e481ffc7078, type: 3}
+  burstPoint: {fileID: 6011912310060955592}
 --- !u!114 &5562956883456684164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,7 +394,7 @@ MonoBehaviour:
   windupTime: 0.5
   leanAngle: 25
   recoverTime: 0.4
-  projectileSpeed: 12
+  projectileSpeed: 16
   attackDamage: 12
   hitStunTime: 0.25
   projectilePrefab: {fileID: 6169165339338938041, guid: 208124c4e28c7a948911235210a2fa9e, type: 3}

@@ -346,6 +346,7 @@ MonoBehaviour:
   recoverTime: 0.8
   attackDamage: 15
   contactRange: 1.3
+  turnSpeed: 0
   hitStunTime: 0.25
 --- !u!114 &1571627698520832080
 MonoBehaviour:
@@ -361,3 +362,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Enemy.EnemyDrop
   paperScraps: 1
   paintAmount: 30
+  burstPrefab: {fileID: 2879663683518160130, guid: f12c70f52bc02bc409e67e481ffc7078, type: 3}
+  burstPoint: {fileID: 6011912310060955592}
