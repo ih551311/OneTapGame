@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using LastBullet.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace LastBullet.UI
@@ -14,8 +16,21 @@ namespace LastBullet.UI
 
         public bool IsOpen => gameObject.activeSelf;
 
+        // 지금 열려 있는 팝업들 (나중에 연 것이 뒤). 팝업 위에 팝업이 열릴 수 있다 (그림판 위의 "내 그림").
+        // 맨 위 팝업만 ESC를 받고, 모두 닫혔을 때만 플레이어 조작을 되돌린다.
+        static readonly List<PopupBase> openStack = new List<PopupBase>();
+        static int escHandledFrame = -1;
+
         PlayerControlLock playerLock;
         bool initialized;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetOnPlay()
+        {
+            openStack.Clear();
+            escHandledFrame = -1;
+            SceneManager.sceneLoaded += (scene, mode) => openStack.Clear(); // 팝업이 열린 채 씬이 바뀌어도 남지 않게
+        }
 
         // 처음 열릴 때 한 번: 버튼 연결 등
         protected virtual void OnFirstOpen() { }
@@ -36,6 +51,8 @@ namespace LastBullet.UI
                 OnFirstOpen();
             }
             gameObject.SetActive(true);
+            openStack.Remove(this);
+            openStack.Add(this);
             if (playerLock != null)
                 playerLock.SetLocked(true);
             OnOpened();
@@ -44,7 +61,8 @@ namespace LastBullet.UI
         public void Close()
         {
             gameObject.SetActive(false);
-            if (playerLock != null)
+            openStack.Remove(this);
+            if (playerLock != null && openStack.Count == 0)
                 playerLock.SetLocked(false);
         }
 
@@ -56,8 +74,14 @@ namespace LastBullet.UI
 
         protected virtual void Update()
         {
-            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+            if (Keyboard.current == null || !Keyboard.current.escapeKey.wasPressedThisFrame)
+                return;
+            // 맨 위 팝업만 처리한다. 같은 프레임에 아래 팝업이 이어서 반응하지 않게 프레임을 기록한다.
+            if (openStack.Count > 0 && openStack[openStack.Count - 1] == this && escHandledFrame != Time.frameCount)
+            {
+                escHandledFrame = Time.frameCount;
                 RequestClose();
+            }
         }
     }
 }

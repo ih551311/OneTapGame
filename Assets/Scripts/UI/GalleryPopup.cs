@@ -9,6 +9,7 @@ namespace LastBullet.UI
     // 그림 보기 팝업 (타이틀의 "그림 보기" 버튼으로 연다).
     // 완성한 그림(작품)이 격자로 보이고, 많으면 위아래로 스크롤한다. 그림이 없으면 "아직 그림이 없어요".
     // 그림을 눌러 고른 뒤 "왼쪽에 걸기" / "오른쪽에 걸기"를 누르면 타이틀 화면 액자에 걸린다 (save.json에 저장).
+    // 미술관에서는 보기 전용으로 쓴다 (그림판의 "내 그림" 버튼, viewOnly).
     // 붙일 곳: Canvas/GalleryPopup (평소에는 꺼져 있다)
     public class GalleryPopup : PopupBase
     {
@@ -27,11 +28,28 @@ namespace LastBullet.UI
         [Tooltip("타이틀 화면 액자. 그림을 걸면 바로 바뀐다")]
         [SerializeField] TitleFrames titleFrames;
 
+        [Tooltip("보기 전용(미술관 그림판의 \"내 그림\"): 걸기 버튼을 숨기고, 그림을 누르면 크게 보여 준다")]
+        [SerializeField] bool viewOnly;
+
+        [Tooltip("크게 보기 창 (보기 전용일 때만. 평소에는 꺼져 있고, 아무 데나 누르면 닫힌다)")]
+        [SerializeField] GameObject largeView;
+
+        [SerializeField] RawImage largePicture;
+
+        [SerializeField] Button largeViewCloseArea;
+
         readonly List<GameObject> items = new List<GameObject>();
         string selectedId;
 
         protected override void OnFirstOpen()
         {
+            if (viewOnly)
+            {
+                hangLeftButton.gameObject.SetActive(false);
+                hangRightButton.gameObject.SetActive(false);
+                largeViewCloseArea.onClick.AddListener(() => largeView.SetActive(false));
+                return;
+            }
             hangLeftButton.onClick.AddListener(() => Hang(0));
             hangRightButton.onClick.AddListener(() => Hang(1));
         }
@@ -39,7 +57,18 @@ namespace LastBullet.UI
         protected override void OnOpened()
         {
             selectedId = null;
+            if (largeView != null)
+                largeView.SetActive(false);
             Refresh();
+        }
+
+        // 크게 보고 있을 때 ESC는 크게 보기만 닫는다
+        protected override void RequestClose()
+        {
+            if (largeView != null && largeView.activeSelf)
+                largeView.SetActive(false);
+            else
+                Close();
         }
 
         void Refresh()
@@ -67,6 +96,12 @@ namespace LastBullet.UI
 
         void Select(string id)
         {
+            if (viewOnly)
+            {
+                largePicture.texture = PaintingLibrary.LoadTexture(PaintingLibrary.Find(id));
+                largeView.SetActive(true);
+                return;
+            }
             selectedId = id;
             foreach (var item in items)
                 item.transform.Find("Selected").gameObject.SetActive(item.name == $"Item_{id}");

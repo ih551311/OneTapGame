@@ -39,6 +39,12 @@ namespace LastBullet.Drawing
         [Tooltip("완성 버튼. 종이가 있을 때만 눌린다")]
         [SerializeField] Button doneButton;
 
+        [Tooltip("\"내 그림\" 버튼. 완성한 그림들을 보는 팝업을 연다")]
+        [SerializeField] Button galleryButton;
+
+        [Tooltip("완성한 그림을 보는 팝업 (보기 전용 GalleryPopup)")]
+        [SerializeField] PopupBase galleryPopup;
+
         [Tooltip("취소할 때 뜨는 확인창 (평소에는 꺼져 있다)")]
         [SerializeField] GameObject confirmDialog;
 
@@ -83,6 +89,11 @@ namespace LastBullet.Drawing
                 colorButtons[i].onClick.AddListener(() => SelectColor(color));
             }
             doneButton.onClick.AddListener(Complete);
+            galleryButton.onClick.AddListener(() =>
+            {
+                drawing = false;
+                galleryPopup.Open();
+            });
             confirmDiscardButton.onClick.AddListener(Close); // 미완성 그림은 저장된 적이 없으니 닫기만 하면 버려진다
             confirmContinueButton.onClick.AddListener(() => confirmDialog.SetActive(false));
             InventoryManager.Instance.Changed += RefreshInventory;
@@ -166,8 +177,8 @@ namespace LastBullet.Drawing
         void HandleMouse()
         {
             var mouse = Mouse.current;
-            if (mouse == null || confirmDialog.activeSelf)
-                return; // 확인창이 떠 있는 동안은 그릴 수 없다
+            if (mouse == null || confirmDialog.activeSelf || galleryPopup.IsOpen)
+                return; // 확인창이나 "내 그림"이 떠 있는 동안은 그릴 수 없다
 
             bool hasPoint = TryGetCanvasPoint(mouse.position.ReadValue(), out Vector2 point, out bool inside);
             if (mouse.leftButton.wasPressedThisFrame && hasPoint && inside)
