@@ -39,6 +39,15 @@ namespace LastBullet.Drawing
         [Tooltip("완성 버튼. 종이가 있을 때만 눌린다")]
         [SerializeField] Button doneButton;
 
+        [Tooltip("취소할 때 뜨는 확인창 (평소에는 꺼져 있다)")]
+        [SerializeField] GameObject confirmDialog;
+
+        [Tooltip("확인창의 '그만두기' 버튼. 그림을 버리고 닫는다")]
+        [SerializeField] Button confirmDiscardButton;
+
+        [Tooltip("확인창의 '계속 그리기' 버튼")]
+        [SerializeField] Button confirmContinueButton;
+
         // 펜 굵기 (px, 기획서 2.8)
         public static readonly int[] PenSizes = { 2, 5, 10, 20 };
 
@@ -74,7 +83,17 @@ namespace LastBullet.Drawing
                 colorButtons[i].onClick.AddListener(() => SelectColor(color));
             }
             doneButton.onClick.AddListener(Complete);
+            confirmDiscardButton.onClick.AddListener(Close); // 미완성 그림은 저장된 적이 없으니 닫기만 하면 버려진다
+            confirmContinueButton.onClick.AddListener(() => confirmDialog.SetActive(false));
             InventoryManager.Instance.Changed += RefreshInventory;
+        }
+
+        // 취소 버튼·ESC: 바로 닫지 않고 확인창을 띄운다 (기획서 2.8). 확인창이 떠 있을 때 ESC는 "계속 그리기".
+        // 쓴 물감은 돌려주지 않고, 종이는 쓰지 않는다.
+        protected override void RequestClose()
+        {
+            drawing = false;
+            confirmDialog.SetActive(!confirmDialog.activeSelf);
         }
 
         // 완성: PNG로 저장하고 작품 목록에 등록한 뒤에만 종이 1장을 쓴다. 저장에 실패하면 종이는 그대로다.
@@ -98,6 +117,7 @@ namespace LastBullet.Drawing
 
         protected override void OnOpened()
         {
+            confirmDialog.SetActive(false);
             NewCanvas();
             SelectTool(1);
             SelectColor(PaintColor.Black);
@@ -146,8 +166,8 @@ namespace LastBullet.Drawing
         void HandleMouse()
         {
             var mouse = Mouse.current;
-            if (mouse == null)
-                return;
+            if (mouse == null || confirmDialog.activeSelf)
+                return; // 확인창이 떠 있는 동안은 그릴 수 없다
 
             bool hasPoint = TryGetCanvasPoint(mouse.position.ReadValue(), out Vector2 point, out bool inside);
             if (mouse.leftButton.wasPressedThisFrame && hasPoint && inside)

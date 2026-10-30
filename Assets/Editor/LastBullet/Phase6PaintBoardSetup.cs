@@ -125,12 +125,12 @@ namespace LastBullet.EditorTools
         }
 
         // 위쪽 왼쪽 모서리 기준 위치(x, y)로 놓는다 (패널 안)
-        static void Place(GameObject go, float x, float y, float width, float height)
+        internal static void Place(GameObject go, float x, float y, float width, float height)
         {
             Phase4StageSelectSetup.SetRect(go, new Vector2(0f, 1f), new Vector2(x, -y), new Vector2(width, height));
         }
 
-        static GameObject Sliced(string name, Transform parent, string path, float border)
+        internal static GameObject Sliced(string name, Transform parent, string path, float border)
         {
             var go = Phase4StageSelectSetup.CreateImage(name, parent, path, border);
             var image = go.GetComponent<Image>();
@@ -159,6 +159,12 @@ namespace LastBullet.EditorTools
         // 상태별 그림(보통/마우스 올림/누름/잠김)과 글자 그림이 있는 버튼
         static Button PaintButton(string name, Transform parent, string kind, bool hasDisabled, float x, float y)
         {
+            return PaintButton(name, parent, kind, kind, hasDisabled, x, y);
+        }
+
+        // 버튼 배경은 kind(Cancel/Done)의 그림, 글자는 labelKind의 그림
+        internal static Button PaintButton(string name, Transform parent, string kind, string labelKind, bool hasDisabled, float x, float y)
+        {
             const float border = 32f;
             var go = Sliced(name, parent, $"Assets/UI/Paint_Button_{kind}_Normal.png", border);
             go.GetComponent<Image>().raycastTarget = true;
@@ -172,7 +178,7 @@ namespace LastBullet.EditorTools
                 selectedSprite = ArtSlots.LoadSprite($"Assets/UI/Paint_Button_{kind}_Normal.png", border),
                 disabledSprite = hasDisabled ? ArtSlots.LoadSprite($"Assets/UI/Paint_Button_{kind}_Disabled.png", border) : null,
             };
-            var label = Phase4StageSelectSetup.CreateImage("Label", go.transform, $"Assets/UI/Paint_Label_{kind}.png");
+            var label = Phase4StageSelectSetup.CreateImage("Label", go.transform, $"Assets/UI/Paint_Label_{labelKind}.png");
             Phase4StageSelectSetup.SetRect(label, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(240f, 90f));
             return button;
         }

@@ -46,6 +46,8 @@
 | `Assets/UI/Paint_Color_Selected.png` | 고른 색 표시 테두리 | 80×80 | |
 | `Assets/UI/Paint_Button_Cancel_*.png`, `Paint_Button_Done_*.png` | 취소/완성 버튼 (Normal·Highlighted·Pressed, 완성만 Disabled 추가) | 96×96 | 9-slice 모서리 32 |
 | `Assets/UI/Paint_Label_Cancel.png` / `Paint_Label_Done.png` | 버튼 글자 "취소" / "완성" | 256×96 | |
+| `Assets/UI/Paint_Confirm_Message.png` | 그림판 취소 확인창 문구 (두 줄) | 640×160 | 창·버튼 배경은 `Paint_Panel`, `Paint_Button_*`를 같이 씀 |
+| `Assets/UI/Paint_Label_Continue.png` / `Paint_Label_Discard.png` | 확인창 버튼 글자 "계속 그리기" / "그만두기" | 256×96 | |
 | `Assets/UI/Arrow_Right.png` | 만드는 법 화살표 (재료 → 결과) | 96×64 | 오른쪽을 가리키게 그린다 |
 | `Assets/UI/ButtonLabel_Craft.png` | 버튼 글자 "합성" | 512×128 | 버튼 배경은 Button_*.png |
 | `Assets/UI/Title_Background.png` | 타이틀 배경 (화면 전체) | 1920×1080 | 화면 크기에 맞게 늘어난다 |

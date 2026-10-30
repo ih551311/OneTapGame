@@ -32,7 +32,7 @@ namespace LastBullet.UI
                 if (player != null)
                     playerLock = player.GetComponent<PlayerControlLock>();
                 if (closeButton != null)
-                    closeButton.onClick.AddListener(Close);
+                    closeButton.onClick.AddListener(RequestClose);
                 OnFirstOpen();
             }
             gameObject.SetActive(true);
@@ -48,10 +48,16 @@ namespace LastBullet.UI
                 playerLock.SetLocked(false);
         }
 
+        // 닫기 버튼·ESC가 부른다. 닫기 전에 확인이 필요한 팝업(그림판)은 이것을 바꿔 쓴다.
+        protected virtual void RequestClose()
+        {
+            Close();
+        }
+
         protected virtual void Update()
         {
             if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
-                Close();
+                RequestClose();
         }
     }
 }
