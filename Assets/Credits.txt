@@ -2,5 +2,6 @@ LAST BULLET : 마지막 탄환 - 에셋 출처와 라이선스
 
 형식: 에셋 이름 | 제작자 | 출처 URL | 라이선스 | 사용 위치
 
+Minimalist ArchViz Bedroom 1.1 | Rad-Coders | Unity Asset Store (Minimalist ArchViz Bedroom, 무료) | Standard Unity Asset Store EULA | 미술관(1_Museum)의 바닥·회반죽 벽 재질·카펫·조명·화분·조각·벤치·그림·거울·진열장 (Assets/MinimalistBedroom). 예제 씬 폴더(Scenes)는 GitHub에 올리지 않음(.gitignore)
 3D Cartoon Village 1.0 | COMlad812 | Unity Asset Store (3D Cartoon Village, 무료) | Standard Unity Asset Store EULA | 성 마을 씬 3_CastleVillage의 성벽·성문·탑·집·마을 소품 (Assets/3D Cartoon Village, 0.25배로 줄여 씀). 머티리얼 31개는 URP용으로 바꿔 씀. 하늘·언덕·산·구름은 아래 RPG Poly Pack 것을 같이 씀
 RPG Poly Pack - Lite 1.2.0 | Gigel3d | Unity Asset Store (RPG Poly Pack - Lite, 무료) | Standard Unity Asset Store EULA | 숲 스테이지 지형·나무·바위·건물 (Assets/RPGPP_LT). 머티리얼 3개는 URP용으로 바꿔 씀

@@ -34,6 +34,10 @@
 # Jetbrains Rider personal-layer settings
 *.DotSettings.user
 
+# 에셋 Minimalist ArchViz Bedroom의 예제 씬(구운 빛 데이터 약 70MB). 게임에서 쓰지 않아 GitHub에는 올리지 않는다.
+/Assets/MinimalistBedroom/Scenes/
+/Assets/MinimalistBedroom/Scenes.meta
+
 # Visual Studio cache directory
 .vs/
 
