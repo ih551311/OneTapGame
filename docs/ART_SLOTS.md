@@ -68,7 +68,7 @@
 | `Assets/UI/ButtonLabel_ProfileDraw.png`, `ButtonLabel_ProfilePick.png` | 프로필 창의 [직접 그리기] [그림에서 고르기] 버튼 글자 | 480×100 | 버튼 틀은 `Button_*.png` |
 | `Assets/UI/Label_Nickname.png` | 옵션의 "닉네임" 글자 | 260×64 | 타이틀 `OptionsPopup` |
 | `Assets/UI/Input_Background.png` | 닉네임 입력 칸 배경 (어두운 칸 + 밝은 테두리, 9-slice 12px). 입력 글자는 TextMeshPro 한글 글꼴 `font1 SDF` | 96×96 | 옵션의 `NicknameInput` |
-| 화면 왼쪽 위 프로필 `HudProfile` (사진 액자 `Gallery_Frame.png`, 빈 사람 `Profile_Empty.png`, 이름표 `Profile_NamePlate.png`) | 미술관·숲·성 마을·사막 화면 왼쪽 위에 내 프로필 사진과 닉네임. 전투 맵의 체력바(`HealthBar`)는 그 바로 아래. 새 그림은 없고 위의 프로필 그림들을 같이 쓴다 | - | 4개 씬 `Canvas/HudProfile` |
+| `Assets/UI/Hud_Panel.png`, `Hud_Name.png`, `Hud_Photo.png` | 화면 왼쪽 위 프로필 패널(`HudProfile`): 어두운 판 `Hud_Panel`(9-slice 20px) 안에 큰 정사각형 사진(금색 얇은 테두리 `Hud_Photo` 10px, 빈 사람 모양은 `Profile_Empty.png`)과 조용한 어두운 이름 칸 `Hud_Name`(14px). 전투 맵은 패널 맨 아래에 체력바(`HealthBar`)가 가로로 놓인다 | 96×96, 96×96, 64×64 | 미술관·숲·성 마을·사막 `Canvas/HudProfile` |
 | `Assets/UI/Vignette_Hit.png` | 맞았을 때 번쩍이는 화면 가장자리 빨간 테두리 (가운데는 투명, 가장자리일수록 진함. 화면 전체로 늘려 씀) | 256×256 | 숲·성 마을·사막 `Canvas/HitFeedback/Flash` |
 | `Assets/UI/Vignette_LowHealth.png` | 체력이 낮을 때(35% 아래) 계속 덮이는 진한 붉은 테두리 (가운데 투명) | 256×256 | `Canvas/HitFeedback/LowHealth` |
 | `Assets/UI/PaintDrop_<Red|Orange|Yellow|Green|Blue|Indigo|Purple|White|Black>.png` (9장) | 적을 잡으면 가방 아이콘으로 날아가는 물감 방울 (색마다 한 장, 눈물 모양) | 64×64 | 숲·성 마을·사막 `Canvas/PaintCollect` (도착 지점은 가방 패널의 `Icon_Paint_*`) |
@@ -201,6 +201,7 @@ Enemy_Charger            ← 기능 (EnemyHealth, EnemyAI, EnemyDrop, NavMeshAge
 복잡한 모델 모양(MeshCollider)으로 판정하지 않는다: 느리고 판정이 들쭉날쭉하다.
 
 새 UI나 오브젝트가 생길 때마다 이 표에 추가한다.
+
 
 
 
