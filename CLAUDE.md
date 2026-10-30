@@ -59,6 +59,7 @@
   - `Assets/Scenes/0_Title.unity` = 기획서 `MainMenu` (타이틀, 게임 시작 씬, 빌드 0번)
   - `Assets/Scenes/1_Museum.unity` = 기획서 `Hideout` (미술관)
   - `Assets/Scenes/2_Forest.unity` = 기획서 `Stage_Forest` (숲, 전투 스테이지)
+  - `Assets/Scenes/3_CastleVillage.unity` = 성 마을 (전투 장소 2, 에셋 `Assets/3D Cartoon Village`. 마을·성 앞뜰·성 안 세 지역이 물감 3색씩 `PaintZone`)
   - 훈련장(2_Training)은 2026-10-30 사용자 결정으로 없앴다 (훈련장 없이 바로 숲). 숲은 에셋 `Assets/RPGPP_LT`(RPG Poly Pack - Lite)로 꾸몄다 (출처는 `Assets/Credits.txt`).
   - 게임 코드는 씬 이름을 `LastBullet.Core.SceneNames`에서만 쓴다.
 - 패키지: Cinemachine 3.1.7. TextMeshPro는 Unity 6에서 uGUI(`com.unity.ugui`)에 포함되어 있다.

@@ -6,6 +6,7 @@ namespace LastBullet.Core
     {
         public const string Title = "0_Title";   // 타이틀 메인 메뉴. 게임 시작 씬
         public const string Museum = "1_Museum"; // 미술관 (아지트)
-        public const string Forest = "2_Forest"; // 숲 (전투 스테이지)
+        public const string Forest = "2_Forest"; // 숲 (전투 장소)
+        public const string CastleVillage = "3_CastleVillage"; // 성 마을 (전투 장소, 물감 3등분)
     }
 }

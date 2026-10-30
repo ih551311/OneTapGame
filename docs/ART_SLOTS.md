@@ -55,6 +55,7 @@
 | `Assets/UI/Prompt_Frame.png` | 액자 근처 안내 "[E] 그림 걸기" | 768×96 | |
 | `Assets/UI/Frame_Title.png` | 액자 고르기 팝업 제목 "액자에 걸 그림" | 768×128 | 팝업의 나머지 그림은 타이틀 그림 보기와 같은 `Gallery_*`, `Popup_Panel` |
 | `Assets/UI/FrameProgress_Label.png` | 화면 위 가운데 진행도의 글자 "서로 다른 작품" (옆의 "3 / 9" 숫자는 TMP) | 384×96 | 배경은 `BagPanel.png`를 같이 씀 |
+| `Assets/UI/StageLabel_Castle.png` | 전투 장소 선택 버튼 글자 "성 마을" | 512×128 | |
 | `Assets/UI/Arrow_Right.png` | 만드는 법 화살표 (재료 → 결과) | 96×64 | 오른쪽을 가리키게 그린다 |
 | `Assets/UI/ButtonLabel_Craft.png` | 버튼 글자 "합성" | 512×128 | 버튼 배경은 Button_*.png |
 | `Assets/UI/Title_Background.png` | 타이틀 배경 (화면 전체) | 1920×1080 | 화면 크기에 맞게 늘어난다 |
@@ -115,6 +116,10 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/EnemyShieldPlate.mat` | 방어형의 방패 판 (정면 ±60°를 막는다. 충돌 없는 겉모습) | 프리팹 `Prefabs/Enemy_Shield`의 `Shield` |
 | `Materials/Enemy_Thrower.mat` | 원거리형 적 몸 (소형 조각, 갈색 돌) | 프리팹 `Prefabs/Enemy_Thrower`의 `Body`, `Head`. 돌이 나가는 자리는 `ThrowPoint` |
 | `Materials/EnemyProjectile.mat` | 원거리형이 던지는 돌 | 프리팹 `Prefabs/EnemyProjectile`의 `Model` |
+| `Materials/CastleFloor.mat` | 성 마을 바닥(밝은 풀색 평면, 멀리 깔린 것도 같이 씀) | `3_CastleVillage/Environment/Ground/Floor`, `Backdrop/FloorFar` |
+| `Materials/CastleRoad.mat` | 성 마을의 흙길과 마을 광장 바닥 | `Environment/Ground/Road`, `Plaza` |
+| `Materials/CastleCourtyard.mat` | 성 안 돌바닥 | `Environment/Ground/Courtyard` |
+| 에셋 `Assets/3D Cartoon Village/Materials/*.mat` (31개) | 성벽·탑·집·소품의 색별 머티리얼 (에셋 제공, URP로 변환). 모델을 3ds Max로 바꿀 때는 `Environment/Castle`, `Village`, `Field` 묶음별로 교체 | `3_CastleVillage/Environment` 아래 에셋 프리팹들 |
 | `Materials/ForestFloor.mat` | 숲 바닥(풀색 평면, 풀 타일 아래·멀리 깔림) | `2_Forest/Environment/Ground/Floor`, `Backdrop/FloorFar` |
 | 에셋 `Assets/RPGPP_LT/Materials/rpgpp_lt_mat_a.mat` | 숲의 나무·바위·건물·풀 타일 전부가 같이 쓰는 색 팔레트 머티리얼 (에셋 제공, URP로 변환). 색을 바꾸려면 `Textures/rpgpp_lt_tex_a.tga` 팔레트를 고친다 | `2_Forest/Environment` 아래 에셋 프리팹들 (나무·바위·건물 모델 교체는 `Environment` 묶음별로) |
 | `Materials/PictureFrame.mat` | 미술관 액자 테두리 (금색) | `PictureFrame_01/Frame` (모델로 바꿀 때 `Picture` 면 위치·크기만 맞춘다) |
