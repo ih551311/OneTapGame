@@ -173,8 +173,8 @@ namespace LastBullet.EditorTools
                 float t = i * step;
                 Spawn(cliff, parent, new Vector2(t, edge), 180f, scale, 0.1f);   // 북
                 Spawn(cliff, parent, new Vector2(t, -edge), 0f, scale, 0.1f);    // 남
-                Spawn(cliff, parent, new Vector2(edge, t), 90f, scale, 0.1f);    // 동
-                Spawn(cliff, parent, new Vector2(-edge, t), -90f, scale, 0.1f);  // 서
+                Spawn(cliff, parent, new Vector2(edge, t), -90f, scale, 0.1f);   // 동 (앞면이 안쪽 -X를 보게)
+                Spawn(cliff, parent, new Vector2(-edge, t), 90f, scale, 0.1f);   // 서 (앞면이 안쪽 +X를 보게)
             }
             // 모서리 전용 조각(CliffCorner)은 방향 맞추기가 어려워 쓰지 않는다. 네 변의 절벽이 모서리에서 서로 겹쳐 덮는다.
         }
