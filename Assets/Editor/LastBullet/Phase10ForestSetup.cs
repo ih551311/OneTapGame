@@ -96,6 +96,9 @@ namespace LastBullet.EditorTools
             player.transform.position = new Vector3(PlayerStart.x, player.transform.position.y, PlayerStart.z);
             player.transform.rotation = Quaternion.identity; // +Z(숲 안쪽)를 본다
             controller.enabled = true;
+            // 팝업·일시정지 창이 열렸을 때 이동·카메라·사격을 멈추고 마우스를 보이게 하는 것 (훈련장 복사본에는 빠져 있었다)
+            if (player.GetComponent<LastBullet.Player.PlayerControlLock>() == null)
+                player.AddComponent<LastBullet.Player.PlayerControlLock>();
 
             // 4. NavMesh: 이 씬 전용 데이터를 새로 굽는다 (훈련장 것을 덮어쓰지 않게 먼저 비운다)
             var surface = GameObject.Find("NavMesh").GetComponent<NavMeshSurface>();
