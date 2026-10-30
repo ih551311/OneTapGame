@@ -72,6 +72,18 @@ namespace LastBullet.Inventory
             return true;
         }
 
+        // 그림판 "완성": 그림용 종이 1장을 쓴다. 종이가 없으면 false.
+        // 호출하는 쪽이 PNG 저장에 성공한 뒤에만 불러야 한다 (기획서 2.8).
+        public bool UseDrawingPaper()
+        {
+            if (DrawingPaper <= 0)
+                return false;
+            DrawingPaper--;
+            Debug.Log($"[Inventory] 그림용 종이 사용: {DrawingPaper}장 남음");
+            SaveAndNotify();
+            return true;
+        }
+
         // 넣고 남아서 버린 양을 돌려준다
         public int AddPaint(PaintColor color, int amount)
         {

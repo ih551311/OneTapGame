@@ -11,7 +11,7 @@ namespace LastBullet.Drawing
     // 그림판 팝업 (미술관의 그림 작업대에서 E로 연다, 기획서 2.8).
     // 6-1: 도구(펜 굵기 4단계, 지우개)와 색(9색)을 고르고, 종이 수와 물감 잔량을 보여 준다.
     // 6-2: 마우스로 그린다. 물감은 선을 그은 길이만큼 쓰고, 0이면 그리기가 막힌다. 지우개는 물감을 쓰지 않는다.
-    //      완성·저장은 Phase 7.
+    // 7-1: 완성 버튼 = PNG 저장 → 작품 등록 → 종이 1장 사용. 취소 확인창은 7-2.
     // 닫기 버튼 칸(PopupBase.closeButton)에는 "취소" 버튼을 연결한다.
     // 붙일 곳: Canvas/PaintBoardPopup (평소에는 꺼져 있다)
     public class PaintBoardPopup : PopupBase
@@ -36,7 +36,7 @@ namespace LastBullet.Drawing
 
         [SerializeField] TMP_Text paperCount;
 
-        [Tooltip("완성 버튼. 저장은 Phase 7에서 연결한다")]
+        [Tooltip("완성 버튼. 종이가 있을 때만 눌린다")]
         [SerializeField] Button doneButton;
 
         // 펜 굵기 (px, 기획서 2.8)
@@ -73,7 +73,27 @@ namespace LastBullet.Drawing
                 var color = (PaintColor)i;
                 colorButtons[i].onClick.AddListener(() => SelectColor(color));
             }
+            doneButton.onClick.AddListener(Complete);
             InventoryManager.Instance.Changed += RefreshInventory;
+        }
+
+        // 완성: PNG로 저장하고 작품 목록에 등록한 뒤에만 종이 1장을 쓴다. 저장에 실패하면 종이는 그대로다.
+        // 내용은 상관없다 (빈 종이도 된다, 기획서 2.8).
+        void Complete()
+        {
+            var inventory = InventoryManager.Instance;
+            if (inventory.DrawingPaper <= 0)
+                return;
+
+            Canvas.SetPixels32(pixels); // 아직 화면에 반영되지 않은 마지막 획까지 담는다
+            Canvas.Apply();
+            var info = PaintingLibrary.Add(Canvas);
+            if (info == null)
+                return; // 저장 실패: 종이를 쓰지 않고 그림판을 그대로 둔다
+
+            inventory.UseDrawingPaper();
+            Debug.Log($"[PaintBoard] 그림 완성: {info.id}");
+            Close();
         }
 
         protected override void OnOpened()
@@ -276,8 +296,7 @@ namespace LastBullet.Drawing
             paperCount.text = $"{inventory.DrawingPaper}";
             for (int i = 0; i < paintAmounts.Length; i++)
                 paintAmounts[i].text = $"{inventory.GetPaint((PaintColor)i)}";
-            // 완성(저장)은 Phase 7에서 연결한다. 그때까지는 항상 잠가 둔다.
-            doneButton.interactable = false;
+            doneButton.interactable = inventory.DrawingPaper > 0; // 종이가 없으면 완성할 수 없다
         }
     }
 }
