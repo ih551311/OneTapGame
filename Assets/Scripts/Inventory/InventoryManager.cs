@@ -88,16 +88,39 @@ namespace LastBullet.Inventory
             return discarded;
         }
 
+        // 그림판: 물감을 정수 단위로 쓴다. 모자라면 false.
+        // 마우스를 움직이는 동안 자주 불리므로 파일에는 쓰지 않고 화면에만 알린다. 저장은 CommitToSave()가 한다.
+        public bool SpendPaint(PaintColor color, int amount)
+        {
+            int index = (int)color;
+            if (amount > paints[index])
+                return false;
+            paints[index] -= amount;
+            Changed?.Invoke();
+            return true;
+        }
+
+        // 지금 수량을 save.json에 쓴다 (그림판이 5초마다, 닫을 때 부른다)
+        public void CommitToSave()
+        {
+            CopyToSaveData();
+            SaveManager.Save();
+        }
+
         // 바뀐 수량을 save.json에 쓰고 화면에 알린다
         void SaveAndNotify()
+        {
+            CommitToSave();
+            Changed?.Invoke();
+        }
+
+        void CopyToSaveData()
         {
             var save = SaveManager.Data;
             save.paperScraps = PaperScraps;
             save.drawingPaper = DrawingPaper;
             for (int i = 0; i < paints.Length; i++)
                 save.paints[i] = paints[i];
-            SaveManager.Save();
-            Changed?.Invoke();
         }
 
         void OnApplicationQuit()

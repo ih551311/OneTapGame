@@ -3,13 +3,15 @@ using LastBullet.Inventory;
 using LastBullet.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace LastBullet.Drawing
 {
     // 그림판 팝업 (미술관의 그림 작업대에서 E로 연다, 기획서 2.8).
     // 6-1: 도구(펜 굵기 4단계, 지우개)와 색(9색)을 고르고, 종이 수와 물감 잔량을 보여 준다.
-    //      캔버스는 흰 종이(256×256)만 보인다. 그리기는 6-2, 완성·저장은 Phase 7.
+    // 6-2: 마우스로 그린다. 물감은 선을 그은 길이만큼 쓰고, 0이면 그리기가 막힌다. 지우개는 물감을 쓰지 않는다.
+    //      완성·저장은 Phase 7.
     // 닫기 버튼 칸(PopupBase.closeButton)에는 "취소" 버튼을 연결한다.
     // 붙일 곳: Canvas/PaintBoardPopup (평소에는 꺼져 있다)
     public class PaintBoardPopup : PopupBase
@@ -47,6 +49,18 @@ namespace LastBullet.Drawing
 
         public Texture2D Canvas { get; private set; }
 
+        // 물감 소비: 선 길이(px) × 펜 굵기(px) × 0.01 (기획서 2.7). 소수 누적값은 여기 보관하고 정수 단위로 차감한다.
+        const float PaintPerPixelArea = 0.01f;
+        const float AutoSaveSeconds = 5f; // 그리는 동안 물감 잔량을 저장하는 간격 (기획서 3.7)
+
+        Color32[] pixels;
+        float paintDebt;
+        bool drawing;
+        bool blocked;     // 물감이 떨어져 이번 획은 더 못 그린다
+        bool canvasDirty;
+        Vector2 lastPoint;
+        float nextSaveTime;
+
         protected override void OnFirstOpen()
         {
             for (int i = 0; i < toolButtons.Length; i++)
@@ -70,12 +84,138 @@ namespace LastBullet.Drawing
             RefreshInventory();
         }
 
+        void OnDisable()
+        {
+            drawing = false;
+            if (InventoryManager.Exists)
+                InventoryManager.Instance.CommitToSave(); // 닫을 때 물감 잔량 저장
+        }
+
         void OnDestroy()
         {
             if (InventoryManager.Exists)
                 InventoryManager.Instance.Changed -= RefreshInventory;
             if (Canvas != null)
                 Destroy(Canvas);
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            if (!IsOpen)
+                return;
+
+            HandleMouse();
+
+            if (canvasDirty)
+            {
+                Canvas.SetPixels32(pixels);
+                Canvas.Apply(); // 프레임당 한 번
+                canvasDirty = false;
+            }
+            if (Time.unscaledTime >= nextSaveTime)
+            {
+                nextSaveTime = Time.unscaledTime + AutoSaveSeconds;
+                InventoryManager.Instance.CommitToSave();
+            }
+        }
+
+        void HandleMouse()
+        {
+            var mouse = Mouse.current;
+            if (mouse == null)
+                return;
+
+            bool hasPoint = TryGetCanvasPoint(mouse.position.ReadValue(), out Vector2 point, out bool inside);
+            if (mouse.leftButton.wasPressedThisFrame && hasPoint && inside)
+            {
+                drawing = true;
+                blocked = false;
+                lastPoint = point;
+                StampAlong(point, point); // 점 하나 (선 길이 0이라 물감은 쓰지 않는다)
+            }
+            else if (drawing && mouse.leftButton.isPressed && hasPoint)
+            {
+                if (!blocked)
+                    StampAlong(lastPoint, point);
+                lastPoint = point;
+            }
+
+            if (!mouse.leftButton.isPressed)
+                drawing = false;
+        }
+
+        // 화면 좌표 → 캔버스 픽셀 좌표 (0 ~ 256). 캔버스 밖이어도 좌표는 돌려준다.
+        bool TryGetCanvasPoint(Vector2 screenPosition, out Vector2 point, out bool inside)
+        {
+            var rect = canvasImage.rectTransform;
+            point = default;
+            inside = false;
+            if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, screenPosition, null, out Vector2 local))
+                return false;
+            Vector2 normalized = (local - rect.rect.min) / rect.rect.size;
+            point = normalized * PaintingLibrary.CanvasSize;
+            inside = normalized.x >= 0f && normalized.x <= 1f && normalized.y >= 0f && normalized.y <= 1f;
+            return true;
+        }
+
+        // from → to 선을 1px 간격으로 따라가며 찍는다. 같은 선이면 마우스가 빠르든 느리든 소비량이 같다.
+        void StampAlong(Vector2 from, Vector2 to)
+        {
+            var inventory = InventoryManager.Instance;
+            float length = Vector2.Distance(from, to);
+            Color32 color = IsEraser ? new Color32(255, 255, 255, 255) : PaintColors.Colors[(int)CurrentColor];
+
+            if (length < 0.0001f)
+            {
+                Stamp(from, color);
+                return;
+            }
+
+            float travelled = 0f;
+            while (travelled < length)
+            {
+                float step = Mathf.Min(1f, length - travelled);
+                travelled += step;
+                if (!IsEraser)
+                {
+                    float debt = paintDebt + step * PenSize * PaintPerPixelArea;
+                    if (debt >= 1f)
+                    {
+                        if (!inventory.SpendPaint(CurrentColor, 1))
+                        {
+                            blocked = true; // 물감이 없으면 그리기 차단
+                            return;
+                        }
+                        debt -= 1f;
+                    }
+                    paintDebt = debt;
+                }
+                Stamp(Vector2.Lerp(from, to, travelled / length), color);
+            }
+        }
+
+        // 펜 굵기만큼의 동그란 점을 찍는다
+        void Stamp(Vector2 center, Color32 color)
+        {
+            int size = PaintingLibrary.CanvasSize;
+            float radius = PenSize * 0.5f;
+            int minX = Mathf.Max(0, Mathf.FloorToInt(center.x - radius));
+            int maxX = Mathf.Min(size - 1, Mathf.CeilToInt(center.x + radius));
+            int minY = Mathf.Max(0, Mathf.FloorToInt(center.y - radius));
+            int maxY = Mathf.Min(size - 1, Mathf.CeilToInt(center.y + radius));
+            float radiusSquared = radius * radius;
+            for (int y = minY; y <= maxY; y++)
+            {
+                for (int x = minX; x <= maxX; x++)
+                {
+                    float dx = x + 0.5f - center.x;
+                    float dy = y + 0.5f - center.y;
+                    if (dx * dx + dy * dy <= radiusSquared)
+                        pixels[y * size + x] = color;
+                }
+            }
+            canvasDirty = true;
         }
 
         // 열 때마다 새 흰 종이로 시작한다. 이어 그리기는 없다 (기획서 2.8: 취소하면 미완성 그림은 삭제).
@@ -87,11 +227,15 @@ namespace LastBullet.Drawing
                 Canvas = new Texture2D(size, size, TextureFormat.RGBA32, false) { filterMode = FilterMode.Point };
                 canvasImage.texture = Canvas;
             }
-            var pixels = new Color32[size * size];
+            pixels = new Color32[size * size];
             for (int i = 0; i < pixels.Length; i++)
                 pixels[i] = new Color32(255, 255, 255, 255);
             Canvas.SetPixels32(pixels);
             Canvas.Apply();
+            paintDebt = 0f;
+            drawing = false;
+            canvasDirty = false;
+            nextSaveTime = Time.unscaledTime + AutoSaveSeconds;
         }
 
         void SelectTool(int index)
