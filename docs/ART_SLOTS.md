@@ -33,6 +33,19 @@
 | `Assets/UI/Prompt_PaperCraft.png` | 종이 합성대 근처 안내 "[E] 종이 합성" | 768×96 | |
 | `Assets/UI/PaperCraft_Title.png` | 종이 합성 팝업 제목 | 768×128 | |
 | `Assets/UI/PaperCraft_Owned.png` | 팝업의 "가진 것" 글자 | 384×96 | |
+| `Assets/UI/Prompt_Paint.png` | 그림 작업대 근처 안내 "[E] 그림 그리기" | 768×96 | |
+| `Assets/UI/Paint_Panel.png` | 그림판 창 배경 (9-slice, 모서리 40) | 128×128 | 크림색 둥근 사각형 |
+| `Assets/UI/Paint_Title.png` | 그림판 제목 "나의 그림판" (왼쪽 정렬) | 512×96 | |
+| `Assets/UI/Paint_PaperLabel.png` / `Paint_PaperUnit.png` | "종이" / "장" 글자 (가운데 숫자는 TMP) | 128×64 / 64×64 | |
+| `Assets/UI/Paint_Toolbar.png` | 왼쪽 도구 막대 (9-slice, 모서리 28) | 96×96 | |
+| `Assets/UI/Paint_Tool_Pen1~4.png` | 펜 굵기 2/5/10/20px 버튼 그림 | 96×96 | 굵기를 알아볼 수 있게 |
+| `Assets/UI/Paint_Tool_Eraser.png` | 지우개 버튼 그림 | 96×96 | |
+| `Assets/UI/Paint_Tool_Selected.png` | 고른 도구 표시 테두리 | 96×96 | 선택된 버튼 위에 겹침 |
+| `Assets/UI/Paint_CanvasFrame.png` | 종이 테두리 (9-slice, 모서리 24) | 128×128 | 정사각형 고정 |
+| `Assets/UI/Paint_Color_<색>.png` (9장) | 색 고르는 동그라미 (Red…Black) | 64×64 | 색 이름은 `PaintColor`와 같게 |
+| `Assets/UI/Paint_Color_Selected.png` | 고른 색 표시 테두리 | 80×80 | |
+| `Assets/UI/Paint_Button_Cancel_*.png`, `Paint_Button_Done_*.png` | 취소/완성 버튼 (Normal·Highlighted·Pressed, 완성만 Disabled 추가) | 96×96 | 9-slice 모서리 32 |
+| `Assets/UI/Paint_Label_Cancel.png` / `Paint_Label_Done.png` | 버튼 글자 "취소" / "완성" | 256×96 | |
 | `Assets/UI/Arrow_Right.png` | 만드는 법 화살표 (재료 → 결과) | 96×64 | 오른쪽을 가리키게 그린다 |
 | `Assets/UI/ButtonLabel_Craft.png` | 버튼 글자 "합성" | 512×128 | 버튼 배경은 Button_*.png |
 | `Assets/UI/Title_Background.png` | 타이틀 배경 (화면 전체) | 1920×1080 | 화면 크기에 맞게 늘어난다 |
@@ -86,6 +99,7 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/Ground.mat` | 바닥 | `Ground` |
 | `Materials/StageMap.mat` | 미술관 지도 탁자 (전투 장소 선택) | `1_Museum` 씬의 `StageMap` |
 | `Materials/PaperCraftTable.mat` | 미술관 종이 합성대 | `1_Museum` 씬의 `PaperCraftTable` |
+| `Materials/PaintWorkbench.mat` | 미술관 그림 작업대 | `1_Museum` 씬의 `PaintWorkbench` |
 
 ## 앞으로 생길 UI (만들 때 이 표에 추가)
 
