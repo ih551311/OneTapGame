@@ -58,8 +58,8 @@
 - 씬 (2026-10-30 사용자 요청으로 번호 + 영어 이름. 기획서 3.2의 이름과 다르다):
   - `Assets/Scenes/0_Title.unity` = 기획서 `MainMenu` (타이틀, 게임 시작 씬, 빌드 0번)
   - `Assets/Scenes/1_Museum.unity` = 기획서 `Hideout` (미술관)
-  - `Assets/Scenes/2_Training.unity` = 기획서 `Stage_Training` (훈련장)
-  - 앞으로 만들 씬: `3_Forest` (= Stage_Forest)
+  - `Assets/Scenes/2_Forest.unity` = 기획서 `Stage_Forest` (숲, 전투 스테이지)
+  - 훈련장(2_Training)은 2026-10-30 사용자 결정으로 없앴다 (훈련장 없이 바로 숲). 숲은 에셋 `Assets/RPGPP_LT`(RPG Poly Pack - Lite)로 꾸몄다 (출처는 `Assets/Credits.txt`).
   - 게임 코드는 씬 이름을 `LastBullet.Core.SceneNames`에서만 쓴다.
 - 패키지: Cinemachine 3.1.7. TextMeshPro는 Unity 6에서 uGUI(`com.unity.ugui`)에 포함되어 있다.
 - GitHub: https://github.com/ih551311/OneTapGame (기본 브랜치 `main`)

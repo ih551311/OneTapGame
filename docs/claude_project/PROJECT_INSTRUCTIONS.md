@@ -26,5 +26,5 @@
 - 모든 UI는 Canvas 아래, 그림은 `Assets/UI/*.png`로 바꿔 끼울 수 있게.
 - 액자와 그림 종이는 정사각형 (캔버스 256×256).
 - 모든 적은 `Enemy` 태그.
-- 씬 이름: 0_Title, 1_Museum, 2_Training (나중에 3_Forest).
+- 씬 이름: 0_Title, 1_Museum, 2_Forest (훈련장은 없앴다).
 - 기획서 1.2 제외 항목은 다시 제안하지 않는다.

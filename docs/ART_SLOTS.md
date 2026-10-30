@@ -28,8 +28,7 @@
 | `Assets/UI/Button_Pressed.png` | 버튼 (누름) | 96×96 | 9-slice 24px |
 | `Assets/UI/Button_Disabled.png` | 버튼 (잠김) | 96×96 | 9-slice 24px |
 | `Assets/UI/Button_Close.png` | 팝업 닫기 (X) | 64×64 | |
-| `Assets/UI/StageLabel_Training.png` | 버튼 글자 "훈련장" | 512×128 | |
-| `Assets/UI/StageLabel_Forest.png` | 버튼 글자 "숲 (잠김)" | 512×128 | |
+| `Assets/UI/StageLabel_Forest.png` | 전투 장소 선택 버튼 글자 "숲" (훈련장을 없애서 숲 하나뿐) | 512×128 | |
 | `Assets/UI/Prompt_PaperCraft.png` | 종이 합성대 근처 안내 "[E] 종이 합성" | 768×96 | |
 | `Assets/UI/PaperCraft_Title.png` | 종이 합성 팝업 제목 | 768×128 | |
 | `Assets/UI/PaperCraft_Owned.png` | 팝업의 "가진 것" 글자 | 384×96 | |
@@ -49,7 +48,7 @@
 | `Assets/UI/Paint_Confirm_Message.png` | 그림판 취소 확인창 문구 (두 줄) | 640×160 | 창·버튼 배경은 `Paint_Panel`, `Paint_Button_*`를 같이 씀 |
 | `Assets/UI/Paint_Label_Continue.png` / `Paint_Label_Discard.png` | 확인창 버튼 글자 "계속 그리기" / "그만두기" | 256×96 | |
 | `Assets/UI/Pause_Title.png` | ESC 일시정지 창 제목 "일시정지" | 768×128 | 창 배경은 `Popup_Panel`, 버튼은 `Button_*`를 같이 씀 |
-| `Assets/UI/Pause_LossWarning.png` | 훈련장 일시정지 창의 안내 "나가면 이번 판 재료가 사라져요" | 768×96 | 훈련장에서만 보임 |
+| `Assets/UI/Pause_LossWarning.png` | 숲 일시정지 창의 안내 "나가면 이번 판 재료가 사라져요" | 768×96 | 숲에서만 보임 |
 | `Assets/UI/ButtonLabel_Resume.png` / `ButtonLabel_ToTitle.png` | 버튼 글자 "계속하기" / "타이틀로 나가기" | 512×128 | |
 | `Assets/UI/Paint_Label_Gallery.png` | 그림판 버튼 글자 "내 그림" | 256×96 | 버튼 배경은 `Paint_Button_Cancel_*`. 누르면 보기 전용 작품 팝업(그림·창은 타이틀 그림 보기와 같은 `Gallery_*`, `Popup_Panel`)이 뜬다 |
 | `Assets/UI/Prompt_Frame.png` | 액자 근처 안내 "[E] 그림 걸기" | 768×96 | |
@@ -109,6 +108,8 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/StageMap.mat` | 미술관 지도 탁자 (전투 장소 선택) | `1_Museum` 씬의 `StageMap` |
 | `Materials/PaperCraftTable.mat` | 미술관 종이 합성대 | `1_Museum` 씬의 `PaperCraftTable` |
 | `Materials/PaintWorkbench.mat` | 미술관 그림 작업대 | `1_Museum` 씬의 `PaintWorkbench` |
+| `Materials/ForestFloor.mat` | 숲 바닥(풀색 평면, 풀 타일 아래·멀리 깔림) | `2_Forest/Environment/Ground/Floor`, `Backdrop/FloorFar` |
+| 에셋 `Assets/RPGPP_LT/Materials/rpgpp_lt_mat_a.mat` | 숲의 나무·바위·건물·풀 타일 전부가 같이 쓰는 색 팔레트 머티리얼 (에셋 제공, URP로 변환). 색을 바꾸려면 `Textures/rpgpp_lt_tex_a.tga` 팔레트를 고친다 | `2_Forest/Environment` 아래 에셋 프리팹들 (나무·바위·건물 모델 교체는 `Environment` 묶음별로) |
 | `Materials/PictureFrame.mat` | 미술관 액자 테두리 (금색) | `PictureFrame_01/Frame` (모델로 바꿀 때 `Picture` 면 위치·크기만 맞춘다) |
 | `Materials/FramePicture.mat` | 액자의 그림 면 (정사각형, Unlit). 걸린 그림이 코드로 이 면에 들어간다 | `PictureFrame_01/Picture` |
 
