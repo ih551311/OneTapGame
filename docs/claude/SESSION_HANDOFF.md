@@ -137,3 +137,9 @@ Phase 1에서 한 일 (2026-10-29):
 - `Scripts/Audio/SfxPlayer.cs`: 변형 여러 개 중 무작위 재생 + 음높이 ±4% 흔들기 + 여운(tails) 깔기. 플레이어(`OneBulletGun.shotSound`)는 2D·소리 0.8·여운 포함, 원거리 적(`RangedEnemyAI.attackSound`, 던지는 순간)은 3D·소리 0.3(플레이어의 약 40%)·여운 없음·6m 안은 그대로 45m까지 멀수록 작게. 적 중 총을 쏘는 적은 없고 원거리 적이 돌을 던지는 순간에 총소리를 쓴다(사용자 요청 해석). 돌진형·방어형은 소리 없음.
 - 메뉴 `LastBullet/Phase 21 총소리 넣기`(`Phase21SfxSetup.cs`): 미술관·숲·성 마을·사막의 플레이어와 `Enemy_Thrower` 프리팹에 붙인다 (이미 있으면 건너뜀). 유니티 오브젝트에는 `??`를 쓰면 안 된다는 걸 이 작업에서 다시 확인(GetOrAdd로 해결).
 - 확인한 것: 코드로 재생했을 때 두 AudioSource 모두 재생 중, 실제 사격 Fire() 호출에서도 재생. **못 한 것: 실제로 소리를 들어 보는 것(크기 균형)** — 사용자가 직접 들어 보고 크면 `SfxPlayer`의 Volume으로 조절.
+
+
+## 2026-10-31 클릭 소리 (Phase 22, 사용자 요청: 마우스 클릭마다, 총 쏠 때는 제외)
+- 에셋 Free UI Click Sound Pack(SwishSwoosh)에서 따뜻한 나무 클릭 3개(`Wooden/Thin_1, Thin_2, Select_1`)만 `Assets/Free UI Click Sound Effects Pack`으로 가져왔다 (오래된 미술관 분위기에 맞춰 고름. 패키지 전체 100여 개는 가져오지 않음).
+- `Scripts/Audio/ClickSound.cs`: **좌클릭을 눌렀을 때 마우스 커서가 잠겨 있지 않으면** `SfxPlayer`로 클릭 소리를 낸다. 게임 중에는 커서가 잠겨 있고 좌클릭이 사격이므로 사격에는 클릭 소리가 안 난다. 메뉴·팝업·그림판·결과 창·타이틀처럼 커서가 풀린 곳의 클릭은 모두 소리가 난다(버튼이 아닌 곳을 눌러도 난다). 메뉴 `LastBullet/Phase 22 클릭 소리 넣기`(`Phase22ClickSoundSetup.cs`)가 5개 씬 모두에 `ClickSound` 오브젝트를 만든다.
+- 확인한 것: 숲(커서 잠김)에서 좌클릭을 넣으면 사격만 되고 클릭 소리는 안 남, 타이틀·미술관·사막에서 클릭 소리 재생기가 재생됨. **못 한 것: 커서가 풀린 상태의 실제 마우스 클릭 시험**(유니티가 창 밖 포인터 입력을 막아 자동 입력이 안 됨)과 직접 들어 보기. 소리가 크거나 작으면 `ClickSound` 오브젝트의 `SfxPlayer` Volume으로 조절.
