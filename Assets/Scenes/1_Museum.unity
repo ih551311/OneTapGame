@@ -239,7 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Combat.OneBulletGun
   muzzle: {fileID: 877378383}
   tracer: {fileID: 1126547793}
-  impactMaterial: {fileID: 2100000, guid: 22886af657566d8498322dfa31f7ee1b, type: 2}
+  impactMarkerPrefab: {fileID: 5176751616578505204, guid: e74cf5c7a77057747a2ff6cda0c48678, type: 3}
   droppedBulletPrefab: {fileID: 7315599827420822265, guid: 152527b288ad306438665cc622979399, type: 3}
   maxRange: 50
   tracerTime: 0.08

@@ -20,8 +20,8 @@ namespace LastBullet.Combat
         [Tooltip("발사 순간 보이는 탄도선")]
         [SerializeField] LineRenderer tracer;
 
-        [Tooltip("맞은 자리에 잠깐 보이는 점의 머티리얼")]
-        [SerializeField] Material impactMaterial;
+        [Tooltip("맞은 자리에 잠깐 보이는 점. Prefabs/ImpactMarker")]
+        [SerializeField] GameObject impactMarkerPrefab;
 
         [Tooltip("빗나갔을 때 바닥에 떨어지는 탄환. Prefabs/DroppedBullet")]
         [SerializeField] GameObject droppedBulletPrefab;
@@ -165,13 +165,10 @@ namespace LastBullet.Combat
 
         void SpawnImpactMarker(Vector3 point)
         {
-            var marker = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            Destroy(marker.GetComponent<Collider>());
+            if (impactMarkerPrefab == null)
+                return;
+            var marker = Instantiate(impactMarkerPrefab, point, Quaternion.identity);
             marker.name = "ImpactMarker";
-            marker.transform.position = point;
-            marker.transform.localScale = Vector3.one * 0.15f;
-            if (impactMaterial != null)
-                marker.GetComponent<Renderer>().sharedMaterial = impactMaterial;
             Destroy(marker, impactMarkerTime);
         }
     }

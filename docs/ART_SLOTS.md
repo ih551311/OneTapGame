@@ -81,7 +81,8 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/Enemy_Charger.mat` | 돌진형 적 (회색 조각상) | 프리팹 `Prefabs/Enemy_Charger`의 `Body`, `Head` (Hitbox 콜라이더 크기도 맞춘다) |
 | `Materials/Bullet.mat` | 떨어진 탄환 | 프리팹 `Prefabs/DroppedBullet`의 `Model` |
 | `Materials/LightPillar.mat` | 탄환 위 빛 기둥 (반투명) | 프리팹 `Prefabs/DroppedBullet`의 `LightPillar` |
-| `Materials/Tracer.mat` | 탄도선, 맞은 자리 점 | `Player/BulletTracer` |
+| `Materials/Tracer.mat` | 탄도선 | `Player/BulletTracer` |
+| `Materials/ImpactMarker.mat` | 맞은 자리에 0.4초 보이는 점 | 프리팹 `Prefabs/ImpactMarker`의 `Model` (총 `OneBulletGun`의 `Impact Marker Prefab`) |
 | `Materials/Ground.mat` | 바닥 | `Ground` |
 | `Materials/StageMap.mat` | 미술관 지도 탁자 (전투 장소 선택) | `1_Museum` 씬의 `StageMap` |
 | `Materials/PaperCraftTable.mat` | 미술관 종이 합성대 | `1_Museum` 씬의 `PaperCraftTable` |
