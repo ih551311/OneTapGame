@@ -19,7 +19,7 @@ namespace LastBullet.EditorTools
             if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
                 return;
             Build("Assets/Scenes/1_Museum.unity", losesRunBag: false);
-            Build("Assets/Scenes/2_Training.unity", losesRunBag: true);
+            Build("Assets/Scenes/2_Forest.unity", losesRunBag: true);
             AssetDatabase.SaveAssets();
         }
 

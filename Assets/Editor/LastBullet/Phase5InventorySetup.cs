@@ -32,7 +32,7 @@ namespace LastBullet.EditorTools
             EditorSceneManager.SaveScene(museum);
 
             // 2. 훈련장: 가득 참 알림 (클리어 문구 아래)
-            var training = EditorSceneManager.OpenScene("Assets/Scenes/2_Training.unity");
+            var training = EditorSceneManager.OpenScene("Assets/Scenes/2_Forest.unity");
             CreatePaintFullToast(ArtSlots.FindCanvas().transform);
             EditorSceneManager.MarkSceneDirty(training);
             EditorSceneManager.SaveScene(training);

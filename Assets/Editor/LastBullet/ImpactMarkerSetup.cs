@@ -11,7 +11,7 @@ namespace LastBullet.EditorTools
     public static class ImpactMarkerSetup
     {
         const string PrefabPath = "Assets/Prefabs/ImpactMarker.prefab";
-        static readonly string[] Scenes = { "Assets/Scenes/1_Museum.unity", "Assets/Scenes/2_Training.unity" };
+        static readonly string[] Scenes = { "Assets/Scenes/1_Museum.unity", "Assets/Scenes/2_Forest.unity" };
 
         [MenuItem("LastBullet/맞은 자리 점을 프리팹으로 바꾸기")]
         static void Run()

@@ -77,8 +77,7 @@ namespace LastBullet.EditorTools
             var title = CreateImage("Title", panel.transform, "Assets/UI/StageSelect_Title.png");
             SetRect(title, new Vector2(0.5f, 1f), new Vector2(0f, -80f), new Vector2(600f, 100f));
 
-            var training = CreateStageButton("TrainingButton", panel.transform, "Assets/UI/StageLabel_Training.png", new Vector2(0f, 20f));
-            var forest = CreateStageButton("ForestButton", panel.transform, "Assets/UI/StageLabel_Forest.png", new Vector2(0f, -130f));
+            var forest = CreateStageButton("ForestButton", panel.transform, "Assets/UI/StageLabel_Forest.png", new Vector2(0f, -30f));
 
             var close = CreateImage("CloseButton", panel.transform, "Assets/UI/Button_Close.png");
             SetRect(close, new Vector2(1f, 1f), new Vector2(-48f, -48f), new Vector2(64f, 64f));
@@ -87,7 +86,6 @@ namespace LastBullet.EditorTools
 
             var popupScript = popup.AddComponent<StageSelectPopup>();
             var popupSo = new SerializedObject(popupScript);
-            popupSo.FindProperty("trainingButton").objectReferenceValue = training;
             popupSo.FindProperty("forestButton").objectReferenceValue = forest;
             popupSo.FindProperty("closeButton").objectReferenceValue = closeButton;
             popupSo.ApplyModifiedPropertiesWithoutUndo();

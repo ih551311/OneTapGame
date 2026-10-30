@@ -12,7 +12,7 @@ namespace LastBullet.Core
         public int paperScraps;
         public int drawingPaper;
         public PaintAmounts paints = new PaintAmounts();
-        public List<string> unlockedStages = new List<string> { "Training" };
+        public List<string> unlockedStages = new List<string> { "Forest" };
         public bool endingSeen;
 
         // 타이틀 화면 액자 2개(왼쪽, 오른쪽)에 건 그림의 작품 ID. 빈 문자열이면 빈 액자. (사용자 요청, 2026-10-30)

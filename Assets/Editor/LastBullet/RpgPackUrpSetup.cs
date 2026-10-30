@@ -44,7 +44,8 @@ namespace LastBullet.EditorTools
             if (material == null || material.shader.name.StartsWith("Universal"))
                 return;
             var texture = material.GetTexture("_MainTex");
-            var color = material.GetColor("_Color");
+            // Unlit/Texture 셰이더에는 _Color가 없어서 읽으면 검은색(0,0,0,0)이 나온다 → 흰색(그림 색 그대로)으로 둔다
+            var color = material.HasProperty("_Color") ? material.GetColor("_Color") : Color.white;
             material.shader = Shader.Find("Universal Render Pipeline/Unlit");
             material.SetTexture("_BaseMap", texture);
             material.SetColor("_BaseColor", color);

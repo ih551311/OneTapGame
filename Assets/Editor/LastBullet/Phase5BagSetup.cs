@@ -15,7 +15,7 @@ namespace LastBullet.EditorTools
     // 메뉴: LastBullet > Phase 5-1 재료 드롭과 전투 가방 만들기
     public static class Phase5BagSetup
     {
-        const string TrainingPath = "Assets/Scenes/2_Training.unity";
+        const string TrainingPath = "Assets/Scenes/2_Forest.unity"; // 전투 스테이지 씬 (예전 훈련장 자리에 숲)
         const string EnemyPrefabPath = "Assets/Prefabs/Enemy_Charger.prefab";
         const string TmpSettingsPath = "Assets/TextMesh Pro/Resources/TMP Settings.asset";
         const string TmpEssentialsPackage = "Packages/com.unity.ugui/Package Resources/TMP Essential Resources.unitypackage";
@@ -95,7 +95,7 @@ namespace LastBullet.EditorTools
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
             AssetDatabase.SaveAssets();
-            Debug.Log("[LastBullet] Phase 5-1: 적 드롭(EnemyDrop), 전투 가방(RunBag), 전투 가방 표시(RunBagPanel)를 만들고 2_Training 씬을 저장했어요.");
+            Debug.Log("[LastBullet] Phase 5-1: 적 드롭(EnemyDrop), 전투 가방(RunBag), 전투 가방 표시(RunBagPanel)를 만들고 2_Forest 씬을 저장했어요.");
         }
 
         // 패널 왼쪽 위 기준 위치(center)에 아이콘 그림
