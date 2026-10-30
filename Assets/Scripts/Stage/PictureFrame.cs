@@ -26,6 +26,17 @@ namespace LastBullet.Stage
             Refresh();
         }
 
+        // 그림이 지워져 칸이 비워지면 바로 빈 액자로 바뀐다
+        void OnEnable()
+        {
+            GalleryStore.Changed += Refresh;
+        }
+
+        void OnDisable()
+        {
+            GalleryStore.Changed -= Refresh;
+        }
+
         // 고른 그림을 이 액자에 건다 (같은 그림을 여러 액자에 걸 수 있다)
         public void Hang(string paintingId)
         {

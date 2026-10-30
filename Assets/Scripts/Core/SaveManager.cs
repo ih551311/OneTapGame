@@ -128,6 +128,24 @@ namespace LastBullet.Core
             return frames != null && index < frames.Count ? frames[index] : "";
         }
 
+        // 지워진 작품이 타이틀 액자에 걸려 있었다면 비운다 (PaintingLibrary.Delete가 부른다)
+        public static void ClearTitleFramesWith(string paintingId)
+        {
+            if (Data.titleFrames == null)
+                return;
+            bool changed = false;
+            for (int i = 0; i < Data.titleFrames.Count; i++)
+            {
+                if (Data.titleFrames[i] == paintingId)
+                {
+                    Data.titleFrames[i] = "";
+                    changed = true;
+                }
+            }
+            if (changed)
+                Save();
+        }
+
         // 타이틀 액자에 그림을 건다 (index 0 = 왼쪽, 1 = 오른쪽)
         public static void SetTitleFrame(int index, string paintingId)
         {

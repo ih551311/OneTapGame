@@ -44,6 +44,26 @@ namespace LastBullet.Drawing
             Changed?.Invoke();
         }
 
+        // 지워진 작품이 걸려 있던 칸을 모두 비운다 (PaintingLibrary.Delete가 부른다)
+        public static void ClearPainting(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return;
+            bool changed = false;
+            for (int i = 0; i < SlotCount; i++)
+            {
+                if (Data.frames[i] == id)
+                {
+                    Data.frames[i] = "";
+                    changed = true;
+                }
+            }
+            if (!changed)
+                return;
+            Save();
+            Changed?.Invoke();
+        }
+
         // 걸린 서로 다른 작품 수 (같은 그림이 여러 칸에 있어도 한 번만 센다). 엔딩 조건은 이 값이 9일 때다.
         public static int DistinctCount()
         {

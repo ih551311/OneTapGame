@@ -42,6 +42,15 @@ namespace LastBullet.UI
         [Tooltip("액자 고르기(미술관 액자 앞 E): 그림을 누르면 바로 그 액자에 걸리고 닫힌다. 걸기 버튼은 숨긴다")]
         [SerializeField] bool frameMode;
 
+        [Header("삭제 (2026-10-31 사용자 요청)")]
+        [Tooltip("고른 그림을 지우는 버튼. 고른 그림이 없으면 눌러지지 않는다. 보기 전용에서는 크게 보기 창 안에 있다. 액자 고르기 모드에서는 안 쓴다")]
+        [SerializeField] Button deleteButton;
+
+        [Tooltip("\"이 그림을 지울까요?\" 확인창 (평소에는 꺼져 있다)")]
+        [SerializeField] GameObject deleteConfirm;
+        [SerializeField] Button deleteConfirmYesButton;
+        [SerializeField] Button deleteConfirmNoButton;
+
         PictureFrame targetFrame;
 
         readonly List<GameObject> items = new List<GameObject>();
@@ -56,6 +65,12 @@ namespace LastBullet.UI
 
         protected override void OnFirstOpen()
         {
+            if (!frameMode && deleteButton != null)
+            {
+                deleteButton.onClick.AddListener(AskDelete);
+                deleteConfirmYesButton.onClick.AddListener(ConfirmDelete);
+                deleteConfirmNoButton.onClick.AddListener(() => deleteConfirm.SetActive(false));
+            }
             if (frameMode)
             {
                 hangLeftButton.gameObject.SetActive(false);
@@ -78,13 +93,17 @@ namespace LastBullet.UI
             selectedId = frameMode && targetFrame != null ? targetFrame.CurrentId : null; // 지금 걸린 그림에 표시
             if (largeView != null)
                 largeView.SetActive(false);
+            if (deleteConfirm != null)
+                deleteConfirm.SetActive(false);
             Refresh();
         }
 
-        // 크게 보고 있을 때 ESC는 크게 보기만 닫는다
+        // 확인창이 떠 있으면 ESC는 확인창만, 크게 보고 있으면 크게 보기만 닫는다
         protected override void RequestClose()
         {
-            if (largeView != null && largeView.activeSelf)
+            if (deleteConfirm != null && deleteConfirm.activeSelf)
+                deleteConfirm.SetActive(false);
+            else if (largeView != null && largeView.activeSelf)
                 largeView.SetActive(false);
             else
                 Close();
@@ -111,6 +130,29 @@ namespace LastBullet.UI
             }
             emptyMessage.SetActive(paintings.Count == 0);
             hangLeftButton.interactable = hangRightButton.interactable = selectedId != null;
+            if (deleteButton != null && !viewOnly)
+                deleteButton.interactable = selectedId != null;
+        }
+
+        void AskDelete()
+        {
+            if (selectedId != null)
+                deleteConfirm.SetActive(true);
+        }
+
+        // 확인창에서 [지우기]: 작품을 지우고 목록을 다시 그린다. 타이틀 액자도 같이 갱신한다.
+        void ConfirmDelete()
+        {
+            deleteConfirm.SetActive(false);
+            if (selectedId == null)
+                return;
+            PaintingLibrary.Delete(selectedId);
+            selectedId = null;
+            if (largeView != null)
+                largeView.SetActive(false);
+            Refresh();
+            if (titleFrames != null)
+                titleFrames.Refresh();
         }
 
         void Select(string id)
@@ -124,6 +166,7 @@ namespace LastBullet.UI
             }
             if (viewOnly)
             {
+                selectedId = id; // 크게 보기 안의 [삭제]가 이 그림을 지운다
                 largePicture.texture = PaintingLibrary.LoadTexture(PaintingLibrary.Find(id));
                 largeView.SetActive(true);
                 return;
@@ -132,6 +175,8 @@ namespace LastBullet.UI
             foreach (var item in items)
                 item.transform.Find("Selected").gameObject.SetActive(item.name == $"Item_{id}");
             hangLeftButton.interactable = hangRightButton.interactable = true;
+            if (deleteButton != null)
+                deleteButton.interactable = true;
         }
 
         void Hang(int frameIndex)

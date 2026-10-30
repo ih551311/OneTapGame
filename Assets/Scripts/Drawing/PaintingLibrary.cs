@@ -24,7 +24,7 @@ namespace LastBullet.Drawing
     // 완성한 그림(작품) 목록과 PNG 파일을 다룬다 (기획서 3.5).
     //   SavedData/paintings.json        작품 ID, 파일명, 만든 날짜
     //   SavedData/Paintings/painting_<ID>.png
-    // 지금은 읽기와 등록(Add)만 있다. 그림판의 "완성"(Phase 7)이 Add를 쓴다.
+    // 읽기, 등록(Add: 그림판의 "완성"이 씀), 삭제(Delete: 그림 보기 팝업의 [삭제])가 있다.
     public static class PaintingLibrary
     {
         // 그림 종이(그림판 캔버스)는 정사각형으로 고정한다 (사용자 결정, 2026-10-30). 크기는 기획서 2.8 기본값 256×256.
@@ -109,6 +109,46 @@ namespace LastBullet.Drawing
             {
                 Debug.LogError($"[PaintingLibrary] 작품 저장 실패: {e.Message}");
                 return null;
+            }
+        }
+
+        // 작품 하나를 지운다 (2026-10-31 사용자 요청): 목록에서 빼고 PNG 파일을 지우고,
+        // 타이틀 액자·미술관 액자에 걸려 있던 것도 비운다. 되돌릴 수 없다. 못 찾으면 false.
+        public static bool Delete(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return false;
+            try
+            {
+                var list = new PaintingList { paintings = LoadList() };
+                var info = list.paintings.Find(p => p.id == id);
+                if (info == null)
+                    return false;
+
+                // 목록을 먼저 고친다 (파일 지우기가 실패해도 목록에서는 사라지게)
+                list.paintings.Remove(info);
+                File.WriteAllText(ListPath, JsonUtility.ToJson(list, true));
+
+                string path = Path.Combine(PaintingsFolder, info.fileName);
+                if (File.Exists(path))
+                    File.Delete(path);
+
+                if (textureCache.TryGetValue(id, out var texture))
+                {
+                    if (texture != null)
+                        UnityEngine.Object.Destroy(texture);
+                    textureCache.Remove(id);
+                }
+
+                SaveManager.ClearTitleFramesWith(id);
+                GalleryStore.ClearPainting(id);
+                Debug.Log($"[PaintingLibrary] 작품 삭제: {info.fileName}");
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[PaintingLibrary] 작품 삭제 실패: {e.Message}");
+                return false;
             }
         }
 
