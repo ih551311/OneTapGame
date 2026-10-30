@@ -133,6 +133,7 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/DesertFloor.mat` | 사막 바닥(모래색 평면, 멀리 깔린 것도 같이 씀) | `4_Desert/Environment/Ground/Floor`, `Backdrop/FloorFar` |
 | 에셋 `Assets/Tiny Teacup Studio/Low Poly Desert Environment/Materials/Mat_01.mat` | 사막의 절벽·바위·선인장·고목 전부가 같이 쓰는 색 팔레트 머티리얼 (에셋 제공, URP로 변환). 색을 바꾸려면 `Palette.png`를 고친다 | `4_Desert/Environment` 아래 에셋 프리팹들 (`Cliffs`, `Rocks`, `Plants`, `SmallDecor` 묶음별로 교체) |
 | 에셋 `Assets/AllSkyFree/*/*.mat` (하늘 머티리얼 3개) | 맵의 하늘. 숲 `Cartoon Base BlueSky/Day_BlueSky_Nothing`, 성 마을 `Epic_BlueSunset/Epic_BlueSunset`, 사막 `Epic_GloriousPink/Epic_GloriousPink` (에셋 제공 6면 큐브맵). 직접 그린 하늘로 바꾸려면 씬의 Lighting 설정(Window > Rendering > Lighting)에서 Skybox Material만 바꾼다. 맵을 다시 만든 뒤에는 메뉴 `LastBullet/Phase 15 맵마다 하늘 바꾸기`를 다시 실행 | `2_Forest`, `3_CastleVillage`, `4_Desert`의 RenderSettings.skybox |
+| 에셋 `Assets/AllSkyFree/*/*.mat` 중 밤하늘 3개 | 밤의 하늘. 숲 `Cartoon Base NightSky`, 성 마을 `Night MoonBurst`, 사막 `Cold Night`. 직접 그린 하늘로 바꾸려면 씬의 `DayNight` 오브젝트의 Night Sky 칸에 머티리얼을 끼운다 | `2_Forest`, `3_CastleVillage`, `4_Desert`의 `DayNight` |
 | `Materials/ForestFloor.mat` | 숲 바닥(풀색 평면, 풀 타일 아래·멀리 깔림) | `2_Forest/Environment/Ground/Floor`, `Backdrop/FloorFar` |
 | 에셋 `Assets/RPGPP_LT/Materials/rpgpp_lt_mat_a.mat` | 숲의 나무·바위·건물·풀 타일 전부가 같이 쓰는 색 팔레트 머티리얼 (에셋 제공, URP로 변환). 색을 바꾸려면 `Textures/rpgpp_lt_tex_a.tga` 팔레트를 고친다 | `2_Forest/Environment` 아래 에셋 프리팹들 (나무·바위·건물 모델 교체는 `Environment` 묶음별로) |
 | `Materials/PictureFrame.mat` | 미술관 액자 테두리 (금색) | `PictureFrame_01/Frame` (모델로 바꿀 때 `Picture` 면 위치·크기만 맞춘다) |
@@ -175,6 +176,7 @@ Enemy_Charger            ← 기능 (EnemyHealth, EnemyAI, EnemyDrop, NavMeshAge
 복잡한 모델 모양(MeshCollider)으로 판정하지 않는다: 느리고 판정이 들쭉날쭉하다.
 
 새 UI나 오브젝트가 생길 때마다 이 표에 추가한다.
+
 
 
 

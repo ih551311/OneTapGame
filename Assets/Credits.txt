@@ -1,4 +1,4 @@
-LAST BULLET : 마지막 탄환 - 에셋 출처와 라이선스
+﻿LAST BULLET : 마지막 탄환 - 에셋 출처와 라이선스
 
 형식: 에셋 이름 | 제작자 | 출처 URL | 라이선스 | 사용 위치
 
@@ -6,4 +6,5 @@ Old LowPoly premium Furniture 1.1 | Creation Forge | Unity Asset Store (Old LowP
 3D Cartoon Village 1.0 | COMlad812 | Unity Asset Store (3D Cartoon Village, 무료) | Standard Unity Asset Store EULA | 성 마을 씬 3_CastleVillage의 성벽·성문·탑·집·마을 소품 (Assets/3D Cartoon Village, 0.25배로 줄여 씀). 머티리얼 31개는 URP용으로 바꿔 씀. 하늘·언덕·산·구름은 아래 RPG Poly Pack 것을 같이 씀
 RPG Poly Pack - Lite 1.2.0 | Gigel3d | Unity Asset Store (RPG Poly Pack - Lite, 무료) | Standard Unity Asset Store EULA | 숲 스테이지 지형·나무·바위·건물 (Assets/RPGPP_LT). 머티리얼 3개는 URP용으로 바꿔 씀
 Low-Poly Desert Environment Pack 1.0 | Coil Studio (Tiny Teacup Studio 폴더) | Unity Asset Store (Low-Poly Desert Environment Pack, 무료) | Standard Unity Asset Store EULA | 사막 씬 4_Desert의 절벽·바위·선인장·고목 (Assets/Tiny Teacup Studio, 3배 안팎으로 키워 씀). 머티리얼 1개는 URP용으로 바꿔 씀. 데모 씬(라이트맵 22MB)은 지움
-AllSky Free - 10 Sky / Skybox Set 1.1.0 | rpgwhitelock | Unity Asset Store (AllSky Free, 무료) | Standard Unity Asset Store EULA | 맵 하늘: 숲 Cartoon Base BlueSky, 성 마을 Epic_BlueSunset, 사막 Epic_GloriousPink (Assets/AllSkyFree, 6면 큐브맵만 남김). 나머지 하늘 7종·가로형(Equirect) 그림·데모 환경·설명서는 용량(전체 320MB) 때문에 지웠고 Package Manager에서 다시 가져올 수 있음
+AllSky Free - 10 Sky / Skybox Set 1.1.0 | rpgwhitelock | Unity Asset Store (AllSky Free, 무료) | Standard Unity Asset Store EULA | 맵 하늘: 낮 - 숲 Cartoon Base BlueSky, 성 마을 Epic_BlueSunset, 사막 Epic_GloriousPink / 밤 - 숲 Cartoon Base NightSky, 성 마을 Night MoonBurst, 사막 Cold Night (Assets/AllSkyFree, 6면 큐브맵만 남김). 나머지 하늘 7종·가로형(Equirect) 그림·데모 환경·설명서는 용량(전체 320MB) 때문에 지웠고 Package Manager에서 다시 가져올 수 있음
+

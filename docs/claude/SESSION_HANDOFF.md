@@ -91,3 +91,10 @@ Phase 1에서 한 일 (2026-10-29):
 - 에셋 AllSky Free(rpgwhitelock)에서 6면 큐브맵 3종만 남겼다 (`Assets/AllSkyFree`, 24MB; 원본 320MB·가로형 그림은 지움. 필요하면 Package Manager에서 다시 가져옴). 숲 = Cartoon Base BlueSky, 성 마을 = Epic_BlueSunset, 사막 = Epic_GloriousPink.
 - 메뉴 `LastBullet/Phase 15 맵마다 하늘 바꾸기`(`Phase15SkySetup.cs`): 각 씬의 `RenderSettings.skybox` 지정, 카메라 Clear Flags를 Skybox로, 예전 하늘 돔(`SkyDome`)과 RPG Poly Pack 구름 삭제. 맵 빌더(Phase10Forest·Phase11Castle·Phase13Desert)를 다시 돌리면 예전 하늘이 돌아오므로 이 메뉴를 다시 실행.
 - 확인한 것: 세 맵 플레이 화면에서 새 하늘이 보임. 못 한 것: 햇빛(Directional Light) 방향을 하늘의 해 위치에 맞추는 것, 미술관(실내)은 변경 없음.
+
+
+## 2026-10-31 낮과 밤 (Phase 16, 사용자 요청: 능력 없이 겉모습만 무작위)
+- 숲·성 마을·사막이 들어갈 때마다 낮 또는 밤이 50% 확률로 정해진다. 게임에는 영향이 없다 (적·물감·피해 그대로).
+- `Assets/Scripts/Stage/DayNight.cs`: 밤이면 밤하늘 머티리얼로 바꾸고, 해 Directional Light를 푸른 달빛(0.5)으로, 주변광을 어둡고 푸르게(트라이라이트는 색 곱하기, 하늘 기준은 세기 0.55). `Mode`(Random/AlwaysDay/AlwaysNight)와 밤 확률은 Inspector에서 바꾼다 (확인용으로 고정할 때). 밤하늘: 숲 Cartoon Base NightSky, 성 마을 Night MoonBurst, 사막 Cold Night.
+- 메뉴 `LastBullet/Phase 16 낮과 밤 넣기`(`Phase16DayNightSetup.cs`)가 세 씬에 `DayNight` 오브젝트를 만든다. 맵을 다시 만들면 Phase 15(하늘) → Phase 16 순서로 다시 실행.
+- 확인한 것: 세 맵의 밤 화면(적이 보일 만큼 밝음), 8번 연속 플레이에서 낮/밤이 섞여 나옴. 못 한 것: 밤 전투 직접 플레이(가독성), 낮과 밤 전환 연출(없음, 입장 때만 정해짐).

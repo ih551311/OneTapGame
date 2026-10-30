@@ -7502,6 +7502,58 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3906158537582329381, guid: b897b91def57a2940a0f0042d364c50d, type: 3}
   m_PrefabInstance: {fileID: 772266246}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &773382939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 773382941}
+  - component: {fileID: 773382940}
+  m_Layer: 0
+  m_Name: DayNight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &773382940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773382939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e59aa9c929bb5864cb55b2a74f5cc272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Stage.DayNight
+  mode: 0
+  nightChance: 0.5
+  nightSky: {fileID: 2100000, guid: 9af23ba5fa5364ff598888460e0e2759, type: 2}
+  sun: {fileID: 410087040}
+  nightSunColor: {r: 0.55, g: 0.65, b: 1, a: 1}
+  nightSunIntensity: 0.5
+  nightAmbientTint: {r: 0.45, g: 0.55, b: 0.85, a: 1}
+  nightAmbientIntensity: 0.55
+--- !u!4 &773382941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773382939}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &773661976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20858,3 +20910,4 @@ SceneRoots:
   - {fileID: 1505359131}
   - {fileID: 1401561432}
   - {fileID: 1629532490}
+  - {fileID: 773382941}
