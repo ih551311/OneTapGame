@@ -98,3 +98,9 @@ Phase 1에서 한 일 (2026-10-29):
 - `Assets/Scripts/Stage/DayNight.cs`: 밤이면 밤하늘 머티리얼로 바꾸고, 해 Directional Light를 푸른 달빛(0.5)으로, 주변광을 어둡고 푸르게(트라이라이트는 색 곱하기, 하늘 기준은 세기 0.55). `Mode`(Random/AlwaysDay/AlwaysNight)와 밤 확률은 Inspector에서 바꾼다 (확인용으로 고정할 때). 밤하늘: 숲 Cartoon Base NightSky, 성 마을 Night MoonBurst, 사막 Cold Night.
 - 메뉴 `LastBullet/Phase 16 낮과 밤 넣기`(`Phase16DayNightSetup.cs`)가 세 씬에 `DayNight` 오브젝트를 만든다. 맵을 다시 만들면 Phase 15(하늘) → Phase 16 순서로 다시 실행.
 - 확인한 것: 세 맵의 밤 화면(적이 보일 만큼 밝음), 8번 연속 플레이에서 낮/밤이 섞여 나옴. 못 한 것: 밤 전투 직접 플레이(가독성), 낮과 밤 전환 연출(없음, 입장 때만 정해짐).
+
+
+## 2026-10-31 맵 입장 안내 (Phase 17, 사용자 요청)
+- 숲·성 마을·사막에 들어가면 화면 위쪽 가운데에 "사막 · 밤 / 얻는 물감 ● 보라 ● 하양 ● 검정" 창이 0.6초 나타나 3.5초 머물고 1초 사라진다. 낮/밤은 `DayNight.IsNight`를 따른다.
+- 코드 `Assets/Scripts/UI/MapIntroBanner.cs` (CanvasGroup 페이드, 일시정지 중에도 흐르게 unscaled time; 맵 불러온 직후 첫 프레임 시간 튐으로 안내가 바로 지나가는 걸 막으려고 한 프레임에 0.1초까지만 셈). 메뉴 `LastBullet/Phase 17 맵 입장 안내 넣기`(`Phase17MapIntroSetup.cs`)가 세 씬의 Canvas 맨 뒤에 `MapIntro`를 만든다. 글자 그림은 `StageTitle_*`(6장)·`StageColors_*`.
+- 확인한 것: 숲 낮, 사막 낮·밤, 성 마을 밤에서 안내가 뜨고 사라짐. 못 한 것: 숲 밤·성 마을 낮 화면(같은 코드·그림 이름만 다름), 안내가 뜬 채로 ESC 일시정지.

@@ -60,6 +60,7 @@
 | `Assets/UI/StageColors_Forest.png`, `StageColors_Castle.png`, `StageColors_Desert.png` | 전투 장소 선택의 버튼 아래 안내 "얻는 물감 ● 빨강 ● 주황 ● 노랑" (글자와 색 점이 모두 그림 안에 있다) | 720×64 | 맵의 물감 색을 바꾸면(`StageColors` 표) 이 그림도 같이 고쳐야 한다 |
 | `Assets/UI/ButtonLabel_Delete.png`, `ButtonLabel_DeleteYes.png`, `ButtonLabel_DeleteNo.png` | 그림 보기의 [삭제] 버튼 글자와 확인창의 [지우기] [취소] 글자 | 256×128 / 320×128 / 256×128 | 버튼 틀은 `Button_*.png`를 같이 씀 |
 | `Assets/UI/Gallery_DeleteConfirm_Message.png` | 그림 삭제 확인창 문구 "이 그림을 지울까요? 지운 그림은 되살릴 수 없어요." (두 줄) | 720×200 | 창 배경은 `Popup_Panel.png` |
+| `Assets/UI/StageTitle_<Forest|Castle|Desert>_<Day|Night>.png` (6장) | 맵 입장 안내의 맵 이름과 낮/밤 글자 "사막 · 밤" 등 | 640×96 | 안내 창 배경은 `Popup_Panel.png`, 아래 "얻는 물감" 줄은 `StageColors_*.png`를 같이 씀. 숲·성 마을·사막 씬의 `Canvas/MapIntro` |
 | `Assets/UI/Arrow_Right.png` | 만드는 법 화살표 (재료 → 결과) | 96×64 | 오른쪽을 가리키게 그린다 |
 | `Assets/UI/ButtonLabel_Craft.png` | 버튼 글자 "합성" | 512×128 | 버튼 배경은 Button_*.png |
 | `Assets/UI/Title_Background.png` | 타이틀 배경 (화면 전체) | 1920×1080 | 화면 크기에 맞게 늘어난다 |
@@ -176,6 +177,7 @@ Enemy_Charger            ← 기능 (EnemyHealth, EnemyAI, EnemyDrop, NavMeshAge
 복잡한 모델 모양(MeshCollider)으로 판정하지 않는다: 느리고 판정이 들쭉날쭉하다.
 
 새 UI나 오브젝트가 생길 때마다 이 표에 추가한다.
+
 
 
 
