@@ -1,4 +1,4 @@
-# 내 그림 넣는 곳 (아트 슬롯)
+﻿# 내 그림 넣는 곳 (아트 슬롯)
 
 게임에 나오는 그림과 겉모습은 모두 아래 파일 중 하나로 정해진다.
 지금 들어 있는 것은 **임시 그림**이다. 직접 그린 것으로 바꾸면 게임에 바로 반영된다.
@@ -56,6 +56,8 @@
 | `Assets/UI/Frame_Title.png` | 액자 고르기 팝업 제목 "액자에 걸 그림" | 768×128 | 팝업의 나머지 그림은 타이틀 그림 보기와 같은 `Gallery_*`, `Popup_Panel` |
 | `Assets/UI/FrameProgress_Label.png` | 화면 위 가운데 진행도의 글자 "서로 다른 작품" (옆의 "3 / 9" 숫자는 TMP) | 384×96 | 배경은 `BagPanel.png`를 같이 씀 |
 | `Assets/UI/StageLabel_Castle.png` | 전투 장소 선택 버튼 글자 "성 마을" | 512×128 | |
+| `Assets/UI/StageLabel_Desert.png` | 전투 장소 선택 버튼 글자 "사막" | 512×128 | |
+| `Assets/UI/StageColors_Forest.png`, `StageColors_Castle.png`, `StageColors_Desert.png` | 전투 장소 선택의 버튼 아래 안내 "얻는 물감 ● 빨강 ● 주황 ● 노랑" (글자와 색 점이 모두 그림 안에 있다) | 720×64 | 맵의 물감 색을 바꾸면(`StageColors` 표) 이 그림도 같이 고쳐야 한다 |
 | `Assets/UI/Arrow_Right.png` | 만드는 법 화살표 (재료 → 결과) | 96×64 | 오른쪽을 가리키게 그린다 |
 | `Assets/UI/ButtonLabel_Craft.png` | 버튼 글자 "합성" | 512×128 | 버튼 배경은 Button_*.png |
 | `Assets/UI/Title_Background.png` | 타이틀 배경 (화면 전체) | 1920×1080 | 화면 크기에 맞게 늘어난다 |
@@ -126,6 +128,8 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/CastleRoad.mat` | 성 마을의 흙길과 마을 광장 바닥 | `Environment/Ground/Road`, `Plaza` |
 | `Materials/CastleCourtyard.mat` | 성 안 돌바닥 | `Environment/Ground/Courtyard` |
 | 에셋 `Assets/3D Cartoon Village/Materials/*.mat` (31개) | 성벽·탑·집·소품의 색별 머티리얼 (에셋 제공, URP로 변환). 모델을 3ds Max로 바꿀 때는 `Environment/Castle`, `Village`, `Field` 묶음별로 교체 | `3_CastleVillage/Environment` 아래 에셋 프리팹들 |
+| `Materials/DesertFloor.mat` | 사막 바닥(모래색 평면, 멀리 깔린 것도 같이 씀) | `4_Desert/Environment/Ground/Floor`, `Backdrop/FloorFar` |
+| 에셋 `Assets/Tiny Teacup Studio/Low Poly Desert Environment/Materials/Mat_01.mat` | 사막의 절벽·바위·선인장·고목 전부가 같이 쓰는 색 팔레트 머티리얼 (에셋 제공, URP로 변환). 색을 바꾸려면 `Palette.png`를 고친다 | `4_Desert/Environment` 아래 에셋 프리팹들 (`Cliffs`, `Rocks`, `Plants`, `SmallDecor` 묶음별로 교체) |
 | `Materials/ForestFloor.mat` | 숲 바닥(풀색 평면, 풀 타일 아래·멀리 깔림) | `2_Forest/Environment/Ground/Floor`, `Backdrop/FloorFar` |
 | 에셋 `Assets/RPGPP_LT/Materials/rpgpp_lt_mat_a.mat` | 숲의 나무·바위·건물·풀 타일 전부가 같이 쓰는 색 팔레트 머티리얼 (에셋 제공, URP로 변환). 색을 바꾸려면 `Textures/rpgpp_lt_tex_a.tga` 팔레트를 고친다 | `2_Forest/Environment` 아래 에셋 프리팹들 (나무·바위·건물 모델 교체는 `Environment` 묶음별로) |
 | `Materials/PictureFrame.mat` | 미술관 액자 테두리 (금색) | `PictureFrame_01/Frame` (모델로 바꿀 때 `Picture` 면 위치·크기만 맞춘다) |
@@ -168,3 +172,4 @@ Enemy_Charger            ← 기능 (EnemyHealth, EnemyAI, EnemyDrop, NavMeshAge
 복잡한 모델 모양(MeshCollider)으로 판정하지 않는다: 느리고 판정이 들쭉날쭉하다.
 
 새 UI나 오브젝트가 생길 때마다 이 표에 추가한다.
+

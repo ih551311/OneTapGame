@@ -1,4 +1,4 @@
-# OneTapGame - Claude 작업 지침
+﻿# OneTapGame - Claude 작업 지침
 
 ## 게임 기획 (가장 먼저 읽기)
 
@@ -59,7 +59,9 @@
   - `Assets/Scenes/0_Title.unity` = 기획서 `MainMenu` (타이틀, 게임 시작 씬, 빌드 0번)
   - `Assets/Scenes/1_Museum.unity` = 기획서 `Hideout` (미술관)
   - `Assets/Scenes/2_Forest.unity` = 기획서 `Stage_Forest` (숲, 전투 스테이지)
-  - `Assets/Scenes/3_CastleVillage.unity` = 성 마을 (전투 장소 2, 에셋 `Assets/3D Cartoon Village`. 마을·성 앞뜰·성 안 세 지역이 물감 3색씩 `PaintZone`)
+  - `Assets/Scenes/3_CastleVillage.unity` = 성 마을 (전투 장소 2, 에셋 `Assets/3D Cartoon Village`)
+  - `Assets/Scenes/4_Desert.unity` = 사막 (전투 장소 3, 에셋 `Assets/Tiny Teacup Studio`)
+  - 물감 색은 맵마다 3색 (2026-10-31 사용자 결정): 숲 빨강·주황·노랑 / 성 마을 초록·파랑·남색 / 사막 보라·하양·검정. 표는 `Assets/Scripts/Stage/StageColors.cs`.
   - 훈련장(2_Training)은 2026-10-30 사용자 결정으로 없앴다 (훈련장 없이 바로 숲). 숲은 에셋 `Assets/RPGPP_LT`(RPG Poly Pack - Lite)로 꾸몄다 (출처는 `Assets/Credits.txt`).
   - 게임 코드는 씬 이름을 `LastBullet.Core.SceneNames`에서만 쓴다.
 - 패키지: Cinemachine 3.1.7. TextMeshPro는 Unity 6에서 uGUI(`com.unity.ugui`)에 포함되어 있다.
@@ -98,3 +100,4 @@
 - 작업 결과는 그대로 보고한다. 실패하면 실패했다고 말한다.
 - **커밋 메시지에 `Co-Authored-By: Claude ...` 줄을 넣지 않는다** (2026-10-30 사용자 요청: GitHub·Fork에 "ih551311 및 claude 작성함"으로 뜨지 않게). PR 설명에도 Claude Code 표시를 넣지 않는다.
 - 참고 문서: `docs/claude/`
+

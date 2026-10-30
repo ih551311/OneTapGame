@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using LastBullet.Inventory;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace LastBullet.Stage
 {
     // 물감 지역 (2026-10-30 사용자 결정: 지역마다 얻을 수 있는 물감 색을 나눈다).
     // 이 오브젝트의 위치·크기(Size, 위에서 본 직사각형)가 지역이고, 그 안에서 만들어진 적은 Colors 중에서만 물감을 떨어뜨린다.
-    // 어느 지역에도 없는 곳의 적은 예전처럼 9색 중 랜덤이다 (숲).
+    // 어느 지역에도 없는 곳의 적은 그 맵의 색(StageColors)을 따른다.
+    // (2026-10-31부터 맵마다 3색이라 지금 씬에는 PaintZone을 두지 않는다. 한 맵 안을 다시 나누고 싶을 때 쓴다)
     // 판정은 적이 만들어진 자리(스포너 자리)로 한다. 적이 지역 밖으로 쫓아가도 색은 바뀌지 않는다 (EnemyDrop).
     // Scene 창에서 색깔 상자로 보이고, 위치·Size를 고치면 지역이 바뀐다.
     // 붙일 곳: 성 마을 씬의 PaintZones 아래 Zone_... 오브젝트
@@ -53,13 +55,17 @@ namespace LastBullet.Stage
             return null;
         }
 
-        // 이 자리에서 떨어뜨릴 물감 색 하나. 지역이 있으면 그 지역 색 중에서, 없으면 9색 중 랜덤.
+        // 이 자리에서 떨어뜨릴 물감 색 하나. 지역이 있으면 그 지역 색 중에서,
+        // 없으면 지금 씬(맵)의 색(StageColors) 중에서, 그것도 없으면 9색 중 랜덤.
         public static PaintColor PickColor(Vector3 position)
         {
             var zone = At(position);
-            if (zone == null || zone.colors == null || zone.colors.Length == 0)
-                return PaintColors.Random();
-            return zone.colors[Random.Range(0, zone.colors.Length)];
+            if (zone != null && zone.colors != null && zone.colors.Length > 0)
+                return zone.colors[Random.Range(0, zone.colors.Length)];
+            var stage = StageColors.For(SceneManager.GetActiveScene().name);
+            if (stage != null && stage.Count > 0)
+                return stage[Random.Range(0, stage.Count)];
+            return PaintColors.Random();
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]

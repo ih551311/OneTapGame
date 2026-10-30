@@ -16,7 +16,7 @@ namespace LastBullet.EditorTools
     //  - 2_Forest를 복사해서 시작한다 (플레이어·카메라·HUD·전투 가방·일시정지 창이 이미 들어 있다).
     //  - 에셋 조각은 원래 크기가 커서(집이 33m) 0.25배로 줄여 쓴다.
     //  - 지도 (남→북): 마을(시작) → 성 앞뜰 → 성문(Gats)이 있는 성벽 → 성 안(TownHall).
-    //  - 물감 3등분: 마을 = 빨강·주황·노랑 / 성 앞뜰 = 초록·파랑·남색 / 성 안 = 보라·하양·검정 (PaintZone)
+    //  - 물감: (2026-10-31 변경) 맵 전체가 초록·파랑·남색 (StageColors 표). 처음에는 지역(마을·성 앞뜰·성 안)마다 3색씩이었다.
     //  - 적은 지역마다 스포너로 놓는다 (마을 5 / 성 앞뜰 6 / 성 안 7).
     // 에셋 프리팹에는 충돌(Collider)이 없어서 벽·탑·집은 모양을 따라가는 MeshCollider, 나무·상자 같은 작은 것은 상자·캡슐 충돌을 붙인다.
     // 메뉴: LastBullet > Phase 11 성 마을 씬 만들기
@@ -101,7 +101,6 @@ namespace LastBullet.EditorTools
             AssetDatabase.CreateAsset(surface.navMeshData, "Assets/Scenes/3_CastleVillage/NavMesh-3_CastleVillage.asset");
 
             // 4. 물감 지역 3개 + 지역마다 적 스포너
-            var zonesRoot = new GameObject("PaintZones").transform;
             var spawnersRoot = new GameObject("Spawners").transform;
             var zones = new[]
             {
@@ -126,7 +125,7 @@ namespace LastBullet.EditorTools
             var counters = new Dictionary<string, int> { ["Charger"] = 0, ["Shield"] = 0, ["Thrower"] = 0 };
             foreach (var zone in zones)
             {
-                MakeZone(zonesRoot, zone);
+                // 2026-10-31: 맵마다 물감 3색(StageColors)이라 PaintZone은 만들지 않는다 (지역은 적 배치에만 쓴다)
                 var zoneSpawners = Group(zone.Id, spawnersRoot);
                 var (chargers, shields, throwers) = zone.Enemies;
                 AddSpawners("Charger", chargers, zone, zoneSpawners, enemiesRoot, enemyPrefabs, taken, counters, random);
@@ -143,7 +142,7 @@ namespace LastBullet.EditorTools
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
             AssetDatabase.SaveAssets();
-            Debug.Log($"[LastBullet] Phase 11: 3_CastleVillage 씬을 만들었어요 (스포너 {spawnersRoot.GetComponentsInChildren<EnemySpawner>().Length}개, 물감 지역 3개).");
+            Debug.Log($"[LastBullet] Phase 11: 3_CastleVillage 씬을 만들었어요 (스포너 {spawnersRoot.GetComponentsInChildren<EnemySpawner>().Length}개).");
         }
 
         // ───────────── 땅 ─────────────

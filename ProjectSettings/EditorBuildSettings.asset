@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/3_CastleVillage.unity
     guid: 3c586eac75529b54da5af5f2e1c4443f
+  - enabled: 1
+    path: Assets/Scenes/4_Desert.unity
+    guid: 8cdd9c5e851a1ae4d8375d7b9f47c8d1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

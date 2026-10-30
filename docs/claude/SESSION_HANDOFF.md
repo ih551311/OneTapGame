@@ -1,4 +1,4 @@
-# 세션 인계 요약
+﻿# 세션 인계 요약
 
 작성일: 2026-10-29
 
@@ -69,3 +69,12 @@ Phase 1에서 한 일 (2026-10-29):
 - 구성: 나무 판벽·바닥(임시 그림 `Assets/Textures/Museum/*.png`), 천장 매달린 등 8개, 액자 9개 스포트라이트, 옷장 6개, 유리 탁자 2 + 의자, 액자 앞 의자 5개, 붉은 카펫. 자세한 칸은 `docs/ART_SLOTS.md`.
 - 새 에셋의 8K 텍스처(파일당 128MB) 폴더는 쓰지 않아 `.gitignore`에 넣고 유니티 가져오기 크기를 256으로 줄였다 (파일 자체는 그대로).
 - 남은 확인: 사용자가 숲·성 마을·미술관을 직접 플레이해 보기, ESC 메뉴 마우스 클릭. 엔딩(9-2~9-5)은 계속 미룸. 성 마을에 구역 이름/색 안내 HUD는 아직 없음.
+
+
+## 2026-10-31 사막 맵 + 맵별 물감 3등분 (Phase 13, 사용자 요청)
+- 에셋 Low-Poly Desert Environment Pack(Coil Studio)을 `Assets/Tiny Teacup Studio`로 가져왔다 (유니티 CLI `AssetDatabase.ImportPackage`, 데모 씬은 라이트맵 22MB라 지움). 머티리얼 1개는 URP Lit으로 변환.
+- 메뉴 `LastBullet/Phase 13 사막 씬 만들기` (`Phase13DesertSetup.cs`): 2_Forest를 복사해 `4_Desert` 생성. 130m 모래 평면 + 둘레 절벽(Cliff_01 ×3배, 모서리 조각은 안 씀) + 바위 26·식물 46·작은 돌 70, 투명 벽 ±60m, NavMesh 새로 굽기, 스포너 20개(돌진 8·방어 6·원거리 6). 다시 만들려면 `Assets/Scenes/4_Desert.unity`와 `Assets/Scenes/4_Desert/`를 지우고 다른 씬을 연 뒤 메뉴를 다시 실행.
+- **물감 3등분 규칙 변경**: 지역 단위(PaintZone) → 맵 단위. `Assets/Scripts/Stage/StageColors.cs` 표 (숲 R/O/Y, 성 마을 G/B/I, 사막 P/W/K). `PaintZone.PickColor`가 지역이 없으면 현재 씬의 표를 쓴다. 성 마을 씬의 `PaintZones` 오브젝트는 지웠다 (`Phase13StageSelectSetup` 메뉴가 처리).
+- 전투 장소 선택 팝업: 버튼 3개(숲·성 마을·사막) + 버튼 아래 "얻는 물감 ● ○ ●" 그림(`Assets/UI/StageColors_*.png`, 한글 글자는 TMP 기본 글꼴에 없어 PNG로). 창 높이 680. 메뉴 `LastBullet/Phase 13 장소 선택에 사막과 물감 안내 넣기`.
+- 확인한 것: 사막 플레이 화면(절벽·바위·선인장·적 20마리 = Enemy 태그 66개), 사막에서 `PickColor` 300번 → 보라/하양/검정만, 팝업 화면. 아직 못 한 것: 사막 직접 플레이(적 처치·귀환), 숲·성 마을에서 새 색 확인.
+

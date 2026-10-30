@@ -8,5 +8,6 @@ namespace LastBullet.Core
         public const string Museum = "1_Museum"; // 미술관 (아지트)
         public const string Forest = "2_Forest"; // 숲 (전투 장소)
         public const string CastleVillage = "3_CastleVillage"; // 성 마을 (전투 장소, 물감 3등분)
+        public const string Desert = "4_Desert"; // 사막 (전투 장소)
     }
 }
