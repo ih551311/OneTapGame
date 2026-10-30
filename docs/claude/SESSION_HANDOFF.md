@@ -172,3 +172,10 @@ Phase 1에서 한 일 (2026-10-29):
 ## 2026-10-31 점프 소리 교체 (Phase 26, 사용자 요청: "뽀잉" 말고 다른 소리)
 - 원인: 팩의 `Jump_6·7·22`는 분석해 보니 음이 165Hz에서 680Hz까지 한 방향으로 계속 올라가서 "뽀잉"으로 들렸다. 직접 합성한 `Assets/Audio/Jump/jump_01~03.wav`(음높이 없는 "툭"(박차는 둔한 소리) + "슉"(옷자락·숨이 쓸려 올라갔다 사라지는 잡음 소리))로 바꿨다. 크기 0.55, 피치 0.96~1.06. 메뉴 `LastBullet/Phase 26 점프 소리 바꾸기`(`Phase26JumpSoundFix.cs`). 네 씬에 연결 확인. 못 한 것: 직접 들어 보기.
 - 참고: 이 작업 중 사용자가 사막 씬의 플레이어 값을 바꿔 저장한 것이 같이 커밋됐다 (`4_Desert`의 walkSpeed 5.05, runSpeed 7.08, jumpHeight 1.83, gravity -16.8, dodgeDistance 3.72; 다른 씬은 기본값 4.5/7/1.5/-20/3). 의도한 변경인지 확인이 필요하다.
+
+
+## 2026-10-31 배경음악 (Phase 27, 사용자 요청: 배경별로 어울리게, 전투 맵은 Claude가 판단)
+- 사용자가 에셋 FREE Adventure RPG Fantasy Game Music Pack(Cheryl Mcc Music, 4곡 × (Full Fade, LOOP) + 짧은 효과 곡 10개, 약 94MB)을 가져왔다. **타이틀 = Happy Clouds LOOP**(밝고 경쾌, 소리 0.35), **미술관 = Harping On LOOP**(하프, 차분한 갤러리, 소리 0.3).
+- **전투 맵(숲·성 마을·사막)에는 음악을 넣지 않았다 (Claude 판단)**: 이 게임은 적이 다가오는 소리·원거리 적이 던지는 소리·탄환이 떨어지는 소리를 듣고 움직이는 게임이고, 자유 파밍으로 오래 머물러 음악이 반복되면 질리며, 방금 넣은 총소리·발소리가 묻힌다. 원하면 전투 맵에도 낮은 소리(예: 성 마을에 Village Explore 0.15)로 넣을 수 있다. 팩의 Battle Emotion은 나중에 보스용으로 아껴 둠.
+- `Scripts/Audio/MusicPlayer.cs`(2초 페이드 인, 끝없이 되풀이, 2D). 메뉴 `LastBullet/Phase 27 배경음악 넣기`(`Phase27MusicSetup.cs`)가 두 곡을 스트리밍·Vorbis 압축(품질 0.6)으로 가져오게 설정하고 타이틀·미술관에 `BackgroundMusic`을 만든다. **쓰지 않는 곡은 프로젝트에 그대로 두고 `.gitignore`로 GitHub에서 제외** (쓰는 LOOP 두 곡 약 24MB만 올라감). 쓰지 않는 발소리 에셋 `Footstep(Snow and Grass)`(26MB)도 같이 제외.
+- 확인한 것: 두 씬에서 재생 중·반복 켜짐·페이드 인(0.35/0.30까지), 전투 맵 세 곳에는 MusicPlayer 없음. 못 한 것: 직접 들어 보기(곡 분위기가 맵과 어울리는지는 사용자 판단).

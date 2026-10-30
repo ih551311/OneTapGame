@@ -118,3 +118,14 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# 음악 팩(FREE Adventure RPG Fantasy Game Music Pack)에서 쓰지 않는 곡 (약 70MB). 쓰는 곡은 Happy Clouds LOOP, Harping On LOOP 둘뿐이다.
+/Assets/FREE Adventure RPG Fantasy Game Music Pack/Stingers And Short Cues/
+/Assets/FREE Adventure RPG Fantasy Game Music Pack/Stingers And Short Cues.meta
+/Assets/FREE Adventure RPG Fantasy Game Music Pack/Core Gameplay/Battle Emotion*
+/Assets/FREE Adventure RPG Fantasy Game Music Pack/Core Gameplay/Village Explore*
+/Assets/FREE Adventure RPG Fantasy Game Music Pack/Core Gameplay/Happy Clouds Full Fade*
+/Assets/FREE Adventure RPG Fantasy Game Music Pack/Core Gameplay/Harping On Full Fade*
+# 쓰지 않는 발소리 에셋 전체(26MB)도 올리지 않는다 (쓰는 8개는 Assets/Audio/Footsteps에 다듬어 두었다)
+/Assets/Footstep(Snow and Grass)/
+/Assets/Footstep(Snow and Grass).meta
