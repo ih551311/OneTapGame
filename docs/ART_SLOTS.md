@@ -52,6 +52,8 @@
 | `Assets/UI/Pause_LossWarning.png` | 훈련장 일시정지 창의 안내 "나가면 이번 판 재료가 사라져요" | 768×96 | 훈련장에서만 보임 |
 | `Assets/UI/ButtonLabel_Resume.png` / `ButtonLabel_ToTitle.png` | 버튼 글자 "계속하기" / "타이틀로 나가기" | 512×128 | |
 | `Assets/UI/Paint_Label_Gallery.png` | 그림판 버튼 글자 "내 그림" | 256×96 | 버튼 배경은 `Paint_Button_Cancel_*`. 누르면 보기 전용 작품 팝업(그림·창은 타이틀 그림 보기와 같은 `Gallery_*`, `Popup_Panel`)이 뜬다 |
+| `Assets/UI/Prompt_Frame.png` | 액자 근처 안내 "[E] 그림 걸기" | 768×96 | |
+| `Assets/UI/Frame_Title.png` | 액자 고르기 팝업 제목 "액자에 걸 그림" | 768×128 | 팝업의 나머지 그림은 타이틀 그림 보기와 같은 `Gallery_*`, `Popup_Panel` |
 | `Assets/UI/Arrow_Right.png` | 만드는 법 화살표 (재료 → 결과) | 96×64 | 오른쪽을 가리키게 그린다 |
 | `Assets/UI/ButtonLabel_Craft.png` | 버튼 글자 "합성" | 512×128 | 버튼 배경은 Button_*.png |
 | `Assets/UI/Title_Background.png` | 타이틀 배경 (화면 전체) | 1920×1080 | 화면 크기에 맞게 늘어난다 |
@@ -106,6 +108,8 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/StageMap.mat` | 미술관 지도 탁자 (전투 장소 선택) | `1_Museum` 씬의 `StageMap` |
 | `Materials/PaperCraftTable.mat` | 미술관 종이 합성대 | `1_Museum` 씬의 `PaperCraftTable` |
 | `Materials/PaintWorkbench.mat` | 미술관 그림 작업대 | `1_Museum` 씬의 `PaintWorkbench` |
+| `Materials/PictureFrame.mat` | 미술관 액자 테두리 (금색) | `PictureFrame_01/Frame` (모델로 바꿀 때 `Picture` 면 위치·크기만 맞춘다) |
+| `Materials/FramePicture.mat` | 액자의 그림 면 (정사각형, Unlit). 걸린 그림이 코드로 이 면에 들어간다 | `PictureFrame_01/Picture` |
 
 ## 앞으로 생길 UI (만들 때 이 표에 추가)
 

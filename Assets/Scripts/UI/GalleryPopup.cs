@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using LastBullet.Core;
 using LastBullet.Drawing;
+using LastBullet.Stage;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,11 +39,29 @@ namespace LastBullet.UI
 
         [SerializeField] Button largeViewCloseArea;
 
+        [Tooltip("액자 고르기(미술관 액자 앞 E): 그림을 누르면 바로 그 액자에 걸리고 닫힌다. 걸기 버튼은 숨긴다")]
+        [SerializeField] bool frameMode;
+
+        PictureFrame targetFrame;
+
         readonly List<GameObject> items = new List<GameObject>();
         string selectedId;
 
+        // 액자 앞에서 부른다. 어느 액자에 걸지 기억해 두고 연다.
+        public void OpenForFrame(PictureFrame frame)
+        {
+            targetFrame = frame;
+            Open();
+        }
+
         protected override void OnFirstOpen()
         {
+            if (frameMode)
+            {
+                hangLeftButton.gameObject.SetActive(false);
+                hangRightButton.gameObject.SetActive(false);
+                return;
+            }
             if (viewOnly)
             {
                 hangLeftButton.gameObject.SetActive(false);
@@ -56,7 +75,7 @@ namespace LastBullet.UI
 
         protected override void OnOpened()
         {
-            selectedId = null;
+            selectedId = frameMode && targetFrame != null ? targetFrame.CurrentId : null; // 지금 걸린 그림에 표시
             if (largeView != null)
                 largeView.SetActive(false);
             Refresh();
@@ -96,6 +115,13 @@ namespace LastBullet.UI
 
         void Select(string id)
         {
+            if (frameMode)
+            {
+                if (targetFrame != null)
+                    targetFrame.Hang(id);
+                Close();
+                return;
+            }
             if (viewOnly)
             {
                 largePicture.texture = PaintingLibrary.LoadTexture(PaintingLibrary.Find(id));
