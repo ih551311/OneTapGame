@@ -19,6 +19,9 @@ namespace LastBullet.Drawing
     {
         public const int SlotCount = 9;
 
+        // 칸에 걸린 그림이 바뀔 때 (진행도 표시가 듣는다)
+        public static event Action Changed;
+
         static GalleryData data;
 
         static string FilePath => Path.Combine(SaveManager.FolderPath, "gallery.json");
@@ -38,6 +41,19 @@ namespace LastBullet.Drawing
                 return;
             Data.frames[slot] = id ?? "";
             Save();
+            Changed?.Invoke();
+        }
+
+        // 걸린 서로 다른 작품 수 (같은 그림이 여러 칸에 있어도 한 번만 센다). 엔딩 조건은 이 값이 9일 때다.
+        public static int DistinctCount()
+        {
+            var ids = new HashSet<string>();
+            foreach (var id in Data.frames)
+            {
+                if (!string.IsNullOrEmpty(id))
+                    ids.Add(id);
+            }
+            return ids.Count;
         }
 
         static GalleryData Data
@@ -91,6 +107,7 @@ namespace LastBullet.Drawing
         static void ResetOnPlay()
         {
             data = null;
+            Changed = null;
         }
     }
 }

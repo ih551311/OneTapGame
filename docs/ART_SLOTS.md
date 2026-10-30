@@ -54,6 +54,7 @@
 | `Assets/UI/Paint_Label_Gallery.png` | 그림판 버튼 글자 "내 그림" | 256×96 | 버튼 배경은 `Paint_Button_Cancel_*`. 누르면 보기 전용 작품 팝업(그림·창은 타이틀 그림 보기와 같은 `Gallery_*`, `Popup_Panel`)이 뜬다 |
 | `Assets/UI/Prompt_Frame.png` | 액자 근처 안내 "[E] 그림 걸기" | 768×96 | |
 | `Assets/UI/Frame_Title.png` | 액자 고르기 팝업 제목 "액자에 걸 그림" | 768×128 | 팝업의 나머지 그림은 타이틀 그림 보기와 같은 `Gallery_*`, `Popup_Panel` |
+| `Assets/UI/FrameProgress_Label.png` | 화면 위 가운데 진행도의 글자 "서로 다른 작품" (옆의 "3 / 9" 숫자는 TMP) | 384×96 | 배경은 `BagPanel.png`를 같이 씀 |
 | `Assets/UI/Arrow_Right.png` | 만드는 법 화살표 (재료 → 결과) | 96×64 | 오른쪽을 가리키게 그린다 |
 | `Assets/UI/ButtonLabel_Craft.png` | 버튼 글자 "합성" | 512×128 | 버튼 배경은 Button_*.png |
 | `Assets/UI/Title_Background.png` | 타이틀 배경 (화면 전체) | 1920×1080 | 화면 크기에 맞게 늘어난다 |
