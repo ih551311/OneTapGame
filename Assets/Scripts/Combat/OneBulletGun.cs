@@ -1,4 +1,4 @@
-using LastBullet.Audio;
+﻿using LastBullet.Audio;
 using LastBullet.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -40,6 +40,9 @@ namespace LastBullet.Combat
 
         public BulletState State { get; private set; } = BulletState.Loaded;
 
+        // 총을 쏜 순간 (캐릭터의 사격 동작 PlayerAnimator가 듣는다)
+        public event System.Action Fired;
+
         // 지금 떨어져 있는 탄환. 회수(Phase 3-3)할 때 쓴다.
         public GameObject DroppedBullet { get; private set; }
 
@@ -74,6 +77,7 @@ namespace LastBullet.Combat
             State = BulletState.Fired; // 같은 순간에 두 번 쏘지 않게
             if (shotSound != null)
                 shotSound.Play();
+            Fired?.Invoke();
 
             // 몸을 카메라가 보는 방향으로 돌려서 총구가 조준 방향을 보게 한다.
             if (look != null)

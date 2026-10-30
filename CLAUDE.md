@@ -30,7 +30,7 @@
   - **버튼·패널·창**: 크기가 늘어나도 모서리가 안 깨지게 9-slice(스프라이트 border)로 설정하고 `Image.Type.Sliced`. 버튼 상태(보통/마우스 올림/누름)도 각각 PNG 칸을 만든다.
   - 글자는 TextMeshPro. 글꼴도 바꿀 수 있게 `Assets/UI/Fonts/`에 둔다.
   - **모든 UI는 씬의 `Canvas` 오브젝트 아래**에 uGUI 오브젝트로 만든다 (사용자가 Scene 창에서 위치를 옮길 수 있게). `OnGUI`, 코드로만 그리는 UI 금지. 에디터 스크립트는 `ArtSlots.FindCanvas()`로 찾는다.
-- **플레이어 모델**: 사용자가 **3ds Max**로 만든다 (FBX로 `Assets/Models/`). 모델이 오기 전까지 캡슐을 쓰고, 교체 때 FBX 가져오기 설정(크기, 축, 피벗)을 같이 맞춘다.
+- **플레이어 모델**: 사용자가 **3ds Max**로 만든다 (FBX로 `Assets/Models/`). (2026-10-31부터 임시로 에셋 캐릭터 JellyFishGirl `Assets/Models/Character`를 쓴다. Player 아래 자식 `Model`이고 `PlayerAnimator`가 동작을 정한다.) 모델이 바뀔 때 FBX 가져오기 설정(크기, 축, 피벗)을 같이 맞춘다.
 - **오브젝트**: 오브젝트 종류마다 전용 머티리얼 `Assets/Materials/<이름>.mat` (`ArtSlots.GetOrCreateMaterial`). 기본 머티리얼을 같이 쓰지 않는다. 기능 스크립트는 위쪽 오브젝트에, 겉모습은 자식 오브젝트에 둔다 (모델 교체 자리).
 - 만들 때마다 [`docs/ART_SLOTS.md`](docs/ART_SLOTS.md) 표에 추가한다.
 - **액자와 그림 종이는 정사각형 고정** (2026-10-30 사용자 결정): 그림판 캔버스 `PaintingLibrary.CanvasSize`(256×256), 타이틀 액자, 그림 보기 칸, 앞으로 만들 미술관 액자 9개 모두 정사각형. 정사각형이 아닌 그림은 작품으로 저장하지 않는다.
@@ -100,4 +100,5 @@
 - 작업 결과는 그대로 보고한다. 실패하면 실패했다고 말한다.
 - **커밋 메시지에 `Co-Authored-By: Claude ...` 줄을 넣지 않는다** (2026-10-30 사용자 요청: GitHub·Fork에 "ih551311 및 claude 작성함"으로 뜨지 않게). PR 설명에도 Claude Code 표시를 넣지 않는다.
 - 참고 문서: `docs/claude/`
+
 

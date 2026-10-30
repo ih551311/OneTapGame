@@ -71,6 +71,7 @@
 | 에셋 `Assets/FreeWeaponSFX_v1.1/Handgun/Gunshots/*.wav` | 총소리: 사격 소리 변형 3개(`gunshot_01~03`)와 여운 2개(`tail_01~02`). 플레이어 사격은 Player의 `SfxPlayer`(소리 0.8, 2D, 여운 같이), 원거리 적 공격은 `Enemy_Thrower` 프리팹의 `SfxPlayer`(소리 0.3, 3D, 6~45m에서 멀수록 작게). 다른 소리로 바꾸려면 `SfxPlayer`의 Clips 칸에 끼운다 | `2_Forest`·`3_CastleVillage`·`4_Desert`·`1_Museum`의 Player, `Prefabs/Enemy_Thrower` |
 | 에셋 `Assets/Free UI Click Sound Effects Pack/AUDIO/Wooden/*.wav` (3개) | 마우스 클릭 소리 (따뜻한 나무 소리 변형 3개, 소리 0.6, 2D). 총을 쏠 때(커서가 잠겼을 때)는 나지 않는다. 다른 소리로 바꾸려면 `ClickSound` 오브젝트의 `SfxPlayer` Clips 칸에 끼운다 | 모든 씬(`0_Title` `1_Museum` `2_Forest` `3_CastleVillage` `4_Desert`)의 `ClickSound` |
 | 에셋 `Assets/VOiD1 Gaming - HALFTONE SFX PACK LITE/.../3. Movement/*.wav` | 플레이어 움직임 소리(발소리는 에셋 Footstep(Snow and Grass)에서 다듬은 것): 걷기·달리기는 맵마다 바닥이 다르다 — 숲·성 마을 `Assets/Audio/Footsteps/footstep_01~08.wav`(풀밭), 사막 `sand_01~06.wav`(모래, 코드로 만든 임시 소리), 미술관 `wood_*.wav`(나무 바닥, 코드로 만든 임시 소리). 걷기 0.5, 달리기 0.65·더 높게, 점프 `Assets/Audio/Jump/jump_01~03.wav`(코드로 만든 임시 소리: 툭 + 슉, 음높이 없음), 착지 `Bounce_2·3`, 회피(Q) `Jump_14·15`. 발소리는 걸은 거리(걷기 2.0m, 달리기 2.6m)마다 한 걸음. 소리를 바꾸려면 Player 아래 `MovementSfx`의 각 `SfxPlayer` Clips 칸에 끼운다 | 미술관·숲·성 마을·사막의 `Player/MovementSfx` |
+| 에셋 `Assets/Models/Character/` (JellyFishGirl 모델 `Models/JellyFishGirl.fbx`, 재질 7개, 그림 `Textures/`, 동작 5개 `Animations/Mot_*.fbx`) + 프리팹 `Assets/Prefabs/PlayerCharacter.prefab` + 컨트롤러 `Assets/Animations/PlayerCharacter.controller` | **주인공 플레이어 모델** (임시. 나중에 3ds Max로 만든 모델로 바꿀 때는 Player 아래 `Model`만 교체하고 `PlayerAnimator`의 Animator 칸을 맞춘다). 동작: 대기·걷기·달리기(이동 속도 `Speed`로 전환)·사격·피격. 점프·회피 동작은 없다. 총구(`Muzzle`)는 모델의 총 앞(-0.3, 1.05, 0.75)에 둔다. 재질은 모델 전용 `Kurage_*` 7개(URP Lit) | 4개 씬의 `Player/Model` |
 | 에셋 `Assets/FREE Adventure RPG Fantasy Game Music Pack/Core Gameplay/` 의 `Happy Clouds LOOP BPM110.wav`(타이틀, 0.35), `Harping On LOOP BPM98.wav`(미술관, 0.3) | 배경음악. 서서히 커지며 시작해 끝없이 되풀이. 다른 곡으로 바꾸려면 씬의 `BackgroundMusic`(MusicPlayer)의 Music 칸에 끼운다. 전투 맵에는 음악이 없다 | `0_Title`, `1_Museum`의 `BackgroundMusic` |
 | `Assets/UI/StageTitle_<Forest|Castle|Desert>_<Day|Night>.png` (6장) | 맵 입장 안내의 맵 이름과 낮/밤 글자 "사막 · 밤" 등 | 640×96 | 안내 창 배경은 `Popup_Panel.png`, 아래 "얻는 물감" 줄은 `StageColors_*.png`를 같이 씀. 숲·성 마을·사막 씬의 `Canvas/MapIntro` |
 | `Assets/UI/Arrow_Right.png` | 만드는 법 화살표 (재료 → 결과) | 96×64 | 오른쪽을 가리키게 그린다 |
@@ -189,6 +190,7 @@ Enemy_Charger            ← 기능 (EnemyHealth, EnemyAI, EnemyDrop, NavMeshAge
 복잡한 모델 모양(MeshCollider)으로 판정하지 않는다: 느리고 판정이 들쭉날쭉하다.
 
 새 UI나 오브젝트가 생길 때마다 이 표에 추가한다.
+
 
 
 
