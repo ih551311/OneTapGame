@@ -2,4 +2,4 @@ LAST BULLET : 마지막 탄환 - 에셋 출처와 라이선스
 
 형식: 에셋 이름 | 제작자 | 출처 URL | 라이선스 | 사용 위치
 
-(아직 없음)
+RPG Poly Pack - Lite 1.2.0 | Gigel3d | Unity Asset Store (RPG Poly Pack - Lite, 무료) | Standard Unity Asset Store EULA | 숲 스테이지 지형·나무·바위·건물 (Assets/RPGPP_LT). 머티리얼 3개는 URP용으로 바꿔 씀
