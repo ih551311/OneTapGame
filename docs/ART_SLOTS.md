@@ -67,6 +67,7 @@
 | `Assets/UI/ResultCaption_Gained.png`, `ResultCaption_Lost.png` | 결과 창 재료 줄 제목 "얻은 재료" / "잃은 재료" | 400×64 | 물감 아이콘은 가방과 같은 `Icon_Paint_*.png` |
 | `Assets/UI/ResultLabel_Kills.png` | 결과 창 "잡은 적" 글자 (숫자는 TMP) | 240×64 | 종이조각 아이콘은 `Icon_PaperScrap.png` |
 | `Assets/UI/ButtonLabel_ToMuseum.png` | 결과 창 [미술관으로] 버튼 글자 | 420×128 | 버튼 틀은 `Button_*.png` |
+| `Assets/UI/Fonts/font1.ttf` + `font1 SDF.asset` | 글꼴 "이서윤체(LeeSeoyun)" (사용자가 넣은 파일). 한글 11,172자 모두 들어 있다. TextMeshPro 글자의 Font Asset 칸에 `font1 SDF`를 끼우면 그 글꼴로 나온다. 다른 글꼴을 넣으면 메뉴 `LastBullet/글꼴 에셋 만들기`로 같은 에셋을 만든다 | 아직 쓰는 곳 없음 (지금 한글은 PNG 그림, 숫자는 기본 글꼴) |
 | `Assets/UI/StageTitle_<Forest|Castle|Desert>_<Day|Night>.png` (6장) | 맵 입장 안내의 맵 이름과 낮/밤 글자 "사막 · 밤" 등 | 640×96 | 안내 창 배경은 `Popup_Panel.png`, 아래 "얻는 물감" 줄은 `StageColors_*.png`를 같이 씀. 숲·성 마을·사막 씬의 `Canvas/MapIntro` |
 | `Assets/UI/Arrow_Right.png` | 만드는 법 화살표 (재료 → 결과) | 96×64 | 오른쪽을 가리키게 그린다 |
 | `Assets/UI/ButtonLabel_Craft.png` | 버튼 글자 "합성" | 512×128 | 버튼 배경은 Button_*.png |
@@ -184,6 +185,7 @@ Enemy_Charger            ← 기능 (EnemyHealth, EnemyAI, EnemyDrop, NavMeshAge
 복잡한 모델 모양(MeshCollider)으로 판정하지 않는다: 느리고 판정이 들쭉날쭉하다.
 
 새 UI나 오브젝트가 생길 때마다 이 표에 추가한다.
+
 
 
 

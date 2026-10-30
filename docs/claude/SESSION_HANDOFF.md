@@ -125,3 +125,8 @@ Phase 1에서 한 일 (2026-10-29):
 
 ## 2026-10-31 미술관 액자 앞 의자 제거 (사용자 요청)
 - 액자 앞 의자 줄(`MuseumHall/Decor/ViewingChair` 5개, z≈11.3)이 액자를 가려서 씬에서 지우고 `Phase12OldMuseumSetup.cs`에서도 뺐다. 유리 탁자 곁 의자(`OldChair`, `StrawChair`)는 그대로. 에디터 화면으로 액자 9개가 가려지지 않는 것을 확인.
+
+
+## 2026-10-31 한글 글꼴 (사용자가 넣음)
+- 사용자가 글꼴 파일을 `Assets/Font/font1.ttf`로 넣었고(패밀리 이름 LeeSeoyun), 프로젝트 규칙 위치 `Assets/UI/Fonts/`로 옮겼다. 메뉴 `LastBullet/글꼴 에셋 만들기 (Assets/UI/Fonts)`(`FontAssetSetup.cs`)가 폴더의 글꼴마다 TextMeshPro 동적(Dynamic) 글꼴 에셋 `<이름> SDF.asset`을 만든다(이미 있으면 건너뜀). 만든 에셋의 글자 캐시는 지워서(ClearFontAssetData) 파일을 작게 두었다.
+- 확인한 것: 한글 완성형 11,172자 전부 글꼴에 있음, 타이틀 화면 위에 임시 TMP 글자로 한글·영문·숫자·기호(· ● !?)가 보임(둥근 손글씨 모양). 쓰는 곳은 아직 없다(기존 한글 글자는 PNG 그대로, 숫자 TMP도 기본 글꼴 그대로). 그림 제목 붙이기 등을 만들 때 이 글꼴을 쓴다. 출처·라이선스는 사용자 확인 필요.
