@@ -33,6 +33,9 @@ namespace LastBullet.Drawing
         public static string PaintingsFolder => Path.Combine(SaveManager.FolderPath, "Paintings");
         static string ListPath => Path.Combine(SaveManager.FolderPath, "paintings.json");
 
+        // 작품이 새로 생기거나 지워질 때 (화면 왼쪽 위 상태창의 "그림 N장"이 듣는다)
+        public static event Action Changed;
+
         static readonly Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>();
 
         // 만든 순서대로의 작품 목록
@@ -103,6 +106,7 @@ namespace LastBullet.Drawing
                 list.paintings.Add(info);
                 File.WriteAllText(ListPath, JsonUtility.ToJson(list, true));
                 Debug.Log($"[PaintingLibrary] 작품 등록: {info.fileName}");
+                Changed?.Invoke();
                 return info;
             }
             catch (Exception e)
@@ -144,6 +148,7 @@ namespace LastBullet.Drawing
                 GalleryStore.ClearPainting(id);
                 ProfileStore.ClearIfPainting(id);
                 Debug.Log($"[PaintingLibrary] 작품 삭제: {info.fileName}");
+                Changed?.Invoke();
                 return true;
             }
             catch (Exception e)
@@ -156,6 +161,7 @@ namespace LastBullet.Drawing
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void ResetOnPlay()
         {
+            Changed = null;
             textureCache.Clear();
         }
     }
