@@ -429,8 +429,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28cbedfbae9bf8747826af4501358dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Player.PlayerMovement
-  walkSpeed: 4.5
-  runSpeed: 7
+  walkSpeed: 5.05
+  runSpeed: 7.85
   turnSpeed: 720
   jumpHeight: 1.5
   gravity: -20

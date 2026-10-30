@@ -13,8 +13,8 @@ namespace LastBullet.Player
     public class PlayerMovement : MonoBehaviour
     {
         [Header("이동 (기본값)")]
-        [SerializeField] float walkSpeed = 4.5f;   // m/s
-        [SerializeField] float runSpeed = 7f;      // m/s
+        [SerializeField] float walkSpeed = 5.05f;  // m/s (2026-10-31 사용자 요청으로 4.5에서 올림)
+        [SerializeField] float runSpeed = 7.85f;   // m/s (7에서 올림)
         [SerializeField] float turnSpeed = 720f;   // 몸이 이동 방향으로 도는 속도 (초당 각도)
 
         [Header("점프 (기본값)")]

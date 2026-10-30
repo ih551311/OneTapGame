@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Player.PlayerMovement
   walkSpeed: 5.05
-  runSpeed: 7.08
+  runSpeed: 7.85
   turnSpeed: 720
   jumpHeight: 1.83
   gravity: -16.8
