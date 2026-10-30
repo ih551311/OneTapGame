@@ -8547,16 +8547,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Audio.SfxPlayer
   clips:
-  - {fileID: 8300000, guid: c8aafaff1524d2748a97ecf7da409467, type: 3}
-  - {fileID: 8300000, guid: 0361cb25f4a1ced43a574bea12f003e5, type: 3}
-  - {fileID: 8300000, guid: 595948da74aff374294f59b976dd9948, type: 3}
-  - {fileID: 8300000, guid: 4850943d9c0fb1946ba676f551c2d40f, type: 3}
-  - {fileID: 8300000, guid: 1b073530b827dca42a4eebeada479ae6, type: 3}
-  - {fileID: 8300000, guid: c30d4ec283d7da445a4e26063484e913, type: 3}
-  - {fileID: 8300000, guid: d641ca97cc7e63a40a991d8331f73048, type: 3}
-  - {fileID: 8300000, guid: 4d9b8ce4ffa316d4596dd772f245a752, type: 3}
+  - {fileID: 8300000, guid: 3815e2e5d60fdb447b6da901fce9277d, type: 3}
+  - {fileID: 8300000, guid: 173e5623ee4dd034981eb2ed802b404a, type: 3}
+  - {fileID: 8300000, guid: b3e2f078358247b488e833e2163623cd, type: 3}
+  - {fileID: 8300000, guid: c7d486ad59ea93643be17edce35f3319, type: 3}
+  - {fileID: 8300000, guid: 2ba728a8507bed0429bb142d8f250ef4, type: 3}
   tails: []
-  volume: 0.65
+  volume: 0.6
   tailVolume: 0.45
   pitchRange: {x: 1.05, y: 1.15}
 --- !u!114 &639750571
@@ -8572,14 +8569,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Audio.SfxPlayer
   clips:
-  - {fileID: 8300000, guid: c8aafaff1524d2748a97ecf7da409467, type: 3}
-  - {fileID: 8300000, guid: 0361cb25f4a1ced43a574bea12f003e5, type: 3}
-  - {fileID: 8300000, guid: 595948da74aff374294f59b976dd9948, type: 3}
-  - {fileID: 8300000, guid: 4850943d9c0fb1946ba676f551c2d40f, type: 3}
-  - {fileID: 8300000, guid: 1b073530b827dca42a4eebeada479ae6, type: 3}
-  - {fileID: 8300000, guid: c30d4ec283d7da445a4e26063484e913, type: 3}
-  - {fileID: 8300000, guid: d641ca97cc7e63a40a991d8331f73048, type: 3}
-  - {fileID: 8300000, guid: 4d9b8ce4ffa316d4596dd772f245a752, type: 3}
+  - {fileID: 8300000, guid: 3815e2e5d60fdb447b6da901fce9277d, type: 3}
+  - {fileID: 8300000, guid: 173e5623ee4dd034981eb2ed802b404a, type: 3}
+  - {fileID: 8300000, guid: b3e2f078358247b488e833e2163623cd, type: 3}
+  - {fileID: 8300000, guid: c7d486ad59ea93643be17edce35f3319, type: 3}
+  - {fileID: 8300000, guid: 2ba728a8507bed0429bb142d8f250ef4, type: 3}
   tails: []
   volume: 0.5
   tailVolume: 0.45
