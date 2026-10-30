@@ -120,6 +120,9 @@ namespace LastBullet.Drawing
             }
         }
 
+        // 고른 색의 물감이 0이면 그릴 수 없다. 지우개는 물감을 쓰지 않으므로 항상 쓸 수 있다.
+        bool OutOfPaint => !IsEraser && InventoryManager.Instance.GetPaint(CurrentColor) <= 0;
+
         void HandleMouse()
         {
             var mouse = Mouse.current;
@@ -132,7 +135,10 @@ namespace LastBullet.Drawing
                 drawing = true;
                 blocked = false;
                 lastPoint = point;
-                StampAlong(point, point); // 점 하나 (선 길이 0이라 물감은 쓰지 않는다)
+                if (OutOfPaint)
+                    blocked = true; // 물감이 0이면 점도 찍을 수 없다
+                else
+                    StampAlong(point, point); // 점 하나 (선 길이 0이라 물감은 쓰지 않는다)
             }
             else if (drawing && mouse.leftButton.isPressed && hasPoint)
             {
@@ -177,6 +183,11 @@ namespace LastBullet.Drawing
             {
                 float step = Mathf.Min(1f, length - travelled);
                 travelled += step;
+                if (OutOfPaint)
+                {
+                    blocked = true;
+                    return;
+                }
                 if (!IsEraser)
                 {
                     float debt = paintDebt + step * PenSize * PaintPerPixelArea;
