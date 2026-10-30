@@ -102,10 +102,7 @@ namespace LastBullet.EditorTools
                 Place(straw, parent, center + new Vector2(-0.8f, -1.5f), 0f, 1f).name = "StrawChair";
                 Place(straw, parent, center + new Vector2(0.8f, -1.5f), 0f, 1f).name = "StrawChair";
             }
-
-            // 액자 앞 의자 줄 (그림을 보며 쉬는 자리)
-            for (int i = -2; i <= 2; i++)
-                Place(i % 2 == 0 ? chair : straw, parent, new Vector2(i * 2.2f, 11.3f), 180f, 1f).name = "ViewingChair";
+            // (2026-10-31 사용자 요청: 액자 앞 의자 줄은 액자를 가려서 없앴다)
         }
 
         // 액자 9개를 북쪽 벽에 붙인다 (두께 0.15의 뒷면이 벽에 닿게)

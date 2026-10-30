@@ -133,7 +133,7 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/MuseumCeiling.mat` | 미술관 천장 (어두운 나무색) | `MuseumHall/Shell/Ceiling` |
 | `Materials/MuseumCarpet.mat` | 입구에서 액자 쪽으로 깔린 붉은 카펫 | `MuseumHall/Decor/Carpet` |
 | `Materials/MuseumLampShade.mat`, `MuseumLampCord.mat` | 천장에 매달린 등의 갓(따뜻한 불빛, 발광)과 줄 | `MuseumHall/Lights/LampShade`, `LampCord` |
-| 에셋 `Assets/Creation_Forge Projects/Old Furniture/**` (옷장·유리 탁자·옛날 의자 2종) | 미술관 가구 — 에셋 제공 그대로 (URP). 3ds Max 모델로 바꿀 때는 `MuseumHall/Decor` 아래 이름별(`Wardrobe_*`, `GlassTable`, `OldChair`, `StrawChair`, `ViewingChair`)로 교체 | `1_Museum/MuseumHall/Decor` |
+| 에셋 `Assets/Creation_Forge Projects/Old Furniture/**` (옷장·유리 탁자·옛날 의자 2종) | 미술관 가구 — 에셋 제공 그대로 (URP). 3ds Max 모델로 바꿀 때는 `MuseumHall/Decor` 아래 이름별(`Wardrobe_*`, `GlassTable`, `OldChair`, `StrawChair`)로 교체 | `1_Museum/MuseumHall/Decor` |
 | `Materials/CastleFloor.mat` | 성 마을 바닥(밝은 풀색 평면, 멀리 깔린 것도 같이 씀) | `3_CastleVillage/Environment/Ground/Floor`, `Backdrop/FloorFar` |
 | `Materials/CastleRoad.mat` | 성 마을의 흙길과 마을 광장 바닥 | `Environment/Ground/Road`, `Plaza` |
 | `Materials/CastleCourtyard.mat` | 성 안 돌바닥 | `Environment/Ground/Courtyard` |
@@ -184,6 +184,7 @@ Enemy_Charger            ← 기능 (EnemyHealth, EnemyAI, EnemyDrop, NavMeshAge
 복잡한 모델 모양(MeshCollider)으로 판정하지 않는다: 느리고 판정이 들쭉날쭉하다.
 
 새 UI나 오브젝트가 생길 때마다 이 표에 추가한다.
+
 
 
 
