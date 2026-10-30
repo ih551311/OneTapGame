@@ -85,3 +85,9 @@ Phase 1에서 한 일 (2026-10-29):
 - 코드: `PaintingLibrary.Delete(id)` (목록에서 빼고 PNG 삭제, 텍스처 캐시 정리) → `SaveManager.ClearTitleFramesWith`로 타이틀 액자, `GalleryStore.ClearPainting`으로 미술관 액자 9칸의 같은 그림을 비운다. `PictureFrame`은 `GalleryStore.Changed`를 들어 바로 빈 액자로 바뀐다. UI는 `GalleryPopup`의 `deleteButton`·`deleteConfirm…` 칸.
 - 메뉴 `LastBullet/Phase 14 그림 삭제 버튼 넣기`(`Phase14GalleryDeleteSetup.cs`)가 타이틀과 미술관 씬의 GalleryPopup에 버튼과 확인창을 만든다.
 - 확인한 것: 테스트 그림을 만들어 타이틀(선택 → 삭제 → 확인 → 목록 12→11, 타이틀 액자 비워짐, PNG 삭제)과 미술관(크게 보기 → 삭제, 미술관 액자 칸 비워짐, 진행도 1/9 → 0/9) 모두 동작. 테스트 뒤 사용자 저장 데이터는 백업에서 되돌렸다. 못 한 것: 마우스로 직접 누르는 실제 클릭 (코드로 버튼을 눌러 확인).
+
+
+## 2026-10-31 맵마다 하늘 (Phase 15, 사용자 요청)
+- 에셋 AllSky Free(rpgwhitelock)에서 6면 큐브맵 3종만 남겼다 (`Assets/AllSkyFree`, 24MB; 원본 320MB·가로형 그림은 지움. 필요하면 Package Manager에서 다시 가져옴). 숲 = Cartoon Base BlueSky, 성 마을 = Epic_BlueSunset, 사막 = Epic_GloriousPink.
+- 메뉴 `LastBullet/Phase 15 맵마다 하늘 바꾸기`(`Phase15SkySetup.cs`): 각 씬의 `RenderSettings.skybox` 지정, 카메라 Clear Flags를 Skybox로, 예전 하늘 돔(`SkyDome`)과 RPG Poly Pack 구름 삭제. 맵 빌더(Phase10Forest·Phase11Castle·Phase13Desert)를 다시 돌리면 예전 하늘이 돌아오므로 이 메뉴를 다시 실행.
+- 확인한 것: 세 맵 플레이 화면에서 새 하늘이 보임. 못 한 것: 햇빛(Directional Light) 방향을 하늘의 해 위치에 맞추는 것, 미술관(실내)은 변경 없음.
