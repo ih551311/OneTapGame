@@ -4,10 +4,9 @@
 
 ## 지금까지의 상태
 
-- 세션을 OneTapGame 프로젝트(`C:\Users\ih551\OneTapGame`)로 옮겼다.
-- 브랜치 `docs/claude-code-setup`을 만들어 `CLAUDE.md`와 `docs/claude/` 문서를 추가했다. `main`은 그대로다.
-- 프로젝트는 아직 유니티 기본 템플릿 상태다. 커밋은 "Initial commit", "유니티 열기" 두 개뿐이다.
-- 모델을 `Sonnet 5.5`에서 `Opus 5.5`(`claude-opus-5-5`)로 바꿨다. 노력 수준(effort)은 마지막 확인 때 `medium`이었다.
+- (2026-10-31 갱신) 프로젝트는 `C:\Users\ih551\OneTapGame`, 브랜치는 `main` 하나뿐이다. 게임은 LAST BULLET이고 씬은 `0_Title` `1_Museum` `2_Forest` `3_CastleVillage` `4_Desert` 다섯 개다.
+- 이 문서 아래쪽 표의 앞부분(Phase 1~)은 2026-10-29 시점의 기록이고, **최신 진행은 문서 맨 아래의 날짜별 섹션과 `docs/claude_project/PROGRESS_SUMMARY.md`가 가장 정확하다.**
+- 2026-10-31 전체 검토: 에러·끊어진 연결 없음(5개 씬), 윈도우 빌드 성공(289MB, 경고는 Unity 내부 셰이더 1건)과 빌드 실행·저장 불러오기 정상, 성능 양호(에디터 119~163fps), 깃 가장 큰 추적 파일 4MB. 고친 것: 원거리 적 `ThrowPoint` Enemy 태그, 오래된 문서(PROGRESS_SUMMARY).
 
 ## 게임 개발 진행 (LAST BULLET)
 
