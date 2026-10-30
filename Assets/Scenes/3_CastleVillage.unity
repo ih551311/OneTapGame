@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 2619191}
   - component: {fileID: 2619190}
   - component: {fileID: 2619192}
+  - component: {fileID: 2619193}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -430,6 +431,28 @@ MonoBehaviour:
   health: {fileID: 2619188}
   gun: {fileID: 2619186}
   smoothTime: 0.08
+--- !u!114 &2619193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2619181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6ac2a7308888cc488e16e3f376f3d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Player.AimController
+  followCamera: {fileID: 1449707161}
+  follow: {fileID: 1449707160}
+  look: {fileID: 2619184}
+  health: {fileID: 2619188}
+  aimFieldOfView: 38
+  aimDistance: 2.9
+  aimShoulderX: 1.15
+  aimSensitivity: 0.5
+  blendSpeed: 12
+  turnSpeed: 720
 --- !u!1001 &4781711
 PrefabInstance:
   m_ObjectHideFlags: 0

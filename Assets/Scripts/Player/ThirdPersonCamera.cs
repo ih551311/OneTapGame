@@ -23,6 +23,9 @@ namespace LastBullet.Player
         float yaw;   // 좌우 각도
         float pitch; // 위아래 각도
 
+        // 조준할 때 마우스 감도를 낮추는 배율 (AimController가 정한다. 1 = 평소)
+        public float SensitivityMultiplier { get; set; } = 1f;
+
         float shakeAmplitude; // 흔들림 크기 (도)
         float shakeTime;      // 남은 흔들림 시간
         float shakeDuration;
@@ -58,7 +61,7 @@ namespace LastBullet.Player
 
             if (Cursor.lockState == CursorLockMode.Locked)
             {
-                Vector2 delta = mouse.delta.ReadValue() * GameSettings.Sensitivity;
+                Vector2 delta = mouse.delta.ReadValue() * GameSettings.Sensitivity * SensitivityMultiplier;
                 yaw += delta.x * sensitivity;
                 pitch -= delta.y * sensitivity; // 마우스를 위로 올리면 위를 본다
                 pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
