@@ -6716,13 +6716,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Audio.SfxPlayer
   clips:
-  - {fileID: 8300000, guid: 312bee4e61add7748ae25071f065d37f, type: 3}
-  - {fileID: 8300000, guid: 87a0d3e8484a8e54aa61d119d26cd072, type: 3}
-  - {fileID: 8300000, guid: 7513ab11762a5744d82693df4e6ae214, type: 3}
+  - {fileID: 8300000, guid: 6dba4b01589d43e4381ed745ce37aa4c, type: 3}
+  - {fileID: 8300000, guid: 1f17fd49a797ce54791e9e0fc4dbfbb0, type: 3}
+  - {fileID: 8300000, guid: 6a27c2068db9d35468bcfd7eae4cbeae, type: 3}
   tails: []
-  volume: 0.45
+  volume: 0.55
   tailVolume: 0.45
-  pitchRange: {x: 0.96, y: 1.04}
+  pitchRange: {x: 0.96, y: 1.06}
 --- !u!114 &224007065
 MonoBehaviour:
   m_ObjectHideFlags: 0
