@@ -17,7 +17,7 @@ namespace LastBullet.Enemy
         enum AIState { Idle, KeepDistance, Attack, Hit, Dead }
 
         [Header("감지 (기본값)")]
-        [SerializeField] float detectRange = 22f;
+        [SerializeField] float detectRange = 30f;       // (2026-10-30 사용자 요청: 22 → 30)
 
         [Header("거리 유지 (기본값)")]
         [SerializeField] float moveSpeed = 3f;          // m/s

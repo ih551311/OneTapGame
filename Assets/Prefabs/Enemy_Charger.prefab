@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43ff91c6c0d31824bb5c3cec8d1b581d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Enemy.EnemyAI
-  detectRange: 15
+  detectRange: 25
   chaseSpeed: 4
   attackRange: 4
   windupTime: 0.5

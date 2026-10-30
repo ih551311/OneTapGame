@@ -17,7 +17,7 @@ namespace LastBullet.Enemy
         enum AttackPhase { Windup, Dash, Recover }
 
         [Header("감지 (기본값)")]
-        [SerializeField] float detectRange = 15f;      // 이 거리 안에 플레이어가 오면 쫓아온다
+        [SerializeField] float detectRange = 25f;      // 이 거리 안에 플레이어가 오면 쫓아온다 (2026-10-30 사용자 요청: 15 → 25)
 
         [Header("추적 (기본값)")]
         [SerializeField] float chaseSpeed = 4f;        // m/s

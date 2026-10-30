@@ -384,7 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8a0156c24af6bd439cfa30e87c69864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Enemy.RangedEnemyAI
-  detectRange: 22
+  detectRange: 30
   moveSpeed: 3
   keepMinDistance: 9
   keepMaxDistance: 14
