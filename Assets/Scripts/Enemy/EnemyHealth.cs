@@ -24,31 +24,41 @@ namespace LastBullet.Enemy
         Renderer[] renderers;
         MaterialPropertyBlock flashBlock;
         float flashEndTime;
+        EnemyShield shield; // 방어형만 있다
 
         void Awake()
         {
+            shield = GetComponent<EnemyShield>();
             renderers = GetComponentsInChildren<Renderer>();
             flashBlock = new MaterialPropertyBlock();
             flashBlock.SetColor("_BaseColor", new Color(1f, 0.3f, 0.3f));
         }
 
-        // 총알이 Hitbox에 맞았을 때 부른다.
-        public void TakeHit(HitPart part)
+        // 총알이 Hitbox에 맞았을 때 부른다. shooterPosition은 쏜 위치 (방패가 막는지 가리는 데 쓴다).
+        // 방패가 막으면 Blocked: 피해도 처치도 없고 멈칫하지도 않는다.
+        public HitResult TakeHit(HitPart part, Vector3 shooterPosition)
         {
             if (IsDead)
-                return;
+                return HitResult.Hurt;
+
+            if (shield != null && shield.Blocks(shooterPosition))
+            {
+                Debug.Log($"[EnemyHealth] {name} 방패가 막음 ({part}) → 명중으로 처리");
+                shield.OnBlocked();
+                return HitResult.Blocked;
+            }
 
             if (part == HitPart.Head)
             {
                 Debug.Log($"[EnemyHealth] {name} 헤드샷!");
                 Die();
+                return HitResult.Killed;
             }
-            else
-            {
-                Debug.Log($"[EnemyHealth] {name} 몸 명중 (피해 없음)");
-                Flash();
-                Damaged?.Invoke(this);
-            }
+
+            Debug.Log($"[EnemyHealth] {name} 몸 명중 (피해 없음)");
+            Flash();
+            Damaged?.Invoke(this);
+            return HitResult.Hurt;
         }
 
         void Die()

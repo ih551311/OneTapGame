@@ -91,12 +91,19 @@ namespace LastBullet.Combat
 
             // 헤드샷 원탭 (2026-10-30 변경): 머리에 맞아야만 처치되고 탄환을 바로 다시 쓸 수 있다.
             var hitbox = hit ? muzzleHit.collider.GetComponent<Hitbox>() : null;
-            if (hitbox != null)
-                hitbox.TakeHit(); // 머리면 처치, 몸이면 깜빡임·멈칫만 (피해 없음)
+            var result = hitbox != null ? hitbox.TakeHit(origin) : HitResult.Hurt; // 머리면 처치, 몸이면 깜빡임·멈칫만, 방패면 막힘
 
-            if (hitbox != null && hitbox.Part == HitPart.Head)
+            if (hitbox != null && result == HitResult.Killed)
             {
                 Debug.Log($"[OneBulletGun] 헤드샷: {hitbox.transform.parent.name}");
+                State = BulletState.Loaded;
+                return;
+            }
+
+            // 방어형의 방패에 막힌 탄환은 "명중으로 처리": 탄환이 떨어지지 않고 바로 다시 쓸 수 있다 (기획서 2.5)
+            if (hitbox != null && result == HitResult.Blocked)
+            {
+                Debug.Log($"[OneBulletGun] 방패에 막힘: {hitbox.transform.parent.name} → 탄환 즉시 재사용");
                 State = BulletState.Loaded;
                 return;
             }

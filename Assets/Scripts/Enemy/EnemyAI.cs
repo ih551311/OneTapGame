@@ -32,6 +32,10 @@ namespace LastBullet.Enemy
         [SerializeField] int attackDamage = 15;        // 기획서 2.5: 돌진형 공격력 15
         [SerializeField] float contactRange = 1.3f;    // 돌진 중 이 거리 안이면 맞은 것으로 본다
 
+        [Header("방향 전환")]
+        [Tooltip("1초에 돌 수 있는 각도. 0이면 바로 돌아본다 (돌진형). 방어형은 느리게 돌아서 옆·뒤를 노릴 틈이 생긴다")]
+        [SerializeField] float turnSpeed = 0f;
+
         [Header("피격 (기본값)")]
         [SerializeField] float hitStunTime = 0.25f;    // 맞으면 멈칫하는 시간
 
@@ -175,7 +179,10 @@ namespace LastBullet.Enemy
             direction.y = 0f;
             if (direction.sqrMagnitude < 0.0001f)
                 return;
-            transform.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(-lean, 0f, 0f);
+            Quaternion targetRotation = Quaternion.LookRotation(direction) * Quaternion.Euler(-lean, 0f, 0f);
+            transform.rotation = turnSpeed > 0f
+                ? Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime)
+                : targetRotation;
         }
 
         float FlatDistance(Vector3 target)
