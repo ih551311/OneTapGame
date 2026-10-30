@@ -1,3 +1,4 @@
+using LastBullet.Audio;
 using LastBullet.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,6 +29,9 @@ namespace LastBullet.Combat
 
         [Tooltip("최대 사거리 (기본값)")]
         [SerializeField] float maxRange = 50f;
+
+        [Tooltip("발사 소리 (핸드건). 없으면 소리 없음")]
+        [SerializeField] SfxPlayer shotSound;
 
         [SerializeField] float tracerTime = 0.08f;
 
@@ -68,6 +72,8 @@ namespace LastBullet.Combat
         void Fire()
         {
             State = BulletState.Fired; // 같은 순간에 두 번 쏘지 않게
+            if (shotSound != null)
+                shotSound.Play();
 
             // 몸을 카메라가 보는 방향으로 돌려서 총구가 조준 방향을 보게 한다.
             if (look != null)

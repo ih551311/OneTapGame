@@ -1,3 +1,4 @@
+using LastBullet.Audio;
 using LastBullet.Player;
 using UnityEngine;
 using UnityEngine.AI;
@@ -43,6 +44,9 @@ namespace LastBullet.Enemy
 
         [Tooltip("돌이 나가는 자리 (가슴 앞)")]
         [SerializeField] Transform throwPoint;
+
+        [Tooltip("공격(던지기) 소리. 플레이어 총소리보다 작게 둔다. 없으면 소리 없음")]
+        [SerializeField] SfxPlayer attackSound;
 
         AIState state = AIState.Idle;
         NavMeshAgent agent;
@@ -178,6 +182,8 @@ namespace LastBullet.Enemy
         {
             if (projectilePrefab == null)
                 return;
+            if (attackSound != null)
+                attackSound.Play(); // 던지는 순간 소리 (3D: 멀수록 작게 들린다)
             Vector3 origin = throwPoint != null ? throwPoint.position : transform.position + Vector3.up * 1.4f;
             Vector3 target = player.position + Vector3.up * 1f;
             var projectile = Instantiate(projectilePrefab, origin, Quaternion.identity);

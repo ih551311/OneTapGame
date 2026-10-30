@@ -9,3 +9,4 @@ Low-Poly Desert Environment Pack 1.0 | Coil Studio (Tiny Teacup Studio 폴더) |
 AllSky Free - 10 Sky / Skybox Set 1.1.0 | rpgwhitelock | Unity Asset Store (AllSky Free, 무료) | Standard Unity Asset Store EULA | 맵 하늘: 낮 - 숲 Cartoon Base BlueSky, 성 마을 Epic_BlueSunset, 사막 Epic_GloriousPink / 밤 - 숲 Cartoon Base NightSky, 성 마을 Night MoonBurst, 사막 Cold Night (Assets/AllSkyFree, 6면 큐브맵만 남김). 나머지 하늘 7종·가로형(Equirect) 그림·데모 환경·설명서는 용량(전체 320MB) 때문에 지웠고 Package Manager에서 다시 가져올 수 있음
 
 Font 1 (LeeSeoyun, 이서윤체) | 사용자가 직접 가져옴 (출처·제작자·라이선스는 사용자 확인 필요) | (출처 URL 확인 필요) | (상업적 이용 가능 여부 확인 필요) | Assets/UI/Fonts/font1.ttf, 한글 글자(TextMeshPro)용 글꼴 에셋 font1 SDF
+Free Weapon Sound Effects 1.1.0 | SoundLab_1 | Unity Asset Store (Free Weapon Sound Effects, 무료) | Standard Unity Asset Store EULA | 총소리: 플레이어 사격과 원거리 적 공격에 핸드건 소리 사용 (Assets/FreeWeaponSFX_v1.1/Handgun)

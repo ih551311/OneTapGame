@@ -130,3 +130,10 @@ Phase 1에서 한 일 (2026-10-29):
 ## 2026-10-31 한글 글꼴 (사용자가 넣음)
 - 사용자가 글꼴 파일을 `Assets/Font/font1.ttf`로 넣었고(패밀리 이름 LeeSeoyun), 프로젝트 규칙 위치 `Assets/UI/Fonts/`로 옮겼다. 메뉴 `LastBullet/글꼴 에셋 만들기 (Assets/UI/Fonts)`(`FontAssetSetup.cs`)가 폴더의 글꼴마다 TextMeshPro 동적(Dynamic) 글꼴 에셋 `<이름> SDF.asset`을 만든다(이미 있으면 건너뜀). 만든 에셋의 글자 캐시는 지워서(ClearFontAssetData) 파일을 작게 두었다.
 - 확인한 것: 한글 완성형 11,172자 전부 글꼴에 있음, 타이틀 화면 위에 임시 TMP 글자로 한글·영문·숫자·기호(· ● !?)가 보임(둥근 손글씨 모양). 쓰는 곳은 아직 없다(기존 한글 글자는 PNG 그대로, 숫자 TMP도 기본 글꼴 그대로). 그림 제목 붙이기 등을 만들 때 이 글꼴을 쓴다. 출처·라이선스는 사용자 확인 필요.
+
+
+## 2026-10-31 총소리 (Phase 21, 사용자 요청: 핸드건 소리, 적은 작게)
+- 사용자가 에셋 Free Weapon Sound Effects(SoundLab_1)의 핸드건을 `Assets/FreeWeaponSFX_v1.1`로 가져왔다 (Package Manager의 "Shooting Sound"는 아직 안 가져왔다).
+- `Scripts/Audio/SfxPlayer.cs`: 변형 여러 개 중 무작위 재생 + 음높이 ±4% 흔들기 + 여운(tails) 깔기. 플레이어(`OneBulletGun.shotSound`)는 2D·소리 0.8·여운 포함, 원거리 적(`RangedEnemyAI.attackSound`, 던지는 순간)은 3D·소리 0.3(플레이어의 약 40%)·여운 없음·6m 안은 그대로 45m까지 멀수록 작게. 적 중 총을 쏘는 적은 없고 원거리 적이 돌을 던지는 순간에 총소리를 쓴다(사용자 요청 해석). 돌진형·방어형은 소리 없음.
+- 메뉴 `LastBullet/Phase 21 총소리 넣기`(`Phase21SfxSetup.cs`): 미술관·숲·성 마을·사막의 플레이어와 `Enemy_Thrower` 프리팹에 붙인다 (이미 있으면 건너뜀). 유니티 오브젝트에는 `??`를 쓰면 안 된다는 걸 이 작업에서 다시 확인(GetOrAdd로 해결).
+- 확인한 것: 코드로 재생했을 때 두 AudioSource 모두 재생 중, 실제 사격 Fire() 호출에서도 재생. **못 한 것: 실제로 소리를 들어 보는 것(크기 균형)** — 사용자가 직접 들어 보고 크면 `SfxPlayer`의 Volume으로 조절.
