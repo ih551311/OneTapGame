@@ -87,6 +87,7 @@ namespace LastBullet.EditorTools
             IgnoreInNavMesh(backdrop);
 
             SetupLightAndCamera();
+            SnapToGround(); // 물건이 땅 위에 뜨거나 파묻히지 않게 땅 높이에 맞춘다
 
             // 3. 플레이어 시작 위치
             var player = GameObject.Find("Player");
@@ -414,6 +415,109 @@ namespace LastBullet.EditorTools
             var main = Camera.main;
             if (main != null)
                 main.farClipPlane = 1500f;
+        }
+
+        // ───────────── 땅에 붙이기 ─────────────
+
+        // 풀 타일은 울퉁불퉁(높이 -0.2 ~ +0.2)해서, 물건을 같은 높이에 놓으면 어떤 곳은 뜨고 어떤 곳은 파묻힌다.
+        // 물건마다 그 자리의 땅 높이를 재서, 물건의 맨 아래가 땅에 살짝 묻히도록 높이를 맞춘다.
+        [MenuItem("LastBullet/숲 장식 땅에 붙이기 (다시 맞추기)")]
+        static void SnapMenu()
+        {
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                return;
+            var scene = EditorSceneManager.OpenScene(ForestPath);
+            SnapToGround();
+
+            // 높이가 바뀌었으니 NavMesh도 다시 굽는다 (이 씬의 데이터 파일을 그대로 갱신)
+            var surface = GameObject.Find("NavMesh").GetComponent<NavMeshSurface>();
+            surface.BuildNavMesh();
+            EditorUtility.SetDirty(surface.navMeshData);
+
+            EditorSceneManager.MarkSceneDirty(scene);
+            EditorSceneManager.SaveScene(scene);
+            AssetDatabase.SaveAssets();
+            Debug.Log("[LastBullet] 숲 장식을 땅 높이에 맞추고 NavMesh를 다시 구웠어요.");
+        }
+
+        // 묶음 이름 → 땅에 묻는 깊이(m). 클수록 더 깊이 묻힌다.
+        static readonly (string group, float embed)[] SnapGroups =
+        {
+            ("Trees", 0.12f), ("Rocks", 0.2f), ("SmallDecor", 0.06f), ("Village", 0.25f), ("Camp", 0.08f),
+        };
+
+        static void SnapToGround()
+        {
+            var environment = GameObject.Find("Environment");
+            if (environment == null)
+                return;
+            Physics.SyncTransforms(); // 방금 놓은 충돌이 바로 잡히게 한다
+
+            foreach (var (groupName, embed) in SnapGroups)
+            {
+                var group = environment.transform.Find(groupName);
+                if (group == null)
+                    continue;
+                foreach (Transform item in group)
+                {
+                    if (!TryGroundHeight(item.position, out float groundY) || !TryBounds(item, out var bounds))
+                        continue;
+                    item.position += Vector3.up * ((groundY - embed) - bounds.min.y);
+                }
+            }
+
+            // 길은 땅 위에 살짝 보이게: 길 조각 아래 땅의 가장 높은 곳보다 조금 위에 맨 위를 맞춘다 (울퉁불퉁한 땅에 가려져 끊기지 않게)
+            var path = environment.transform.Find("Path");
+            if (path != null)
+            {
+                foreach (Transform piece in path)
+                {
+                    if (!TryBounds(piece, out var bounds))
+                        continue;
+                    float highest = float.MinValue;
+                    for (int x = -2; x <= 2; x++)
+                    {
+                        for (int z = -1; z <= 1; z++)
+                        {
+                            // 길 조각의 길쭉한 쪽이 로컬 X축이다 (길이 약 4.5m, 폭 약 2.9m)
+                            if (TryGroundHeight(piece.TransformPoint(new Vector3(x, 0f, z)), out float sample))
+                                highest = Mathf.Max(highest, sample);
+                        }
+                    }
+                    if (highest > float.MinValue)
+                        piece.position += Vector3.up * ((highest + 0.05f) - bounds.max.y);
+                }
+            }
+        }
+
+        // 그 자리의 땅 높이. 위에서 아래로 쏴서 풀 타일이나 바닥에 처음 닿는 곳 (나무·건물 충돌은 무시한다)
+        static bool TryGroundHeight(Vector3 position, out float height)
+        {
+            var hits = Physics.RaycastAll(new Vector3(position.x, 30f, position.z), Vector3.down, 60f, ~0, QueryTriggerInteraction.Ignore)
+                .OrderBy(h => h.distance);
+            foreach (var hit in hits)
+            {
+                string name = hit.collider.gameObject.name;
+                if (name.StartsWith("GrassTile") || name == "Floor")
+                {
+                    height = hit.point.y;
+                    return true;
+                }
+            }
+            height = 0f;
+            return false;
+        }
+
+        static bool TryBounds(Transform item, out Bounds bounds)
+        {
+            var renderers = item.GetComponentsInChildren<Renderer>();
+            bounds = default;
+            if (renderers.Length == 0)
+                return false;
+            bounds = renderers[0].bounds;
+            foreach (var renderer in renderers)
+                bounds.Encapsulate(renderer.bounds);
+            return true;
         }
 
         // ───────────── 도우미 ─────────────
