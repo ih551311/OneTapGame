@@ -8,9 +8,10 @@ using UnityEngine.UI;
 
 namespace LastBullet.UI
 {
-    // ESC 일시정지 창 (미술관, 훈련장). 열려 있는 팝업이 없을 때 ESC를 누르면 뜬다.
+    // ESC 일시정지 창 (미술관, 숲). 열려 있는 팝업이 없을 때 ESC를 누르면 뜬다.
     //   [계속하기]  게임으로 돌아간다 (창이 떠 있을 때 ESC도 같다)
-    //   [타이틀로 나가기]  0_Title로 간다. 훈련장에서는 이번 판 재료(전투 가방)를 잃는다 (사망과 같다).
+    //   [미술관으로 귀환]  (숲에서만) 이번 판 재료를 창고로 정산하고 미술관으로 돌아간다.
+    //   [타이틀로 나가기]  0_Title로 간다. 숲에서는 이번 판 재료(전투 가방)를 잃는다 (사망과 같다).
     // 창이 떠 있는 동안 게임 시간이 멈춘다 (Time.timeScale 0).
     // 팝업(그림판 등)이 열려 있을 때의 ESC는 그 팝업이 처리한다 (PopupBase).
     // 붙일 곳: Canvas/PauseMenu (항상 켜져 있어야 ESC를 받는다. 창은 자식 Window)
@@ -21,6 +22,9 @@ namespace LastBullet.UI
 
         [SerializeField] Button resumeButton;
         [SerializeField] Button titleButton;
+
+        [Tooltip("[미술관으로 귀환] 버튼. 전투 씬에서만 둔다 (미술관의 일시정지 창에는 없다). 비우면 없는 것으로 본다")]
+        [SerializeField] Button homeButton;
 
         [Tooltip("훈련장처럼 나가면 이번 판 재료를 잃는 곳에서 켠다")]
         [SerializeField] bool losesRunBag;
@@ -47,6 +51,8 @@ namespace LastBullet.UI
 
             resumeButton.onClick.AddListener(Resume);
             titleButton.onClick.AddListener(GoToTitle);
+            if (homeButton != null)
+                homeButton.onClick.AddListener(GoHome);
             if (lossWarning != null)
                 lossWarning.SetActive(losesRunBag);
             window.SetActive(false);
@@ -92,6 +98,16 @@ namespace LastBullet.UI
             window.SetActive(false);
             if (playerLock != null)
                 playerLock.SetLocked(false);
+        }
+
+        // 미술관으로 귀환: 이번 판에서 얻은 재료(전투 가방)를 창고로 정산하고 미술관으로 돌아간다.
+        // 스테이지 클리어가 없는 자유 파밍에서 재료를 가져가는 방법이다 (죽으면 재료를 잃는다).
+        void GoHome()
+        {
+            if (RunBag.Current != null)
+                RunBag.Current.Settle();
+            Time.timeScale = 1f; // 멈춘 채 씬을 옮기면 다음 씬도 멈춘다
+            SceneManager.LoadScene(SceneNames.Museum);
         }
 
         void GoToTitle()

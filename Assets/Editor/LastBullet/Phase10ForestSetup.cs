@@ -11,7 +11,7 @@ using Random = System.Random;
 namespace LastBullet.EditorTools
 {
     // 숲 스테이지 씬(2_Forest)을 만든다 (훈련장 없이 바로 숲, 2026-10-30 사용자 요청).
-    //  - 2_Training을 복사해서 시작한다 (플레이어·카메라·HUD·StageManager·일시정지 창이 이미 들어 있다).
+    //  - 2_Training을 복사해서 시작한다 (플레이어·카메라·HUD·전투 가방·일시정지 창이 이미 들어 있다).
     //  - 땅: 에셋(RPG Poly Pack - Lite)의 풀 타일 6×6 + 아래에 평평한 바닥 / 길 / 나무·바위·덤불·꽃 / 작은 마을 / 야영지
     //  - 가장자리: 나무 두 겹 + 보이지 않는 벽 → 플레이어가 밖으로 못 나간다. 바깥은 언덕·산·하늘·구름 배경.
     //  - 적: 돌진형 7마리를 NavMesh(적이 걷는 길) 위에 배치한다.
@@ -118,13 +118,7 @@ namespace LastBullet.EditorTools
                 enemy.transform.rotation = Quaternion.LookRotation(PlayerStart - position, Vector3.up);
             }
 
-            // 6. 숲에는 다음 스테이지가 없으므로 해금 항목을 비운다
-            var manager = Object.FindFirstObjectByType<StageManager>();
-            var managerSo = new SerializedObject(manager);
-            managerSo.FindProperty("unlockOnClear").stringValue = "";
-            managerSo.ApplyModifiedPropertiesWithoutUndo();
-
-            // 7. 빌드 목록
+            // 6. 빌드 목록
             var scenes = EditorBuildSettings.scenes.ToList();
             if (!scenes.Any(s => s.path == ForestPath))
                 scenes.Add(new EditorBuildSettingsScene(ForestPath, true));

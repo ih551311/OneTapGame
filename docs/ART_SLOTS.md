@@ -48,7 +48,8 @@
 | `Assets/UI/Paint_Confirm_Message.png` | 그림판 취소 확인창 문구 (두 줄) | 640×160 | 창·버튼 배경은 `Paint_Panel`, `Paint_Button_*`를 같이 씀 |
 | `Assets/UI/Paint_Label_Continue.png` / `Paint_Label_Discard.png` | 확인창 버튼 글자 "계속 그리기" / "그만두기" | 256×96 | |
 | `Assets/UI/Pause_Title.png` | ESC 일시정지 창 제목 "일시정지" | 768×128 | 창 배경은 `Popup_Panel`, 버튼은 `Button_*`를 같이 씀 |
-| `Assets/UI/Pause_LossWarning.png` | 숲 일시정지 창의 안내 "나가면 이번 판 재료가 사라져요" | 768×96 | 숲에서만 보임 |
+| `Assets/UI/Pause_LossWarning.png` | 숲 일시정지 창의 안내 "타이틀로 나가면 이번 판 재료가 사라져요" | 768×96 | 숲에서만 보임 |
+| `Assets/UI/ButtonLabel_Home.png` | 숲 일시정지 창의 버튼 글자 "미술관으로 귀환" (재료를 창고로 정산하고 돌아간다) | 512×128 | 버튼 배경은 `Button_*` |
 | `Assets/UI/ButtonLabel_Resume.png` / `ButtonLabel_ToTitle.png` | 버튼 글자 "계속하기" / "타이틀로 나가기" | 512×128 | |
 | `Assets/UI/Paint_Label_Gallery.png` | 그림판 버튼 글자 "내 그림" | 256×96 | 버튼 배경은 `Paint_Button_Cancel_*`. 누르면 보기 전용 작품 팝업(그림·창은 타이틀 그림 보기와 같은 `Gallery_*`, `Popup_Panel`)이 뜬다 |
 | `Assets/UI/Prompt_Frame.png` | 액자 근처 안내 "[E] 그림 걸기" | 768×96 | |

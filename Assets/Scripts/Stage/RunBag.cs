@@ -5,9 +5,10 @@ using UnityEngine;
 namespace LastBullet.Stage
 {
     // 전투 가방 (기획서 2.1, 2.6). 이번 판에서 얻은 재료를 임시로 담는다.
-    // 클리어하면 창고로 정산(Settle)하고, 사망하면 전부 사라진다(Clear).
-    // 스테이지 씬마다 하나. 적의 EnemyDrop이 RunBag.Current에 넣는다.
-    // 붙일 곳: 스테이지 씬의 StageManager 오브젝트
+    // 미술관으로 귀환하면 창고로 정산(Settle)하고, 사망하면 전부 사라진다(Clear).
+    // (2026-10-30: 스테이지 클리어 시스템을 없애고 자유 파밍으로 바꿨다. 귀환은 ESC 메뉴의 [미술관으로 귀환].)
+    // 전투 씬마다 하나. 적의 EnemyDrop이 RunBag.Current에 넣는다.
+    // 붙일 곳: 전투 씬의 RunBag 오브젝트
     public class RunBag : MonoBehaviour
     {
         public static RunBag Current { get; private set; }
