@@ -29,16 +29,29 @@ namespace LastBullet.Enemy
         // 만들어진 자리. 물감 색 지역(PaintZone)은 이 자리로 정한다 (적이 쫓아가며 지역을 벗어나도 색은 그대로)
         Vector3 spawnPosition;
 
+        // 이 적이 떨어뜨릴 물감 색. 만들어질 때 정하고(맵의 색 중 하나), 몸 색도 이 색으로 칠한다 (2026-10-31 사용자 요청: 적의 색 = 잡으면 주는 색)
+        PaintColor dropColor;
+
         void Awake()
         {
             spawnPosition = transform.position;
             GetComponent<EnemyHealth>().Died += OnDied;
         }
 
+        void Start()
+        {
+            // 지역이 있으면 그 지역의 색 중에서, 없으면 그 맵의 색 중에서, 그것도 없으면 9색 중 랜덤
+            dropColor = PaintZone.PickColor(spawnPosition);
+
+            // 몸(스킨드 메시)에 그 색을 칠한다. 방패 같은 장비는 그대로 둔다.
+            var body = GetComponentsInChildren<SkinnedMeshRenderer>();
+            if (body.Length > 0)
+                GetComponent<EnemyHealth>().SetTint(body, PaintColors.Colors[(int)dropColor]);
+        }
+
         void OnDied(EnemyHealth _)
         {
-            // 지역이 있으면 그 지역의 색 중에서, 없으면 9색 중 랜덤
-            PaintColor color = PaintZone.PickColor(spawnPosition);
+            PaintColor color = dropColor;
 
             // 전투 가방이 없는 씬(예: 테스트)에서는 재료를 주지 않고 연출만 한다
             if (RunBag.Current != null)

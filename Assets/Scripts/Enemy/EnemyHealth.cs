@@ -26,6 +26,19 @@ namespace LastBullet.Enemy
         float flashEndTime;
         EnemyShield shield; // 방어형만 있다
 
+        // 몸 색 (EnemyDrop이 정한다: 이 적을 잡으면 얻는 물감 색). 맞아서 깜빡인 뒤에도 이 색으로 돌아온다.
+        Renderer[] tintTargets;
+        MaterialPropertyBlock tintBlock;
+
+        public void SetTint(Renderer[] targets, Color color)
+        {
+            tintTargets = targets;
+            tintBlock = new MaterialPropertyBlock();
+            tintBlock.SetColor("_BaseColor", color);
+            foreach (var r in targets)
+                r.SetPropertyBlock(tintBlock);
+        }
+
         void Awake()
         {
             shield = GetComponent<EnemyShield>();
@@ -81,7 +94,7 @@ namespace LastBullet.Enemy
             if (flashEndTime > 0f && Time.time >= flashEndTime)
             {
                 foreach (var r in renderers)
-                    r.SetPropertyBlock(null);
+                    r.SetPropertyBlock(tintTargets != null && System.Array.IndexOf(tintTargets, r) >= 0 ? tintBlock : null);
                 flashEndTime = 0f;
             }
         }
