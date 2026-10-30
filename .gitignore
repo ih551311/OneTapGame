@@ -34,9 +34,16 @@
 # Jetbrains Rider personal-layer settings
 *.DotSettings.user
 
-# 에셋 Minimalist ArchViz Bedroom의 예제 씬(구운 빛 데이터 약 70MB). 게임에서 쓰지 않아 GitHub에는 올리지 않는다.
-/Assets/MinimalistBedroom/Scenes/
-/Assets/MinimalistBedroom/Scenes.meta
+# 에셋 Old LowPoly premium Furniture 중 텍스처가 8K(파일 하나 128MB, GitHub 한도 100MB 초과)인 폴더.
+# 게임에서 쓰지 않는다. 쓰는 것(옷장·유리 탁자·의자 2종)은 텍스처가 작아서 그대로 올린다.
+/Assets/Creation_Forge Projects/Old Furniture/Rustic Cieling Light/
+/Assets/Creation_Forge Projects/Old Furniture/Rustic Cieling Light.meta
+/Assets/Creation_Forge Projects/Old Furniture/rustic Wall Lights/
+/Assets/Creation_Forge Projects/Old Furniture/rustic Wall Lights.meta
+/Assets/Creation_Forge Projects/Old Furniture/Updated Old Seat/
+/Assets/Creation_Forge Projects/Old Furniture/Updated Old Seat.meta
+/Assets/Creation_Forge Projects/Scenes/
+/Assets/Creation_Forge Projects/Scenes.meta
 
 # Visual Studio cache directory
 .vs/

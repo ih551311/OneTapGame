@@ -62,3 +62,10 @@ Phase 1에서 한 일 (2026-10-29):
 ## 참고: 혼동했던 부분
 
 - 처음에 "울트라 코드"를 `/code-review ultra`(클라우드 코드 리뷰 명령)로 잘못 이해했다. 사용자가 말한 것은 모델 표시줄의 **Ultracode** 항목이다. 둘은 다른 것이다.
+
+
+## 2026-10-30 오래된 미술관 (Phase 12, 사용자 요청)
+- 침실 에셋(Minimalist ArchViz Bedroom)은 그림풍이 안 맞아 `Assets/MinimalistBedroom`을 지웠다. 에셋 Old LowPoly premium Furniture(Creation Forge)로 오래된 미술관을 만들었다: 메뉴 `LastBullet/Phase 12 오래된 미술관 만들기` (`Assets/Editor/LastBullet/Phase12OldMuseumSetup.cs`, 다시 실행하면 `MuseumHall`을 지우고 새로 만든다).
+- 구성: 나무 판벽·바닥(임시 그림 `Assets/Textures/Museum/*.png`), 천장 매달린 등 8개, 액자 9개 스포트라이트, 옷장 6개, 유리 탁자 2 + 의자, 액자 앞 의자 5개, 붉은 카펫. 자세한 칸은 `docs/ART_SLOTS.md`.
+- 새 에셋의 8K 텍스처(파일당 128MB) 폴더는 쓰지 않아 `.gitignore`에 넣고 유니티 가져오기 크기를 256으로 줄였다 (파일 자체는 그대로).
+- 남은 확인: 사용자가 숲·성 마을·미술관을 직접 플레이해 보기, ESC 메뉴 마우스 클릭. 엔딩(9-2~9-5)은 계속 미룸. 성 마을에 구역 이름/색 안내 HUD는 아직 없음.

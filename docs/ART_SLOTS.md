@@ -116,11 +116,12 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/EnemyShieldPlate.mat` | 방어형의 방패 판 (정면 ±60°를 막는다. 충돌 없는 겉모습) | 프리팹 `Prefabs/Enemy_Shield`의 `Shield` |
 | `Materials/Enemy_Thrower.mat` | 원거리형 적 몸 (소형 조각, 갈색 돌) | 프리팹 `Prefabs/Enemy_Thrower`의 `Body`, `Head`. 돌이 나가는 자리는 `ThrowPoint` |
 | `Materials/EnemyProjectile.mat` | 원거리형이 던지는 돌 | 프리팹 `Prefabs/EnemyProjectile`의 `Model` |
-| `Materials/MuseumWall_Long.mat`, `MuseumWall_Short.mat` | 미술관 흰 회반죽 벽 (에셋 회반죽 그림 복사, 벽 길이에 맞춰 타일 수만 다름) | `1_Museum/MuseumHall/Shell`의 `Wall_North·South`(긴 쪽), `Wall_West·East`(짧은 쪽) |
-| `Materials/MuseumCeiling.mat` | 미술관 천장 | `MuseumHall/Shell/Ceiling` |
-| `Materials/MuseumLightPanel.mat` | 천장의 켜진 불빛 판 (발광) | `MuseumHall/Shell/LightPanel_*` |
-| `Materials/MuseumPlinth.mat` | 조각을 올린 흰 받침대 | `MuseumHall/Decor/Plinth_*` |
-| 에셋 `Assets/MinimalistBedroom/Prefabs/**` | 미술관 바닥(`Floor_01`)·카펫·서 있는 조명·화분·조각·벤치(`TvStand_01`)·그림·거울·진열장(`Cupboard_a_01`)·안내 화면 — 에셋 제공 그대로 (URP). 3ds Max 모델로 바꿀 때는 `MuseumHall/Decor` 아래 이름별로 교체 | `1_Museum/MuseumHall` |
+| `Textures/Museum/Museum_Floor_Planks.png` (512×512) | 오래된 미술관 **바닥 그림** (어두운 나무 판, 이어 붙여도 자연스럽게 반복). 임시 그림이라 직접 그린 것으로 덮어쓰면 된다 | `Materials/MuseumFloor_Old.mat` (2m마다 반복) → `1_Museum/MuseumHall/Shell/Floor` |
+| `Textures/Museum/Museum_Wall_Panels.png` (512×512) | 오래된 미술관 **벽 그림** (어두운 판벽, 4m마다 반복) | `Materials/MuseumWall_Old_Long.mat`(긴 벽), `MuseumWall_Old_Short.mat`(짧은 벽) → `MuseumHall/Shell/Wall_*` |
+| `Materials/MuseumCeiling.mat` | 미술관 천장 (어두운 나무색) | `MuseumHall/Shell/Ceiling` |
+| `Materials/MuseumCarpet.mat` | 입구에서 액자 쪽으로 깔린 붉은 카펫 | `MuseumHall/Decor/Carpet` |
+| `Materials/MuseumLampShade.mat`, `MuseumLampCord.mat` | 천장에 매달린 등의 갓(따뜻한 불빛, 발광)과 줄 | `MuseumHall/Lights/LampShade`, `LampCord` |
+| 에셋 `Assets/Creation_Forge Projects/Old Furniture/**` (옷장·유리 탁자·옛날 의자 2종) | 미술관 가구 — 에셋 제공 그대로 (URP). 3ds Max 모델로 바꿀 때는 `MuseumHall/Decor` 아래 이름별(`Wardrobe_*`, `GlassTable`, `OldChair`, `StrawChair`, `ViewingChair`)로 교체 | `1_Museum/MuseumHall/Decor` |
 | `Materials/CastleFloor.mat` | 성 마을 바닥(밝은 풀색 평면, 멀리 깔린 것도 같이 씀) | `3_CastleVillage/Environment/Ground/Floor`, `Backdrop/FloorFar` |
 | `Materials/CastleRoad.mat` | 성 마을의 흙길과 마을 광장 바닥 | `Environment/Ground/Road`, `Plaza` |
 | `Materials/CastleCourtyard.mat` | 성 안 돌바닥 | `Environment/Ground/Courtyard` |
