@@ -104,3 +104,9 @@ Phase 1에서 한 일 (2026-10-29):
 - 숲·성 마을·사막에 들어가면 화면 위쪽 가운데에 "사막 · 밤 / 얻는 물감 ● 보라 ● 하양 ● 검정" 창이 0.6초 나타나 3.5초 머물고 1초 사라진다. 낮/밤은 `DayNight.IsNight`를 따른다.
 - 코드 `Assets/Scripts/UI/MapIntroBanner.cs` (CanvasGroup 페이드, 일시정지 중에도 흐르게 unscaled time; 맵 불러온 직후 첫 프레임 시간 튐으로 안내가 바로 지나가는 걸 막으려고 한 프레임에 0.1초까지만 셈). 메뉴 `LastBullet/Phase 17 맵 입장 안내 넣기`(`Phase17MapIntroSetup.cs`)가 세 씬의 Canvas 맨 뒤에 `MapIntro`를 만든다. 글자 그림은 `StageTitle_*`(6장)·`StageColors_*`.
 - 확인한 것: 숲 낮, 사막 낮·밤, 성 마을 밤에서 안내가 뜨고 사라짐. 못 한 것: 숲 밤·성 마을 낮 화면(같은 코드·그림 이름만 다름), 안내가 뜬 채로 ESC 일시정지.
+
+
+## 2026-10-31 피격 효과 (Phase 18, 사용자 요청)
+- 맞으면 ① 화면 가장자리가 빨갛게 번쩍이고 0.5초에 걸쳐 사라진다 (피해가 클수록 세다) ② 카메라가 살짝 흔들린다 (크기 0.8도 + 피해량×0.08도, 0.3초, 갈수록 약해짐) ③ 체력이 35% 아래면 테두리가 계속 붉게 덮이고 체력이 낮을수록 짙어지며 심장 뛰듯 살짝 맥동한다.
+- 코드: `PlayerHealth.Damaged(int)` 이벤트(새로 추가) → `UI/HitFeedback.cs`(번쩍·저체력 테두리, Inspector에서 시간·세기·임계값 조절) + `ThirdPersonCamera.Shake(도, 초)`(마우스 방향은 안 바뀌게 cameraTarget 회전에만 더함). 메뉴 `LastBullet/Phase 18 피격 효과 넣기`(`Phase18HitFeedbackSetup.cs`)가 숲·성 마을·사막 Canvas 맨 뒤에 `HitFeedback`을 만든다. 그림은 `Vignette_Hit.png`, `Vignette_LowHealth.png`.
+- 확인한 것: 숲에서 피해 20 → 빨간 번쩍, 체력 25·10 → 붉은 테두리(낮을수록 짙음), 카메라 흔들림 값이 줄어들며 0으로 돌아옴. 못 한 것: 실제 적에게 맞는 느낌(코드로 피해를 줘서 확인), 사막·성 마을 직접 확인(같은 설정), 느낌 조절(세기·흔들림 크기는 사용자 취향에 맞게 조절 필요).

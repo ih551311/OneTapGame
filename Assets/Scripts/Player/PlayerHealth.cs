@@ -23,6 +23,7 @@ namespace LastBullet.Player
         public bool IsDead { get; private set; }
 
         public event Action Changed; // 체력바가 듣는다
+        public event Action<int> Damaged; // 피해를 받을 때 (피해량). 피격 효과(HitFeedback)가 듣는다
         public event Action Died;
 
         PlayerMovement movement;
@@ -47,6 +48,7 @@ namespace LastBullet.Player
             Hp = Mathf.Max(0, Hp - damage);
             Debug.Log($"[PlayerHealth] 피해 {damage} → 체력 {Hp}/{maxHp}");
             Changed?.Invoke();
+            Damaged?.Invoke(damage);
             if (Hp == 0)
                 Die();
             return true;

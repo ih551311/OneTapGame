@@ -23,6 +23,19 @@ namespace LastBullet.Player
         float yaw;   // 좌우 각도
         float pitch; // 위아래 각도
 
+        float shakeAmplitude; // 흔들림 크기 (도)
+        float shakeTime;      // 남은 흔들림 시간
+        float shakeDuration;
+
+        // 카메라를 잠깐 흔든다 (맞았을 때). 흔들림은 시간이 갈수록 약해진다.
+        // 이미 흔들리는 중이면 더 센 쪽을 따른다. 마우스로 정한 방향(yaw, pitch)은 바뀌지 않는다.
+        public void Shake(float amplitudeDegrees, float duration)
+        {
+            float remaining = shakeDuration > 0f ? shakeAmplitude * (shakeTime / shakeDuration) : 0f;
+            shakeAmplitude = Mathf.Max(amplitudeDegrees, remaining);
+            shakeDuration = shakeTime = duration;
+        }
+
         // 카메라가 보는 좌우 방향. 이동 스크립트가 "카메라 기준 앞"을 정할 때 쓴다.
         public float Yaw => yaw;
 
@@ -52,7 +65,14 @@ namespace LastBullet.Player
             }
 
             // 플레이어 몸이 돌아도 카메라 방향은 마우스로만 정해지도록 월드 기준으로 설정한다.
-            cameraTarget.rotation = Quaternion.Euler(pitch, yaw, 0f);
+            Vector3 shake = Vector3.zero;
+            if (shakeTime > 0f)
+            {
+                shakeTime -= Time.unscaledDeltaTime;
+                float strength = shakeAmplitude * Mathf.Clamp01(shakeTime / shakeDuration);
+                shake = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-0.5f, 0.5f)) * strength;
+            }
+            cameraTarget.rotation = Quaternion.Euler(pitch + shake.x, yaw + shake.y, shake.z);
         }
 
         static void SetCursorLocked(bool locked)
