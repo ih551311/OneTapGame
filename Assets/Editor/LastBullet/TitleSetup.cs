@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using LastBullet.UI;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -192,7 +192,7 @@ namespace LastBullet.EditorTools
         }
 
         // 팝업 공통 모양: 어두운 막 + 9-slice 창 + 제목 + 닫기 버튼. 팝업은 꺼진 상태로 만든다.
-        static T CreatePopup<T>(string name, Transform canvas, Vector2 size, string titlePath, out Transform panelTransform) where T : PopupBase
+        internal static T CreatePopup<T>(string name, Transform canvas, Vector2 size, string titlePath, out Transform panelTransform) where T : PopupBase
         {
             var popup = new GameObject(name, typeof(RectTransform));
             popup.transform.SetParent(canvas, false);

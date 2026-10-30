@@ -51,6 +51,9 @@ namespace LastBullet.UI
         [SerializeField] Button deleteConfirmYesButton;
         [SerializeField] Button deleteConfirmNoButton;
 
+        [Tooltip("프로필 사진 고르기(타이틀 프로필 창): 그림을 누르면 바로 내 프로필 사진이 되고 닫힌다. 걸기·삭제 버튼은 숨긴다")]
+        [SerializeField] bool profileMode;
+
         PictureFrame targetFrame;
 
         readonly List<GameObject> items = new List<GameObject>();
@@ -65,13 +68,13 @@ namespace LastBullet.UI
 
         protected override void OnFirstOpen()
         {
-            if (!frameMode && deleteButton != null)
+            if (!frameMode && !profileMode && deleteButton != null)
             {
                 deleteButton.onClick.AddListener(AskDelete);
                 deleteConfirmYesButton.onClick.AddListener(ConfirmDelete);
                 deleteConfirmNoButton.onClick.AddListener(() => deleteConfirm.SetActive(false));
             }
-            if (frameMode)
+            if (frameMode || profileMode)
             {
                 hangLeftButton.gameObject.SetActive(false);
                 hangRightButton.gameObject.SetActive(false);
@@ -91,6 +94,8 @@ namespace LastBullet.UI
         protected override void OnOpened()
         {
             selectedId = frameMode && targetFrame != null ? targetFrame.CurrentId : null; // 지금 걸린 그림에 표시
+            if (profileMode && ProfileStore.PictureId != ProfileStore.DrawnId)
+                selectedId = string.IsNullOrEmpty(ProfileStore.PictureId) ? null : ProfileStore.PictureId; // 지금 프로필 사진에 표시
             if (largeView != null)
                 largeView.SetActive(false);
             if (deleteConfirm != null)
@@ -157,6 +162,12 @@ namespace LastBullet.UI
 
         void Select(string id)
         {
+            if (profileMode)
+            {
+                ProfileStore.SetPainting(id);
+                Close();
+                return;
+            }
             if (frameMode)
             {
                 if (targetFrame != null)

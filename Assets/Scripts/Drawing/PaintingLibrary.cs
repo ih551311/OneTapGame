@@ -142,6 +142,7 @@ namespace LastBullet.Drawing
 
                 SaveManager.ClearTitleFramesWith(id);
                 GalleryStore.ClearPainting(id);
+                ProfileStore.ClearIfPainting(id);
                 Debug.Log($"[PaintingLibrary] 작품 삭제: {info.fileName}");
                 return true;
             }

@@ -1,4 +1,4 @@
-using LastBullet.UI;
+﻿using LastBullet.UI;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -42,7 +42,7 @@ namespace LastBullet.EditorTools
             AssetDatabase.SaveAssets();
         }
 
-        static void AddScrollbar(Transform scroll)
+        internal static void AddScrollbar(Transform scroll)
         {
             var go = new GameObject("Scrollbar", typeof(RectTransform), typeof(Image), typeof(Scrollbar));
             go.transform.SetParent(scroll, false);

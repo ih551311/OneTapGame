@@ -17,6 +17,12 @@ namespace LastBullet.Core
 
         // 타이틀 화면 액자 2개(왼쪽, 오른쪽)에 건 그림의 작품 ID. 빈 문자열이면 빈 액자. (사용자 요청, 2026-10-30)
         public List<string> titleFrames = new List<string> { "", "" };
+
+        // 프로필 (2026-10-31 사용자 요청): 닉네임(비어 있으면 기본 이름)과 프로필 사진.
+        // 사진은 "" = 없음, "drawn" = 타이틀에서 직접 그린 그림(SavedData/profile.png), 그 외 = 미술관에서 그린 작품 ID.
+        // ProfileStore가 읽고 쓴다.
+        public string nickname = "";
+        public string profilePicture = "";
     }
 
     // 물감 9색 양. JSON에서 "red": 350 처럼 보이도록 색마다 칸을 둔다.

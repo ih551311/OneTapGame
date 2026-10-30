@@ -24,6 +24,9 @@ namespace LastBullet.UI
         PlayerControlLock playerLock;
         bool initialized;
 
+        // 처음 열려서 OnFirstOpen이 불린 뒤인지 (한 번도 안 열린 팝업의 OnDisable에서 값을 건드리지 않게)
+        protected bool IsInitialized => initialized;
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void ResetOnPlay()
         {

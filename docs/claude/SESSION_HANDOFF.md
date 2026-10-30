@@ -218,3 +218,11 @@ Phase 1에서 한 일 (2026-10-29):
 
 ## 2026-10-31 미술관에서 체력바 숨김 (사용자 요청)
 - `1_Museum`의 `Canvas/HealthBar` 오브젝트를 꺼 두었다 (미술관엔 적이 없어 체력이 줄지 않는다). 전투 맵 셋(숲·성 마을·사막)의 체력바는 그대로. `BattleUI`는 꺼진 바에도 값을 넣을 뿐이라 오류가 없다. 미술관의 다른 화면 표시(작품 진행도, 재료, 십자선)는 그대로. 확인: 플레이 화면에서 체력바가 안 보임.
+
+
+## 2026-10-31 프로필 사진·닉네임 (Phase 32, 사용자 요청 "중요한 작업")
+- 결정(사용자): 사진은 **직접 그리기 + 미술관에서 그린 그림 중 고르기** 둘 다. **왼쪽은 프로필(사진 + 닉네임), 걸어 둔 그림 두 개는 오른쪽으로**. 닉네임은 **옵션에서** 바꾼다.
+- 데이터: `SaveData.nickname`, `SaveData.profilePicture`("" 없음 / "drawn" 직접 그린 그림 `SavedData/profile.png` / 그 외 작품 ID). `Scripts/Drawing/ProfileStore.cs`가 읽고 쓴다 (`Nickname`, `PictureId`, `SetPainting`, `SetDrawn`, `LoadTexture`, `Clean`, `Changed` 이벤트). 닉네임: 최대 10글자, 앞뒤 공백·줄바꿈 제거, 비면 기본 "견습 관장". **프로필 사진으로 쓴 작품을 지우면(`PaintingLibrary.Delete`) 프로필 사진이 비워진다.** 직접 그린 프로필 그림은 작품 목록·액자 9칸·진행도에 안 들어간다.
+- 화면(타이틀 0_Title): `ProfileCard`(왼쪽, 액자+이름표+안내, 누르면 `ProfilePopup`), `ProfilePopup`([직접 그리기]→`ProfileDrawPopup`, [그림에서 고르기]→`ProfilePickerPopup`), `ProfileDrawPopup`(그림판과 같은 모양: 펜 4단계·지우개·9색, 물감 잔량·종이 없음, 완성=프로필 사진 저장·취소=버림), `ProfilePickerPopup`(`GalleryPopup`의 새 `profileMode`: 그림을 누르면 바로 프로필 사진, 스크롤바 포함). 옵션의 `OptionsPopup`에 닉네임 입력(`TMP_InputField`, 한글 글꼴 font1 SDF; 입력 마치면·창 닫을 때 적용; `PopupBase.IsInitialized` 추가). 메뉴 `LastBullet/Phase 32 프로필(사진·닉네임) 넣기`(`Phase32ProfileSetup.cs`). 옵션 창은 줄이 늘어 높이 620→760.
+- 확인한 것(플레이 화면): 기본(빈 사람 모양+견습 관장), 프로필 창, 마우스로 그림 그리기(1884픽셀), 완성 → 카드에 그림 표시·profile.png 저장, 그림에서 고르기 → 카드 갱신, 옵션에서 한글+영문 입력 → 카드의 이름 갱신, 창 닫을 때 적용, 닉네임 다듬기 규칙(11글자→10, 공백→기본). 사용자 저장 데이터는 테스트 뒤 백업에서 되돌렸다.
+- 못 한 것: 실제 키보드로 한글 입력(조합 중인 글자 모양; 유니티 에디터는 자동 입력을 못 넣어 글자 이벤트로 흉내), 실제 마우스 클릭, 프로필을 미술관·ESC 메뉴 등 다른 화면에 보이기(아직 타이틀만), 다른 사람과 공유되는 프로필은 없음(저장은 이 컴퓨터).
