@@ -1,6 +1,7 @@
 using LastBullet.Effects;
 using LastBullet.Inventory;
 using LastBullet.Stage;
+using LastBullet.UI;
 using UnityEngine;
 
 namespace LastBullet.Enemy
@@ -10,6 +11,7 @@ namespace LastBullet.Enemy
     // 물감 색은 지역마다 정해진 3색 중에서 고른다 (PaintZone). 지역이 없는 곳(숲)은 9색 중 랜덤.
     // 바닥에 떨어뜨리지 않고 바로 전투 가방(RunBag)에 들어간다.
     // 처치 연출: 머리에서 그 물감 색의 방울이 터지고 바닥에 자국이 남는다 (PaintBurstEffect).
+    // 획득 연출: 물감 방울이 화면 오른쪽 위 가방 아이콘으로 날아 들어간다 (PaintCollectEffect).
     // EnemyHealth의 Died는 한 번만 불리므로 보상도 한 번만 지급된다.
     // 붙일 곳: 적 프리팹의 맨 위 오브젝트 (EnemyHealth와 함께)
     [RequireComponent(typeof(EnemyHealth))]
@@ -42,11 +44,13 @@ namespace LastBullet.Enemy
             if (RunBag.Current != null)
                 RunBag.Current.Add(paperScraps, color, paintAmount);
 
+            Vector3 head = burstPoint != null ? burstPoint.position : transform.position + Vector3.up * 1.8f;
             if (burstPrefab != null)
-            {
-                Vector3 head = burstPoint != null ? burstPoint.position : transform.position + Vector3.up * 1.8f;
                 PaintBurstEffect.Spawn(burstPrefab, head, transform.position, PaintColors.Colors[(int)color]);
-            }
+
+            // 물감 방울이 화면 오른쪽 위 전투 가방으로 날아간다 (연출이 없는 씬에서는 아무 일도 없다)
+            if (RunBag.Current != null)
+                PaintCollectEffect.Play(color, head);
         }
     }
 }

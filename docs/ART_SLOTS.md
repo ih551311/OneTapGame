@@ -62,6 +62,7 @@
 | `Assets/UI/Gallery_DeleteConfirm_Message.png` | 그림 삭제 확인창 문구 "이 그림을 지울까요? 지운 그림은 되살릴 수 없어요." (두 줄) | 720×200 | 창 배경은 `Popup_Panel.png` |
 | `Assets/UI/Vignette_Hit.png` | 맞았을 때 번쩍이는 화면 가장자리 빨간 테두리 (가운데는 투명, 가장자리일수록 진함. 화면 전체로 늘려 씀) | 256×256 | 숲·성 마을·사막 `Canvas/HitFeedback/Flash` |
 | `Assets/UI/Vignette_LowHealth.png` | 체력이 낮을 때(35% 아래) 계속 덮이는 진한 붉은 테두리 (가운데 투명) | 256×256 | `Canvas/HitFeedback/LowHealth` |
+| `Assets/UI/PaintDrop_<Red|Orange|Yellow|Green|Blue|Indigo|Purple|White|Black>.png` (9장) | 적을 잡으면 가방 아이콘으로 날아가는 물감 방울 (색마다 한 장, 눈물 모양) | 64×64 | 숲·성 마을·사막 `Canvas/PaintCollect` (도착 지점은 가방 패널의 `Icon_Paint_*`) |
 | `Assets/UI/StageTitle_<Forest|Castle|Desert>_<Day|Night>.png` (6장) | 맵 입장 안내의 맵 이름과 낮/밤 글자 "사막 · 밤" 등 | 640×96 | 안내 창 배경은 `Popup_Panel.png`, 아래 "얻는 물감" 줄은 `StageColors_*.png`를 같이 씀. 숲·성 마을·사막 씬의 `Canvas/MapIntro` |
 | `Assets/UI/Arrow_Right.png` | 만드는 법 화살표 (재료 → 결과) | 96×64 | 오른쪽을 가리키게 그린다 |
 | `Assets/UI/ButtonLabel_Craft.png` | 버튼 글자 "합성" | 512×128 | 버튼 배경은 Button_*.png |
@@ -179,6 +180,7 @@ Enemy_Charger            ← 기능 (EnemyHealth, EnemyAI, EnemyDrop, NavMeshAge
 복잡한 모델 모양(MeshCollider)으로 판정하지 않는다: 느리고 판정이 들쭉날쭉하다.
 
 새 UI나 오브젝트가 생길 때마다 이 표에 추가한다.
+
 
 
 
