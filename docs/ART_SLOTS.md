@@ -60,6 +60,7 @@
 | `Assets/UI/StageColors_Forest.png`, `StageColors_Castle.png`, `StageColors_Desert.png` | 전투 장소 선택의 버튼 아래 안내 "얻는 물감 ● 빨강 ● 주황 ● 노랑" (글자와 색 점이 모두 그림 안에 있다) | 720×64 | 맵의 물감 색을 바꾸면(`StageColors` 표) 이 그림도 같이 고쳐야 한다 |
 | `Assets/UI/ButtonLabel_Delete.png`, `ButtonLabel_DeleteYes.png`, `ButtonLabel_DeleteNo.png` | 그림 보기의 [삭제] 버튼 글자와 확인창의 [지우기] [취소] 글자 | 256×128 / 320×128 / 256×128 | 버튼 틀은 `Button_*.png`를 같이 씀 |
 | `Assets/UI/Gallery_DeleteConfirm_Message.png` | 그림 삭제 확인창 문구 "이 그림을 지울까요? 지운 그림은 되살릴 수 없어요." (두 줄) | 720×200 | 창 배경은 `Popup_Panel.png` |
+| `Assets/UI/Scrollbar_Track.png`, `Scrollbar_Handle.png` | 그림 목록 스크롤바의 길(어두운 반투명)과 손잡이(크림색, 갈색 테두리). 둥근 사각형 9-slice(모서리 12px) | 48×48 | 타이틀 `GalleryPopup`, 미술관 `GalleryPopup`·`FramePickerPopup`의 `Panel/Scroll/Scrollbar` |
 | `Assets/UI/Vignette_Hit.png` | 맞았을 때 번쩍이는 화면 가장자리 빨간 테두리 (가운데는 투명, 가장자리일수록 진함. 화면 전체로 늘려 씀) | 256×256 | 숲·성 마을·사막 `Canvas/HitFeedback/Flash` |
 | `Assets/UI/Vignette_LowHealth.png` | 체력이 낮을 때(35% 아래) 계속 덮이는 진한 붉은 테두리 (가운데 투명) | 256×256 | `Canvas/HitFeedback/LowHealth` |
 | `Assets/UI/PaintDrop_<Red|Orange|Yellow|Green|Blue|Indigo|Purple|White|Black>.png` (9장) | 적을 잡으면 가방 아이콘으로 날아가는 물감 방울 (색마다 한 장, 눈물 모양) | 64×64 | 숲·성 마을·사막 `Canvas/PaintCollect` (도착 지점은 가방 패널의 `Icon_Paint_*`) |
@@ -192,6 +193,7 @@ Enemy_Charger            ← 기능 (EnemyHealth, EnemyAI, EnemyDrop, NavMeshAge
 복잡한 모델 모양(MeshCollider)으로 판정하지 않는다: 느리고 판정이 들쭉날쭉하다.
 
 새 UI나 오브젝트가 생길 때마다 이 표에 추가한다.
+
 
 
 

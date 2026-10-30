@@ -209,3 +209,8 @@ Phase 1에서 한 일 (2026-10-29):
 - **밴달 방식**으로 만들었다: 우클릭을 **누르고 있는 동안** 적당히 확대. `Scripts/Player/AimController.cs`(Player에 붙음, CinemachineCamera 시야각·`CinemachineThirdPersonFollow`의 거리·어깨 옆 거리를 부드럽게 보간, 감도 배율 0.5는 `ThirdPersonCamera.SensitivityMultiplier`, 조준 중 캐릭터가 `look.Yaw` 방향을 바라봄(LateUpdate에서 이동 회전을 덮어씀)). 값: 시야각 38(평소 60), 거리 2.9(3.5), 어깨 1.15(0.6), 감도 0.5, 속도 `blendSpeed`. 커서가 풀렸거나 timeScale 0, 사망 중엔 조준 안 함. 메뉴 `LastBullet/Phase 30 우클릭 조준 넣기`(`Phase30AimSetup.cs`)가 4개 씬의 Player에 붙인다. 처음 FOV 36·거리 2.2·어깨 0.8이었는데 캐릭터 머리가 화면 왼쪽을 크게 가려서 지금 값으로 바꿨다.
 - 확인한 것: 우클릭 누르면 FOV 38/거리 2.9/어깨 1.15/감도 0.5가 되고 놓으면 1.5초 안에 60/3.5/0.6/1.0으로 복귀, 조준한 채 좌클릭 사격 정상(탄환 Dropped), 화면 캡처로 시야 확인. 못 한 것: 직접 해 본 느낌(확대 정도·속도), 조준 중 걷기 속도 감소는 넣지 않음.
 - **오퍼(스나이퍼) 방식은 아직 없다**: 우클릭 누르면 2.5배·한 번 더 누르면 5배 확대 + 검은 스코프 화면 + 이동 느려짐. 3인칭 시점에서 큰 확대는 캐릭터가 화면을 가려서, 스코프 중에는 1인칭 시점(캐릭터 숨김)으로 바꿔야 해서 작업이 크다.
+
+
+## 2026-10-31 그림 목록 스크롤바 (Phase 31, 사용자 요청)
+- 그림 보기(타이틀)·내 그림(미술관)·액자에 걸 그림(미술관) 목록 오른쪽에 세로 스크롤바를 달았다 (그림이 한 화면(두 줄)보다 많아지면 내릴 수 있다: 지금 10개 = 3줄). `ScrollRect.verticalScrollbarVisibility = AutoHideAndExpandViewport`라서 그림이 다 보이면 스크롤바가 저절로 숨고 목록 폭은 그대로. 휠 감도 30. 메뉴 `LastBullet/Phase 31 그림 목록 스크롤바 넣기`(`Phase31ScrollbarSetup.cs`). 그림은 `Assets/UI/Scrollbar_Track.png`, `Scrollbar_Handle.png`.
+- 확인한 것: 액자 고르기 창에서 스크롤바 표시, 손잡이 크기(내용 920 / 보이는 영역 620 = 0.67), 맨 아래로 내렸을 때 마지막 줄까지 보임. 못 한 것: 실제 마우스로 손잡이 끌기와 휠(코드로 위치를 바꿔 확인).
