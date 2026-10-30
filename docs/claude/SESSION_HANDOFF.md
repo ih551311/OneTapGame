@@ -143,3 +143,9 @@ Phase 1에서 한 일 (2026-10-29):
 - 에셋 Free UI Click Sound Pack(SwishSwoosh)에서 따뜻한 나무 클릭 3개(`Wooden/Thin_1, Thin_2, Select_1`)만 `Assets/Free UI Click Sound Effects Pack`으로 가져왔다 (오래된 미술관 분위기에 맞춰 고름. 패키지 전체 100여 개는 가져오지 않음).
 - `Scripts/Audio/ClickSound.cs`: **좌클릭을 눌렀을 때 마우스 커서가 잠겨 있지 않으면** `SfxPlayer`로 클릭 소리를 낸다. 게임 중에는 커서가 잠겨 있고 좌클릭이 사격이므로 사격에는 클릭 소리가 안 난다. 메뉴·팝업·그림판·결과 창·타이틀처럼 커서가 풀린 곳의 클릭은 모두 소리가 난다(버튼이 아닌 곳을 눌러도 난다). 메뉴 `LastBullet/Phase 22 클릭 소리 넣기`(`Phase22ClickSoundSetup.cs`)가 5개 씬 모두에 `ClickSound` 오브젝트를 만든다.
 - 확인한 것: 숲(커서 잠김)에서 좌클릭을 넣으면 사격만 되고 클릭 소리는 안 남, 타이틀·미술관·사막에서 클릭 소리 재생기가 재생됨. **못 한 것: 커서가 풀린 상태의 실제 마우스 클릭 시험**(유니티가 창 밖 포인터 입력을 막아 자동 입력이 안 됨)과 직접 들어 보기. 소리가 크거나 작으면 `ClickSound` 오브젝트의 `SfxPlayer` Volume으로 조절.
+
+
+## 2026-10-31 움직임 소리 (Phase 23, 사용자 요청: 걷기·달리기·점프 전부)
+- 에셋 HALFTONE SFX Pack LITE(VOiD1 Gaming)의 `Gameplay/3. Movement` 28개를 사용자가 가져왔다 (이 폴더만 들어 있음). 소리를 들어 볼 수 없어 길이·음높이 변화로 골랐다.
+- `PlayerMovement`에 알림 `Jumped`, `Dodged`, `Landed(떨어진 속도)`와 `IsRunning` 추가 (착지는 떨어지는 속도 3m/s 이상일 때만). `Scripts/Audio/MovementSounds.cs`: 발소리는 걸은 거리 기준(걷기 2.0m·달리기 2.6m마다 한 걸음, 멈추면 거리 초기화), 점프·착지·회피는 알림에 맞춰 재생. 메뉴 `LastBullet/Phase 23 움직임 소리 넣기`(`Phase23MovementSoundSetup.cs`)가 플레이어 아래 `MovementSfx`(AudioSource 1개 + SfxPlayer 5개)를 만든다.
+- 확인한 것: 점프·착지·회피 알림이 소리를 재생하고 5종 소리 재생기가 모두 재생됨. **못 한 것: 실제 키 입력으로 걸어 보기**(유니티가 창 밖 키 입력을 자꾸 풀어서 자동 시험이 안 됨. 걸을 때 거리가 쌓이고 한 걸음마다 초기화되는 것은 일부 확인)와 **직접 들어 보기**. 크기는 `SfxPlayer` Volume으로 조절.

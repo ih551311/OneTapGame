@@ -38,6 +38,19 @@ namespace LastBullet.Player
 
         public PlayerState State { get; private set; } = PlayerState.Idle;
 
+        // 움직임 소리(MovementSounds)가 듣는 알림 (2026-10-31)
+        public event System.Action Jumped;          // 점프로 바닥에서 뛰어오른 순간
+        public event System.Action Dodged;          // 회피(Q)를 시작한 순간
+        public event System.Action<float> Landed;   // 공중에서 바닥에 닿은 순간 (떨어지던 속도 m/s)
+
+        // 지금 달리는 중인지 (Shift를 누른 채 땅 위에서 이동)
+        public bool IsRunning { get; private set; }
+
+        // 한 칸 이상의 높이에서 떨어졌을 때만 착지로 친다 (살짝 턱을 넘을 때 소리가 나지 않게)
+        const float MinLandingSpeed = 3f;
+        bool wasGrounded = true;
+        float lastFallSpeed;
+
         // 회피 무적 중인지. 나중에 PlayerHealth가 피해를 받을지 정할 때 쓴다.
         public bool IsInvincible => Time.time < invincibleEndTime;
 
@@ -64,14 +77,19 @@ namespace LastBullet.Player
                 invincibleEndTime = Time.time + dodgeInvincibleTime;
                 nextDodgeTime = Time.time + dodgeCooldown;
                 State = PlayerState.Dodge;
+                Dodged?.Invoke();
             }
 
             // 점프와 중력
             if (grounded && verticalVelocity < 0f)
                 verticalVelocity = -2f; // 바닥에 붙어 있게 살짝 눌러 준다
             if (grounded && keyboard.spaceKey.wasPressedThisFrame && State != PlayerState.Dodge)
+            {
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity); // 1.5m 높이에 필요한 처음 속도
+                Jumped?.Invoke();
+            }
             verticalVelocity += gravity * Time.deltaTime;
+            lastFallSpeed = Mathf.Max(0f, -verticalVelocity); // 착지 소리 크기 판단용 (움직이기 전 속도)
 
             // 수평 이동
             Vector3 horizontal;
@@ -95,6 +113,13 @@ namespace LastBullet.Player
             }
 
             controller.Move((horizontal + Vector3.up * verticalVelocity) * Time.deltaTime);
+
+            // 공중에 있다가 바닥에 닿은 순간 = 착지
+            bool groundedNow = controller.isGrounded;
+            if (groundedNow && !wasGrounded && lastFallSpeed >= MinLandingSpeed)
+                Landed?.Invoke(lastFallSpeed);
+            wasGrounded = groundedNow;
+            IsRunning = groundedNow && State != PlayerState.Dodge && keyboard.leftShiftKey.isPressed && horizontal.sqrMagnitude > 0.01f;
 
             if (State != PlayerState.Dodge)
             {
