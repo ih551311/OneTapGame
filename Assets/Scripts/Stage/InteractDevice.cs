@@ -37,7 +37,8 @@ namespace LastBullet.Stage
             bool near = offset.magnitude <= range && !popup.IsOpen;
             prompt.SetActive(near);
 
-            if (near && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+            // 일시정지 중(Time.timeScale 0)에는 E로 열리지 않게 한다
+            if (near && Time.timeScale > 0f && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
                 popup.Open();
         }
     }
