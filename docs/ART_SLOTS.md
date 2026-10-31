@@ -90,9 +90,9 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/Tracer.mat` | 탄도선 | `Player/BulletTracer` |
 | `Materials/ImpactMarker.mat` | 맞은 자리에 0.4초 보이는 점 | 프리팹 `Prefabs/ImpactMarker`의 `Model` (총 `OneBulletGun`의 `Impact Marker Prefab`) |
 | `Materials/Ground.mat` | 바닥 | `Ground` |
-| `Materials/StageMap.mat` | 미술관 지도 탁자 (전투 장소 선택) | `1_Museum` 씬의 `StageMap` |
+| `Assets/3Dmake/Untitled.fbx` (포털 모델, 재질 Portal_walnut·brass·brassDark·dark·carpet은 모델 안에 들어 있음) + `Materials/PortalMirror.mat` | 미술관 전투 장소 이동 장치 (거울 포털 문). 거울 면은 3ds Max용 셰이더라 URP에서 투명해서 `PortalMirror.mat`(URP Lit, 은빛 반사)로 바꿔 썼다. 거울에 그림을 넣고 싶으면 이 머티리얼의 Base Map에 끌어 놓는다. 모델을 바꿀 때는 `StageMap/Portal`만 바꾸고, 충돌(BoxCollider)은 `StageMap`에 있다 | `1_Museum` 씬의 `StageMap/Portal` |
 | `Materials/PaperCraftTable.mat` | 미술관 종이 합성대 | `1_Museum` 씬의 `PaperCraftTable` |
-| `Assets/3Dcanvas/canvas.fbx` (이젤 모델, 재질 Gallery_cream·edge·walnut·brass·dark는 모델 안에 들어 있음) | 미술관 그림 그리는 곳. 그림 쪽(캔버스)이 플레이어 시작 자리를 향한다. 모델을 바꿀 때는 `PaintWorkbench/Easel`만 바꾸고, 충돌(BoxCollider, 1.08×1.61×0.63m)은 `PaintWorkbench`에 있다 | `1_Museum` 씬의 `PaintWorkbench/Easel` |
+| `Assets/3Dmake/canvas.fbx` (이젤 모델, 재질 Gallery_cream·edge·walnut·brass·dark는 모델 안에 들어 있음) | 미술관 그림 그리는 곳. 그림 쪽(캔버스)이 플레이어 시작 자리를 향한다. 모델을 바꿀 때는 `PaintWorkbench/Easel`만 바꾸고, 충돌(BoxCollider, 1.08×1.61×0.63m)은 `PaintWorkbench`에 있다 | `1_Museum` 씬의 `PaintWorkbench/Easel` |
 | `Materials/PaintBurst.mat` | 처치 때 터지는 물감 방울(작은 공 입자, 색은 떨어뜨린 물감 색으로 코드가 입힌다) | 프리팹 `Prefabs/PaintBurst`의 ParticleSystem (공 모양은 Renderer의 Mesh) |
 | `Materials/PaintSplat.mat` | 처치한 자리 바닥에 남는 물감 자국(납작한 원, 약간 젖은 느낌, 색은 코드가 입힌다) | 프리팹 `Prefabs/PaintBurst`의 `Puddle` |
 | `Assets/Low Poly Guns/Models/Guns/pistol1/pistol1.fbx` + `Materials/FirstPersonGun_Pistol.mat` (URP Lit, 그림 `pistol1_diffuse.png`·`pistol1_normal.png`) | **1인칭 총 모양** (사용자가 가져온 pistol1 리볼버, 크기 0.22배). 1인칭에서만 화면 오른쪽 아래에 보인다. 다른 총으로 바꿀 때: `Main Camera/FirstPersonGun/Model` 아래의 `Pistol`을 지우고 새 FBX를 자식으로 넣는다 (총구 = +Z, 크기는 Scale로, 그림자는 Cast Shadows Off). 놓는 자리·반동·흔들림은 `FirstPersonGun` 컴포넌트 값에서 고친다. (에셋 원본 머티리얼은 Standard라 URP에서 분홍색이 되어 쓰지 않는다) | 숲·성 마을·사막·미술관 `Main Camera/FirstPersonGun/Model/Pistol` |
