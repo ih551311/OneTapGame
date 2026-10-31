@@ -308,10 +308,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 0
-  MinDistance: 6
-  MaxDistance: 30
+  MinDistance: 8
+  MaxDistance: 40
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -401,7 +401,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0910b552636052c42a5d5fb6d168dc27, type: 3}
   - {fileID: 8300000, guid: 8115c336b0fa59f41b1cb0af599a2271, type: 3}
   tails: []
-  volume: 0.2
+  volume: 0.35
   tailVolume: 0.45
   pitchRange: {x: 0.96, y: 1.04}
 --- !u!114 &1348328175627527042
