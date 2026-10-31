@@ -486,8 +486,9 @@ MonoBehaviour:
   sound: {fileID: 407593970}
   particles: {fileID: 0}
   flash: {fileID: 2011569424}
-  flashFadeTime: 0.7
-  flashStrength: 0.6
+  flashRiseTime: 0.18
+  flashFadeTime: 1.1
+  flashStrength: 0.75
 --- !u!1001 &4781711
 PrefabInstance:
   m_ObjectHideFlags: 0

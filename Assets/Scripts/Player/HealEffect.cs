@@ -16,11 +16,15 @@ namespace LastBullet.Player
         [SerializeField] ParticleSystem particles;
         [SerializeField] Image flash;
 
-        [SerializeField] float flashFadeTime = 0.7f;
+        [Tooltip("번쩍이 가장 진해질 때까지 걸리는 시간 (초). 갑자기 켜지지 않고 부드럽게 올라온다")]
+        [SerializeField] float flashRiseTime = 0.18f;
+        [Tooltip("진한 상태에서 사라질 때까지 걸리는 시간 (초)")]
+        [SerializeField] float flashFadeTime = 1.1f;
         [Range(0f, 1f)]
-        [SerializeField] float flashStrength = 0.6f;
+        [SerializeField] float flashStrength = 0.75f;
 
         float flashAlpha;
+        bool rising;
 
         void Start()
         {
@@ -41,14 +45,22 @@ namespace LastBullet.Player
                 sound.Play();
             if (particles != null)
                 particles.Play();
-            flashAlpha = flashStrength;
+            rising = true;
         }
 
         void Update()
         {
-            if (flashAlpha <= 0f)
+            if (!rising && flashAlpha <= 0f)
                 return;
-            flashAlpha = Mathf.MoveTowards(flashAlpha, 0f, Time.unscaledDeltaTime * flashStrength / flashFadeTime);
+            float dt = Time.unscaledDeltaTime;
+            if (rising)
+            {
+                flashAlpha = Mathf.MoveTowards(flashAlpha, flashStrength, dt * flashStrength / flashRiseTime);
+                if (flashAlpha >= flashStrength)
+                    rising = false;
+            }
+            else
+                flashAlpha = Mathf.MoveTowards(flashAlpha, 0f, dt * flashStrength / flashFadeTime);
             SetFlash(flashAlpha);
         }
 
