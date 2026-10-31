@@ -23,7 +23,7 @@ namespace LastBullet.EditorTools
 
         // 1인칭 총(손 포함)이 놓이는 자리 (카메라 기준, m). 손 가운데가 화면 오른쪽 아래에 오도록 정했다.
         static readonly Vector3 RestPosition = new Vector3(0.17f, -0.08f, 0.72f);
-        static readonly Vector3 AimPosition = new Vector3(0.07f, -0.015f, 0.72f);
+        static readonly Vector3 AimPosition = new Vector3(0.13f, -0.06f, 0.72f); // 조준 때도 손이 십자선을 가리지 않게 평소와 비슷한 자리
         const float RestPitch = 8f;
         static readonly Vector3 MeshCenter = new Vector3(0f, 0.184f, 0.05f);
 
@@ -91,7 +91,8 @@ namespace LastBullet.EditorTools
                 {
                     foreach (var renderer in player.GetComponentsInChildren<SkinnedMeshRenderer>(true))
                     {
-                        if (renderer.name != "modelBody" && renderer.name != "modelOuter")
+                        // 옷(modelOuter) 조각은 소매 끝이 뾰족하게 보여서 쓰지 않는다 (피부만)
+                        if (renderer.name != "modelBody")
                             continue;
                         string key = renderer.name == "modelBody" ? "Skin" : "Outer";
                         var mesh = ExtractArm(renderer, hand);
@@ -180,7 +181,7 @@ namespace LastBullet.EditorTools
                 if (bone != null && bone.name.StartsWith("R.") && (bone.name.Contains("Thumb") || bone.name.Contains("Index") || bone.name.Contains("Middle") || bone.name.Contains("Ring") || bone.name.Contains("Pinky")))
                     armBones.Add(bone.name);
 
-            // 그 정점이 팔 뼈의 영향을 35% 이상 받으면 팔 (팔이 어깨까지 길게 이어지게)
+            // 그 정점이 팔 뼈의 영향을 70% 이상 받으면 팔 (경계에 걸친 정점을 빼서 뾰족한 조각이 안 생기게)
             var isArm = new bool[vertices.Length];
             for (int v = 0; v < vertices.Length; v++)
             {
@@ -190,7 +191,7 @@ namespace LastBullet.EditorTools
                 Add(ref sum, w.boneIndex1, w.weight1, bones, armBones);
                 Add(ref sum, w.boneIndex2, w.weight2, bones, armBones);
                 Add(ref sum, w.boneIndex3, w.weight3, bones, armBones);
-                isArm[v] = sum >= 0.35f;
+                isArm[v] = sum >= 0.7f;
             }
 
             // 삼각형: 세 정점이 모두 팔인 것만

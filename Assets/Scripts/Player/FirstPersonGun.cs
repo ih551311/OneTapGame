@@ -9,6 +9,8 @@ namespace LastBullet.Player
     //  - 모양은 Model 아래의 도형(임시 신호총)이고, 겉모습은 이 오브젝트의 자식 Model만 바꾸면 된다 (모델 교체 자리).
     // 카메라(Main Camera)의 자식이라서 카메라가 움직이는 대로 정확히 따라다닌다. 그림자는 만들지 않는다.
     // 붙일 곳: Main Camera 아래의 FirstPersonGun (메뉴 LastBullet > Phase 48 1인칭 총 만들기)
+    // 실행 순서 150: 카메라(CinemachineBrain 100)가 시야각을 정한 뒤에 그 값으로 크기를 맞춘다.
+    [DefaultExecutionOrder(150)]
     public class FirstPersonGun : MonoBehaviour
     {
         [SerializeField] CameraZoom zoom;
@@ -39,6 +41,11 @@ namespace LastBullet.Player
         [Tooltip("자리를 옮기는 빠르기 (조준 전환)")]
         [SerializeField] float moveSpeed = 12f;
 
+        [Header("시야각 보정")]
+        [Tooltip("평소 시야각. 조준해서 시야각이 줄어들면 손·총이 화면에서 커지는데, 그만큼 작게 해서 같은 크기로 보이게 한다")]
+        [SerializeField] float normalFieldOfView = 60f;
+
+        Camera mainCamera;
         Renderer[] renderers;
         float recoil;       // 1 = 방금 쏨, 0 = 제자리
         float bobPhase;
@@ -92,7 +99,14 @@ namespace LastBullet.Player
 
             Vector3 position = Vector3.Lerp(restPosition, aimPosition, aimBlend) + sway;
             position += new Vector3(0f, -(1f - t) * 0.35f, -recoil * recoilBack);
-            transform.localPosition = position;
+            // 시야각이 줄면(조준) 같은 거리에서도 크게 보이므로, 크기와 자리를 같은 비율로 줄여서 화면에서 똑같이 보이게 한다
+            float fovScale = 1f;
+            if (mainCamera == null)
+                mainCamera = Camera.main;
+            if (mainCamera != null && normalFieldOfView > 1f)
+                fovScale = Mathf.Clamp(Mathf.Tan(mainCamera.fieldOfView * 0.5f * Mathf.Deg2Rad) / Mathf.Tan(normalFieldOfView * 0.5f * Mathf.Deg2Rad), 0.3f, 1.5f);
+            transform.localScale = Vector3.one * fovScale;
+            transform.localPosition = position * fovScale;
             transform.localRotation = Quaternion.Euler(-recoil * recoilPitch - restPitch * (1f - aimBlend * 0.5f), restYaw * (1f - aimBlend), 0f);
         }
 
