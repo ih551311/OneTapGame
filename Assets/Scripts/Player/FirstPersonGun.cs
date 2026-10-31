@@ -21,9 +21,11 @@ namespace LastBullet.Player
         [SerializeField] Transform model;
 
         [Header("자리 (카메라 기준, 기본값)")]
-        [SerializeField] Vector3 restPosition = new Vector3(0.2f, -0.21f, 0.6f);
-        [SerializeField] Vector3 aimPosition = new Vector3(0.09f, -0.17f, 0.55f);
+        [SerializeField] Vector3 restPosition = new Vector3(0.18f, -0.115f, 0.72f);
+        [SerializeField] Vector3 aimPosition = new Vector3(0.08f, -0.09f, 0.7f);
         [SerializeField] float restYaw = -4f;
+        [Tooltip("총구를 위로 드는 각도 (팔이 화면 아래로 비스듬히 빠지게 한다)")]
+        [SerializeField] float restPitch = 8f;
 
         [Header("움직임 (기본값)")]
         [Tooltip("쏠 때 뒤로 밀리는 거리 (m)")]
@@ -91,7 +93,7 @@ namespace LastBullet.Player
             Vector3 position = Vector3.Lerp(restPosition, aimPosition, aimBlend) + sway;
             position += new Vector3(0f, -(1f - t) * 0.35f, -recoil * recoilBack);
             transform.localPosition = position;
-            transform.localRotation = Quaternion.Euler(-recoil * recoilPitch, restYaw * (1f - aimBlend), 0f);
+            transform.localRotation = Quaternion.Euler(-recoil * recoilPitch - restPitch * (1f - aimBlend * 0.5f), restYaw * (1f - aimBlend), 0f);
         }
 
         void SetShown(bool show)
