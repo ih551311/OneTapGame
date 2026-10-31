@@ -16,13 +16,13 @@ namespace LastBullet.Enemy
         public enum AIState { Idle, Chase, Attack, Hit, Dead }
         enum AttackPhase { Windup, Dash, Recover }
 
-        [Header("Detection (default)")]
+        [Header("감지 (기본값)")]
         [SerializeField] float detectRange = 25f;      // 이 거리 안에 플레이어가 오면 쫓아온다 (2026-10-30 사용자 요청: 15 → 25)
 
-        [Header("Chase (default)")]
+        [Header("추적 (기본값)")]
         [SerializeField] float chaseSpeed = 4f;        // m/s
 
-        [Header("Dash attack (default)")]
+        [Header("돌진 공격 (기본값)")]
         [SerializeField] float attackRange = 4f;       // 이 거리에서 돌진을 시작한다
         [SerializeField] float windupTime = 0.5f;      // 공격 예고 (기획서: 0.5초 전)
         [SerializeField] float leanAngle = 20f;        // 예고 동안 뒤로 젖히는 각도
@@ -32,11 +32,11 @@ namespace LastBullet.Enemy
         [SerializeField] int attackDamage = 15;        // 기획서 2.5: 돌진형 공격력 15
         [SerializeField] float contactRange = 1.3f;    // 돌진 중 이 거리 안이면 맞은 것으로 본다
 
-        [Header("Turning")]
-        [Tooltip("Degrees it can turn per second. 0 turns instantly (charger).")]
+        [Header("방향 전환")]
+        [Tooltip("1초에 돌 수 있는 각도. 0이면 바로 돌아본다 (돌진형). 방어형은 느리게 돌아서 옆·뒤를 노릴 틈이 생긴다")]
         [SerializeField] float turnSpeed = 0f;
 
-        [Header("Hit reaction (default)")]
+        [Header("피격 (기본값)")]
         [SerializeField] float hitStunTime = 0.25f;    // 맞으면 멈칫하는 시간
 
         public AIState State { get; private set; } = AIState.Idle;

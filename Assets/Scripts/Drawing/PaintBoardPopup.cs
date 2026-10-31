@@ -16,42 +16,42 @@ namespace LastBullet.Drawing
     // 붙일 곳: Canvas/PaintBoardPopup (평소에는 꺼져 있다)
     public class PaintBoardPopup : PopupBase
     {
-        [Tooltip("4 pen size buttons (thinnest first), then the eraser button")]
+        [Tooltip("펜 굵기 4단계 버튼(가는 것부터) 다음에 지우개 버튼")]
         [SerializeField] Button[] toolButtons;
 
-        [Tooltip("Outline shown over the selected tool")]
+        [Tooltip("선택된 도구에 겹쳐 보이는 테두리")]
         [SerializeField] RectTransform toolSelected;
 
-        [Tooltip("9 color buttons (order: Red, Orange, Yellow, Green, Blue, Purple, Pink, White, Black)")]
+        [Tooltip("9색 버튼 (빨강, 주황, 노랑, 초록, 파랑, 보라, 핑크, 하양, 검정 순서)")]
         [SerializeField] Button[] colorButtons;
 
-        [Tooltip("Outline shown over the selected color")]
+        [Tooltip("선택된 색에 겹쳐 보이는 테두리")]
         [SerializeField] RectTransform colorSelected;
 
-        [Tooltip("Remaining paint texts under the color buttons (9)")]
+        [Tooltip("색 버튼 아래 물감 잔량 글자 (9개)")]
         [SerializeField] TMP_Text[] paintAmounts;
 
-        [Tooltip("Area that shows the canvas")]
+        [Tooltip("캔버스를 보여 주는 칸")]
         [SerializeField] RawImage canvasImage;
 
         [SerializeField] TMP_Text paperCount;
 
-        [Tooltip("Finish button. Clickable only when there is paper.")]
+        [Tooltip("완성 버튼. 종이가 있을 때만 눌린다")]
         [SerializeField] Button doneButton;
 
         [Tooltip("\"내 그림\" 버튼. 완성한 그림들을 보는 팝업을 연다")]
         [SerializeField] Button galleryButton;
 
-        [Tooltip("Popup to view the finished picture (view-only GalleryPopup)")]
+        [Tooltip("완성한 그림을 보는 팝업 (보기 전용 GalleryPopup)")]
         [SerializeField] PopupBase galleryPopup;
 
-        [Tooltip("Confirmation window shown when canceling (disabled by default)")]
+        [Tooltip("취소할 때 뜨는 확인창 (평소에는 꺼져 있다)")]
         [SerializeField] GameObject confirmDialog;
 
-        [Tooltip("Quit button of the confirmation window. Discards the picture and closes.")]
+        [Tooltip("확인창의 '그만두기' 버튼. 그림을 버리고 닫는다")]
         [SerializeField] Button confirmDiscardButton;
 
-        [Tooltip("Keep-drawing button of the confirmation window")]
+        [Tooltip("확인창의 '계속 그리기' 버튼")]
         [SerializeField] Button confirmContinueButton;
 
         // 펜 굵기 (px, 기획서 2.8)

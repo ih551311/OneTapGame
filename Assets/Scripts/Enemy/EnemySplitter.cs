@@ -11,13 +11,13 @@ namespace LastBullet.Enemy
     [RequireComponent(typeof(EnemyHealth), typeof(EnemyDrop))]
     public class EnemySplitter : MonoBehaviour
     {
-        [Tooltip("Small enemy spawned when killed (Prefabs/Enemy_SplitterMini). Does not split if empty.")]
+        [Tooltip("처치되면 나올 작은 적 (Prefabs/Enemy_SplitterMini). 비우면 나뉘지 않는다")]
         [SerializeField] GameObject miniPrefab;
 
-        [Tooltip("Number spawned (default)")]
+        [Tooltip("나오는 마리 수 (기본값)")]
         [SerializeField] int count = 2;
 
-        [Tooltip("How far from the death spot they spawn (m, default)")]
+        [Tooltip("죽은 자리에서 얼마나 떨어져 나오는지 (m, 기본값)")]
         [SerializeField] float spread = 1.2f;
 
         void Awake()

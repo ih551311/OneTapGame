@@ -13,13 +13,13 @@ namespace LastBullet.Player
     // 붙일 곳: Player (메뉴 LastBullet > Phase 42 카메라 줌 넣기)
     public class CameraZoom : MonoBehaviour
     {
-        [Tooltip("Amount moved per wheel notch (0 to 1)")]
+        [Tooltip("휠 한 칸에 움직이는 양 (0~1)")]
         [SerializeField] float stepPerNotch = 0.2f;
 
-        [Tooltip("Movement speed (higher is faster)")]
+        [Tooltip("움직이는 빠르기 (클수록 빠름)")]
         [SerializeField] float smoothSpeed = 4f;
 
-        [Tooltip("At or above this value it counts as first person and the character model is hidden")]
+        [Tooltip("이 값 이상 가까워지면 1인칭으로 보고 캐릭터 모습을 숨긴다")]
         [Range(0.5f, 1f)]
         [SerializeField] float firstPersonThreshold = 0.92f;
 

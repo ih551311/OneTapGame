@@ -12,16 +12,16 @@ namespace LastBullet.Player
     [RequireComponent(typeof(CharacterController))]
     public class PlayerMovement : MonoBehaviour
     {
-        [Header("Movement (default)")]
+        [Header("이동 (기본값)")]
         [SerializeField] float walkSpeed = 5.05f;  // m/s (2026-10-31 사용자 요청으로 4.5에서 올림)
         [SerializeField] float runSpeed = 7.85f;   // m/s (7에서 올림)
         [SerializeField] float turnSpeed = 720f;   // 몸이 이동 방향으로 도는 속도 (초당 각도)
 
-        [Header("Jump (default)")]
+        [Header("점프 (기본값)")]
         [SerializeField] float jumpHeight = 1.5f;  // m
         [SerializeField] float gravity = -20f;     // m/s². 현실(-9.81)보다 세게 해서 덜 둥둥 뜨게 한다
 
-        [Header("Dodge (default)")]
+        [Header("회피 (기본값)")]
         [SerializeField] float dodgeDistance = 3f;         // m
         [SerializeField] float dodgeDuration = 0.25f;      // 3m를 0.25초 동안 이동
         [SerializeField] float dodgeCooldown = 1.2f;       // 초

@@ -9,12 +9,12 @@ namespace LastBullet.Stage
     // 붙일 곳: 장치 오브젝트 (popup, prompt 연결)
     public class InteractDevice : MonoBehaviour
     {
-        [Tooltip("Can be opened with E within this distance (default)")]
+        [Tooltip("이 거리 안에서 E로 열 수 있다 (기본값)")]
         [SerializeField] float range = 2.5f;
 
         [SerializeField] PopupBase popup;
 
-        [Tooltip("Prompt UI shown when close (Canvas/Prompt_...)")]
+        [Tooltip("가까이 가면 켜지는 안내 UI (Canvas/Prompt_...)")]
         [SerializeField] GameObject prompt;
 
         Transform player;

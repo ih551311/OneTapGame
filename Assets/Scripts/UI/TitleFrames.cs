@@ -10,7 +10,7 @@ namespace LastBullet.UI
     // 붙일 곳: 0_Title의 Canvas/TitleFrames (자식 FrameLeft, FrameRight 각각 Picture(RawImage))
     public class TitleFrames : MonoBehaviour
     {
-        [Tooltip("Order: left, right")]
+        [Tooltip("왼쪽, 오른쪽 순서")]
         [SerializeField] RawImage[] pictures = new RawImage[SaveManager.TitleFrameCount];
 
         void Start()
@@ -30,7 +30,7 @@ namespace LastBullet.UI
             }
         }
 
-        [Tooltip("Frame border thickness (the picture goes inside it)")]
+        [Tooltip("액자 테두리 두께 (그림은 이 안쪽에 들어간다)")]
         [SerializeField] float frameBorder = 30f;
 
         // 그림 비율을 지킨 채 액자 테두리 안쪽에 맞춰 가운데에 둔다 (정사각형 그림이 늘어나지 않게)

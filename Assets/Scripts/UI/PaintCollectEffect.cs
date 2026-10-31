@@ -14,22 +14,22 @@ namespace LastBullet.UI
     {
         public static PaintCollectEffect Current { get; private set; }
 
-        [Tooltip("Template for one drop (kept disabled). A single Image.")]
+        [Tooltip("방울 한 개의 틀 (꺼 둔다). Image 하나")]
         [SerializeField] Image dropTemplate;
 
-        [Tooltip("Drop images in paint color order (Red, Orange, Yellow, Green, Blue, Purple, Pink, White, Black)")]
+        [Tooltip("물감 9색 순서(빨강, 주황, 노랑, 초록, 파랑, 보라, 핑크, 하양, 검정)의 방울 그림")]
         [SerializeField] Sprite[] dropSprites = new Sprite[PaintColors.Count];
 
-        [Tooltip("Destinations in the same order: paint icons of the battle bag panel")]
+        [Tooltip("같은 순서의 도착 지점: 전투 가방 패널의 물감 아이콘")]
         [SerializeField] RectTransform[] targets = new RectTransform[PaintColors.Count];
 
-        [Header("Effect")]
+        [Header("연출")]
         [SerializeField] int dropsPerKill = 5;
         [SerializeField] float dropSize = 40f;
-        [Tooltip("Time spent bursting out from the kill spot (so the kill effect stays visible)")]
+        [Tooltip("처치 자리에서 튀어 오르며 흩어지는 시간 (처치 이펙트가 보이도록)")]
         [SerializeField] float burstTime = 0.25f;
         [SerializeField] float flyTime = 0.6f;
-        [Tooltip("Bounce time and scale-up amount of the icon on arrival")]
+        [Tooltip("도착한 아이콘이 통통 튀는 시간과 커지는 정도")]
         [SerializeField] float punchTime = 0.25f;
         [SerializeField] float punchScale = 0.4f;
 

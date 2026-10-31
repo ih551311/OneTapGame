@@ -16,10 +16,10 @@ namespace LastBullet.UI
         [SerializeField] PopupBase drawPopup;
         [SerializeField] PopupBase pickPopup;
 
-        [Tooltip("Preview of the current profile picture")]
+        [Tooltip("지금 프로필 사진 미리 보기")]
         [SerializeField] RawImage preview;
 
-        [Tooltip("Empty person shape shown when there is no photo")]
+        [Tooltip("사진이 없을 때 보이는 빈 사람 모양")]
         [SerializeField] GameObject emptyShape;
 
         protected override void OnFirstOpen()

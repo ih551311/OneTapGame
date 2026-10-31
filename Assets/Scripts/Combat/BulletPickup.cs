@@ -7,7 +7,7 @@ namespace LastBullet.Combat
     // 붙일 곳: Prefabs/DroppedBullet (총이 탄환을 떨어뜨릴 때 Init으로 총을 알려 준다)
     public class BulletPickup : MonoBehaviour
     {
-        [Tooltip("Can be picked up with E within this distance (default)")]
+        [Tooltip("이 거리 안에서 E키로 회수할 수 있다 (기본값)")]
         [SerializeField] float pickupRange = 2f;
 
         OneBulletGun gun;

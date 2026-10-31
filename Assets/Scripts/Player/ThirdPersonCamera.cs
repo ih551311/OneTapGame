@@ -13,13 +13,13 @@ namespace LastBullet.Player
     [DefaultExecutionOrder(50)]
     public class ThirdPersonCamera : MonoBehaviour
     {
-        [Tooltip("Target the camera follows. The CameraTarget under Player.")]
+        [Tooltip("카메라가 따라갈 대상. Player 아래의 CameraTarget")]
         [SerializeField] Transform cameraTarget;
 
-        [Tooltip("Base mouse sensitivity (rotation per mouse pixel). Multiplied by the sensitivity setting in Options.")]
+        [Tooltip("기본 마우스 감도 (마우스 1픽셀당 회전 각도). 옵션의 마우스 감도 배율이 곱해진다")]
         [SerializeField] float sensitivity = 0.1f;
 
-        [Tooltip("Limit of the vertical look angle")]
+        [Tooltip("위아래로 볼 수 있는 각도 제한")]
         [SerializeField] float minPitch = -40f;
         [SerializeField] float maxPitch = 70f;
 

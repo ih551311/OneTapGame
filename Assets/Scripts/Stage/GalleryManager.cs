@@ -12,19 +12,19 @@ namespace LastBullet.Stage
     // 붙일 곳: PictureFrames (액자들의 부모 오브젝트)
     public class GalleryManager : MonoBehaviour
     {
-        [Tooltip("9 frames (in slot number order)")]
+        [Tooltip("액자 9개 (칸 번호 순서)")]
         [SerializeField] PictureFrame[] frames;
 
-        [Tooltip("Can be opened with E within this distance (default)")]
+        [Tooltip("이 거리 안에서 E로 열 수 있다 (기본값)")]
         [SerializeField] float range = 3f;
 
-        [Tooltip("Artwork list popup (pick a picture to hang on a frame)")]
+        [Tooltip("작품 목록 팝업 (액자에 걸 그림 고르기)")]
         [SerializeField] GalleryPopup picker;
 
-        [Tooltip("Prompt UI shown when close (Canvas/Prompt_Frame)")]
+        [Tooltip("가까이 가면 켜지는 안내 UI (Canvas/Prompt_Frame)")]
         [SerializeField] GameObject prompt;
 
-        [Tooltip("Progress number text (\"3 / 9\")")]
+        [Tooltip("진행도의 숫자 글자 (\"3 / 9\")")]
         [SerializeField] TMP_Text progressCount;
 
         Transform player;

@@ -12,16 +12,16 @@ namespace LastBullet.UI
     {
         [SerializeField] PlayerHealth playerHealth;
 
-        [Tooltip("Filled (Horizontal) image. Fills according to the health ratio.")]
+        [Tooltip("Filled(Horizontal) 이미지. 체력 비율만큼 채워진다")]
         [SerializeField] Image healthFill;
 
-        [Tooltip("Filled (Horizontal) image that shows the healed amount in another color. Placed right behind the health bar Fill. Optional.")]
+        [Tooltip("힐로 늘어난 만큼을 다른 색으로 보여 주는 Filled(Horizontal) 이미지. 체력바 채움(Fill) 바로 뒤에 놓는다. 없어도 된다")]
         [SerializeField] Image healGainFill;
 
-        [Tooltip("How long the healed amount is shown in another color (seconds)")]
+        [Tooltip("늘어난 만큼을 다른 색으로 보여 주는 시간 (초)")]
         [SerializeField] float healGainTime = 1f;
 
-        [Tooltip("Speed at which the health bar then catches up (fraction of the full bar per second)")]
+        [Tooltip("그 뒤 체력바가 차오르는 빠르기 (1초에 전체의 몇 배)")]
         [SerializeField] float fillSpeed = 1.5f;
 
         int lastHp = -1;

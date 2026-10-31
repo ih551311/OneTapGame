@@ -10,13 +10,13 @@ namespace LastBullet.UI
     // 붙일 곳: 0_Title의 Canvas/ProfileCard
     public class ProfileCard : MonoBehaviour
     {
-        [Tooltip("Frame that opens the profile window when clicked")]
+        [Tooltip("누르면 프로필 창이 열리는 액자")]
         [SerializeField] Button button;
 
-        [Tooltip("Area that shows the profile picture")]
+        [Tooltip("프로필 사진이 보이는 칸")]
         [SerializeField] RawImage picture;
 
-        [Tooltip("Empty person shape shown when there is no photo")]
+        [Tooltip("사진이 없을 때 보이는 빈 사람 모양")]
         [SerializeField] GameObject emptyShape;
 
         [SerializeField] TMP_Text nickname;

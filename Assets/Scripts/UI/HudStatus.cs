@@ -17,13 +17,13 @@ namespace LastBullet.UI
 
         [SerializeField] Mode mode;
 
-        [Tooltip("First line text: museum \"pictures N\" / battle \"enemies killed N\"")]
+        [Tooltip("첫째 줄 글자: 미술관 \"그림 N장\" / 전투 \"잡은 적 N\"")]
         [SerializeField] TMP_Text line1;
 
-        [Tooltip("Second line text (museum only): \"paper N\"")]
+        [Tooltip("둘째 줄 글자(미술관만): \"종이 N장\"")]
         [SerializeField] TMP_Text line2;
 
-        [Header("Battle: paint gained this run (the 3 colors of that map)")]
+        [Header("전투: 이번 판에 얻은 물감 (그 맵에서 나오는 3색)")]
         [SerializeField] PaintColor[] paintColors = new PaintColor[0];
         [SerializeField] TMP_Text[] paintCounts = new TMP_Text[0];
 

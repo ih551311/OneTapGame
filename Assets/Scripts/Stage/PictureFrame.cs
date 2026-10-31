@@ -10,10 +10,10 @@ namespace LastBullet.Stage
     // 붙일 곳: PictureFrame_01 ... PictureFrame_09 (slot은 0부터)
     public class PictureFrame : MonoBehaviour
     {
-        [Tooltip("Frame slot number (from 0, max 8). The hung picture is saved in this slot of gallery.json.")]
+        [Tooltip("액자 칸 번호 (0부터, 최대 8). 걸린 그림은 gallery.json의 이 칸에 저장된다")]
         [SerializeField] int slot;
 
-        [Tooltip("Surface that shows the picture. Uses a material dedicated to this frame.")]
+        [Tooltip("그림이 보이는 면. 이 액자 전용 머티리얼을 쓴다")]
         [SerializeField] Renderer pictureRenderer;
 
         public int Slot => slot;

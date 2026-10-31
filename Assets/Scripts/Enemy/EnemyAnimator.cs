@@ -10,7 +10,7 @@ namespace LastBullet.Enemy
     {
         [SerializeField] Animator animator;
 
-        [Tooltip("Blend time when the speed changes (seconds)")]
+        [Tooltip("속도가 바뀔 때 섞이는 시간 (초)")]
         [SerializeField] float smoothTime = 0.1f;
 
         static readonly int SpeedHash = Animator.StringToHash("Speed");

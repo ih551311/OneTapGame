@@ -19,21 +19,21 @@ namespace LastBullet.Audio
         [SerializeField] SfxPlayer land;
         [SerializeField] SfxPlayer dodge;
 
-        [Header("Footstep spacing (distance walked, m)")]
+        [Header("발소리 간격 (걸은 거리, m)")]
         [SerializeField] float walkStride = 2.0f;
         [SerializeField] float runStride = 2.6f;
 
-        [Header("Jump push-off (relative to walking footsteps)")]
-        [Tooltip("How many times louder the footstep is when jumping")]
+        [Header("점프 발구름 (걸을 때 발소리 대비)")]
+        [Tooltip("점프할 때 발소리를 몇 배 크게 낼지")]
         [SerializeField] float pushOffVolume = 1.5f;
-        [Tooltip("Pitch multiplier of the jump footstep (below 1 sounds lower and heavier)")]
+        [Tooltip("점프할 때 발소리의 음높이 배율 (1보다 작으면 낮고 묵직하다)")]
         [SerializeField] float pushOffPitch = 0.85f;
 
-        [Header("Landing (relative to walking footsteps)")]
-        [Tooltip("Footstep loudness multiplier: small for short drops, large for long falls")]
+        [Header("착지 (걸을 때 발소리 대비)")]
+        [Tooltip("낮은 곳에서 내려올 때(작게)와 높은 곳에서 떨어질 때(크게) 발소리를 몇 배로 낼지")]
         [SerializeField] float landVolumeMin = 1.1f;
         [SerializeField] float landVolumeMax = 1.8f;
-        [Tooltip("Pitch multiplier of the landing footstep (below 1 sounds lower and heavier)")]
+        [Tooltip("착지 발소리의 음높이 배율 (1보다 작으면 낮고 묵직하다)")]
         [SerializeField] float landPitch = 0.8f;
 
         float distance; // 마지막 발소리 뒤로 걸은 거리

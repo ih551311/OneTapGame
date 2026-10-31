@@ -13,15 +13,15 @@ namespace LastBullet.Drawing
     // 붙일 곳: 0_Title의 Canvas/ProfileDrawPopup (평소에는 꺼져 있다)
     public class ProfileDrawPopup : PopupBase
     {
-        [Tooltip("4 pen size buttons (thinnest first), then the eraser button")]
+        [Tooltip("펜 굵기 4단계 버튼(가는 것부터) 다음에 지우개 버튼")]
         [SerializeField] Button[] toolButtons;
         [SerializeField] RectTransform toolSelected;
 
-        [Tooltip("9 color buttons (order: Red, Orange, Yellow, Green, Blue, Purple, Pink, White, Black)")]
+        [Tooltip("9색 버튼 (빨강, 주황, 노랑, 초록, 파랑, 보라, 핑크, 하양, 검정 순서)")]
         [SerializeField] Button[] colorButtons;
         [SerializeField] RectTransform colorSelected;
 
-        [Tooltip("Area that shows the canvas")]
+        [Tooltip("캔버스를 보여 주는 칸")]
         [SerializeField] RawImage canvasImage;
 
         [SerializeField] Button doneButton;

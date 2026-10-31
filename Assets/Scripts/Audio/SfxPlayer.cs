@@ -9,20 +9,20 @@ namespace LastBullet.Audio
     [RequireComponent(typeof(AudioSource))]
     public class SfxPlayer : MonoBehaviour
     {
-        [Tooltip("Variations. One of these is picked at random each time it plays.")]
+        [Tooltip("변형들. 재생할 때마다 이 중 하나를 무작위로 고른다")]
         [SerializeField] AudioClip[] clips;
 
-        [Tooltip("Tail sounds layered behind the main sound (optional). One of these plays together with it.")]
+        [Tooltip("소리 뒤에 깔리는 여운 (없어도 된다). 이 중 하나를 같이 재생한다")]
         [SerializeField] AudioClip[] tails;
 
         [Range(0f, 1f)]
         [SerializeField] float volume = 1f;
 
-        [Tooltip("Tail loudness (multiplied by volume)")]
+        [Tooltip("여운의 크기 (volume에 곱해진다)")]
         [Range(0f, 1f)]
         [SerializeField] float tailVolume = 0.45f;
 
-        [Tooltip("Pitch is randomized within this range (1 = original pitch)")]
+        [Tooltip("음높이를 이 범위에서 무작위로 흔든다 (1 = 원래 높이)")]
         [SerializeField] Vector2 pitchRange = new Vector2(0.96f, 1.04f);
 
         AudioSource source;

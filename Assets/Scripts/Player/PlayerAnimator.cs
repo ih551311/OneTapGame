@@ -17,7 +17,7 @@ namespace LastBullet.Player
         [SerializeField] PlayerHealth health;
         [SerializeField] OneBulletGun gun;
 
-        [Tooltip("Above this speed (m/s) the run animation plays. About halfway between walk 5.05 and run 7.85.")]
+        [Tooltip("이 속도(m/s)를 넘으면 달리기 동작. 걷기 5.05, 달리기 7.85의 가운데쯤")]
         [SerializeField] float smoothTime = 0.08f;
 
         static readonly int SpeedHash = Animator.StringToHash("Speed");
