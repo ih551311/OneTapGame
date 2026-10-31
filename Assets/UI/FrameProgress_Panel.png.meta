@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1cba9431496759843826e7ea549755c0
+guid: f60c1451587d70e44a7ec4bc893491d3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3058051681331120546
-    second: FrameProgress_Label_0
+      213: 3758754677938488680
+    second: FrameProgress_Panel_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +52,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 24, y: 24, z: 24, w: 24}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FrameProgress_Label_0
+      name: FrameProgress_Panel_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 384
-        height: 96
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e56f875b23e9f85d0800000000000000
-      internalID: -3058051681331120546
+      spriteID: 8658c500777c92430800000000000000
+      internalID: 3758754677938488680
       vertices: []
       indices: 
       edges: []

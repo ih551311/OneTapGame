@@ -54,7 +54,7 @@
 | `Assets/UI/Paint_Label_Gallery.png` | 그림판 버튼 글자 "내 그림" | 256×96 | 버튼 배경은 `Paint_Button_Cancel_*`. 누르면 보기 전용 작품 팝업(그림·창은 타이틀 그림 보기와 같은 `Gallery_*`, `Popup_Panel`)이 뜬다 |
 | `Assets/UI/Prompt_Frame.png` | 액자 근처 안내 "[E] 그림 걸기" | 768×96 | |
 | `Assets/UI/Frame_Title.png` | 액자 고르기 팝업 제목 "액자에 걸 그림" | 768×128 | 팝업의 나머지 그림은 타이틀 그림 보기와 같은 `Gallery_*`, `Popup_Panel` |
-| `Assets/UI/FrameProgress_Label.png` | 화면 위 가운데 진행도의 글자 "서로 다른 작품" (옆의 "3 / 9" 숫자는 TMP) | 384×96 | 배경은 `BagPanel.png`를 같이 씀 |
+| `Assets/UI/FrameProgress_Panel.png` | 화면 위 가운데 진행도("서로 다른 작품 3 / 9")의 배경 판. 글자와 숫자는 그림이 아니라 TextMeshPro(font1 SDF)라서 이 그림만 바꾸면 된다 (`Canvas/FrameProgress`의 자식 `Label`, `Count`가 글자) | 128×128 | **9-slice**, 모서리 24px |
 | `Assets/UI/StageLabel_Castle.png` | 전투 장소 선택 버튼 글자 "성 마을" | 512×128 | |
 | `Assets/UI/StageLabel_Desert.png` | 전투 장소 선택 버튼 글자 "사막" | 512×128 | |
 | `Assets/UI/StageColors_Forest.png`, `StageColors_Castle.png`, `StageColors_Desert.png` | 전투 장소 선택의 버튼 아래 안내 "얻는 물감 ● 빨강 ● 주황 ● 노랑" (글자와 색 점이 모두 그림 안에 있다) | 720×64 | 맵의 물감 색을 바꾸면(`StageColors` 표) 이 그림도 같이 고쳐야 한다 |

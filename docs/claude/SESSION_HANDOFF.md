@@ -264,3 +264,8 @@ Phase 1에서 한 일 (2026-10-29):
 - 기록: 원래 Phase 37이던 "헤드샷 연출·표시"는 이 작업 뒤로 미뤄짐.
 
 - 2026-10-31 사용자 요청: 힐 효과는 화면 가장자리의 얇은 초록 띠(Vignette_Heal, 가장자리 약 8%)만 남기고 플레이어 주위 반짝이는 껐다 (Phase37HealEffectSetup의 UseSparkles = false. 소리는 그대로). HealParticle.mat·Heal_Sparkle.png는 지금 안 쓴다.
+
+## 2026-10-31 Phase 38: 진행도 표시 그림·글자 분리 (사용자 요청)
+- 미술관 "서로 다른 작품 N / 9": 배경 전용 그림 `FrameProgress_Panel.png`(9-slice 24) + 글자 "서로 다른 작품"·숫자 모두 TMP(font1 SDF). 예전 글자 그림 `FrameProgress_Label.png`는 지움. 메뉴 LastBullet > Phase 38 진행도 글자 분리.
+- 확인: 플레이 화면 캡처로 "서로 다른 작품 2 / 9" 표시 확인. 배경이 BagPanel.png를 같이 쓰지 않는다.
+- 남은 일: 글자가 그림에 들어 있는 다른 UI가 ART_SLOTS 표에 29건 있다 (ResultTitle_*, StageTitle_*, ButtonLabel_* 등). 같은 방식으로 나눌지는 사용자 결정.
