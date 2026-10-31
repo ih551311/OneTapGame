@@ -9037,10 +9037,10 @@ MonoBehaviour:
   dodge: {fileID: 639750567}
   walkStride: 2
   runStride: 2.6
-  pushOffVolume: 1.5
+  pushOffVolume: 2.5
   pushOffPitch: 0.85
-  landVolumeMin: 1.1
-  landVolumeMax: 1.8
+  landVolumeMin: 1.8333333
+  landVolumeMax: 2.9999998
   landPitch: 0.8
 --- !u!114 &639750567
 MonoBehaviour:
@@ -9119,7 +9119,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c7d486ad59ea93643be17edce35f3319, type: 3}
   - {fileID: 8300000, guid: 2ba728a8507bed0429bb142d8f250ef4, type: 3}
   tails: []
-  volume: 0.6
+  volume: 0.36
   tailVolume: 0.45
   pitchRange: {x: 1.05, y: 1.15}
 --- !u!114 &639750571
@@ -9141,7 +9141,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c7d486ad59ea93643be17edce35f3319, type: 3}
   - {fileID: 8300000, guid: 2ba728a8507bed0429bb142d8f250ef4, type: 3}
   tails: []
-  volume: 0.5
+  volume: 0.3
   tailVolume: 0.45
   pitchRange: {x: 0.95, y: 1.05}
 --- !u!82 &639750572
