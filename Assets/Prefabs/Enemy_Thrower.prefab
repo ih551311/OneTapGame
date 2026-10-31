@@ -401,7 +401,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0910b552636052c42a5d5fb6d168dc27, type: 3}
   - {fileID: 8300000, guid: 8115c336b0fa59f41b1cb0af599a2271, type: 3}
   tails: []
-  volume: 0.12
+  volume: 0.2
   tailVolume: 0.45
   pitchRange: {x: 0.96, y: 1.04}
 --- !u!114 &1348328175627527042
