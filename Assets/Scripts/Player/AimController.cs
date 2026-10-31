@@ -33,8 +33,9 @@ namespace LastBullet.Player
         [Tooltip("조준 중 캐릭터가 카메라 방향으로 도는 속도 (도/초)")]
         [SerializeField] float turnSpeed = 720f;
 
-        float normalFov, normalDistance, normalShoulderX;
+        float normalFov, normalDistance, normalShoulderX, normalShoulderY, normalShoulderZ, normalArm;
         float amount; // 0 = 평소, 1 = 완전히 조준
+        CameraZoom zoom; // 휠로 3인칭 ↔ 1인칭 (없으면 늘 3인칭)
 
         public bool IsAiming => amount > 0.5f;
 
@@ -43,6 +44,10 @@ namespace LastBullet.Player
             normalFov = followCamera.Lens.FieldOfView;
             normalDistance = follow.CameraDistance;
             normalShoulderX = follow.ShoulderOffset.x;
+            normalShoulderY = follow.ShoulderOffset.y;
+            normalShoulderZ = follow.ShoulderOffset.z;
+            normalArm = follow.VerticalArmLength;
+            zoom = GetComponent<CameraZoom>();
         }
 
         void Update()
@@ -51,21 +56,31 @@ namespace LastBullet.Player
             amount = Mathf.MoveTowards(amount, want ? 1f : 0f, Time.unscaledDeltaTime * blendSpeed * 0.25f);
             float eased = amount * amount * (3f - 2f * amount); // 부드럽게 시작하고 끝난다
 
+            // 휠로 정한 카메라 자리(0 = 기본, 1 = 머리 높이의 1인칭)가 바탕이고, 조준은 그 위에 더해진다.
+            // 1인칭에서는 조준해도 카메라가 뒤로 물러나지 않는다.
+            float z = zoom != null ? zoom.Zoom : 0f;
+            float baseDistance = Mathf.Lerp(normalDistance, 0f, z);
+            float baseShoulderX = Mathf.Lerp(normalShoulderX, 0f, z);
+
             var lens = followCamera.Lens;
             lens.FieldOfView = Mathf.Lerp(normalFov, aimFieldOfView, eased);
             followCamera.Lens = lens;
-            follow.CameraDistance = Mathf.Lerp(normalDistance, aimDistance, eased);
+            follow.CameraDistance = Mathf.Lerp(baseDistance, Mathf.Min(baseDistance, aimDistance), eased);
+            follow.VerticalArmLength = Mathf.Lerp(normalArm, 0f, z);
             var shoulder = follow.ShoulderOffset;
-            shoulder.x = Mathf.Lerp(normalShoulderX, aimShoulderX, eased);
+            shoulder.x = Mathf.Lerp(baseShoulderX, Mathf.Lerp(aimShoulderX, 0f, z), eased);
+            shoulder.y = Mathf.Lerp(normalShoulderY, 0f, z);
+            shoulder.z = Mathf.Lerp(normalShoulderZ, 0f, z);
             follow.ShoulderOffset = shoulder;
 
             look.SensitivityMultiplier = Mathf.Lerp(1f, aimSensitivity, eased);
         }
 
-        // 조준 중에는 캐릭터가 카메라가 보는 쪽을 본다 (이동 스크립트가 돌린 뒤에 덮어쓴다)
+        // 조준 중이거나 1인칭이면 캐릭터가 카메라가 보는 쪽을 본다 (이동 스크립트가 돌린 뒤에 덮어쓴다)
         void LateUpdate()
         {
-            if (amount <= 0.05f || !WantsToAim())
+            bool firstPerson = zoom != null && zoom.IsFirstPerson && Time.timeScale > 0f && (health == null || !health.IsDead);
+            if (!firstPerson && (amount <= 0.05f || !WantsToAim()))
                 return;
             var target = Quaternion.Euler(0f, look.Yaw, 0f);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, target, turnSpeed * Time.unscaledDeltaTime);
@@ -79,9 +94,8 @@ namespace LastBullet.Player
             lens.FieldOfView = normalFov;
             followCamera.Lens = lens;
             follow.CameraDistance = normalDistance;
-            var shoulder = follow.ShoulderOffset;
-            shoulder.x = normalShoulderX;
-            follow.ShoulderOffset = shoulder;
+            follow.VerticalArmLength = normalArm;
+            follow.ShoulderOffset = new Vector3(normalShoulderX, normalShoulderY, normalShoulderZ);
             if (look != null)
                 look.SensitivityMultiplier = 1f;
         }

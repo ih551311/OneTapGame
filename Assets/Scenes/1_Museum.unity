@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 2619190}
   - component: {fileID: 2619192}
   - component: {fileID: 2619193}
+  - component: {fileID: 2619194}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -663,6 +664,21 @@ MonoBehaviour:
   aimSensitivity: 0.5
   blendSpeed: 12
   turnSpeed: 720
+--- !u!114 &2619194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2619181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b92a166289900c041bebf5da113ec8e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Player.CameraZoom
+  stepPerNotch: 0.2
+  smoothSpeed: 4
+  firstPersonThreshold: 0.92
 --- !u!1 &4384362
 GameObject:
   m_ObjectHideFlags: 0
@@ -9023,6 +9039,9 @@ MonoBehaviour:
   runStride: 2.6
   pushOffVolume: 1.5
   pushOffPitch: 0.85
+  landVolumeMin: 1.1
+  landVolumeMax: 1.8
+  landPitch: 0.8
 --- !u!114 &639750567
 MonoBehaviour:
   m_ObjectHideFlags: 0
