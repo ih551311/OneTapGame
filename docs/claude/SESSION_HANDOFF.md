@@ -295,3 +295,5 @@ Phase 1에서 한 일 (2026-10-29):
 - 타이틀 화면 버튼 소리가 안 났던 원인: 0_Title의 Main Camera에 AudioListener가 없어서 타이틀에서는 소리(배경음악 포함)가 전혀 안 났다. 추가해서 해결. 5개 씬 모두 AudioListener 1개 확인. 플레이로 클릭 소리·배경음악 재생 확인.
 - 점프 소리 (사용자 선택: 발로 땅을 차는 소리): 지금 밟고 있는 바닥의 발소리(풀·모래·나무, walkStep)를 1.5배 크게·0.85배 낮게 한 번 + 옷자락 스치는 짧은 소리(Assets/Audio/Jump/rustle_01~03, 합성, 볼륨 0.35). 값은 MovementSounds의 Push Off Volume / Push Off Pitch. `SfxPlayer.Play(volume, pitch)` 추가. 예전 합성 점프 소리 jump_01~03은 지움.
 - 확인: 점프 소리 경로가 재생됨(AudioSource 재생 중)까지. 실제로 들어 보지는 못함 → 사용자 확인 필요.
+
+- 2026-10-31 사용자 제보: 바닥에 닿을 때 나는 "뿝" 소리(착지, HALFTONE Bounce_2·3)가 싫다 → 착지도 바닥 발소리를 낮고 묵직하게(0.8배 높이, 1.1~1.8배 크기, 떨어진 속도에 비례) 내도록 바꿨다. 값은 MovementSounds의 Land Volume Min/Max, Land Pitch. 예전 착지 소리는 더 쓰지 않는다 (재생 경로만 확인, 실제 청취는 사용자 확인 필요).

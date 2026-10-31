@@ -29,6 +29,13 @@ namespace LastBullet.Audio
         [Tooltip("점프할 때 발소리의 음높이 배율 (1보다 작으면 낮고 묵직하다)")]
         [SerializeField] float pushOffPitch = 0.85f;
 
+        [Header("착지 (걸을 때 발소리 대비)")]
+        [Tooltip("낮은 곳에서 내려올 때(작게)와 높은 곳에서 떨어질 때(크게) 발소리를 몇 배로 낼지")]
+        [SerializeField] float landVolumeMin = 1.1f;
+        [SerializeField] float landVolumeMax = 1.8f;
+        [Tooltip("착지 발소리의 음높이 배율 (1보다 작으면 낮고 묵직하다)")]
+        [SerializeField] float landPitch = 0.8f;
+
         float distance; // 마지막 발소리 뒤로 걸은 거리
 
         void OnEnable()
@@ -82,9 +89,12 @@ namespace LastBullet.Audio
             dodge.Play();
         }
 
+        // 착지 (2026-10-31 사용자 요청: 예전 "뿝" 하는 통통 소리가 싫다): 바닥 발소리를 낮고 묵직하게 한 번. 높이 떨어질수록 크다.
+        // 예전 착지 소리(land, HALFTONE Bounce)는 더 쓰지 않는다.
         void OnLanded(float fallSpeed)
         {
-            land.Play();
+            float t = Mathf.InverseLerp(3f, 12f, fallSpeed);
+            walkStep.Play(Mathf.Lerp(landVolumeMin, landVolumeMax, t), landPitch);
             distance = 0f;
         }
     }
