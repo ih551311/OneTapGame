@@ -379,3 +379,9 @@ Phase 1에서 한 일 (2026-10-29):
 - 사용자가 `Assets/Low Poly Guns/Models/Guns/pistol1`(FBX, 머티리얼, 그림 2장)을 가져와서 임시 도형 총을 이 모델로 바꿨다. 메뉴 `LastBullet > Phase 49 1인칭 총을 pistol1로 바꾸기`(4개 씬).
 - 원본 머티리얼은 Standard 셰이더라 URP에서 분홍색이 되므로 `Assets/Materials/FirstPersonGun_Pistol.mat`(URP Lit + diffuse + normal)을 새로 만들어 쓴다. 크기 0.22배, 모델 가운데를 원점에 맞춤, 그림자 없음. 임시 도형용 머티리얼 4개는 지웠다 (Phase 48을 다시 실행하면 임시 도형으로 돌아가니, 그 뒤엔 Phase 49를 다시 실행).
 - 확인: 사막 1인칭 화면에서 리볼버가 오른쪽 아래에 총구가 앞을 향해 보이고 그림도 입혀짐. 못 본 것: 쏠 때 반동·걸을 때 흔들림·조준 위치, 미술관·숲·성 마을 화면.
+
+## 2026-10-31 3인칭 총도 pistol1로 (Phase 50)
+- 사용자 요청: 1인칭 총과 3인칭에서 들고 있는 총이 달라 어색하니 같은 총으로.
+- 캐릭터의 원래 총은 모델에 붙은 메시 `modelGun`(오른손 뼈에 스킨됨)이었다. 지우지 않고 렌더러만 껐다. 오른손 뼈 `R.Hand` 아래에 `ThirdPersonPistol`(pistol1, 크기 0.42배, 손의 앞(+Z)이 총구)을 붙였다. 머티리얼은 1인칭 총과 같은 `FirstPersonGun_Pistol.mat`. 메뉴 `LastBullet > Phase 50 3인칭 총을 pistol1로 바꾸기`(4개 씬, 다시 실행하면 새로 붙임).
+- `CameraZoom`이 1인칭에서 Player 아래 모습을 모두 숨기므로 이 총도 1인칭에서 같이 숨는다(그림자만 남음).
+- 확인: 사막에서 임시 카메라로 앞에서 본 모습 — 두 손으로 리볼버를 쥔 자세, 총구가 앞아래로 향함. 사격 동작 중 모양, 달릴 때 모양은 못 봄. 쏠 때 탄도선(BulletTracer)은 예전 그대로 Player의 Muzzle(고정 위치)에서 나가서 총구 끝과 정확히 맞지는 않는다.
