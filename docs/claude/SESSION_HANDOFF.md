@@ -324,3 +324,9 @@ Phase 1에서 한 일 (2026-10-29):
 - 지움: `HealSkill`(F키), `HealSkillIcon`, 화면 오른쪽 아래 스킬 칸(`Canvas/HealSkill`), `Skill_Heal*.png`, 메뉴 Phase 36.
 - 새로 만듦: `Player/KillHeal.cs` (기본값 헤드샷 +10, 몸샷 +5, 체력 가득이면 아무 일 없음, 전투 맵에서만). `EnemyDrop.OnDied`가 `KillHeal.Current.OnEnemyKilled(headshot)`를 부른다. 메뉴 `LastBullet > Phase 45 처치 회복 넣기`(Player 정리 + 칸 삭제 + Phase 37 다시 실행). `HealEffect`는 `KillHeal.Healed`를 듣고 종소리를 낸다. 체력바의 연두 "찬 만큼" 표시(Phase 41)는 그대로.
 - 확인: 숲·성 마을·사막 모두 KillHeal 연결·칸 삭제·"없음 스크립트" 0. 사막 플레이: 직접 호출로 +10/+5/100에서 멈춤, 실제 적 헤드 히트박스 처치 +10, 몸 히트박스 처치 +5. 소리와 실제 총 쏘기는 못 들어/못 해 봄.
+
+## 2026-10-31 방패적(방어형) 완전 삭제
+- 사용자 요청: 방패적을 아예 지운다. 적은 이제 돌진형 + 원거리형 2종.
+- 지움: 숲·성 마을·사막의 Spawner_Shield_* 15개(4+5+6), `Enemy_Shield.prefab`, `EnemyShield.cs`, 방패 머티리얼 4개, `HitResult.Blocked`와 총·EnemyHealth의 방패 처리, 도움말의 방패 줄(대신 "적을 처치하면 체력이 조금 차요.").
+- 옛 일회용 메뉴(Phase 10/29)는 컴파일되게만 고쳤다. Phase 10을 다시 실행하면 방패 기능이 없는 Enemy_Shield 껍데기가 다시 생기니 다시 돌리지 않는다. 기획서 2.5/2.6의 방어형 설명은 그대로 남아 있다(기획서는 고치지 않음).
+- 확인: 컴파일 오류 없음, 성 마을 플레이에서 적 13마리(돌진 8·원거리 5), 방패 에셋 0개.

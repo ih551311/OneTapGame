@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using LastBullet.Enemy;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -70,21 +70,6 @@ namespace LastBullet.EditorTools
             var bodyMaterial = ArtSlots.GetOrCreateMaterial("Enemy_Shield", new Color32(0x6E, 0x78, 0x8C, 0xFF));
             foreach (var renderer in root.GetComponentsInChildren<Renderer>())
                 renderer.sharedMaterial = bodyMaterial;
-
-            // 방패: 정면(+Z)에 세운 넓은 판. 충돌은 없다 (막는 건 EnemyShield가 각도로 정한다)
-            var plate = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            plate.name = "Shield";
-            Object.DestroyImmediate(plate.GetComponent<Collider>());
-            plate.transform.SetParent(root.transform, false);
-            plate.transform.localPosition = new Vector3(0f, 1.2f, 0.65f);
-            plate.transform.localScale = new Vector3(1.7f, 2.0f, 0.18f);
-            plate.GetComponent<Renderer>().sharedMaterial = ArtSlots.GetOrCreateMaterial("EnemyShieldPlate", new Color32(0xB4, 0xC0, 0xD4, 0xFF));
-            plate.tag = EnemyTagSetup.Tag;
-
-            var shieldScript = root.AddComponent<EnemyShield>();
-            var shieldSo = new SerializedObject(shieldScript);
-            shieldSo.FindProperty("plate").objectReferenceValue = plate.GetComponent<Renderer>();
-            shieldSo.ApplyModifiedPropertiesWithoutUndo();
 
             // 기획서 2.5: 3m/s, 공격 20, 회전 느림. 공격은 방패 돌진이라 돌진형보다 느리고 묵직하다.
             var ai = new SerializedObject(root.GetComponent<EnemyAI>());

@@ -30,7 +30,6 @@ namespace LastBullet.Enemy
         Renderer[] renderers;
         MaterialPropertyBlock flashBlock;
         float flashEndTime;
-        EnemyShield shield; // 방어형만 있다
 
         // 몸 색 (EnemyDrop이 정한다: 이 적을 잡으면 얻는 물감 색). 맞아서 깜빡인 뒤에도 이 색으로 돌아온다.
         Renderer[] tintTargets;
@@ -47,25 +46,16 @@ namespace LastBullet.Enemy
 
         void Awake()
         {
-            shield = GetComponent<EnemyShield>();
             renderers = GetComponentsInChildren<Renderer>();
             flashBlock = new MaterialPropertyBlock();
             flashBlock.SetColor("_BaseColor", new Color(1f, 0.3f, 0.3f));
         }
 
-        // 총알이 Hitbox에 맞았을 때 부른다. shooterPosition은 쏜 위치 (방패가 막는지 가리는 데 쓴다).
-        // 방패가 막으면 Blocked: 피해도 처치도 없고 멈칫하지도 않는다.
+        // 총알이 Hitbox에 맞았을 때 부른다. shooterPosition은 쏜 위치.
         public HitResult TakeHit(HitPart part, Vector3 shooterPosition)
         {
             if (IsDead)
                 return HitResult.Hurt;
-
-            if (shield != null && shield.Blocks(shooterPosition))
-            {
-                Debug.Log($"[EnemyHealth] {name} 방패가 막음 ({part}) → 명중으로 처리");
-                shield.OnBlocked();
-                return HitResult.Blocked;
-            }
 
             if (part == HitPart.Head)
             {

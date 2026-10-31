@@ -12,7 +12,7 @@ namespace LastBullet.Enemy
     // 붙일 곳: 숲 씬의 Spawners 아래 Spawner_... 오브젝트
     public class EnemySpawner : MonoBehaviour
     {
-        [Tooltip("여기서 나올 적 (Prefabs/Enemy_Charger, Enemy_Shield, Enemy_Thrower)")]
+        [Tooltip("여기서 나올 적 (Prefabs/Enemy_Charger, Enemy_Thrower)")]
         [SerializeField] GameObject enemyPrefab;
 
         [Tooltip("만들어진 적을 담아 둘 부모 오브젝트 (보통 Enemies). 비우면 씬 맨 위에 둔다")]

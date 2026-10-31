@@ -26,7 +26,6 @@ namespace LastBullet.EditorTools
         static readonly EnemyDef[] Enemies =
         {
             new EnemyDef { prefab = "Enemy_Charger", material = "Enemy_Charger", scale = 1.25f },
-            new EnemyDef { prefab = "Enemy_Shield", material = "Enemy_Shield", scale = 1.35f },
             new EnemyDef { prefab = "Enemy_Thrower", material = "Enemy_Thrower", scale = 0.95f },
         };
 
@@ -145,11 +144,6 @@ namespace LastBullet.EditorTools
             head.localPosition = headCenter;
             head.localScale = Vector3.one * 0.6f * s; // 구 충돌 반지름 0.3 × 크기
 
-            // 3. 방어형: 새 방패
-            var enemyShield = root.GetComponent<EnemyShield>();
-            if (enemyShield != null)
-                BuildShield(root.transform, s, enemyShield);
-
             // 4. 원거리형: 돌이 나가는 자리를 몸 크기에 맞춘다
             var throwPoint = root.transform.Find("ThrowPoint");
             if (throwPoint != null)
@@ -170,47 +164,6 @@ namespace LastBullet.EditorTools
             PrefabUtility.SaveAsPrefabAsset(root, path);
             PrefabUtility.UnloadPrefabContents(root);
             Debug.Log($"[LastBullet] {def.prefab}: 스틱맨(크기 {s})으로 바꿨어요.");
-        }
-
-        // 둥근 방패: 어두운 테두리 + 밝은 판 + 가운데 금빛 장식. 앞(+Z)을 보고 가슴 높이에 든다. 충돌 없음 (막는 건 EnemyShield가 각도로 정한다)
-        static void BuildShield(Transform root, float s, EnemyShield enemyShield)
-        {
-            var group = new GameObject("Shield").transform;
-            group.SetParent(root, false);
-            group.localPosition = new Vector3(0f, 1.05f * s, 0.5f * s);
-
-            var rim = Disc("Rim", group, 1.0f * s, 0.10f * s, 0f, "EnemyShieldRim", new Color32(0x4A, 0x4F, 0x5A, 0xFF));
-            var plate = Disc("Plate", group, 0.86f * s, 0.14f * s, 0.05f * s, "EnemyShieldPlate", new Color32(0xB4, 0xC0, 0xD4, 0xFF));
-            Boss(group, 0.28f * s, 0.14f * s);
-
-            var so = new SerializedObject(enemyShield);
-            so.FindProperty("plate").objectReferenceValue = plate.GetComponent<Renderer>();
-            so.ApplyModifiedPropertiesWithoutUndo();
-        }
-
-        // 납작한 원통(원판). 원통은 Y축이 길어서 X로 90도 눕혀 앞(+Z)을 보게 한다. 높이 값 = 두께 (원통 기본 높이가 2라서 절반)
-        static GameObject Disc(string name, Transform parent, float diameter, float thickness, float forward, string materialName, Color32 color)
-        {
-            var go = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            go.name = name;
-            Object.DestroyImmediate(go.GetComponent<Collider>());
-            go.transform.SetParent(parent, false);
-            go.transform.localPosition = new Vector3(0f, 0f, forward);
-            go.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
-            go.transform.localScale = new Vector3(diameter, thickness * 0.5f, diameter);
-            go.GetComponent<Renderer>().sharedMaterial = ArtSlots.GetOrCreateMaterial(materialName, color);
-            return go;
-        }
-
-        static void Boss(Transform parent, float diameter, float forward)
-        {
-            var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            go.name = "Boss";
-            Object.DestroyImmediate(go.GetComponent<Collider>());
-            go.transform.SetParent(parent, false);
-            go.transform.localPosition = new Vector3(0f, 0f, forward);
-            go.transform.localScale = new Vector3(diameter, diameter, diameter * 0.55f);
-            go.GetComponent<Renderer>().sharedMaterial = ArtSlots.GetOrCreateMaterial("EnemyShieldBoss", new Color32(0xD8, 0xB8, 0x60, 0xFF));
         }
     }
 }
