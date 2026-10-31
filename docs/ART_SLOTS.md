@@ -19,6 +19,7 @@
 | `Assets/UI/Arrow.png` | 화면 밖 탄환 방향 화살표 | 64×64 | **위쪽을 가리키게** 그린다. 게임이 알아서 돌린다 |
 | `Assets/UI/HealthBar_Back.png` | 체력바 배경 (왼쪽 아래) | 256×32 | 화면에서는 400×40으로 보인다 |
 | `Assets/UI/HealthBar_Fill.png` | 체력바 채움 | 256×32 | 체력만큼 왼쪽부터 채워진다. 배경 테두리 안쪽에 맞게 그린다 |
+| `Assets/UI/HealthBar_Gain.png` | 힐로 체력이 찰 때 체력바에서 늘어난 만큼을 1초쯤 다른 색(연두)으로 보여 주는 채움. 체력바 채움(Fill) 바로 뒤에 놓이는 `HealthBar/HealGain` | 256×32 | 채움과 같은 크기·모양으로 그린다 |
 | `Assets/UI/StageClear.png` | 스테이지 클리어 문구 (화면 가운데) | 1024×256 | 화면에서는 800×200 안에 비율 유지 |
 | `Assets/UI/Popup_Panel.png` | 팝업 창 배경 | 128×128 | **9-slice**, 모서리 32px. 창 크기 900×560으로 늘어난다 |
 | `Assets/UI/Button_Normal.png` | 버튼 (보통) | 96×96 | **9-slice**, 모서리 24px. 모든 버튼이 같이 쓴다 |
@@ -42,7 +43,7 @@
 | `Assets/UI/Input_Background.png` | 닉네임 입력 칸 배경 (어두운 칸 + 밝은 테두리, 9-slice 12px). 입력 글자는 TextMeshPro 한글 글꼴 `font1 SDF` | 96×96 | 옵션의 `NicknameInput` |
 | `Assets/UI/Hud_Panel.png`, `Hud_Name.png`, `Hud_Photo.png` | 화면 왼쪽 위 프로필 패널(`HudProfile`): 어두운 판 `Hud_Panel`(9-slice 20px) 안에 큰 정사각형 사진(금색 얇은 테두리 `Hud_Photo` 10px, 빈 사람 모양은 `Profile_Empty.png`)과 조용한 어두운 이름 칸 `Hud_Name`(14px). 전투 맵은 패널 맨 아래에 체력바(`HealthBar`)가 가로로 놓인다 | 96×96, 96×96, 64×64 | 미술관·숲·성 마을·사막 `Canvas/HudProfile` |
 | `Assets/UI/Skill_Heal.png`, `Skill_Heal_Cool.png` | 화면 오른쪽 아래 힐 스킬 칸(`HealSkill`): 칸 그림 `Skill_Heal`(초록 십자 임시 그림)과 대기 중 시계 방향으로 걷히는 어두운 막 `Skill_Heal_Cool`(같은 모양, 반투명). 남은 초와 키 글자 "F"는 TextMeshPro | 128×128, 128×128 | 숲·성 마을·사막 `Canvas/HealSkill` |
-| `Assets/UI/Vignette_Heal.png`, `Assets/Textures/Heal_Sparkle.png`, `Assets/Audio/Heal/heal_01.wav`, `heal_02.wav` | 힐 스킬을 쓸 때 효과: 화면 가장자리 초록 번쩍(`Canvas/HitFeedback/HealFlash`, 화면 전체로 늘림), 플레이어 주위 초록 반짝이(`Player/HealParticles`, 재료 `Heal_Sparkle` + 전용 머티리얼 `Assets/Materials/HealParticle.mat`), 종소리(`Player/HealSound`, 둘 중 무작위. 임시로 코드로 합성한 소리라 마음에 드는 소리로 바꿔 끼울 수 있다) | 256×256, 64×64, 1.3초 wav | 숲·성 마을·사막 |
+| `Assets/Textures/Heal_Sparkle.png`, `Assets/Audio/Heal/heal_01.wav`, `heal_02.wav` | 힐 스킬을 쓸 때 효과: 종소리(`Player/HealSound`, 둘 중 무작위, 코드로 합성한 임시 소리라 바꿔 끼울 수 있다). 플레이어 주위 반짝이(`HealParticles`, 재료 `Heal_Sparkle` + 머티리얼 `HealParticle.mat`)는 지금 꺼 둠. 화면 가장자리 번쩍은 없앴다 | 64×64, 1.3초 wav | 숲·성 마을·사막 |
 | `Assets/UI/Vignette_Hit.png` | 맞았을 때 번쩍이는 화면 가장자리 빨간 테두리 (가운데는 투명, 가장자리일수록 진함. 화면 전체로 늘려 씀) | 256×256 | 숲·성 마을·사막 `Canvas/HitFeedback/Flash` |
 | `Assets/UI/Vignette_LowHealth.png` | 체력이 낮을 때(35% 아래) 계속 덮이는 진한 붉은 테두리 (가운데 투명) | 256×256 | `Canvas/HitFeedback/LowHealth` |
 | `Assets/UI/PaintDrop_<Red|Orange|Yellow|Green|Blue|Indigo|Purple|White|Black>.png` (9장) | 적을 잡으면 가방 아이콘으로 날아가는 물감 방울 (색마다 한 장, 눈물 모양) | 64×64 | 숲·성 마을·사막 `Canvas/PaintCollect` (도착 지점은 가방 패널의 `Icon_Paint_*`) |

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3cc789ab95ca8b8419ad1567de42f4c8
+guid: facf3519c9db63b4e95fea86e7f4d0ba
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -561575345840879067
-    second: Vignette_Heal_0
+      213: 4774862795724966514
+    second: HealthBar_Gain_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Vignette_Heal_0
+      name: HealthBar_Gain_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 256
-        height: 256
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 52a8984c232e438f0800000000000000
-      internalID: -561575345840879067
+      spriteID: 27a4a661a68b34240800000000000000
+      internalID: 4774862795724966514
       vertices: []
       indices: 
       edges: []
