@@ -23,25 +23,25 @@ namespace LastBullet.UI
         // 결과 창이 떠 있는지. 일시정지 창이 위에 뜨지 않게 PauseMenu가 본다.
         public static bool IsShowing => Current != null && Current.window.activeSelf;
 
-        [Tooltip("결과 창 전체 (평소에는 꺼져 있다). 이 스크립트가 붙은 오브젝트는 항상 켜 둔다 (꺼진 오브젝트는 Awake가 안 불려 Current를 못 정한다)")]
+        [Tooltip("Whole result window (disabled by default). Keep the object with this script always enabled (a disabled object never runs Awake, so Current is not set).")]
         [SerializeField] GameObject window;
 
-        [Header("제목·설명 그림 (귀환/사망에 따라 바뀐다)")]
+        [Header("Title and description images (change for return/death)")]
         [SerializeField] GameObject titleClear;
         [SerializeField] GameObject titleDead;
         [SerializeField] GameObject captionGained;
         [SerializeField] GameObject captionLost;
 
-        [Header("숫자")]
+        [Header("Numbers")]
         [SerializeField] TMP_Text killsCount;
         [SerializeField] TMP_Text paperScrapCount;
 
-        [Tooltip("물감 9색 순서: 빨강, 주황, 노랑, 초록, 파랑, 보라, 핑크, 하양, 검정")]
+        [Tooltip("Paint color order (9): Red, Orange, Yellow, Green, Blue, Purple, Pink, White, Black")]
         [SerializeField] TMP_Text[] paintCounts = new TMP_Text[PaintColors.Count];
 
         [SerializeField] Button toMuseumButton;
 
-        [Tooltip("숫자가 0에서 올라가는 시간 (초)")]
+        [Tooltip("Time for the numbers to count up from 0 (seconds)")]
         [SerializeField] float countUpTime = 0.7f;
 
         RunSummary summary;

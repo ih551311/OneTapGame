@@ -12,26 +12,26 @@ namespace LastBullet.Stage
     {
         public enum Mode { Random, AlwaysDay, AlwaysNight }
 
-        [Tooltip("Random = 들어갈 때마다 무작위, 나머지는 고정 (확인용)")]
+        [Tooltip("Random = random on each entry, the others are fixed (for testing)")]
         [SerializeField] Mode mode = Mode.Random;
 
-        [Tooltip("무작위일 때 밤이 될 확률")]
+        [Tooltip("Chance of night when random")]
         [Range(0f, 1f)]
         [SerializeField] float nightChance = 0.5f;
 
-        [Tooltip("밤하늘 (6면 큐브맵 Skybox 머티리얼). 낮 하늘은 씬에 설정된 것을 그대로 쓴다")]
+        [Tooltip("Night sky (6-sided cubemap Skybox material). The day sky uses what the scene already has.")]
         [SerializeField] Material nightSky;
 
-        [Tooltip("해(달)빛으로 쓸 Directional Light")]
+        [Tooltip("Directional Light used as sun (moon) light")]
         [SerializeField] Light sun;
 
         [SerializeField] Color nightSunColor = new Color(0.55f, 0.65f, 1f);
         [SerializeField] float nightSunIntensity = 0.5f;
 
-        [Tooltip("밤의 주변광 색을 곱하는 값 (밝기를 줄이고 푸르게)")]
+        [Tooltip("Multiplier for the ambient color at night (darker and bluer)")]
         [SerializeField] Color nightAmbientTint = new Color(0.45f, 0.55f, 0.85f);
 
-        [Tooltip("주변광이 하늘 기준(Skybox)일 때 밤의 세기")]
+        [Tooltip("Night strength when ambient light comes from the sky (Skybox)")]
         [SerializeField] float nightAmbientIntensity = 0.55f;
 
         public static bool IsNight { get; private set; }

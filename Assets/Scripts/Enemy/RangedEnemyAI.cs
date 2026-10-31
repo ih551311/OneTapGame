@@ -17,16 +17,16 @@ namespace LastBullet.Enemy
     {
         enum AIState { Idle, KeepDistance, Attack, Hit, Dead }
 
-        [Header("감지 (기본값)")]
+        [Header("Detection (default)")]
         [SerializeField] float detectRange = 30f;       // (2026-10-30 사용자 요청: 22 → 30)
 
-        [Header("거리 유지 (기본값)")]
+        [Header("Keep distance (default)")]
         [SerializeField] float moveSpeed = 3f;          // m/s
         [SerializeField] float keepMinDistance = 9f;    // 이보다 가까우면 물러난다
         [SerializeField] float keepMaxDistance = 14f;   // 이보다 멀면 다가온다
         [SerializeField] float retreatStep = 6f;        // 물러날 때 한 번에 정하는 거리
 
-        [Header("공격 (기본값)")]
+        [Header("Attack (default)")]
         [SerializeField] float attackInterval = 2.5f;   // 던지는 간격
         [SerializeField] float throwRange = 18f;        // 이 거리 안이면 던진다
         [SerializeField] float windupTime = 0.5f;       // 공격 예고 (기획서: 0.5초 전)
@@ -35,17 +35,17 @@ namespace LastBullet.Enemy
         [SerializeField] float projectileSpeed = 16f;   // m/s (2026-10-30 사용자 요청: 기획서의 12에서 조금 빠르게)
         [SerializeField] int attackDamage = 12;         // 기획서 2.5: 원거리형 공격력 12
 
-        [Header("피격 (기본값)")]
+        [Header("Hit reaction (default)")]
         [SerializeField] float hitStunTime = 0.25f;
 
-        [Header("연결")]
-        [Tooltip("던지는 돌 프리팹 (Prefabs/EnemyProjectile)")]
+        [Header("References")]
+        [Tooltip("Thrown stone prefab (Prefabs/EnemyProjectile)")]
         [SerializeField] EnemyProjectile projectilePrefab;
 
-        [Tooltip("돌이 나가는 자리 (가슴 앞)")]
+        [Tooltip("Where the stone leaves (in front of the chest)")]
         [SerializeField] Transform throwPoint;
 
-        [Tooltip("공격(던지기) 소리. 플레이어 총소리보다 작게 둔다. 없으면 소리 없음")]
+        [Tooltip("Attack (throw) sound. Keep it quieter than the player's gunshot. No sound if empty.")]
         [SerializeField] SfxPlayer attackSound;
 
         AIState state = AIState.Idle;

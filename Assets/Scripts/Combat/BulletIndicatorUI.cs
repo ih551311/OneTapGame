@@ -12,13 +12,13 @@ namespace LastBullet.Combat
     {
         [SerializeField] OneBulletGun gun;
 
-        [Tooltip("Filled(Radial 360) 이미지. 남은 시간만큼 채워진다")]
+        [Tooltip("Filled (Radial 360) image. Fills according to the remaining time.")]
         [SerializeField] Image returnGauge;
 
-        [Tooltip("위쪽을 가리키는 화살표 이미지")]
+        [Tooltip("Arrow image that points up")]
         [SerializeField] Image arrow;
 
-        [Tooltip("화살표와 화면 가장자리 사이 여백 (1920x1080 기준 px)")]
+        [Tooltip("Margin between the arrow and the screen edge (px at 1920x1080)")]
         [SerializeField] float edgeMargin = 60f;
 
         Camera cam;

@@ -24,9 +24,9 @@ namespace LastBullet.EditorTools
                     return;
                 scene = EditorSceneManager.OpenScene("Assets/Scenes/1_Museum.unity");
             }
-            if (GameObject.Find("TestEnemies (임시)") != null)
+            if (GameObject.Find("TestEnemies (temp)") != null)
             {
-                EditorUtility.DisplayDialog("LastBullet", "이미 TestEnemies (임시)가 있어요.", "확인");
+                EditorUtility.DisplayDialog("LastBullet", "이미 TestEnemies (temp)가 있어요.", "확인");
                 return;
             }
 
@@ -59,7 +59,7 @@ namespace LastBullet.EditorTools
             }
 
             // 2. 테스트용으로 3마리 배치 (임시, 훈련장 씬을 만들면 지운다)
-            var group = new GameObject("TestEnemies (임시)");
+            var group = new GameObject("TestEnemies (temp)");
             Undo.RegisterCreatedObjectUndo(group, "Create TestEnemies");
             Vector3[] positions = { new Vector3(-3f, 0f, 10f), new Vector3(0f, 0f, 14f), new Vector3(4f, 0f, 11f) };
             for (int i = 0; i < positions.Length; i++)

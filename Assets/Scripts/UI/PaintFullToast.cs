@@ -12,10 +12,10 @@ namespace LastBullet.UI
     // 붙일 곳: Canvas/PaintFullToast (자식 Row는 복사해서 쓰는 틀이라 꺼 둔다)
     public class PaintFullToast : MonoBehaviour
     {
-        [Tooltip("한 줄의 틀 (꺼 둔다)")]
+        [Tooltip("Template for one row (kept disabled)")]
         [SerializeField] GameObject rowTemplate;
 
-        [Tooltip("물감 9색 아이콘, 빨강부터 검정 순서")]
+        [Tooltip("Icons of the 9 paint colors, from Red to Black")]
         [SerializeField] Sprite[] paintIcons = new Sprite[PaintColors.Count];
 
         [SerializeField] float showTime = 2.5f;

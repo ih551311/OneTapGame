@@ -12,13 +12,13 @@ namespace LastBullet.UI
     // 붙일 곳: Canvas/OptionsPopup (평소에는 꺼져 있다)
     public class OptionsPopup : PopupBase
     {
-        [Tooltip("닉네임 입력 칸 (타이틀 옵션에만 둔다. 없으면 닉네임 기능은 쓰지 않는다)")]
+        [Tooltip("Nickname input field (only in the title options. Without it the nickname feature is unused.)")]
         [SerializeField] TMP_InputField nicknameInput;
 
-        [Tooltip("소리 크기 0 ~ 1")]
+        [Tooltip("Volume 0 to 1")]
         [SerializeField] Slider volumeSlider;
 
-        [Tooltip("마우스 감도 배율 0.2 ~ 3")]
+        [Tooltip("Mouse sensitivity multiplier 0.2 to 3")]
         [SerializeField] Slider sensitivitySlider;
 
         [SerializeField] Button quitButton;

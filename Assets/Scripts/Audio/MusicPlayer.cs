@@ -9,13 +9,13 @@ namespace LastBullet.Audio
     [RequireComponent(typeof(AudioSource))]
     public class MusicPlayer : MonoBehaviour
     {
-        [Tooltip("되풀이할 곡 (LOOP 버전: 끝과 처음이 자연스럽게 이어진다)")]
+        [Tooltip("Track to loop (LOOP version: the end joins the start smoothly)")]
         [SerializeField] AudioClip music;
 
         [Range(0f, 1f)]
         [SerializeField] float volume = 0.3f;
 
-        [Tooltip("처음에 서서히 커지는 시간 (초)")]
+        [Tooltip("Fade-in time at the start (seconds)")]
         [SerializeField] float fadeInTime = 2f;
 
         AudioSource source;

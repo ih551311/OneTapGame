@@ -10,10 +10,10 @@ namespace LastBullet.Enemy
     // 붙일 곳: 적 프리팹의 맨 위 오브젝트 (Hitbox는 자식 콜라이더에)
     public class EnemyHealth : MonoBehaviour
     {
-        [Tooltip("맞았을 때 잠깐 빨갛게 보이는 시간 (초)")]
+        [Tooltip("How long it flashes red when hit (seconds)")]
         [SerializeField] float hitFlashTime = 0.1f;
 
-        [Tooltip("몸에 맞아도 처치되는지 (2026-10-31 사용자 결정). 켜면 몸샷 처치는 물감을 주지 않는다 (탄환은 바로 돌아옴). 끄면 예전처럼 헤드샷만 처치")]
+        [Tooltip("Whether a body shot also kills (user decision 2026-10-31). If on, a body kill gives no paint (the bullet returns immediately). If off, only headshots kill.")]
         [SerializeField] bool bodyShotKills = true;
 
         public bool IsDead { get; private set; }

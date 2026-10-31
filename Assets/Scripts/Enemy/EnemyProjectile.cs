@@ -11,10 +11,10 @@ namespace LastBullet.Enemy
     // 붙일 곳: 투사체 프리팹의 맨 위 오브젝트 (모양은 자식 Model)
     public class EnemyProjectile : MonoBehaviour
     {
-        [Tooltip("돌의 굵기 반지름 (m). 맞는 판정 크기")]
+        [Tooltip("Stone radius (m). Hit detection size.")]
         [SerializeField] float radius = 0.25f;
 
-        [Tooltip("이 시간(초) 안에 아무것에도 안 닿으면 사라진다")]
+        [Tooltip("Disappears if it touches nothing within this time (seconds)")]
         [SerializeField] float lifetime = 5f;
 
         Vector3 direction;

@@ -18,19 +18,19 @@ namespace LastBullet.Player
         [SerializeField] ThirdPersonCamera look;
         [SerializeField] PlayerHealth health;
 
-        [Header("조준할 때")]
-        [Tooltip("시야각 (평소 60)")]
+        [Header("While aiming")]
+        [Tooltip("Field of view (normally 60)")]
         [SerializeField] float aimFieldOfView = 38f;
-        [Tooltip("캐릭터와 카메라 사이 거리 (평소 3.5)")]
+        [Tooltip("Distance between the character and the camera (normally 3.5)")]
         [SerializeField] float aimDistance = 2.9f;
-        [Tooltip("어깨 옆 거리 (평소 0.6). 조준점이 가운데에 오도록 조금 더 옆으로")]
+        [Tooltip("Sideways shoulder offset (normally 0.6). Moved a bit further so the aim point is centered.")]
         [SerializeField] float aimShoulderX = 1.15f;
-        [Tooltip("마우스 감도 배율 (1 = 평소)")]
+        [Tooltip("Mouse sensitivity multiplier (1 = normal)")]
         [Range(0.1f, 1f)]
         [SerializeField] float aimSensitivity = 0.5f;
-        [Tooltip("확대·복귀 빠르기 (클수록 빠름)")]
+        [Tooltip("Zoom in/out speed (higher is faster)")]
         [SerializeField] float blendSpeed = 12f;
-        [Tooltip("조준 중 캐릭터가 카메라 방향으로 도는 속도 (도/초)")]
+        [Tooltip("Speed at which the character turns toward the camera while aiming (degrees/second)")]
         [SerializeField] float turnSpeed = 720f;
 
         float normalFov, normalDistance, normalShoulderX, normalShoulderY, normalShoulderZ, normalArm;

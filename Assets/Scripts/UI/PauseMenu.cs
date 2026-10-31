@@ -17,19 +17,19 @@ namespace LastBullet.UI
     // 붙일 곳: Canvas/PauseMenu (항상 켜져 있어야 ESC를 받는다. 창은 자식 Window)
     public class PauseMenu : MonoBehaviour
     {
-        [Tooltip("ESC로 뜨는 창 (평소에는 꺼져 있다)")]
+        [Tooltip("Window opened with ESC (disabled by default)")]
         [SerializeField] GameObject window;
 
         [SerializeField] Button resumeButton;
         [SerializeField] Button titleButton;
 
-        [Tooltip("[미술관으로 귀환] 버튼. 전투 씬에서만 둔다 (미술관의 일시정지 창에는 없다). 비우면 없는 것으로 본다")]
+        [Tooltip("[Return to Museum] button. Only in battle scenes (not in the museum pause window). Treated as absent if empty.")]
         [SerializeField] Button homeButton;
 
-        [Tooltip("훈련장처럼 나가면 이번 판 재료를 잃는 곳에서 켠다")]
+        [Tooltip("Turn on where leaving loses this run's materials")]
         [SerializeField] bool losesRunBag;
 
-        [Tooltip("재료를 잃는다는 안내 (losesRunBag일 때만 쓴다)")]
+        [Tooltip("Notice that materials will be lost (used only when losesRunBag is on)")]
         [SerializeField] GameObject lossWarning;
 
         PlayerControlLock playerLock;

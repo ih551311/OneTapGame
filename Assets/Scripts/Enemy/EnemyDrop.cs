@@ -21,10 +21,10 @@ namespace LastBullet.Enemy
         [SerializeField] int paperScraps = 1;
         [SerializeField] int paintAmount = 30;
 
-        [Tooltip("처치 때 터지는 물감 연출 (Prefabs/PaintBurst). 비우면 연출 없음")]
+        [Tooltip("Paint burst effect on kill (Prefabs/PaintBurst). No effect if empty.")]
         [SerializeField] PaintBurstEffect burstPrefab;
 
-        [Tooltip("물감이 터지는 자리. 보통 Head")]
+        [Tooltip("Where the paint bursts. Usually Head.")]
         [SerializeField] Transform burstPoint;
 
         // 만들어진 자리. 물감 색 지역(PaintZone)은 이 자리로 정한다 (적이 쫓아가며 지역을 벗어나도 색은 그대로)

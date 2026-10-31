@@ -15,31 +15,31 @@ namespace LastBullet.UI
         [SerializeField] PlayerHealth playerHealth;
         [SerializeField] ThirdPersonCamera cameraRig;
 
-        [Tooltip("맞았을 때 번쩍이는 빨간 테두리")]
+        [Tooltip("Red border that flashes when hit")]
         [SerializeField] Image flash;
 
-        [Tooltip("체력이 낮을 때 계속 보이는 어두운 테두리")]
+        [Tooltip("Dark border that stays visible when health is low")]
         [SerializeField] Image lowHealth;
 
-        [Header("번쩍")]
+        [Header("Flash")]
         [SerializeField] float flashFadeTime = 0.5f;
-        [Tooltip("피해량 20 기준 번쩍임 세기 (0~1)")]
+        [Tooltip("Flash strength for 20 damage (0 to 1)")]
         [SerializeField] float flashStrength = 0.65f;
 
-        [Header("카메라 흔들림")]
-        [Tooltip("흔들림 크기 = 기본 + 피해량 × 배율 (도)")]
+        [Header("Camera shake")]
+        [Tooltip("Shake size = base + damage x multiplier (degrees)")]
         [SerializeField] float shakeBase = 0.8f;
         [SerializeField] float shakePerDamage = 0.08f;
         [SerializeField] float shakeTime = 0.3f;
 
-        [Header("저체력 테두리")]
-        [Tooltip("체력 비율이 이 값 아래면 테두리가 나타난다")]
+        [Header("Low health border")]
+        [Tooltip("The border appears when the health ratio is below this value")]
         [Range(0f, 1f)]
         [SerializeField] float lowHealthThreshold = 0.35f;
-        [Tooltip("가장 낮을 때(체력 0 근처) 테두리 최대 진하기")]
+        [Tooltip("Maximum border opacity at the lowest health (near 0)")]
         [Range(0f, 1f)]
         [SerializeField] float lowHealthMaxAlpha = 0.85f;
-        [Tooltip("맥동 빠르기 (초당 회전 수 × 2π)")]
+        [Tooltip("Pulse speed (rotations per second x 2pi)")]
         [SerializeField] float pulseSpeed = 4f;
 
         float flashAlpha;

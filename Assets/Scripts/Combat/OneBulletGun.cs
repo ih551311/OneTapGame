@@ -15,27 +15,27 @@ namespace LastBullet.Combat
     // 붙일 곳: Player
     public class OneBulletGun : MonoBehaviour
     {
-        [Tooltip("총알이 나가는 위치. Player 아래의 Muzzle")]
+        [Tooltip("Where the bullet leaves the gun. The Muzzle under Player.")]
         [SerializeField] Transform muzzle;
 
-        [Tooltip("발사 순간 보이는 탄도선")]
+        [Tooltip("Tracer line shown at the moment of firing")]
         [SerializeField] LineRenderer tracer;
 
-        [Tooltip("맞은 자리에 잠깐 보이는 점. Prefabs/ImpactMarker")]
+        [Tooltip("Dot shown briefly where the shot lands. Prefabs/ImpactMarker")]
         [SerializeField] GameObject impactMarkerPrefab;
 
-        [Tooltip("빗나갔을 때 바닥에 떨어지는 탄환. Prefabs/DroppedBullet")]
+        [Tooltip("Bullet that drops on the ground after a miss. Prefabs/DroppedBullet")]
         [SerializeField] GameObject droppedBulletPrefab;
 
-        [Tooltip("최대 사거리 (기본값)")]
+        [Tooltip("Maximum range (default)")]
         [SerializeField] float maxRange = 50f;
 
-        [Tooltip("발사 소리 (핸드건). 없으면 소리 없음")]
+        [Tooltip("Firing sound (handgun). No sound if empty.")]
         [SerializeField] SfxPlayer shotSound;
 
         [SerializeField] float tracerTime = 0.08f;
 
-        [Tooltip("맞은 자리 노란 점이 남아 있는 시간 (초)")]
+        [Tooltip("How long the yellow impact dot stays (seconds)")]
         [SerializeField] float impactMarkerTime = 0.4f;
 
         public BulletState State { get; private set; } = BulletState.Loaded;

@@ -12,10 +12,10 @@ namespace LastBullet.Player
     // 붙일 곳: Player (메뉴 LastBullet > Phase 45 처치 회복 넣기)
     public class KillHeal : MonoBehaviour
     {
-        [Tooltip("헤드샷으로 잡았을 때 차는 체력 (기본값)")]
+        [Tooltip("Health restored on a headshot kill (default)")]
         [SerializeField] int headshotHeal = 10;
 
-        [Tooltip("몸샷으로 잡았을 때 차는 체력 (기본값)")]
+        [Tooltip("Health restored on a body shot kill (default)")]
         [SerializeField] int bodyHeal = 5;
 
         public static KillHeal Current { get; private set; }

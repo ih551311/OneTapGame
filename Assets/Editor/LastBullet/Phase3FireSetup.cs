@@ -83,7 +83,7 @@ namespace LastBullet.EditorTools
             so.ApplyModifiedPropertiesWithoutUndo();
 
             // 6. 테스트용 과녁 (임시, 적이 생기면 지운다)
-            var targets = new GameObject("TestTargets (임시)");
+            var targets = new GameObject("TestTargets (temp)");
             Undo.RegisterCreatedObjectUndo(targets, "Create TestTargets");
             CreateTarget(targets.transform, "Target_Wall", new Vector3(0f, 1f, 8f), new Vector3(2f, 2f, 0.5f));
             CreateTarget(targets.transform, "Target_Box", new Vector3(-4f, 0.5f, 12f), Vector3.one);

@@ -13,7 +13,7 @@ namespace LastBullet.UI
     {
         [SerializeField] RawImage picture;
 
-        [Tooltip("사진이 없을 때 보이는 빈 사람 모양")]
+        [Tooltip("Empty person shape shown when there is no photo")]
         [SerializeField] GameObject emptyShape;
 
         [SerializeField] TMP_Text nickname;

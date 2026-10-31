@@ -11,19 +11,19 @@ namespace LastBullet.Effects
     {
         [SerializeField] ParticleSystem droplets;
 
-        [Tooltip("바닥에 번지는 물감 자국 (납작한 원)")]
+        [Tooltip("Paint stain spreading on the ground (flat disc)")]
         [SerializeField] Transform puddle;
 
-        [Tooltip("자국의 최대 지름 (m)")]
+        [Tooltip("Maximum stain diameter (m)")]
         [SerializeField] float puddleSize = 1.5f;
 
-        [Tooltip("자국이 번지는 시간 (초)")]
+        [Tooltip("Time for the stain to spread (seconds)")]
         [SerializeField] float spreadTime = 0.2f;
 
-        [Tooltip("자국이 줄어들기 시작하는 시각 (초)")]
+        [Tooltip("Time at which the stain starts shrinking (seconds)")]
         [SerializeField] float shrinkStart = 3.5f;
 
-        [Tooltip("자국이 완전히 사라지고 이 오브젝트가 지워지는 시각 (초)")]
+        [Tooltip("Time at which the stain disappears and this object is destroyed (seconds)")]
         [SerializeField] float lifetime = 5.5f;
 
         float startTime;

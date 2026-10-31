@@ -11,13 +11,13 @@ namespace LastBullet.UI
     [RequireComponent(typeof(CanvasGroup))]
     public class MapIntroBanner : MonoBehaviour
     {
-        [Tooltip("맵 이름 + 낮/밤 글자가 들어가는 TMP 글자")]
+        [Tooltip("TMP text that holds the map name + day/night")]
         [SerializeField] TMP_Text titleText;
 
-        [Tooltip("맵 이름 (예: 사막). 뒤에 \" · 낮\" 또는 \" · 밤\"이 붙는다")]
+        [Tooltip("Map name (e.g. Desert). \" · Day\" or \" · Night\" is appended.")]
         [SerializeField] string mapName = "";
 
-        [Header("시간 (초)")]
+        [Header("Timing (seconds)")]
         [SerializeField] float fadeIn = 0.6f;
         [SerializeField] float hold = 3.5f;
         [SerializeField] float fadeOut = 1.0f;

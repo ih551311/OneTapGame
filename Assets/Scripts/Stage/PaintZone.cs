@@ -14,13 +14,13 @@ namespace LastBullet.Stage
     // 붙일 곳: 성 마을 씬의 PaintZones 아래 Zone_... 오브젝트
     public class PaintZone : MonoBehaviour
     {
-        [Tooltip("지역 이름 (Scene 창과 로그에 표시)")]
+        [Tooltip("Zone name (shown in the Scene view and logs)")]
         [SerializeField] string zoneName = "지역";
 
-        [Tooltip("지역의 가로(X)·세로(Z) 크기 (m). 높이는 쓰지 않는다")]
+        [Tooltip("Zone width (X) and depth (Z) in m. Height is not used.")]
         [SerializeField] Vector2 size = new Vector2(100f, 40f);
 
-        [Tooltip("이 지역에서 얻을 수 있는 물감 색 (보통 3개)")]
+        [Tooltip("Paint colors available in this zone (usually 3)")]
         [SerializeField] PaintColor[] colors = { PaintColor.Red, PaintColor.Orange, PaintColor.Yellow };
 
         static readonly List<PaintZone> zones = new List<PaintZone>();

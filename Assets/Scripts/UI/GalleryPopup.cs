@@ -14,36 +14,36 @@ namespace LastBullet.UI
     // 붙일 곳: Canvas/GalleryPopup (평소에는 꺼져 있다)
     public class GalleryPopup : PopupBase
     {
-        [Tooltip("그림 칸들이 들어가는 곳 (GridLayoutGroup)")]
+        [Tooltip("Container for the picture cells (GridLayoutGroup)")]
         [SerializeField] RectTransform content;
 
-        [Tooltip("그림 한 칸의 틀 (꺼 둔다). Button, 자식 Picture(RawImage), Selected(고른 표시)")]
+        [Tooltip("Template for one picture cell (kept disabled). Button, child Picture (RawImage), Selected (selection mark)")]
         [SerializeField] GameObject itemTemplate;
 
-        [Tooltip("그림이 없을 때 보이는 안내")]
+        [Tooltip("Message shown when there are no pictures")]
         [SerializeField] GameObject emptyMessage;
 
         [SerializeField] Button hangLeftButton;
         [SerializeField] Button hangRightButton;
 
-        [Tooltip("타이틀 화면 액자. 그림을 걸면 바로 바뀐다")]
+        [Tooltip("Title screen frames. They update as soon as a picture is hung.")]
         [SerializeField] TitleFrames titleFrames;
 
-        [Tooltip("보기 전용(미술관 그림판의 \"내 그림\"): 걸기 버튼을 숨기고, 그림을 누르면 크게 보여 준다")]
+        [Tooltip("View-only mode (museum paint board \"My Pictures\"): hides the hang button and shows a picture enlarged when clicked")]
         [SerializeField] bool viewOnly;
 
-        [Tooltip("크게 보기 창 (보기 전용일 때만. 평소에는 꺼져 있고, 아무 데나 누르면 닫힌다)")]
+        [Tooltip("Enlarged view window (view-only mode only. Disabled by default; clicking anywhere closes it)")]
         [SerializeField] GameObject largeView;
 
         [SerializeField] RawImage largePicture;
 
         [SerializeField] Button largeViewCloseArea;
 
-        [Tooltip("액자 고르기(미술관 액자 앞 E): 그림을 누르면 바로 그 액자에 걸리고 닫힌다. 걸기 버튼은 숨긴다")]
+        [Tooltip("Frame picker (E at a museum frame): clicking a picture hangs it on that frame and closes. Hides the hang button.")]
         [SerializeField] bool frameMode;
 
-        [Header("삭제 (2026-10-31 사용자 요청)")]
-        [Tooltip("고른 그림을 지우는 버튼. 고른 그림이 없으면 눌러지지 않는다. 보기 전용에서는 크게 보기 창 안에 있다. 액자 고르기 모드에서는 안 쓴다")]
+        [Header("Delete (user request 2026-10-31)")]
+        [Tooltip("Button that deletes the selected picture. Not clickable without a selection. In view-only mode it is inside the enlarged view window. Unused in frame picker mode.")]
         [SerializeField] Button deleteButton;
 
         [Tooltip("\"이 그림을 지울까요?\" 확인창 (평소에는 꺼져 있다)")]
@@ -51,7 +51,7 @@ namespace LastBullet.UI
         [SerializeField] Button deleteConfirmYesButton;
         [SerializeField] Button deleteConfirmNoButton;
 
-        [Tooltip("프로필 사진 고르기(타이틀 프로필 창): 그림을 누르면 바로 내 프로필 사진이 되고 닫힌다. 걸기·삭제 버튼은 숨긴다")]
+        [Tooltip("Profile picture picker (title profile window): clicking a picture sets it as the profile picture and closes. Hides the hang and delete buttons.")]
         [SerializeField] bool profileMode;
 
         PictureFrame targetFrame;

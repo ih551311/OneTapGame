@@ -12,22 +12,22 @@ namespace LastBullet.Enemy
     // 붙일 곳: 숲 씬의 Spawners 아래 Spawner_... 오브젝트
     public class EnemySpawner : MonoBehaviour
     {
-        [Tooltip("여기서 나올 적 (Prefabs/Enemy_Charger, Enemy_Thrower)")]
+        [Tooltip("Enemy spawned here (Prefabs/Enemy_Charger, Enemy_Thrower)")]
         [SerializeField] GameObject enemyPrefab;
 
-        [Tooltip("만들어진 적을 담아 둘 부모 오브젝트 (보통 Enemies). 비우면 씬 맨 위에 둔다")]
+        [Tooltip("Parent object that holds spawned enemies (usually Enemies). Placed at the scene root if empty.")]
         [SerializeField] Transform enemiesParent;
 
-        [Tooltip("켜면 적이 시작할 때 플레이어 쪽을 바라본다. 끄면 이 오브젝트의 방향을 따른다")]
+        [Tooltip("If on, the enemy faces the player at start. If off, it follows this object's direction.")]
         [SerializeField] bool faceTowardsPlayer = true;
 
-        [Tooltip("적이 죽은 뒤 다시 나오게 할지")]
+        [Tooltip("Whether the enemy respawns after dying")]
         [SerializeField] bool respawn = true;
 
-        [Tooltip("적이 죽은 뒤 다시 나오기까지 걸리는 시간 (초, 기본값)")]
+        [Tooltip("Time until the enemy respawns after dying (seconds, default)")]
         [SerializeField] float respawnDelay = 20f; // 2026-10-31: 몸샷도 처치돼서 적이 빨리 줄기에 60 → 20
 
-        [Tooltip("다시 나올 때 플레이어가 이 거리 안에 있으면 멀어질 때까지 기다린다 (m, 기본값)")]
+        [Tooltip("If the player is within this distance when respawning, it waits until the player is farther away (m, default)")]
         [SerializeField] float respawnSafeDistance = 20f;
 
         public GameObject Spawned { get; private set; }
