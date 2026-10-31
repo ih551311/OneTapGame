@@ -290,3 +290,8 @@ Phase 1에서 한 일 (2026-10-29):
 - 힐할 때 화면 가장자리 번쩍(HealFlash)을 없애고(Vignette_Heal.png도 삭제), 체력바에서 늘어난 만큼을 연두색(`HealthBar_Gain.png`, `HealthBar/HealGain`)으로 1초 보여 준 뒤 체력바가 그 자리까지 차오른다 (`BattleUI`: healGainTime 1초, fillSpeed 1.5). 피해를 받으면 바로 맞춘다. 메뉴 LastBullet > Phase 41 체력바 회복분 표시 넣기.
 - 종소리는 그대로. `HealEffect`는 소리(와 꺼 둔 반짝이)만 담당.
 - 확인: 사막에서 피해 60 후 힐 → 빨강 40%, 연두 40~70% 구간이 체력바에 보임. 1초 뒤 차오르는 움직임은 캡처로 못 보고 값으로만 확인.
+
+## 2026-10-31 타이틀 소리 + 점프 소리 (사용자 제보)
+- 타이틀 화면 버튼 소리가 안 났던 원인: 0_Title의 Main Camera에 AudioListener가 없어서 타이틀에서는 소리(배경음악 포함)가 전혀 안 났다. 추가해서 해결. 5개 씬 모두 AudioListener 1개 확인. 플레이로 클릭 소리·배경음악 재생 확인.
+- 점프 소리 (사용자 선택: 발로 땅을 차는 소리): 지금 밟고 있는 바닥의 발소리(풀·모래·나무, walkStep)를 1.5배 크게·0.85배 낮게 한 번 + 옷자락 스치는 짧은 소리(Assets/Audio/Jump/rustle_01~03, 합성, 볼륨 0.35). 값은 MovementSounds의 Push Off Volume / Push Off Pitch. `SfxPlayer.Play(volume, pitch)` 추가. 예전 합성 점프 소리 jump_01~03은 지움.
+- 확인: 점프 소리 경로가 재생됨(AudioSource 재생 중)까지. 실제로 들어 보지는 못함 → 사용자 확인 필요.

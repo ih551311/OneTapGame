@@ -23,6 +23,12 @@ namespace LastBullet.Audio
         [SerializeField] float walkStride = 2.0f;
         [SerializeField] float runStride = 2.6f;
 
+        [Header("점프 발구름 (걸을 때 발소리 대비)")]
+        [Tooltip("점프할 때 발소리를 몇 배 크게 낼지")]
+        [SerializeField] float pushOffVolume = 1.5f;
+        [Tooltip("점프할 때 발소리의 음높이 배율 (1보다 작으면 낮고 묵직하다)")]
+        [SerializeField] float pushOffPitch = 0.85f;
+
         float distance; // 마지막 발소리 뒤로 걸은 거리
 
         void OnEnable()
@@ -61,9 +67,13 @@ namespace LastBullet.Audio
             }
         }
 
+        // 점프 (2026-10-31 사용자 결정: 땅을 차는 소리): 지금 밟고 있는 바닥의 발소리(풀·모래·나무)를 더 크고 낮게 한 번 내고(발구름),
+        // 그 위에 옷자락 스치는 짧은 소리(jump)를 깐다. 바닥이 바뀌면 발구름 소리도 같이 바뀐다.
         void OnJumped()
         {
-            jump.Play();
+            walkStep.Play(pushOffVolume, pushOffPitch);
+            if (jump != null)
+                jump.Play();
             distance = 0f;
         }
 

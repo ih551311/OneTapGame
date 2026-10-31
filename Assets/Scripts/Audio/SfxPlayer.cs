@@ -35,12 +35,18 @@ namespace LastBullet.Audio
 
         public void Play()
         {
+            Play(1f, 1f);
+        }
+
+        // 크기·음높이를 이번 한 번만 바꿔서 낸다 (예: 점프는 같은 발소리를 더 크고 낮게)
+        public void Play(float volumeMultiplier, float pitchMultiplier)
+        {
             if (clips == null || clips.Length == 0)
                 return;
-            source.pitch = Random.Range(pitchRange.x, pitchRange.y);
-            source.PlayOneShot(clips[Random.Range(0, clips.Length)], volume);
+            source.pitch = Random.Range(pitchRange.x, pitchRange.y) * pitchMultiplier;
+            source.PlayOneShot(clips[Random.Range(0, clips.Length)], volume * volumeMultiplier);
             if (tails != null && tails.Length > 0)
-                source.PlayOneShot(tails[Random.Range(0, tails.Length)], volume * tailVolume);
+                source.PlayOneShot(tails[Random.Range(0, tails.Length)], volume * volumeMultiplier * tailVolume);
         }
     }
 }

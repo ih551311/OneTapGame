@@ -6013,6 +6013,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.UI.BattleUI
   playerHealth: {fileID: 2619188}
   healthFill: {fileID: 453058694}
+  healGainFill: {fileID: 0}
+  healGainTime: 1
+  fillSpeed: 1.5
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -9018,6 +9021,8 @@ MonoBehaviour:
   dodge: {fileID: 639750567}
   walkStride: 2
   runStride: 2.6
+  pushOffVolume: 1.5
+  pushOffPitch: 0.85
 --- !u!114 &639750567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9069,13 +9074,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Audio.SfxPlayer
   clips:
-  - {fileID: 8300000, guid: 6dba4b01589d43e4381ed745ce37aa4c, type: 3}
-  - {fileID: 8300000, guid: 1f17fd49a797ce54791e9e0fc4dbfbb0, type: 3}
-  - {fileID: 8300000, guid: 6a27c2068db9d35468bcfd7eae4cbeae, type: 3}
+  - {fileID: 8300000, guid: 900f08313a9854040b08aa03cfc0e032, type: 3}
+  - {fileID: 8300000, guid: bb68ee131ab113a4d951ba552fdff986, type: 3}
+  - {fileID: 8300000, guid: 88857610191cca344880d8e19e1523c2, type: 3}
   tails: []
-  volume: 0.55
+  volume: 0.35
   tailVolume: 0.45
-  pitchRange: {x: 0.96, y: 1.06}
+  pitchRange: {x: 0.95, y: 1.08}
 --- !u!114 &639750570
 MonoBehaviour:
   m_ObjectHideFlags: 0
