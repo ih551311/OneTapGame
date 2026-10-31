@@ -10001,6 +10001,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c41504ec2fadf2a49831a774bed2f0cf, type: 3}
   m_PrefabInstance: {fileID: 585783599}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &585783601 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -5225780360458247591, guid: c41504ec2fadf2a49831a774bed2f0cf, type: 3}
+  m_PrefabInstance: {fileID: 585783599}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &590441906
 GameObject:
   m_ObjectHideFlags: 0
@@ -18012,6 +18017,7 @@ GameObject:
   - component: {fileID: 1130844506}
   - component: {fileID: 1130844504}
   - component: {fileID: 1130844502}
+  - component: {fileID: 1130844507}
   m_Layer: 0
   m_Name: StageMap
   m_TagString: Untagged
@@ -18071,6 +18077,22 @@ Transform:
   - {fileID: 585783600}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1130844507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130844501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d82f0f45c47794fa2c7276dd820eb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Stage.PlanarMirror
+  mirror: {fileID: 585783601}
+  resolution: 0.5
+  maxDistance: 14
+  clipOffset: 0.03
 --- !u!1 &1139453009
 GameObject:
   m_ObjectHideFlags: 0
