@@ -95,7 +95,7 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/PaintWorkbench.mat` | 미술관 그림 작업대 | `1_Museum` 씬의 `PaintWorkbench` |
 | `Materials/PaintBurst.mat` | 처치 때 터지는 물감 방울(작은 공 입자, 색은 떨어뜨린 물감 색으로 코드가 입힌다) | 프리팹 `Prefabs/PaintBurst`의 ParticleSystem (공 모양은 Renderer의 Mesh) |
 | `Materials/PaintSplat.mat` | 처치한 자리 바닥에 남는 물감 자국(납작한 원, 약간 젖은 느낌, 색은 코드가 입힌다) | 프리팹 `Prefabs/PaintBurst`의 `Puddle` |
-| `Materials/FirstPersonGun_Body.mat`, `_Barrel.mat`, `_Muzzle.mat`, `_Grip.mat` | 1인칭 총의 임시 신호총 도형(상자·원통 4개). 1인칭에서만 화면 오른쪽 아래에 보인다. **3ds Max 총 모델로 바꿀 때**: `Main Camera/FirstPersonGun/Model` 아래의 도형을 지우고 FBX를 자식으로 넣는다 (앞쪽 = +Z, 총구가 화면 안쪽을 보게, 크기는 `Model`의 Scale로 맞춘다). 놓는 자리·반동·흔들림은 `FirstPersonGun` 컴포넌트 값(Rest Position 등)에서 고친다 | 숲·성 마을·사막·미술관 `Main Camera/FirstPersonGun/Model` |
+| `Assets/Low Poly Guns/Models/Guns/pistol1/pistol1.fbx` + `Materials/FirstPersonGun_Pistol.mat` (URP Lit, 그림 `pistol1_diffuse.png`·`pistol1_normal.png`) | **1인칭 총 모양** (사용자가 가져온 pistol1 리볼버, 크기 0.22배). 1인칭에서만 화면 오른쪽 아래에 보인다. 다른 총으로 바꿀 때: `Main Camera/FirstPersonGun/Model` 아래의 `Pistol`을 지우고 새 FBX를 자식으로 넣는다 (총구 = +Z, 크기는 Scale로, 그림자는 Cast Shadows Off). 놓는 자리·반동·흔들림은 `FirstPersonGun` 컴포넌트 값에서 고친다. (에셋 원본 머티리얼은 Standard라 URP에서 분홍색이 되어 쓰지 않는다) | 숲·성 마을·사막·미술관 `Main Camera/FirstPersonGun/Model/Pistol` |
 | `Materials/Enemy_Splitter.mat`, `Enemy_SplitterMini.mat` | 분열 적(큰 쪽)과 그 작은 분열체의 몸 (돌진형 재질을 복사한 흰색 바탕. 몸 색은 코드가 칠함) | 프리팹 `Prefabs/Enemy_Splitter`(1.2배), `Prefabs/Enemy_SplitterMini`(0.55배, 머리 충돌 더 작게)의 `Model` |
 | `Materials/Enemy_Thrower.mat` | 원거리형 적 몸 (소형 조각, 갈색 돌) | 프리팹 `Prefabs/Enemy_Thrower`의 `Body`, `Head`. 돌이 나가는 자리는 `ThrowPoint` |
 | `Materials/EnemyProjectile.mat` | 원거리형이 던지는 돌 | 프리팹 `Prefabs/EnemyProjectile`의 `Model` |
