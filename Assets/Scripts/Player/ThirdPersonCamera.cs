@@ -8,6 +8,9 @@ namespace LastBullet.Player
     // CameraTarget(플레이어 머리 높이의 빈 오브젝트)을 회전시키면
     // Cinemachine 카메라(PlayerFollowCamera)가 그 뒤를 따라간다.
     // 붙일 곳: Player
+    // 실행 순서 50: 같은 LateUpdate에서 몸을 돌리는 AimController(0)보다 뒤, 카메라(CinemachineBrain 100)보다 앞에서 카메라 방향을 정한다.
+    // (순서가 정해지지 않으면 몸이 돌 때 카메라 방향이 한 프레임씩 어긋나 떨릴 수 있다)
+    [DefaultExecutionOrder(50)]
     public class ThirdPersonCamera : MonoBehaviour
     {
         [Tooltip("카메라가 따라갈 대상. Player 아래의 CameraTarget")]
