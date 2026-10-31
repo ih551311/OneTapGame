@@ -79,28 +79,13 @@ namespace LastBullet.EditorTools
                 }
                 else
                 {
-                    var line1 = Line(info, "Kills", new Vector2(14f, 56f), 28f);
-                    var colors = StageColors.For(scene.name);
-                    var types = new PaintColor[3];
-                    var counts = new TMP_Text[3];
-                    for (int i = 0; i < 3; i++)
-                    {
-                        types[i] = colors != null && i < colors.Count ? colors[i] : (PaintColor)i;
-                        float x = 14f + i * 74f;
-                        var icon = Phase4StageSelectSetup.CreateImage($"Icon_{types[i]}", info, $"Assets/UI/Icon_Paint_{types[i]}.png");
-                        TopLeft((RectTransform)icon.transform, new Vector2(x, 102f), new Vector2(28f, 28f));
-                        counts[i] = Text(info, $"Count_{types[i]}", new Vector2(x + 31f, 100f), new Vector2(40f, 32f), 24f, SoftCream);
-                    }
+                    // 전투 맵의 상태창에는 "잡은 적"만 둔다. 얻은 물감은 오른쪽 위 전투 가방에 나온다 (2026-10-31 사용자 요청).
+                    TopLeft(nick.rectTransform, new Vector2(14f, 26f), new Vector2(222f, 40f));
+                    var line1 = Line(info, "Kills", new Vector2(14f, 84f), 28f);
                     so.FindProperty("mode").enumValueIndex = (int)HudStatus.Mode.Battle;
                     so.FindProperty("line1").objectReferenceValue = line1;
-                    var pc = so.FindProperty("paintColors");
-                    var pt = so.FindProperty("paintCounts");
-                    pc.arraySize = pt.arraySize = 3;
-                    for (int i = 0; i < 3; i++)
-                    {
-                        pc.GetArrayElementAtIndex(i).enumValueIndex = (int)types[i];
-                        pt.GetArrayElementAtIndex(i).objectReferenceValue = counts[i];
-                    }
+                    so.FindProperty("paintColors").arraySize = 0;
+                    so.FindProperty("paintCounts").arraySize = 0;
                 }
                 so.ApplyModifiedPropertiesWithoutUndo();
 
