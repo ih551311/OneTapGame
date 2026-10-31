@@ -25,7 +25,7 @@ namespace LastBullet.Enemy
         [SerializeField] bool respawn = true;
 
         [Tooltip("적이 죽은 뒤 다시 나오기까지 걸리는 시간 (초, 기본값)")]
-        [SerializeField] float respawnDelay = 60f;
+        [SerializeField] float respawnDelay = 20f; // 2026-10-31: 몸샷도 처치돼서 적이 빨리 줄기에 60 → 20
 
         [Tooltip("다시 나올 때 플레이어가 이 거리 안에 있으면 멀어질 때까지 기다린다 (m, 기본값)")]
         [SerializeField] float respawnSafeDistance = 20f;

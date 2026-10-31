@@ -1872,7 +1872,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1 &113828802
 GameObject:
@@ -1922,7 +1922,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1 &125366882
 GameObject:
@@ -1972,7 +1972,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1 &135706558
 GameObject:
@@ -2735,7 +2735,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1 &188699804
 GameObject:
@@ -4062,7 +4062,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1001 &261229654
 PrefabInstance:
@@ -4621,7 +4621,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1 &316916315
 GameObject:
@@ -4882,7 +4882,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1 &330585543
 GameObject:
@@ -8096,7 +8096,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1001 &650665067
 PrefabInstance:
@@ -8510,7 +8510,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1 &678649385
 GameObject:
@@ -8560,7 +8560,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1 &680786837
 GameObject:
@@ -14176,7 +14176,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1 &1170800780
 GameObject:
@@ -14226,7 +14226,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1 &1173235720
 GameObject:
@@ -14276,7 +14276,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1001 &1176657571
 PrefabInstance:
@@ -18940,7 +18940,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1001 &1536142231
 PrefabInstance:
@@ -20072,7 +20072,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1 &1636686702
 GameObject:
@@ -21246,7 +21246,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1 &1715247520
 GameObject:
@@ -22009,7 +22009,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1 &1775619386
 GameObject:
@@ -22135,7 +22135,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1001 &1778156174
 PrefabInstance:
@@ -22517,7 +22517,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1001 &1800415616
 PrefabInstance:
@@ -24565,7 +24565,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1 &1973289950
 GameObject:

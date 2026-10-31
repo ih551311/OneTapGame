@@ -6123,7 +6123,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1 &200157164
 GameObject:
@@ -7734,7 +7734,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1001 &241888941
 PrefabInstance:
@@ -8465,7 +8465,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1001 &252935559
 PrefabInstance:
@@ -11445,7 +11445,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!64 &339197173
 MeshCollider:
@@ -16632,7 +16632,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!64 &438659314
 MeshCollider:
@@ -22149,7 +22149,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1001 &582133212
 PrefabInstance:
@@ -22303,7 +22303,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!64 &589450625
 MeshCollider:
@@ -29995,7 +29995,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1001 &787412487
 PrefabInstance:
@@ -32204,7 +32204,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1001 &849146005
 PrefabInstance:
@@ -36101,7 +36101,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!64 &927783800
 MeshCollider:
@@ -37165,7 +37165,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!64 &969135365
 MeshCollider:
@@ -39738,7 +39738,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1 &1061266425
 GameObject:
@@ -41012,7 +41012,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!64 &1084438005
 MeshCollider:
@@ -51884,7 +51884,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!64 &1364508864
 MeshCollider:
@@ -64928,7 +64928,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!1001 &1748073884
 PrefabInstance:
@@ -71599,7 +71599,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!64 &1965901592
 MeshCollider:
@@ -76582,7 +76582,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!64 &2093173359
 MeshCollider:
@@ -77622,7 +77622,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 1822817981}
   faceTowardsPlayer: 1
   respawn: 1
-  respawnDelay: 60
+  respawnDelay: 20
   respawnSafeDistance: 20
 --- !u!64 &2126049854
 MeshCollider:
