@@ -107,7 +107,7 @@ namespace LastBullet.Player
                 fovScale = Mathf.Clamp(Mathf.Tan(mainCamera.fieldOfView * 0.5f * Mathf.Deg2Rad) / Mathf.Tan(normalFieldOfView * 0.5f * Mathf.Deg2Rad), 0.3f, 1.5f);
             transform.localScale = Vector3.one * fovScale;
             transform.localPosition = position * fovScale;
-            transform.localRotation = Quaternion.Euler(-recoil * recoilPitch - restPitch * (1f - aimBlend * 0.5f), restYaw * (1f - aimBlend), 0f);
+            transform.localRotation = Quaternion.Euler(-recoil * recoilPitch - restPitch, restYaw, 0f);
         }
 
         void SetShown(bool show)

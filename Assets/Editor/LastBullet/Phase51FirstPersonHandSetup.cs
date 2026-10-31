@@ -91,8 +91,8 @@ namespace LastBullet.EditorTools
                 {
                     foreach (var renderer in player.GetComponentsInChildren<SkinnedMeshRenderer>(true))
                     {
-                        // 옷(modelOuter) 조각은 소매 끝이 뾰족하게 보여서 쓰지 않는다 (피부만)
-                        if (renderer.name != "modelBody")
+                        // 피부 메시는 소매에 가려지는 부분에 면이 없어서, 옷(modelOuter)의 팔꿈치 아래 소매를 같이 써야 팔 끝이 열려 보이지 않는다
+                        if (renderer.name != "modelBody" && renderer.name != "modelOuter")
                             continue;
                         string key = renderer.name == "modelBody" ? "Skin" : "Outer";
                         var mesh = ExtractArm(renderer, hand);
