@@ -95,6 +95,7 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/PaintWorkbench.mat` | 미술관 그림 작업대 | `1_Museum` 씬의 `PaintWorkbench` |
 | `Materials/PaintBurst.mat` | 처치 때 터지는 물감 방울(작은 공 입자, 색은 떨어뜨린 물감 색으로 코드가 입힌다) | 프리팹 `Prefabs/PaintBurst`의 ParticleSystem (공 모양은 Renderer의 Mesh) |
 | `Materials/PaintSplat.mat` | 처치한 자리 바닥에 남는 물감 자국(납작한 원, 약간 젖은 느낌, 색은 코드가 입힌다) | 프리팹 `Prefabs/PaintBurst`의 `Puddle` |
+| `Materials/Enemy_Splitter.mat`, `Enemy_SplitterMini.mat` | 분열 적(큰 쪽)과 그 작은 분열체의 몸 (돌진형 재질을 복사한 흰색 바탕. 몸 색은 코드가 칠함) | 프리팹 `Prefabs/Enemy_Splitter`(1.2배), `Prefabs/Enemy_SplitterMini`(0.55배, 머리 충돌 더 작게)의 `Model` |
 | `Materials/Enemy_Thrower.mat` | 원거리형 적 몸 (소형 조각, 갈색 돌) | 프리팹 `Prefabs/Enemy_Thrower`의 `Body`, `Head`. 돌이 나가는 자리는 `ThrowPoint` |
 | `Materials/EnemyProjectile.mat` | 원거리형이 던지는 돌 | 프리팹 `Prefabs/EnemyProjectile`의 `Model` |
 | `Textures/Museum/Museum_Floor_Planks.png` (512×512) | 오래된 미술관 **바닥 그림** (어두운 나무 판, 이어 붙여도 자연스럽게 반복). 임시 그림이라 직접 그린 것으로 덮어쓰면 된다 | `Materials/MuseumFloor_Old.mat` (2m마다 반복) → `1_Museum/MuseumHall/Shell/Floor` |

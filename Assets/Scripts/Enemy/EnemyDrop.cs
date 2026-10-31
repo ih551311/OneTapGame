@@ -32,6 +32,16 @@ namespace LastBullet.Enemy
 
         // 이 적이 떨어뜨릴 물감 색. 만들어질 때 정하고(맵의 색 중 하나), 몸 색도 이 색으로 칠한다 (2026-10-31 사용자 요청: 적의 색 = 잡으면 주는 색)
         PaintColor dropColor;
+        bool colorInherited;
+
+        public PaintColor DropColor => dropColor;
+
+        // 분열 적에서 나온 작은 적이 원래 적의 색을 이어받는다 (Start보다 먼저 부른다)
+        public void InheritColor(PaintColor color)
+        {
+            dropColor = color;
+            colorInherited = true;
+        }
 
         void Awake()
         {
@@ -42,7 +52,8 @@ namespace LastBullet.Enemy
         void Start()
         {
             // 지역이 있으면 그 지역의 색 중에서, 없으면 그 맵의 색 중에서, 그것도 없으면 9색 중 랜덤
-            dropColor = PaintZone.PickColor(spawnPosition);
+            if (!colorInherited)
+                dropColor = PaintZone.PickColor(spawnPosition);
 
             // 몸(스킨드 메시)에 그 색을 칠한다. 방패 같은 장비는 그대로 둔다.
             var body = GetComponentsInChildren<SkinnedMeshRenderer>();
