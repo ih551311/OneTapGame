@@ -103,16 +103,13 @@ namespace LastBullet.Combat
             var hitbox = hit ? muzzleHit.collider.GetComponent<Hitbox>() : null;
             var result = hitbox != null ? hitbox.TakeHit(origin) : HitResult.Hurt; // 머리면 처치, 몸이면 깜빡임·멈칫만, 방패면 막힘
 
-            if (hitbox != null && result == HitResult.Killed)
+            // 처치하면 머리든 몸이든 탄환을 바로 다시 쓴다 (2026-10-31 사용자 결정: 몸샷 처치도 탄환을 줍지 않아도 된다)
+            if (hitbox != null && (result == HitResult.Killed || result == HitResult.KilledBody))
             {
-                Debug.Log($"[OneBulletGun] 헤드샷: {hitbox.transform.parent.name}");
+                Debug.Log($"[OneBulletGun] {(result == HitResult.Killed ? "헤드샷" : "몸샷 처치")}: {hitbox.transform.parent.name}");
                 State = BulletState.Loaded;
                 return;
             }
-
-            // 몸샷 처치 (2026-10-31): 적은 쓰러지지만 탄환은 떨어진다 (아래 몸샷·빗나감과 같은 처리)
-            if (hitbox != null && result == HitResult.KilledBody)
-                Debug.Log($"[OneBulletGun] 몸샷 처치: {hitbox.transform.parent.name}");
 
             // 방어형의 방패에 막힌 탄환은 "명중으로 처리": 탄환이 떨어지지 않고 바로 다시 쓸 수 있다 (기획서 2.5)
             if (hitbox != null && result == HitResult.Blocked)
@@ -126,7 +123,7 @@ namespace LastBullet.Combat
             // 벽·적의 몸에 맞으면 그 앞 바닥에, 아무것도 안 맞으면 최대 사거리 지점 아래 바닥에 떨어진다.
             Vector3 dropFrom = hit ? impact + muzzleHit.normal * 0.2f : impact;
             DropBullet(dropFrom);
-            string what = hitbox != null ? (result == HitResult.KilledBody ? "몸샷 처치" : "몸샷") : hit ? $"빗나감 ({muzzleHit.collider.name})" : "빗나감 (허공)";
+            string what = hitbox != null ? "몸샷" : hit ? $"빗나감 ({muzzleHit.collider.name})" : "빗나감 (허공)";
             Debug.Log($"[OneBulletGun] {what} → 탄환이 떨어짐");
             State = BulletState.Dropped;
         }

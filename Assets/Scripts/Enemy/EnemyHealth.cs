@@ -13,7 +13,7 @@ namespace LastBullet.Enemy
         [Tooltip("맞았을 때 잠깐 빨갛게 보이는 시간 (초)")]
         [SerializeField] float hitFlashTime = 0.1f;
 
-        [Tooltip("몸에 맞아도 처치되는지 (2026-10-31 사용자 결정). 켜면 몸샷 처치는 물감을 주지 않고 탄환은 떨어진다. 끄면 예전처럼 헤드샷만 처치")]
+        [Tooltip("몸에 맞아도 처치되는지 (2026-10-31 사용자 결정). 켜면 몸샷 처치는 물감을 주지 않는다 (탄환은 바로 돌아옴). 끄면 예전처럼 헤드샷만 처치")]
         [SerializeField] bool bodyShotKills = true;
 
         public bool IsDead { get; private set; }
