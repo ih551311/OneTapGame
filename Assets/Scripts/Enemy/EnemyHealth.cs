@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace LastBullet.Enemy
 {
-    // 적의 처치 (기획서 2.4, 2.5 — 2026-10-30 변경: 헤드샷 원탭만).
-    // 머리에 맞으면 즉사. 몸에 맞으면 피해는 없고, 빨갛게 깜빡이며 잠깐 멈칫한다.
+    // 적의 처치 (기획서 2.4, 2.5 — 2026-10-30 변경: 헤드샷 원탭만. 2026-10-31 변경: 몸샷도 처치, 단 물감은 헤드샷만).
+    // 머리에 맞으면 즉사 + 물감. 몸에 맞아도 즉사지만 물감은 없다 (bodyShotKills를 끄면 예전처럼 빨갛게 깜빡이며 멈칫만).
     // 처치는 한 번만 일어나고, 그때 Died 이벤트를 보낸다 (Phase 5에서 드롭이 여기에 연결된다).
     // 붙일 곳: 적 프리팹의 맨 위 오브젝트 (Hitbox는 자식 콜라이더에)
     public class EnemyHealth : MonoBehaviour
@@ -13,7 +13,13 @@ namespace LastBullet.Enemy
         [Tooltip("맞았을 때 잠깐 빨갛게 보이는 시간 (초)")]
         [SerializeField] float hitFlashTime = 0.1f;
 
+        [Tooltip("몸에 맞아도 처치되는지 (2026-10-31 사용자 결정). 켜면 몸샷 처치는 물감을 주지 않고 탄환은 떨어진다. 끄면 예전처럼 헤드샷만 처치")]
+        [SerializeField] bool bodyShotKills = true;
+
         public bool IsDead { get; private set; }
+
+        // 머리에 맞아 처치됐는지 (EnemyDrop이 물감을 줄지 가리는 데 쓴다). Died가 불리는 시점에 정해져 있다.
+        public bool KilledByHeadshot { get; private set; }
 
         // 처치되는 순간 한 번 불린다.
         public event Action<EnemyHealth> Died;
@@ -64,8 +70,16 @@ namespace LastBullet.Enemy
             if (part == HitPart.Head)
             {
                 Debug.Log($"[EnemyHealth] {name} 헤드샷!");
+                KilledByHeadshot = true;
                 Die();
                 return HitResult.Killed;
+            }
+
+            if (bodyShotKills)
+            {
+                Debug.Log($"[EnemyHealth] {name} 몸샷 처치 (물감 없음)");
+                Die();
+                return HitResult.KilledBody;
             }
 
             Debug.Log($"[EnemyHealth] {name} 몸 명중 (피해 없음)");

@@ -53,16 +53,20 @@ namespace LastBullet.Enemy
         {
             PaintColor color = dropColor;
 
+            // 헤드샷으로 잡았을 때만 물감을 준다 (2026-10-31 사용자 결정). 몸샷 처치는 종이조각만.
+            bool headshot = GetComponent<EnemyHealth>().KilledByHeadshot;
+            int paint = headshot ? paintAmount : 0;
+
             // 전투 가방이 없는 씬(예: 테스트)에서는 재료를 주지 않고 연출만 한다
             if (RunBag.Current != null)
-                RunBag.Current.Add(paperScraps, color, paintAmount);
+                RunBag.Current.Add(paperScraps, color, paint);
 
             Vector3 head = burstPoint != null ? burstPoint.position : transform.position + Vector3.up * 1.8f;
             if (burstPrefab != null)
                 PaintBurstEffect.Spawn(burstPrefab, head, transform.position, PaintColors.Colors[(int)color]);
 
             // 물감 방울이 화면 오른쪽 위 전투 가방으로 날아간다 (연출이 없는 씬에서는 아무 일도 없다)
-            if (RunBag.Current != null)
+            if (RunBag.Current != null && headshot)
                 PaintCollectEffect.Play(color, head);
         }
     }
