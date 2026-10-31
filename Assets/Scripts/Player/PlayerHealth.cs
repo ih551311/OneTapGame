@@ -55,6 +55,22 @@ namespace LastBullet.Player
             return true;
         }
 
+        // 체력을 채운다 (힐 스킬, HealSkill). 실제로 채워진 양을 돌려준다. 죽었거나 이미 가득이면 0.
+        public int Heal(int amount)
+        {
+            if (IsDead || amount <= 0)
+                return 0;
+            int before = Hp;
+            Hp = Mathf.Min(maxHp, Hp + amount);
+            int healed = Hp - before;
+            if (healed > 0)
+            {
+                Debug.Log($"[PlayerHealth] 회복 +{healed} → 체력 {Hp}/{maxHp}");
+                Changed?.Invoke();
+            }
+            return healed;
+        }
+
         void Die()
         {
             IsDead = true;
