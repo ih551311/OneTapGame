@@ -1,4 +1,4 @@
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
@@ -12,6 +12,7 @@ namespace LastBullet.EditorTools
     public static class Phase52EaselSetup
     {
         const string ModelPath = "Assets/3Dcanvas/canvas.fbx";
+        const float Size = 1.6f;                                      // 이젤 전체 크기 배율 (캐릭터가 머리 큰 만화 체형이라 실제 크기보다 크게)
         const float LiftToFloor = 0.80f;                              // 모델 피벗(가운데)에서 바닥까지
         static readonly Vector3 ColliderSize = new Vector3(1.08f, 1.61f, 0.63f);
 
@@ -40,7 +41,7 @@ namespace LastBullet.EditorTools
             // 위치·크기: 바닥 기준 (상자는 높이 1m 중심이 0.5였다)
             var position = bench.transform.position;
             bench.transform.position = new Vector3(position.x, 0f, position.z);
-            bench.transform.localScale = Vector3.one;
+            bench.transform.localScale = Vector3.one * Size; // 충돌·이젤이 같이 커진다
 
             // 그림 쪽이 플레이어 시작 자리를 향하게
             var player = GameObject.FindWithTag("Player");
