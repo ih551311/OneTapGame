@@ -1,4 +1,4 @@
-using LastBullet.Inventory;
+﻿using LastBullet.Inventory;
 using TMPro;
 using UnityEngine;
 
@@ -12,7 +12,7 @@ namespace LastBullet.UI
         [SerializeField] TMP_Text paperScrapCount;
         [SerializeField] TMP_Text drawingPaperCount;
 
-        [Tooltip("물감 9색 순서: 빨강, 주황, 노랑, 초록, 파랑, 남색, 보라, 하양, 검정")]
+        [Tooltip("물감 9색 순서: 빨강, 주황, 노랑, 초록, 파랑, 보라, 핑크, 하양, 검정")]
         [SerializeField] TMP_Text[] paintCounts = new TMP_Text[PaintColors.Count];
 
         void Start()

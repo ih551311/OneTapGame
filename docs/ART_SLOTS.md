@@ -46,7 +46,7 @@
 | `Assets/Textures/Heal_Sparkle.png`, `Assets/Audio/Heal/heal_01.wav`, `heal_02.wav` | 적을 처치해 체력이 찰 때 효과: 종소리(`Player/HealSound`, 둘 중 무작위, 코드로 합성한 임시 소리라 바꿔 끼울 수 있다). 플레이어 주위 반짝이(`HealParticles`, 재료 `Heal_Sparkle` + 머티리얼 `HealParticle.mat`)는 지금 꺼 둠. 화면 가장자리 번쩍은 없앴다 | 64×64, 1.3초 wav | 숲·성 마을·사막 |
 | `Assets/UI/Vignette_Hit.png` | 맞았을 때 번쩍이는 화면 가장자리 빨간 테두리 (가운데는 투명, 가장자리일수록 진함. 화면 전체로 늘려 씀) | 256×256 | 숲·성 마을·사막 `Canvas/HitFeedback/Flash` |
 | `Assets/UI/Vignette_LowHealth.png` | 체력이 낮을 때(35% 아래) 계속 덮이는 진한 붉은 테두리 (가운데 투명) | 256×256 | `Canvas/HitFeedback/LowHealth` |
-| `Assets/UI/PaintDrop_<Red|Orange|Yellow|Green|Blue|Indigo|Purple|White|Black>.png` (9장) | 적을 잡으면 가방 아이콘으로 날아가는 물감 방울 (색마다 한 장, 눈물 모양) | 64×64 | 숲·성 마을·사막 `Canvas/PaintCollect` (도착 지점은 가방 패널의 `Icon_Paint_*`) |
+| `Assets/UI/PaintDrop_<Red|Orange|Yellow|Green|Blue|Purple|Pink|White|Black>.png` (9장) | 적을 잡으면 가방 아이콘으로 날아가는 물감 방울 (색마다 한 장, 눈물 모양) | 64×64 | 숲·성 마을·사막 `Canvas/PaintCollect` (도착 지점은 가방 패널의 `Icon_Paint_*`) |
 | `Assets/UI/Fonts/font1.ttf` + `font1 SDF.asset` | 글꼴 "이서윤체(LeeSeoyun)" (사용자가 넣은 파일). 한글 11,172자 모두 들어 있다. TextMeshPro 글자의 Font Asset 칸에 `font1 SDF`를 끼우면 그 글꼴로 나온다. 다른 글꼴을 넣으면 메뉴 `LastBullet/글꼴 에셋 만들기`로 같은 에셋을 만든다 | 모든 UI 글자가 이 글꼴이다 (TMP Settings의 기본 글꼴도 이것) |
 | 에셋 `Assets/FreeWeaponSFX_v1.1/Handgun/Gunshots/*.wav` | 총소리: 사격 소리 변형 3개(`gunshot_01~03`)와 여운 2개(`tail_01~02`). 플레이어 사격은 Player의 `SfxPlayer`(소리 0.8, 2D, 여운 같이), 원거리 적 공격은 `Enemy_Thrower` 프리팹의 `SfxPlayer`(소리 0.3, 3D, 6~45m에서 멀수록 작게). 다른 소리로 바꾸려면 `SfxPlayer`의 Clips 칸에 끼운다 | `2_Forest`·`3_CastleVillage`·`4_Desert`·`1_Museum`의 Player, `Prefabs/Enemy_Thrower` |
 | 에셋 `Assets/Free UI Click Sound Effects Pack/AUDIO/Wooden/*.wav` (3개) | 마우스 클릭 소리 (따뜻한 나무 소리 변형 3개, 소리 0.6, 2D). 총을 쏠 때(커서가 잠겼을 때)는 나지 않는다. 다른 소리로 바꾸려면 `ClickSound` 오브젝트의 `SfxPlayer` Clips 칸에 끼운다 | 모든 씬(`0_Title` `1_Museum` `2_Forest` `3_CastleVillage` `4_Desert`)의 `ClickSound` |
@@ -67,7 +67,7 @@
 | `Assets/UI/BagPanel.png` | 전투 가방 표시 배경 (전투 중 오른쪽 위) | 128×128 | **9-slice**, 모서리 24px |
 | `Assets/UI/Icon_PaperScrap.png` | 종이조각 아이콘 | 64×64 | |
 | `Assets/UI/Icon_Paper.png` | 그림용 종이 아이콘 (미술관 창고 표시) | 64×64 | |
-| `Assets/UI/Icon_Paint_Red.png` 외 8개 | 물감 아이콘 (Red, Orange, Yellow, Green, Blue, Indigo, Purple, White, Black) | 64×64 | 색마다 한 장. 인벤토리·그림판에서도 같이 쓴다 |
+| `Assets/UI/Icon_Paint_Red.png` 외 8개 | 물감 아이콘 (Red, Orange, Yellow, Green, Blue, Purple, Pink, White, Black) | 64×64 | 색마다 한 장. 인벤토리·그림판에서도 같이 쓴다 |
 
 글자는 모두 TextMeshPro 글꼴 `font1 SDF` 하나다. 글꼴을 바꾸려면 새 글꼴 에셋(`LastBullet/글꼴 에셋 만들기`)을 만들어 TMP Settings의 기본 글꼴과 각 글자의 Font Asset에 끼우면 된다.
 

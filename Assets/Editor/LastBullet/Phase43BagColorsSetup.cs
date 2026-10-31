@@ -1,4 +1,4 @@
-using LastBullet.Inventory;
+﻿using LastBullet.Inventory;
 using LastBullet.Stage;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -7,7 +7,7 @@ using UnityEngine;
 namespace LastBullet.EditorTools
 {
     // 전투 맵의 오른쪽 위 전투 가방(RunBagPanel)에 그 맵에서 얻는 물감 3색만 보이게 한다 (2026-10-31 사용자 요청).
-    // 미술관은 9색 전부 그대로다. 어느 색이 그 맵의 색인지는 StageColors 표를 따른다 (숲 빨강·주황·노랑 / 성 마을 초록·파랑·남색 / 사막 보라·하양·검정).
+    // 미술관은 9색 전부 그대로다. 어느 색이 그 맵의 색인지는 StageColors 표를 따른다 (숲 빨강·주황·노랑 / 성 마을 초록·파랑·보라 / 사막 핑크·하양·검정).
     // 다른 색의 아이콘·숫자 오브젝트는 지우지 않고 꺼 둔다 (RunBagUI가 9개 모두에 연결되어 있다). 3색은 왼쪽부터 간격을 맞춰 다시 놓고 패널 폭을 줄인다.
     // 다시 실행해도 같은 결과다. 메뉴: LastBullet > Phase 43 전투 가방에 맵 물감만 보이기
     public static class Phase43BagColorsSetup

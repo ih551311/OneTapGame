@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using LastBullet.Enemy;
 using LastBullet.Inventory;
@@ -16,7 +16,7 @@ namespace LastBullet.EditorTools
     //  - 2_Forest를 복사해서 시작한다 (플레이어·카메라·HUD·전투 가방·일시정지 창이 이미 들어 있다).
     //  - 에셋 조각은 원래 크기가 커서(집이 33m) 0.25배로 줄여 쓴다.
     //  - 지도 (남→북): 마을(시작) → 성 앞뜰 → 성문(Gats)이 있는 성벽 → 성 안(TownHall).
-    //  - 물감: (2026-10-31 변경) 맵 전체가 초록·파랑·남색 (StageColors 표). 처음에는 지역(마을·성 앞뜰·성 안)마다 3색씩이었다.
+    //  - 물감: (2026-10-31 변경) 맵 전체가 초록·파랑·보라 (StageColors 표). 처음에는 지역(마을·성 앞뜰·성 안)마다 3색씩이었다.
     //  - 적은 지역마다 스포너로 놓는다 (마을 5 / 성 앞뜰 6 / 성 안 7).
     // 에셋 프리팹에는 충돌(Collider)이 없어서 벽·탑·집은 모양을 따라가는 MeshCollider, 나무·상자 같은 작은 것은 상자·캡슐 충돌을 붙인다.
     // 메뉴: LastBullet > Phase 11 성 마을 씬 만들기
@@ -108,10 +108,10 @@ namespace LastBullet.EditorTools
                     new[] { PaintColor.Red, PaintColor.Orange, PaintColor.Yellow },
                     new Rect(-44f, -20f, 88f, 24f), (3, 0, 2)),
                 new ZoneDef("Zone2_Field", "성 앞뜰", new Vector2(0f, 22.5f), new Vector2(120f, 35f),
-                    new[] { PaintColor.Green, PaintColor.Blue, PaintColor.Indigo },
+                    new[] { PaintColor.Green, PaintColor.Blue, PaintColor.Purple },
                     new Rect(-48f, 7f, 96f, 29f), (2, 2, 2)),
                 new ZoneDef("Zone3_Castle", "성 안", new Vector2(0f, 67.5f), new Vector2(120f, 55f),
-                    new[] { PaintColor.Purple, PaintColor.White, PaintColor.Black },
+                    new[] { PaintColor.Pink, PaintColor.White, PaintColor.Black },
                     new Rect(-44f, 47f, 88f, 40f), (2, 3, 2)),
             };
 

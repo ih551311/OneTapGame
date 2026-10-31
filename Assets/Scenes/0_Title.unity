@@ -11480,7 +11480,7 @@ GameObject:
   - component: {fileID: 1741950823}
   - component: {fileID: 1741950822}
   m_Layer: 0
-  m_Name: Color_Indigo
+  m_Name: Color_Purple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11655,7 +11655,7 @@ GameObject:
   - component: {fileID: 1781398408}
   - component: {fileID: 1781398407}
   m_Layer: 0
-  m_Name: Color_Purple
+  m_Name: Color_Pink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

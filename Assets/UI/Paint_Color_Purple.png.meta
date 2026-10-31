@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 17a854b0614264d47b943123b6c0bd7b
+guid: b5dd85e49f363d74e96f62303110dcdd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7147495186191096516
-    second: Paint_Color_Purple_0
+      213: -8131286431514134359
+    second: Paint_Color_Indigo_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Paint_Color_Purple_0
+      name: Paint_Color_Indigo_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c35e3494ffefecc90800000000000000
-      internalID: -7147495186191096516
+      spriteID: 9a875aa621ed72f80800000000000000
+      internalID: -8131286431514134359
       vertices: []
       indices: 
       edges: []

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cb60cb3d5af62564eaa4e48385dd2a11
+guid: ff0f97b98820dff4f880609dda801d65
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7823398934838028558
-    second: Icon_Paint_Indigo_0
+      213: 4375305288640783797
+    second: PaintDrop_Purple_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icon_Paint_Indigo_0
+      name: PaintDrop_Purple_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e09a03f81eb429c60800000000000000
-      internalID: 7823398934838028558
+      spriteID: 5b562598af438bc30800000000000000
+      internalID: 4375305288640783797
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Icon_Paint_Indigo_0: 7823398934838028558
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

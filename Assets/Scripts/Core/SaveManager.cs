@@ -29,7 +29,7 @@ namespace LastBullet.Core
     [Serializable]
     public class PaintAmounts
     {
-        public int red, orange, yellow, green, blue, indigo, purple, white, black;
+        public int red, orange, yellow, green, blue, purple, pink, white, black; // 2026-10-31: 남색(indigo)을 없애고 핑크(pink)를 넣었다
 
         // PaintColor 순서(빨강~검정)대로 읽고 쓴다
         public int this[int index]
@@ -39,8 +39,8 @@ namespace LastBullet.Core
                 switch (index)
                 {
                     case 0: return red; case 1: return orange; case 2: return yellow;
-                    case 3: return green; case 4: return blue; case 5: return indigo;
-                    case 6: return purple; case 7: return white; default: return black;
+                    case 3: return green; case 4: return blue; case 5: return purple;
+                    case 6: return pink; case 7: return white; default: return black;
                 }
             }
             set
@@ -48,8 +48,8 @@ namespace LastBullet.Core
                 switch (index)
                 {
                     case 0: red = value; break; case 1: orange = value; break; case 2: yellow = value; break;
-                    case 3: green = value; break; case 4: blue = value; break; case 5: indigo = value; break;
-                    case 6: purple = value; break; case 7: white = value; break; default: black = value; break;
+                    case 3: green = value; break; case 4: blue = value; break; case 5: purple = value; break;
+                    case 6: pink = value; break; case 7: white = value; break; default: black = value; break;
                 }
             }
         }

@@ -1,10 +1,10 @@
-using LastBullet.Stage;
+﻿using LastBullet.Stage;
 using TMPro;
 using UnityEngine;
 
 namespace LastBullet.UI
 {
-    // 맵에 들어가면 화면 위쪽에 "사막 · 밤 / 얻는 물감 ● 보라 ● 하양 ● 검정"을 잠깐 보여 준다 (2026-10-31 사용자 요청).
+    // 맵에 들어가면 화면 위쪽에 "사막 · 밤 / 얻는 물감 ● 핑크 ● 하양 ● 검정"을 잠깐 보여 준다 (2026-10-31 사용자 요청).
     // 서서히 나타나고 → 잠깐 머물고 → 서서히 사라진다. 낮/밤 글자는 DayNight가 정한 값을 따른다.
     // 글자는 모두 TextMeshPro(font1 SDF)다 (2026-10-31: 글자 그림 → TMP). 배경 판만 그림(Popup_Panel.png).
     // 붙일 곳: 숲·성 마을·사막 씬의 Canvas/MapIntro (CanvasGroup 필요)

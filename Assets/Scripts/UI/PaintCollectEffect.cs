@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using LastBullet.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,7 +17,7 @@ namespace LastBullet.UI
         [Tooltip("방울 한 개의 틀 (꺼 둔다). Image 하나")]
         [SerializeField] Image dropTemplate;
 
-        [Tooltip("물감 9색 순서(빨강, 주황, 노랑, 초록, 파랑, 남색, 보라, 하양, 검정)의 방울 그림")]
+        [Tooltip("물감 9색 순서(빨강, 주황, 노랑, 초록, 파랑, 보라, 핑크, 하양, 검정)의 방울 그림")]
         [SerializeField] Sprite[] dropSprites = new Sprite[PaintColors.Count];
 
         [Tooltip("같은 순서의 도착 지점: 전투 가방 패널의 물감 아이콘")]

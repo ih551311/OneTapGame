@@ -1036,7 +1036,7 @@ GameObject:
   - component: {fileID: 64460333}
   - component: {fileID: 64460332}
   m_Layer: 0
-  m_Name: Icon_Paint_Indigo
+  m_Name: Icon_Paint_Purple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3832,7 +3832,7 @@ GameObject:
   - component: {fileID: 289716744}
   - component: {fileID: 289716743}
   m_Layer: 0
-  m_Name: Color_Indigo
+  m_Name: Color_Purple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6272,7 +6272,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC5BB\uB294 \uBB3C\uAC10  <color=#A855F7>\u25CF</color> \uBCF4\uB77C 
+  m_text: "\uC5BB\uB294 \uBB3C\uAC10  <color=#F755A6>\u25CF</color> \uD551\uD06C 
     <color=#FFFFFF>\u25CF</color> \uD558\uC591  <color=#171717>\u25CF</color> \uAC80\uC815"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 353eff38bbe2cfd45ad9df703dfe3c80, type: 2}
@@ -14417,7 +14417,7 @@ GameObject:
   - component: {fileID: 991686143}
   - component: {fileID: 991686142}
   m_Layer: 0
-  m_Name: Color_Purple
+  m_Name: Color_Pink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15858,7 +15858,7 @@ GameObject:
   - component: {fileID: 1105522992}
   - component: {fileID: 1105522991}
   m_Layer: 0
-  m_Name: Icon_Paint_Purple
+  m_Name: Icon_Paint_Pink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16545,7 +16545,7 @@ GameObject:
   - component: {fileID: 1162954657}
   - component: {fileID: 1162954656}
   m_Layer: 0
-  m_Name: PaintCount_Indigo
+  m_Name: PaintCount_Purple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17121,7 +17121,7 @@ GameObject:
   - component: {fileID: 1213702998}
   - component: {fileID: 1213702997}
   m_Layer: 0
-  m_Name: Amount_Indigo
+  m_Name: Amount_Purple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24200,7 +24200,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "\uC5BB\uB294 \uBB3C\uAC10  <color=#22C55E>\u25CF</color> \uCD08\uB85D 
-    <color=#3B82F6>\u25CF</color> \uD30C\uB791  <color=#3730A3>\u25CF</color> \uB0A8\uC0C9"
+    <color=#3B82F6>\u25CF</color> \uD30C\uB791  <color=#A855F7>\u25CF</color> \uBCF4\uB77C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 353eff38bbe2cfd45ad9df703dfe3c80, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: cb6588418c034b242a49d849ca8f3d1a, type: 2}
@@ -27429,7 +27429,7 @@ GameObject:
   - component: {fileID: 1944240951}
   - component: {fileID: 1944240950}
   m_Layer: 0
-  m_Name: PaintCount_Purple
+  m_Name: PaintCount_Pink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28392,7 +28392,7 @@ GameObject:
   - component: {fileID: 2003329551}
   - component: {fileID: 2003329550}
   m_Layer: 0
-  m_Name: Amount_Purple
+  m_Name: Amount_Pink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

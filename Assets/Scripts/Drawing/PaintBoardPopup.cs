@@ -1,4 +1,4 @@
-using LastBullet.Drawing;
+﻿using LastBullet.Drawing;
 using LastBullet.Inventory;
 using LastBullet.UI;
 using TMPro;
@@ -22,7 +22,7 @@ namespace LastBullet.Drawing
         [Tooltip("선택된 도구에 겹쳐 보이는 테두리")]
         [SerializeField] RectTransform toolSelected;
 
-        [Tooltip("9색 버튼 (빨강, 주황, 노랑, 초록, 파랑, 남색, 보라, 하양, 검정 순서)")]
+        [Tooltip("9색 버튼 (빨강, 주황, 노랑, 초록, 파랑, 보라, 핑크, 하양, 검정 순서)")]
         [SerializeField] Button[] colorButtons;
 
         [Tooltip("선택된 색에 겹쳐 보이는 테두리")]

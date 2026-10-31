@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using LastBullet.Enemy;
 using Unity.AI.Navigation;
@@ -13,7 +13,7 @@ namespace LastBullet.EditorTools
     // 사막 씬(4_Desert)을 만든다 (2026-10-31 사용자 요청: 에셋 Low-Poly Desert Environment Pack으로 세 번째 맵).
     //  - 2_Forest를 복사해서 시작한다 (플레이어·카메라·HUD·전투 가방·일시정지 창이 이미 들어 있다).
     //  - 지도: 120m × 120m 모래 땅, 둘레는 절벽, 바위·선인장·고목이 흩어져 있다. 시작은 남쪽(0, -48).
-    //  - 물감 색은 맵 전체가 보라·하양·검정 (StageColors 표). 지역 구분(PaintZone)은 없다.
+    //  - 물감 색은 맵 전체가 핑크·하양·검정 (StageColors 표). 지역 구분(PaintZone)은 없다.
     //  - 적은 스포너 20개 (돌진 8 / 방패 6 / 원거리 6), 처치 60초 뒤 다시 나온다.
     // 에셋 프리팹에는 이미 충돌(Collider)이 들어 있다.
     // 메뉴: LastBullet > Phase 13 사막 씬 만들기

@@ -344,3 +344,11 @@ Phase 1에서 한 일 (2026-10-29):
   1. 수직동기(VSync)가 꺼져 있었다 (QualitySettings 두 단계 모두 0 → 1). 프레임이 140~200fps로 제한 없이 돌아 화면이 움직일 때 찢어져 떨려 보일 수 있다. 에디터 Game 창에도 VSync 토글이 따로 있다.
   2. `ThirdPersonCamera`(카메라 방향 정함)와 `AimController`(조준·1인칭에서 몸을 돌림)가 둘 다 LateUpdate 순서 0이라 실행 순서가 정해지지 않았다. `ThirdPersonCamera`에 `DefaultExecutionOrder(50)`을 줘서 몸이 돈 뒤, 카메라(100)보다 앞에서 방향을 정하게 했다.
 - 사용자가 직접 확인해야 한다. 그래도 떨리면 (에디터/빌드 여부, Game 창 Stats의 FPS, 어느 키에서 떨리는지) 더 좁힌다.
+
+## 2026-10-31 물감 색 변경: 남색 → 핑크 (Phase 47)
+- 사용자 결정: 물감 9색 = 빨강 주황 노랑 초록 파랑 보라 핑크 하양 검정. 맵마다 3등분: 숲 빨강·주황·노랑 / 성 마을 초록·파랑·보라 / 사막 핑크·하양·검정. (이 위 기록의 "남색", "사막 보라"는 옛 내용이다.)
+- 코드: `PaintColor` 순서 Red Orange Yellow Green Blue **Purple Pink** White Black (6번 칸 남색→보라, 7번 칸 보라→핑크), `PaintColors.Colors`(보라 A855F7, 핑크 F755A6), `PaintAmounts`(save.json 키 indigo/purple → purple/pink), `StageColors` 표.
+- 그림: `Icon_Paint_`·`Paint_Color_`·`PaintDrop_` 각 3종에서 옛 보라 그림을 핑크로 색만 바꿔 `*_Pink.png`, 옛 남색 자리(`*_Indigo.png`)는 `*_Purple.png`(옛 보라 그림)로 바꿨다. 파일을 옮긴 것이라 씬의 그림 연결은 그대로. 남색 그림은 사라졌다.
+- 씬: 오브젝트 이름 `*_Purple→*_Pink`, `*_Indigo→*_Purple`, "얻는 물감" 글을 표대로 다시 씀. 메뉴 `LastBullet > Phase 47 물감 색 바꾸기 (남색→핑크)`는 한 번만 실행한다(핑크 그림이 있으면 건너뜀).
+- 저장 파일(save.json)의 `purple` 값은 그대로 보라 물감으로, 옛 `indigo` 값은 읽히지 않아 사라진다. 옛 `purple`을 쓰던 `핑크` 칸은 0에서 시작.
+- 확인: 컴파일 OK, 세 맵의 적 드롭 색이 표 안에서만 나옴(숲 빨·주·노 / 성 마을 초·파·보 / 사막 핑·하·검), 전투 가방 아이콘이 맵 3색, 미술관 "얻는 물감" 글 3개 갱신, 사막 화면 캡처. 못 본 것: 미술관 인벤토리·그림판 색 버튼 화면, 핑크 그림 모양을 직접 그림으로 다시 그릴 필요 여부.
