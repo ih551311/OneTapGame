@@ -83,7 +83,16 @@ namespace LastBullet.EditorTools
             // 다른 화면 표시 뒤쪽에 그린다 (붉은 테두리 효과 바로 위)
             var hit = canvas.Find("HitFeedback");
             root.transform.SetSiblingIndex(hit != null ? hit.GetSiblingIndex() + 1 : 0);
-            TopLeft(root, new Vector2(36f, 28f), new Vector2(PanelWidth, height));
+            if (battle)
+            {
+                // 전투 맵은 왼쪽 아래 (2026-10-31 사용자 요청). 미술관은 왼쪽 위
+                var rect = (RectTransform)root.transform;
+                rect.anchorMin = rect.anchorMax = rect.pivot = Vector2.zero;
+                rect.anchoredPosition = new Vector2(36f, 28f);
+                rect.sizeDelta = new Vector2(PanelWidth, height);
+            }
+            else
+                TopLeft(root, new Vector2(36f, 28f), new Vector2(PanelWidth, height));
 
             // 사진: 얇은 금색 테두리 + 안쪽 사진 (사진이 없으면 빈 사람 모양)
             var frame = Phase6PaintBoardSetup.Sliced("PhotoFrame", root.transform, "Assets/UI/Hud_Photo.png", 10f);
