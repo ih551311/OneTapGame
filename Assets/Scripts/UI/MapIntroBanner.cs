@@ -1,21 +1,21 @@
 using LastBullet.Stage;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace LastBullet.UI
 {
     // 맵에 들어가면 화면 위쪽에 "사막 · 밤 / 얻는 물감 ● 보라 ● 하양 ● 검정"을 잠깐 보여 준다 (2026-10-31 사용자 요청).
     // 서서히 나타나고 → 잠깐 머물고 → 서서히 사라진다. 낮/밤 글자는 DayNight가 정한 값을 따른다.
-    // 글자와 색 점은 모두 그림(PNG)이다: Assets/UI/StageTitle_<맵>_<Day|Night>.png, StageColors_<맵>.png
+    // 글자는 모두 TextMeshPro(font1 SDF)다 (2026-10-31: 글자 그림 → TMP). 배경 판만 그림(Popup_Panel.png).
     // 붙일 곳: 숲·성 마을·사막 씬의 Canvas/MapIntro (CanvasGroup 필요)
     [RequireComponent(typeof(CanvasGroup))]
     public class MapIntroBanner : MonoBehaviour
     {
-        [Tooltip("맵 이름 + 낮/밤 그림이 들어가는 Image")]
-        [SerializeField] Image titleImage;
+        [Tooltip("맵 이름 + 낮/밤 글자가 들어가는 TMP 글자")]
+        [SerializeField] TMP_Text titleText;
 
-        [SerializeField] Sprite daySprite;
-        [SerializeField] Sprite nightSprite;
+        [Tooltip("맵 이름 (예: 사막). 뒤에 \" · 낮\" 또는 \" · 밤\"이 붙는다")]
+        [SerializeField] string mapName = "";
 
         [Header("시간 (초)")]
         [SerializeField] float fadeIn = 0.6f;
@@ -33,7 +33,8 @@ namespace LastBullet.UI
 
         void Start()
         {
-            titleImage.sprite = DayNight.IsNight ? nightSprite : daySprite;
+            if (titleText != null)
+                titleText.text = $"{mapName} · {(DayNight.IsNight ? "밤" : "낮")}";
         }
 
         // 일시정지 중에도 흐르게 realtime으로 센다.

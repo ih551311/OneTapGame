@@ -269,3 +269,10 @@ Phase 1에서 한 일 (2026-10-29):
 - 미술관 "서로 다른 작품 N / 9": 배경 전용 그림 `FrameProgress_Panel.png`(9-slice 24) + 글자 "서로 다른 작품"·숫자 모두 TMP(font1 SDF). 예전 글자 그림 `FrameProgress_Label.png`는 지움. 메뉴 LastBullet > Phase 38 진행도 글자 분리.
 - 확인: 플레이 화면 캡처로 "서로 다른 작품 2 / 9" 표시 확인. 배경이 BagPanel.png를 같이 쓰지 않는다.
 - 남은 일: 글자가 그림에 들어 있는 다른 UI가 ART_SLOTS 표에 29건 있다 (ResultTitle_*, StageTitle_*, ButtonLabel_* 등). 같은 방식으로 나눌지는 사용자 결정.
+
+## 2026-10-31 Phase 39: 글자 그림을 TMP 글자로 (사용자 요청: 그림은 직접, 글자는 유니티 글꼴 하나로 통일)
+- 5개 씬(타이틀·미술관·숲·성 마을·사막)의 글자 그림 Image를 같은 오브젝트에 TMP 글자로 교체 (메뉴 LastBullet > Phase 39 글자 그림을 TMP로 바꾸기). 글꼴은 전부 `font1 SDF`, TMP Settings 기본 글꼴도 font1 SDF. 흰 글씨+어두운 테두리는 `font1 SDF Outline.mat` 하나를 공유. 글자 크기는 예전 그림 속 글자 높이를 재서 맞춤.
+- `MapIntroBanner`: titleImage/daySprite/nightSprite → titleText + mapName ("사막 · 낮/밤"). "얻는 물감" 줄은 StageColors 표로 색 점까지 글자로 생성.
+- 도움말 내용은 예전 그림이 흰색이라 읽을 수 없어서 현재 규칙으로 새로 썼다 (조작 10줄, 규칙 7줄) → 사용자가 문구 확인 필요.
+- 안 쓰게 된 글자 그림 PNG 67개 삭제 (GUID로 씬·프리팹·머티리얼·스크립트 참조 0 확인. 깃에 남아 있어 되살릴 수 있다). ART_SLOTS 표 48줄 정리.
+- 확인: 5개 씬에 글자 그림 Image 0개, TMP는 전부 font1. 화면 캡처로 타이틀(+도움말·옵션·내 그림·프로필)·미술관(진행도·안내·전투 장소 선택·종이 합성·그림판)·사막(맵 입장 안내·일시정지·결과) 확인. 숲·성 마을은 사막과 같은 구조라 장면 캡처는 숲 intro만 생성(미확인 화면: 성 마을, 액자 고르기, 프로필 그리기/고르기 창, 삭제 확인창, 가득 참 알림).

@@ -20,22 +20,13 @@
 | `Assets/UI/HealthBar_Back.png` | 체력바 배경 (왼쪽 아래) | 256×32 | 화면에서는 400×40으로 보인다 |
 | `Assets/UI/HealthBar_Fill.png` | 체력바 채움 | 256×32 | 체력만큼 왼쪽부터 채워진다. 배경 테두리 안쪽에 맞게 그린다 |
 | `Assets/UI/StageClear.png` | 스테이지 클리어 문구 (화면 가운데) | 1024×256 | 화면에서는 800×200 안에 비율 유지 |
-| `Assets/UI/Prompt_StageSelect.png` | 지도 탁자 근처 안내 "[E] 전투 장소 선택" (화면 아래) | 768×96 | |
 | `Assets/UI/Popup_Panel.png` | 팝업 창 배경 | 128×128 | **9-slice**, 모서리 32px. 창 크기 900×560으로 늘어난다 |
-| `Assets/UI/StageSelect_Title.png` | 팝업 제목 "전투 장소 선택" | 768×128 | |
 | `Assets/UI/Button_Normal.png` | 버튼 (보통) | 96×96 | **9-slice**, 모서리 24px. 모든 버튼이 같이 쓴다 |
 | `Assets/UI/Button_Highlighted.png` | 버튼 (마우스 올림) | 96×96 | 9-slice 24px |
 | `Assets/UI/Button_Pressed.png` | 버튼 (누름) | 96×96 | 9-slice 24px |
 | `Assets/UI/Button_Disabled.png` | 버튼 (잠김) | 96×96 | 9-slice 24px |
 | `Assets/UI/Button_Close.png` | 팝업 닫기 (X) | 64×64 | |
-| `Assets/UI/StageLabel_Forest.png` | 전투 장소 선택 버튼 글자 "숲" (훈련장을 없애서 숲 하나뿐) | 512×128 | |
-| `Assets/UI/Prompt_PaperCraft.png` | 종이 합성대 근처 안내 "[E] 종이 합성" | 768×96 | |
-| `Assets/UI/PaperCraft_Title.png` | 종이 합성 팝업 제목 | 768×128 | |
-| `Assets/UI/PaperCraft_Owned.png` | 팝업의 "가진 것" 글자 | 384×96 | |
-| `Assets/UI/Prompt_Paint.png` | 그림 작업대 근처 안내 "[E] 그림 그리기" | 768×96 | |
 | `Assets/UI/Paint_Panel.png` | 그림판 창 배경 (9-slice, 모서리 40) | 128×128 | 크림색 둥근 사각형 |
-| `Assets/UI/Paint_Title.png` | 그림판 제목 "나의 그림판" (왼쪽 정렬) | 512×96 | |
-| `Assets/UI/Paint_PaperLabel.png` / `Paint_PaperUnit.png` | "종이" / "장" 글자 (가운데 숫자는 TMP) | 128×64 / 64×64 | |
 | `Assets/UI/Paint_Toolbar.png` | 왼쪽 도구 막대 (9-slice, 모서리 28) | 96×96 | |
 | `Assets/UI/Paint_Tool_Pen1~4.png` | 펜 굵기 2/5/10/20px 버튼 그림 | 96×96 | 굵기를 알아볼 수 있게 |
 | `Assets/UI/Paint_Tool_Eraser.png` | 지우개 버튼 그림 | 96×96 | |
@@ -44,29 +35,10 @@
 | `Assets/UI/Paint_Color_<색>.png` (9장) | 색 고르는 동그라미 (Red…Black) | 64×64 | 색 이름은 `PaintColor`와 같게 |
 | `Assets/UI/Paint_Color_Selected.png` | 고른 색 표시 테두리 | 80×80 | |
 | `Assets/UI/Paint_Button_Cancel_*.png`, `Paint_Button_Done_*.png` | 취소/완성 버튼 (Normal·Highlighted·Pressed, 완성만 Disabled 추가) | 96×96 | 9-slice 모서리 32 |
-| `Assets/UI/Paint_Label_Cancel.png` / `Paint_Label_Done.png` | 버튼 글자 "취소" / "완성" | 256×96 | |
-| `Assets/UI/Paint_Confirm_Message.png` | 그림판 취소 확인창 문구 (두 줄) | 640×160 | 창·버튼 배경은 `Paint_Panel`, `Paint_Button_*`를 같이 씀 |
-| `Assets/UI/Paint_Label_Continue.png` / `Paint_Label_Discard.png` | 확인창 버튼 글자 "계속 그리기" / "그만두기" | 256×96 | |
-| `Assets/UI/Pause_Title.png` | ESC 일시정지 창 제목 "일시정지" | 768×128 | 창 배경은 `Popup_Panel`, 버튼은 `Button_*`를 같이 씀 |
-| `Assets/UI/Pause_LossWarning.png` | 숲 일시정지 창의 안내 "타이틀로 나가면 이번 판 재료가 사라져요" | 768×96 | 숲에서만 보임 |
-| `Assets/UI/ButtonLabel_Home.png` | 숲 일시정지 창의 버튼 글자 "미술관으로 귀환" (재료를 창고로 정산하고 돌아간다) | 512×128 | 버튼 배경은 `Button_*` |
-| `Assets/UI/ButtonLabel_Resume.png` / `ButtonLabel_ToTitle.png` | 버튼 글자 "계속하기" / "타이틀로 나가기" | 512×128 | |
-| `Assets/UI/Paint_Label_Gallery.png` | 그림판 버튼 글자 "내 그림" | 256×96 | 버튼 배경은 `Paint_Button_Cancel_*`. 누르면 보기 전용 작품 팝업(그림·창은 타이틀 그림 보기와 같은 `Gallery_*`, `Popup_Panel`)이 뜬다 |
-| `Assets/UI/Prompt_Frame.png` | 액자 근처 안내 "[E] 그림 걸기" | 768×96 | |
-| `Assets/UI/Frame_Title.png` | 액자 고르기 팝업 제목 "액자에 걸 그림" | 768×128 | 팝업의 나머지 그림은 타이틀 그림 보기와 같은 `Gallery_*`, `Popup_Panel` |
 | `Assets/UI/FrameProgress_Panel.png` | 화면 위 가운데 진행도("서로 다른 작품 3 / 9")의 배경 판. 글자와 숫자는 그림이 아니라 TextMeshPro(font1 SDF)라서 이 그림만 바꾸면 된다 (`Canvas/FrameProgress`의 자식 `Label`, `Count`가 글자) | 128×128 | **9-slice**, 모서리 24px |
-| `Assets/UI/StageLabel_Castle.png` | 전투 장소 선택 버튼 글자 "성 마을" | 512×128 | |
-| `Assets/UI/StageLabel_Desert.png` | 전투 장소 선택 버튼 글자 "사막" | 512×128 | |
-| `Assets/UI/StageColors_Forest.png`, `StageColors_Castle.png`, `StageColors_Desert.png` | 전투 장소 선택의 버튼 아래 안내 "얻는 물감 ● 빨강 ● 주황 ● 노랑" (글자와 색 점이 모두 그림 안에 있다) | 720×64 | 맵의 물감 색을 바꾸면(`StageColors` 표) 이 그림도 같이 고쳐야 한다 |
-| `Assets/UI/ButtonLabel_Delete.png`, `ButtonLabel_DeleteYes.png`, `ButtonLabel_DeleteNo.png` | 그림 보기의 [삭제] 버튼 글자와 확인창의 [지우기] [취소] 글자 | 256×128 / 320×128 / 256×128 | 버튼 틀은 `Button_*.png`를 같이 씀 |
-| `Assets/UI/Gallery_DeleteConfirm_Message.png` | 그림 삭제 확인창 문구 "이 그림을 지울까요? 지운 그림은 되살릴 수 없어요." (두 줄) | 720×200 | 창 배경은 `Popup_Panel.png` |
 | `Assets/UI/Scrollbar_Track.png`, `Scrollbar_Handle.png` | 그림 목록 스크롤바의 길(어두운 반투명)과 손잡이(크림색, 갈색 테두리). 둥근 사각형 9-slice(모서리 12px) | 48×48 | 타이틀 `GalleryPopup`, 미술관 `GalleryPopup`·`FramePickerPopup`의 `Panel/Scroll/Scrollbar` |
 | `Assets/UI/Profile_Empty.png` | 프로필 사진이 없을 때 보이는 빈 사람 모양 (회색 배경 + 머리·어깨) | 256×256 | 타이틀 `ProfileCard`·`ProfilePopup`의 `Empty` |
 | `Assets/UI/Profile_NamePlate.png` | 프로필 카드 아래 닉네임 이름표 배경 (둥근 사각형 9-slice, 모서리 12px) | 96×96 | 타이틀 `ProfileCard/NamePlate` |
-| `Assets/UI/Profile_Hint.png` | 프로필 카드 아래 "눌러서 프로필 바꾸기" 안내 글자 | 420×48 | `ProfileCard/Hint` |
-| `Assets/UI/Profile_Title.png`, `ProfileDraw_Title.png`, `ProfilePick_Title.png` | 창 제목 "프로필" / "프로필 그리기" / "프로필 사진 고르기" | 600×100, 600×100, 700×100 | `ProfilePopup`, `ProfileDrawPopup`, `ProfilePickerPopup` |
-| `Assets/UI/ButtonLabel_ProfileDraw.png`, `ButtonLabel_ProfilePick.png` | 프로필 창의 [직접 그리기] [그림에서 고르기] 버튼 글자 | 480×100 | 버튼 틀은 `Button_*.png` |
-| `Assets/UI/Label_Nickname.png` | 옵션의 "닉네임" 글자 | 260×64 | 타이틀 `OptionsPopup` |
 | `Assets/UI/Input_Background.png` | 닉네임 입력 칸 배경 (어두운 칸 + 밝은 테두리, 9-slice 12px). 입력 글자는 TextMeshPro 한글 글꼴 `font1 SDF` | 96×96 | 옵션의 `NicknameInput` |
 | `Assets/UI/Hud_Panel.png`, `Hud_Name.png`, `Hud_Photo.png` | 화면 왼쪽 위 프로필 패널(`HudProfile`): 어두운 판 `Hud_Panel`(9-slice 20px) 안에 큰 정사각형 사진(금색 얇은 테두리 `Hud_Photo` 10px, 빈 사람 모양은 `Profile_Empty.png`)과 조용한 어두운 이름 칸 `Hud_Name`(14px). 전투 맵은 패널 맨 아래에 체력바(`HealthBar`)가 가로로 놓인다 | 96×96, 96×96, 64×64 | 미술관·숲·성 마을·사막 `Canvas/HudProfile` |
 | `Assets/UI/Skill_Heal.png`, `Skill_Heal_Cool.png` | 화면 오른쪽 아래 힐 스킬 칸(`HealSkill`): 칸 그림 `Skill_Heal`(초록 십자 임시 그림)과 대기 중 시계 방향으로 걷히는 어두운 막 `Skill_Heal_Cool`(같은 모양, 반투명). 남은 초와 키 글자 "F"는 TextMeshPro | 128×128, 128×128 | 숲·성 마을·사막 `Canvas/HealSkill` |
@@ -74,11 +46,7 @@
 | `Assets/UI/Vignette_Hit.png` | 맞았을 때 번쩍이는 화면 가장자리 빨간 테두리 (가운데는 투명, 가장자리일수록 진함. 화면 전체로 늘려 씀) | 256×256 | 숲·성 마을·사막 `Canvas/HitFeedback/Flash` |
 | `Assets/UI/Vignette_LowHealth.png` | 체력이 낮을 때(35% 아래) 계속 덮이는 진한 붉은 테두리 (가운데 투명) | 256×256 | `Canvas/HitFeedback/LowHealth` |
 | `Assets/UI/PaintDrop_<Red|Orange|Yellow|Green|Blue|Indigo|Purple|White|Black>.png` (9장) | 적을 잡으면 가방 아이콘으로 날아가는 물감 방울 (색마다 한 장, 눈물 모양) | 64×64 | 숲·성 마을·사막 `Canvas/PaintCollect` (도착 지점은 가방 패널의 `Icon_Paint_*`) |
-| `Assets/UI/ResultTitle_Clear.png`, `ResultTitle_Dead.png` | 결과 창 제목 "이번 판 결과" / "쓰러졌어요" | 640×96 | 창 배경은 `Popup_Panel.png`. 숲·성 마을·사막 `Canvas/RunResultPopup` |
-| `Assets/UI/ResultCaption_Gained.png`, `ResultCaption_Lost.png` | 결과 창 재료 줄 제목 "얻은 재료" / "잃은 재료" | 400×64 | 물감 아이콘은 가방과 같은 `Icon_Paint_*.png` |
-| `Assets/UI/ResultLabel_Kills.png` | 결과 창 "잡은 적" 글자 (숫자는 TMP) | 240×64 | 종이조각 아이콘은 `Icon_PaperScrap.png` |
-| `Assets/UI/ButtonLabel_ToMuseum.png` | 결과 창 [미술관으로] 버튼 글자 | 420×128 | 버튼 틀은 `Button_*.png` |
-| `Assets/UI/Fonts/font1.ttf` + `font1 SDF.asset` | 글꼴 "이서윤체(LeeSeoyun)" (사용자가 넣은 파일). 한글 11,172자 모두 들어 있다. TextMeshPro 글자의 Font Asset 칸에 `font1 SDF`를 끼우면 그 글꼴로 나온다. 다른 글꼴을 넣으면 메뉴 `LastBullet/글꼴 에셋 만들기`로 같은 에셋을 만든다 | 아직 쓰는 곳 없음 (지금 한글은 PNG 그림, 숫자는 기본 글꼴) |
+| `Assets/UI/Fonts/font1.ttf` + `font1 SDF.asset` | 글꼴 "이서윤체(LeeSeoyun)" (사용자가 넣은 파일). 한글 11,172자 모두 들어 있다. TextMeshPro 글자의 Font Asset 칸에 `font1 SDF`를 끼우면 그 글꼴로 나온다. 다른 글꼴을 넣으면 메뉴 `LastBullet/글꼴 에셋 만들기`로 같은 에셋을 만든다 | 모든 UI 글자가 이 글꼴이다 (TMP Settings의 기본 글꼴도 이것) |
 | 에셋 `Assets/FreeWeaponSFX_v1.1/Handgun/Gunshots/*.wav` | 총소리: 사격 소리 변형 3개(`gunshot_01~03`)와 여운 2개(`tail_01~02`). 플레이어 사격은 Player의 `SfxPlayer`(소리 0.8, 2D, 여운 같이), 원거리 적 공격은 `Enemy_Thrower` 프리팹의 `SfxPlayer`(소리 0.3, 3D, 6~45m에서 멀수록 작게). 다른 소리로 바꾸려면 `SfxPlayer`의 Clips 칸에 끼운다 | `2_Forest`·`3_CastleVillage`·`4_Desert`·`1_Museum`의 Player, `Prefabs/Enemy_Thrower` |
 | 에셋 `Assets/Free UI Click Sound Effects Pack/AUDIO/Wooden/*.wav` (3개) | 마우스 클릭 소리 (따뜻한 나무 소리 변형 3개, 소리 0.6, 2D). 총을 쏠 때(커서가 잠겼을 때)는 나지 않는다. 다른 소리로 바꾸려면 `ClickSound` 오브젝트의 `SfxPlayer` Clips 칸에 끼운다 | 모든 씬(`0_Title` `1_Museum` `2_Forest` `3_CastleVillage` `4_Desert`)의 `ClickSound` |
 | 에셋 `Assets/VOiD1 Gaming - HALFTONE SFX PACK LITE/.../3. Movement/*.wav` | 플레이어 움직임 소리(발소리는 에셋 Footstep(Snow and Grass)에서 다듬은 것): 걷기·달리기는 맵마다 바닥이 다르다 — 숲·성 마을 `Assets/Audio/Footsteps/footstep_01~08.wav`(풀밭), 사막 `sand_01~06.wav`(모래, 코드로 만든 임시 소리), 미술관 `wood_*.wav`(나무 바닥, 코드로 만든 임시 소리). 걷기 0.5, 달리기 0.65·더 높게, 점프 `Assets/Audio/Jump/jump_01~03.wav`(코드로 만든 임시 소리: 툭 + 슉, 음높이 없음), 착지 `Bounce_2·3`, 회피(Q) `Jump_14·15`. 발소리는 걸은 거리(걷기 2.0m, 달리기 2.6m)마다 한 걸음. 소리를 바꾸려면 Player 아래 `MovementSfx`의 각 `SfxPlayer` Clips 칸에 끼운다 | 미술관·숲·성 마을·사막의 `Player/MovementSfx` |
@@ -88,36 +56,20 @@
 | 에셋 `Assets/FREE Adventure RPG Fantasy Game Music Pack/Core Gameplay/` 의 `Happy Clouds LOOP BPM110.wav`(타이틀, 0.35), `Harping On LOOP BPM98.wav`(미술관, 0.3) | 배경음악. 서서히 커지며 시작해 끝없이 되풀이. 다른 곡으로 바꾸려면 씬의 `BackgroundMusic`(MusicPlayer)의 Music 칸에 끼운다. 전투 맵에는 음악이 없다 | `0_Title`, `1_Museum`의 `BackgroundMusic` |
 | `Assets/UI/StageTitle_<Forest|Castle|Desert>_<Day|Night>.png` (6장) | 맵 입장 안내의 맵 이름과 낮/밤 글자 "사막 · 밤" 등 | 640×96 | 안내 창 배경은 `Popup_Panel.png`, 아래 "얻는 물감" 줄은 `StageColors_*.png`를 같이 씀. 숲·성 마을·사막 씬의 `Canvas/MapIntro` |
 | `Assets/UI/Arrow_Right.png` | 만드는 법 화살표 (재료 → 결과) | 96×64 | 오른쪽을 가리키게 그린다 |
-| `Assets/UI/ButtonLabel_Craft.png` | 버튼 글자 "합성" | 512×128 | 버튼 배경은 Button_*.png |
 | `Assets/UI/Title_Background.png` | 타이틀 배경 (화면 전체) | 1920×1080 | 화면 크기에 맞게 늘어난다 |
 | `Assets/UI/Title_Logo.png` | 타이틀 로고 "LAST BULLET 마지막 탄환" | 1024×320 | |
-| `Assets/UI/ButtonLabel_Start.png` | 버튼 글자 "시작" | 512×128 | |
-| `Assets/UI/ButtonLabel_Help.png` | 버튼 글자 "도움말" | 512×128 | |
-| `Assets/UI/ButtonLabel_Options.png` | 버튼 글자 "옵션" | 512×128 | |
-| `Assets/UI/ButtonLabel_Quit.png` | 버튼 글자 "게임 나가기" | 512×128 | |
-| `Assets/UI/Help_Title.png` | 도움말 팝업 제목 | 768×128 | |
-| `Assets/UI/Help_Content.png` | 도움말 내용 (조작, 규칙) | 1024×576 | |
-| `Assets/UI/Options_Title.png` | 옵션 팝업 제목 | 768×128 | |
-| `Assets/UI/Label_Volume.png` | "소리 크기" | 384×96 | |
-| `Assets/UI/Label_Sensitivity.png` | "마우스 감도" | 384×96 | |
 | `Assets/UI/Slider_Background.png` | 슬라이더 바탕 | 128×32 | **9-slice**, 모서리 12px |
 | `Assets/UI/Slider_Fill.png` | 슬라이더 채움 | 128×32 | **9-slice**, 모서리 12px |
 | `Assets/UI/Slider_Handle.png` | 슬라이더 손잡이 | 64×64 | |
-| `Assets/UI/Gallery_Title.png` | 그림 보기 팝업 제목 "내 그림" | 768×128 | |
-| `Assets/UI/Gallery_Empty.png` | "아직 그림이 없어요" | 768×128 | |
-| `Assets/UI/ButtonLabel_Gallery.png` | 버튼 글자 "그림 보기" | 512×128 | |
-| `Assets/UI/ButtonLabel_HangLeft.png` | 버튼 글자 "왼쪽에 걸기" | 512×128 | |
-| `Assets/UI/ButtonLabel_HangRight.png` | 버튼 글자 "오른쪽에 걸기" | 512×128 | |
 | `Assets/UI/Gallery_Selected.png` | 그림 보기에서 고른 그림 표시 (테두리) | 128×128 | **9-slice**, 모서리 24px. 가운데는 투명 |
 | `Assets/UI/TitleFrame.png` | 타이틀 양쪽 액자 (빈 액자일 때 안쪽이 보인다) | 128×128 | **9-slice**, 모서리 32px. 화면에서는 정사각형 360×360, 그림은 안쪽 30px 안에 걸린다 |
 | `Assets/UI/Gallery_Frame.png` | 그림 보기의 그림 한 칸 액자 | 128×128 | **9-slice**, 모서리 24px. 그림은 안쪽 26px 안에 들어간다 |
 | `Assets/UI/BagPanel.png` | 전투 가방 표시 배경 (전투 중 오른쪽 위) | 128×128 | **9-slice**, 모서리 24px |
 | `Assets/UI/Icon_PaperScrap.png` | 종이조각 아이콘 | 64×64 | |
 | `Assets/UI/Icon_Paper.png` | 그림용 종이 아이콘 (미술관 창고 표시) | 64×64 | |
-| `Assets/UI/Toast_PaintFull.png` | "가득 참!" 알림 글자 (물감 500 초과 시) | 256×64 | 알림 한 줄의 배경은 BagPanel.png |
 | `Assets/UI/Icon_Paint_Red.png` 외 8개 | 물감 아이콘 (Red, Orange, Yellow, Green, Blue, Indigo, Purple, White, Black) | 64×64 | 색마다 한 장. 인벤토리·그림판에서도 같이 쓴다 |
 
-숫자 글자는 TextMeshPro 기본 글꼴(LiberationSans)이다. 글꼴을 바꾸려면 글꼴 파일을 `Assets/UI/Fonts/`에 넣고 알려 주면 된다.
+글자는 모두 TextMeshPro 글꼴 `font1 SDF` 하나다. 글꼴을 바꾸려면 새 글꼴 에셋(`LastBullet/글꼴 에셋 만들기`)을 만들어 TMP Settings의 기본 글꼴과 각 글자의 Font Asset에 끼우면 된다.
 
 UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 크기는 Hierarchy에서 `Canvas` 안의 UI를 고르고 Scene 창(2D 보기)에서 끌어서 바꿀 수 있다.
 
@@ -226,3 +178,12 @@ Enemy_Charger            ← 기능 (EnemyHealth, EnemyAI, EnemyDrop, NavMeshAge
 
 
 
+
+
+## 글자와 그림 (2026-10-31 사용자 요청: 글자는 유니티 글꼴, 그림은 직접)
+- 화면의 한글 글자(버튼, 창 제목, 안내, 결과, 도움말 등)는 **그림이 아니라 TextMeshPro 글자**다. 글꼴은 `Assets/UI/Fonts/font1 SDF` 하나. 글자 내용·크기·색은 Inspector에서 고친다.
+- 흰 글씨 + 어두운 테두리 글자는 글꼴 머티리얼 `Assets/UI/Fonts/font1 SDF Outline.mat`을 같이 쓴다. 테두리 색·굵기를 이 머티리얼 하나에서 한 번에 바꾼다. 그림판 쪽 글씨는 어두운 남색, 도움말은 노란 제목 + 흰 글씨.
+- 그림(PNG)으로 남은 것은 판·버튼 틀·아이콘·로고·배경이다. 버튼 틀은 `Button_*.png`, 창 배경은 `Popup_Panel.png` 같은 9-slice 그림이라 직접 그린 그림으로 바꿔 끼우면 되고, 글자는 그 위에 따로 얹힌다.
+- 맵 입장 안내 "사막 · 밤"은 `MapIntroBanner`가 맵 이름 + 낮/밤으로 만들고, "얻는 물감 ● …"은 맵의 물감 표(`StageColors`)에서 색 점까지 글자로 만든다.
+- 도움말 내용은 `Canvas/HelpPopup`의 `Content/Controls`, `Content/Rules` 글자에서 고친다.
+- 예전 메뉴 스크립트(`TitleSetup`, `Phase*Setup` 등)는 글자 그림을 만들던 코드라, 이미 바뀐 화면에서 다시 실행하면 글자 그림이 빠진 채로 만들어진다. 다시 실행하지 말고 글자는 씬에서 직접 고친다.
