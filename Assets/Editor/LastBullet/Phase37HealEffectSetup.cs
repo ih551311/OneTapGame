@@ -7,11 +7,11 @@ using UnityEngine.UI;
 
 namespace LastBullet.EditorTools
 {
-    // 힐 스킬의 효과음·연출을 만든다 (2026-10-31 사용자 요청). 먼저 Phase 36(힐 스킬)이 있어야 한다.
+    // 처치 회복(KillHeal)의 효과음·연출을 만든다 (2026-10-31 사용자 요청). 먼저 Phase 45(처치 회복)가 있어야 한다.
     //   Player/HealSound      종소리 (Assets/Audio/Heal/heal_01, 02 중 무작위, 2D)
     //   Player/HealParticles  초록 반짝이 (재료: Assets/Textures/Heal_Sparkle.png, 머티리얼 Assets/Materials/HealParticle.mat)
     //   (화면 가장자리 번쩍은 없앴다. 체력바에서 늘어난 만큼을 다른 색으로 보여 준다: Phase 41)
-    //   Player의 HealEffect가 힐을 쓰는 순간 소리(와 켜 둔 반짝이)를 낸다.
+    //   Player의 HealEffect가 처치로 체력이 차는 순간 소리(와 켜 둔 반짝이)를 낸다.
     // 다시 실행하면 지우고 새로 만든다. 메뉴: LastBullet > Phase 37 힐 효과 넣기
     public static class Phase37HealEffectSetup
     {
@@ -25,7 +25,7 @@ namespace LastBullet.EditorTools
         };
 
         [MenuItem("LastBullet/Phase 37 힐 효과 넣기")]
-        static void Create()
+        internal static void Create()
         {
             if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
                 return;
@@ -41,10 +41,10 @@ namespace LastBullet.EditorTools
                 var scene = EditorSceneManager.OpenScene(path);
                 var player = GameObject.FindWithTag("Player");
                 var canvas = ArtSlots.FindCanvas();
-                var skill = player != null ? player.GetComponent<HealSkill>() : null;
-                if (skill == null || canvas == null)
+                var killHeal = player != null ? player.GetComponent<KillHeal>() : null;
+                if (killHeal == null || canvas == null)
                 {
-                    Debug.LogWarning($"[LastBullet] {scene.name}: 먼저 Phase 36 힐 스킬 만들기를 실행하세요");
+                    Debug.LogWarning($"[LastBullet] {scene.name}: 먼저 Phase 45 처치 회복 넣기를 실행하세요");
                     continue;
                 }
 
@@ -86,7 +86,7 @@ namespace LastBullet.EditorTools
                 if (effect == null)
                     effect = player.AddComponent<HealEffect>();
                 var so = new SerializedObject(effect);
-                so.FindProperty("skill").objectReferenceValue = skill;
+                so.FindProperty("killHeal").objectReferenceValue = killHeal;
                 so.FindProperty("sound").objectReferenceValue = sfx;
                 so.FindProperty("particles").objectReferenceValue = particles;
                 so.ApplyModifiedPropertiesWithoutUndo();

@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 namespace LastBullet.Player
 {
-    // 플레이어 체력 (기획서 2.3). 최대 100, 전투 중 회복 없음.
+    // 플레이어 체력 (기획서 2.3). 최대 100. 전투 중에는 적을 처치할 때만 조금씩 찬다 (KillHeal).
     // 회피 무적 중에는 피해를 받지 않는다.
     // 사망하면 조작을 막고 쓰러진 뒤, 잠시 뒤 결과 창(RunResultPopup)을 보여 주고 [미술관으로]로 미술관(1_Museum)에 돌아간다 (기획서 2.6).
     // 사망하면 이번 판 재료(전투 가방)를 모두 잃는다 (RunBag.Clear).
@@ -55,7 +55,7 @@ namespace LastBullet.Player
             return true;
         }
 
-        // 체력을 채운다 (힐 스킬, HealSkill). 실제로 채워진 양을 돌려준다. 죽었거나 이미 가득이면 0.
+        // 체력을 채운다 (처치 회복, KillHeal). 실제로 채워진 양을 돌려준다. 죽었거나 이미 가득이면 0.
         public int Heal(int amount)
         {
             if (IsDead || amount <= 0)

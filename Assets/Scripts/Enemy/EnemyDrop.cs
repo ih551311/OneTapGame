@@ -1,5 +1,6 @@
 using LastBullet.Effects;
 using LastBullet.Inventory;
+using LastBullet.Player;
 using LastBullet.Stage;
 using LastBullet.UI;
 using UnityEngine;
@@ -60,6 +61,10 @@ namespace LastBullet.Enemy
             // 전투 가방이 없는 씬(예: 테스트)에서는 재료를 주지 않고 연출만 한다
             if (RunBag.Current != null)
                 RunBag.Current.Add(paperScraps, color, paint);
+
+            // 처치하면 체력이 조금 찬다 (헤드샷이 더 많이)
+            if (KillHeal.Current != null)
+                KillHeal.Current.OnEnemyKilled(headshot);
 
             Vector3 head = burstPoint != null ? burstPoint.position : transform.position + Vector3.up * 1.8f;
             if (burstPrefab != null)

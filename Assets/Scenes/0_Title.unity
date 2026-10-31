@@ -9287,10 +9287,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "<color=#FFC020><size=130%>\uC870\uC791</size></color>\nWASD  \uC774\uB3D9\n\uB9C8\uC6B0\uC2A4 
     \uC2DC\uC810\n\uC88C\uD074\uB9AD  \uBC1C\uC0AC\n\uC6B0\uD074\uB9AD(\uB204\uB974\uACE0
-    \uC788\uAE30)  \uC870\uC900\n\uB9C8\uC6B0\uC2A4 \uD720  3\uC778\uCE6D \u2194
-    1\uC778\uCE6D\nSpace  \uC810\uD504\nShift  \uB2EC\uB9AC\uAE30\nQ  \uD68C\uD53C
-    (\uC7A0\uAE50 \uBB34\uC801)\nE  \uC90D\uAE30 \xB7 \uC0C1\uD638\uC791\uC6A9\nF 
-    \uD790 (\uCCB4\uB825 30, 30\uCD08\uC5D0 \uD55C \uBC88)\nESC  \uBA54\uB274"
+    \uC788\uAE30)  \uC870\uC900\nSpace  \uC810\uD504\nShift  \uB2EC\uB9AC\uAE30\nQ 
+    \uD68C\uD53C (\uC7A0\uAE50 \uBB34\uC801)\nE  \uC90D\uAE30 \xB7 \uC0C1\uD638\uC791\uC6A9\n\uB9C8\uC6B0\uC2A4
+    \uD720  1\uC778\uCE6D \xB7 3\uC778\uCE6D\nESC  \uBA54\uB274"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 353eff38bbe2cfd45ad9df703dfe3c80, type: 2}
   m_sharedMaterial: {fileID: -7178004490825261852, guid: 353eff38bbe2cfd45ad9df703dfe3c80, type: 2}

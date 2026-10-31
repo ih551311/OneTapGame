@@ -329,7 +329,7 @@ namespace LastBullet.EditorTools
             const string yellow = "FFC020";
             string controls =
                 $"<color=#{yellow}><size=130%>조작</size></color>\n" +
-                "WASD  이동\n마우스  시점\n좌클릭  발사\n우클릭(누르고 있기)  조준\nSpace  점프\nShift  달리기\nQ  회피 (잠깐 무적)\nE  줍기 · 상호작용\nF  힐 (체력 30, 30초에 한 번)\nESC  메뉴";
+                "WASD  이동\n마우스  시점\n좌클릭  발사\n우클릭(누르고 있기)  조준\nSpace  점프\nShift  달리기\nQ  회피 (잠깐 무적)\nE  줍기 · 상호작용\n마우스 휠  1인칭 · 3인칭\nESC  메뉴";
             string rules =
                 $"<color=#{yellow}><size=130%>규칙</size></color>\n" +
                 "탄환은 한 발뿐이에요.\n빗나가면 탄환이 떨어져요. E키로 줍거나 기다리면 돌아와요.\n머리를 맞히면 처치하고 물감을 얻어요.\n몸을 맞혀도 처치되지만 물감은 없어요.\n방패는 정면의 총알을 막아요.\n얻은 재료는 미술관에 돌아가야 내 것이 돼요.\n쓰러지면 이번 판 재료를 잃어요.";
