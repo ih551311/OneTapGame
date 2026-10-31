@@ -15,6 +15,8 @@ namespace LastBullet.EditorTools
     // 다시 실행하면 지우고 새로 만든다. 메뉴: LastBullet > Phase 37 힐 효과 넣기
     public static class Phase37HealEffectSetup
     {
+        const bool UseSparkles = false;
+
         static readonly string[] Scenes =
         {
             "Assets/Scenes/2_Forest.unity",
@@ -65,12 +67,16 @@ namespace LastBullet.EditorTools
                 sfxSo.FindProperty("pitchRange").vector2Value = new Vector2(0.98f, 1.03f);
                 sfxSo.ApplyModifiedPropertiesWithoutUndo();
 
-                // 반짝이
-                var particleObject = new GameObject("HealParticles", typeof(ParticleSystem));
-                particleObject.transform.SetParent(player.transform, false);
-                particleObject.transform.localPosition = new Vector3(0f, 0.1f, 0f);
-                particleObject.transform.localRotation = Quaternion.Euler(-90f, 0f, 0f); // 위로 뿜는다
-                var particles = ConfigureParticles(particleObject.GetComponent<ParticleSystem>(), material);
+                // 반짝이: 2026-10-31 사용자 요청으로 화면 가장자리 번쩍만 남기고 껐다 (UseSparkles를 true로 하면 다시 만든다)
+                ParticleSystem particles = null;
+                if (UseSparkles)
+                {
+                    var particleObject = new GameObject("HealParticles", typeof(ParticleSystem));
+                    particleObject.transform.SetParent(player.transform, false);
+                    particleObject.transform.localPosition = new Vector3(0f, 0.1f, 0f);
+                    particleObject.transform.localRotation = Quaternion.Euler(-90f, 0f, 0f); // 위로 뿜는다
+                    particles = ConfigureParticles(particleObject.GetComponent<ParticleSystem>(), material);
+                }
 
                 // 화면 번쩍
                 var feedback = canvas.transform.Find("HitFeedback");
