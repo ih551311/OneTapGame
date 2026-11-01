@@ -1,3 +1,4 @@
+using LastBullet.Combat;
 using LastBullet.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,6 +29,51 @@ namespace LastBullet.Player
 
         // 조준할 때 마우스 감도를 낮추는 배율 (AimController가 정한다. 1 = 평소)
         public float SensitivityMultiplier { get; set; } = 1f;
+
+        [Header("발사 반동 (발로란트 느낌, 기본값)")]
+        [Tooltip("쏠 때 화면이 위로 튀는 각도 (도)")]
+        [SerializeField] float recoilPitchKick = 3.0f;
+
+        [Tooltip("쏠 때 화면이 좌우로 랜덤하게 흔들리는 최대 각도 (도). 오른쪽·왼쪽 중 무작위")]
+        [SerializeField] float recoilYawKick = 0.5f;
+
+        [Tooltip("튀어 오르는 빠르기 (클수록 순식간에 튄다)")]
+        [SerializeField] float recoilRiseSpeed = 40f;
+
+        [Tooltip("원래 자리로 돌아오는 빠르기 (클수록 빨리 돌아온다)")]
+        [SerializeField] float recoilRecoverSpeed = 6f;
+
+        [Tooltip("우클릭 조준 중에는 반동이 이 비율로 줄어든다")]
+        [Range(0f, 1f)]
+        [SerializeField] float recoilAimScale = 0.55f;
+
+        // 반동: 목표값이 순식간에 튀고(target), 화면은 그 뒤를 따라가며(current) 목표값은 천천히 0으로 돌아간다.
+        // 마우스로 정한 방향(yaw, pitch)은 바뀌지 않는다 (화면만 흔들리고 손은 그대로).
+        float recoilPitchTarget, recoilYawTarget;
+        float recoilPitchCurrent, recoilYawCurrent;
+        OneBulletGun gun;
+        AimController aim;
+
+        void OnEnable()
+        {
+            gun = GetComponent<OneBulletGun>();
+            aim = GetComponent<AimController>();
+            if (gun != null)
+                gun.Fired += OnFired;
+        }
+
+        void OnDisable()
+        {
+            if (gun != null)
+                gun.Fired -= OnFired;
+        }
+
+        void OnFired()
+        {
+            float scale = aim != null && aim.IsAiming ? recoilAimScale : 1f;
+            recoilPitchTarget += recoilPitchKick * scale;
+            recoilYawTarget += Random.Range(-recoilYawKick, recoilYawKick) * scale;
+        }
 
         float shakeAmplitude; // 흔들림 크기 (도)
         float shakeTime;      // 남은 흔들림 시간
@@ -78,7 +124,15 @@ namespace LastBullet.Player
                 float strength = shakeAmplitude * Mathf.Clamp01(shakeTime / shakeDuration);
                 shake = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-0.5f, 0.5f)) * strength;
             }
-            cameraTarget.rotation = Quaternion.Euler(pitch + shake.x, yaw + shake.y, shake.z);
+            // 반동: 튀어 오른 뒤 원래 자리로 돌아온다 (위로 튀려면 pitch를 줄인다)
+            float dt = Mathf.Min(Time.unscaledDeltaTime, 0.05f); // 씬을 불러온 직후나 끊김 때 반동이 한 번에 사라지지 않게
+            recoilPitchCurrent = Mathf.Lerp(recoilPitchCurrent, recoilPitchTarget, 1f - Mathf.Exp(-recoilRiseSpeed * dt));
+            recoilYawCurrent = Mathf.Lerp(recoilYawCurrent, recoilYawTarget, 1f - Mathf.Exp(-recoilRiseSpeed * dt));
+            float decay = Mathf.Exp(-recoilRecoverSpeed * dt);
+            recoilPitchTarget *= decay;
+            recoilYawTarget *= decay;
+
+            cameraTarget.rotation = Quaternion.Euler(pitch - recoilPitchCurrent + shake.x, yaw + recoilYawCurrent + shake.y, shake.z);
         }
 
         static void SetCursorLocked(bool locked)
