@@ -19,3 +19,4 @@ Character Model 2.0 (JellyFishGirl / Kurage) | 제작자: 에셋 스토어 표�
 Free Pack - Stick Man 1.0 | PolyOne Studio | Unity Asset Store (Free Pack - Stick Man, 무료) | Standard Unity Asset Store EULA | 적 3종(돌진형·방어형·원거리형)의 스틱맨 모델과 동작(대기·걷기·달리기·빨리 달리기) (Assets/PolyOne/Free Stickman). 에셋의 동작 clip 4개의 되풀이(loop) 설정을 켬. 안 쓰는 파일 10개(앉기·수영·점프·외침 동작, 데모 컨트롤러·씬·바닥, 안 쓰는 그림)는 지움(Package Manager에서 다시 받을 수 있음). 방패는 이 프로젝트에서 도형으로 만든 것
 
 Low Poly Guns (pistol1) | (제작자 확인 필요) | 사용자가 직접 가져옴 (출처·라이선스는 사용자 확인 필요) | (출처 URL 확인 필요) | 1인칭 총 모양 (Assets/Low Poly Guns/Models/Guns/pistol1, 1.4m짜리를 0.22배로 줄여 사용. 원본 머티리얼은 URP용 FirstPersonGun_Pistol.mat으로 따로 만듦)
+Sci-Fi Music Pack 1 1.0 | pdkmusic | Unity Asset Store (Sci-Fi Music Pack 1, 무료, 2017-12-19) | Standard Unity Asset Store EULA | 전투 맵 배경음악: 숲 Buying crap_2, 성 마을 Illusion, 사막 Zero8 _2 (Assets/Sci-Fi Music Pack 1/Loops의 LOOP 버전 3곡만 GitHub에 올림. 나머지는 프로젝트에는 있지만 .gitignore로 제외. 전체 364MB는 Package Manager에서 다시 받을 수 있음). 에셋 설명에 따라 리뷰를 남기면 제작자에게 도움이 된다

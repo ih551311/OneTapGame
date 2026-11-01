@@ -129,3 +129,16 @@ InitTestScene*.unity*
 # 쓰지 않는 발소리 에셋 전체(26MB)도 올리지 않는다 (쓰는 8개는 Assets/Audio/Footsteps에 다듬어 두었다)
 /Assets/Footstep(Snow and Grass)/
 /Assets/Footstep(Snow and Grass).meta
+
+# Sci-Fi Music Pack 1 (about 364MB): only the 3 loops used by battle maps are committed. Everything else stays local.
+/Assets/Sci-Fi Music Pack 1/*
+!/Assets/Sci-Fi Music Pack 1/Loops/
+/Assets/Sci-Fi Music Pack 1/Loops/*
+!/Assets/Sci-Fi Music Pack 1/Loops/SMP1_LOOP_Buying crap_2.wav
+!/Assets/Sci-Fi Music Pack 1/Loops/SMP1_LOOP_Buying crap_2.wav.meta
+!/Assets/Sci-Fi Music Pack 1/Loops/SMP1_LOOP_Illusion.wav
+!/Assets/Sci-Fi Music Pack 1/Loops/SMP1_LOOP_Illusion.wav.meta
+!/Assets/Sci-Fi Music Pack 1/Loops/SMP1_LOOP_Zero8 _2.wav
+!/Assets/Sci-Fi Music Pack 1/Loops/SMP1_LOOP_Zero8 _2.wav.meta
+!/Assets/Sci-Fi Music Pack 1/Loops.meta
+!/Assets/Sci-Fi Music Pack 1.meta
