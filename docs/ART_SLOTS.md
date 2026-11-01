@@ -86,7 +86,7 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/Player.mat` | 주인공 | `Player/Body`, `Player/Front` |
 | `Materials/Gun.mat` | 총 | `Player/Gun` (바꾸면 `Player/Muzzle`을 총구 끝으로 옮긴다) |
 | `Materials/Enemy_Charger.mat` | 돌진형 적 (회색 조각상) | 프리팹 `Prefabs/Enemy_Charger`의 `Body`, `Head` (Hitbox 콜라이더 크기도 맞춘다) |
-| `Materials/Bullet.mat` | 떨어진 탄환 | 프리팹 `Prefabs/DroppedBullet`의 `Model` |
+| `Assets/3Dmake/BULIT.fbx` (탄환 모델, 재질 GameBullet_brass·copper·darkBrass·primer는 모델 안에 들어 있음) | **바닥에 떨어진 탄환** 모양 (실제 크기 4.6cm를 6배로 키워 옆으로 눕힘). 멀리서 찾도록 빛기둥(`LightPillar`)은 그대로. 모델을 바꿀 때는 `Prefabs/DroppedBullet/Model` 아래의 `Bullet`만 바꾼다. E키 회수·7초 복귀는 맨 위 `BulletPickup`·`BulletAutoReturn`이 한다 | `Prefabs/DroppedBullet`의 `Model/Bullet` |
 | `Materials/LightPillar.mat` | 탄환 위 빛 기둥 (반투명) | 프리팹 `Prefabs/DroppedBullet`의 `LightPillar` |
 | `Materials/Tracer.mat` | 탄도선 | `Player/BulletTracer` |
 | `Materials/ImpactMarker.mat` | 맞은 자리에 0.4초 보이는 점 | 프리팹 `Prefabs/ImpactMarker`의 `Model` (총 `OneBulletGun`의 `Impact Marker Prefab`) |

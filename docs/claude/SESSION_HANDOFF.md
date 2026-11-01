@@ -454,3 +454,9 @@ Phase 1에서 한 일 (2026-10-29):
 - 곡(LOOP 버전만, 직접 들어 보지는 못함 — 길이·평균 소리 크기·리듬 밀도 분석과 곡 이름으로 판단): 숲 = Buying crap_2(50초, 조용하고 리듬이 듬성듬성), 성 마을 = Illusion(21초, 몽환적), 사막 = Zero8 _2(33초, 조금 긴장). 소리 0.2(효과음이 묻히지 않게 작게). 스트리밍·Vorbis로 가져옴. 메뉴 `LastBullet > Phase 57 전투 맵 배경음악 넣기`(곡 바꾸려면 메뉴의 Tracks 표를 고치고 다시 실행하거나 씬의 BackgroundMusic > Music Player에서 Music을 바꾼다).
 - 에셋 364MB 중 쓰는 3곡(.wav + .meta)만 GitHub에 올라가도록 `.gitignore`에 나머지를 제외했다 (git check-ignore로 확인).
 - 확인: 사막 플레이에서 곡이 재생·반복(isPlaying, loop) 중, 소리 0.2. 숲·성 마을은 설정값만 확인. 곡 분위기가 맞는지는 사용자가 들어 보고 알려야 한다. 마음에 안 들면 같은 팩의 다른 곡(Sabotage, No prayer, Search and rescue, Silly robot chase 등)으로 바꿀 수 있다.
+
+## 2026-11-02 탄환 모델 교체 (Phase 58)
+- 사용자가 `Assets/3Dmake/BULIT.fbx`(황동 탄피 + 구리 탄두, 실제 크기 약 4.6cm)를 가져와서 바닥에 떨어진 탄환(`Prefabs/DroppedBullet`)의 겉모습을 바꿨다. 메뉴 `LastBullet > Phase 58 탄환 모델 바꾸기`(다시 실행하면 새로 맞춤).
+- `Model`(겉모습 자리) 아래에 `Bullet`(FBX) — 6배(약 27cm)로 키워 옆으로 눕히고(Z 90°) 살짝 비스듬히(Y 25°), 바닥에 닿게 맞췄다. 맨 위의 `BulletPickup`(E키 회수)·`BulletAutoReturn`(7초 복귀)과 `LightPillar`(빛기둥)는 그대로. 안 쓰는 옛 `Bullet.mat`은 지웠다.
+- 확인: 사막 바닥에 스폰해 임시 카메라로 렌더링 — 탄환이 모래 위에 누워 있고(바닥 높이 0, 몸통이 닿음) 모양·재질 정상. 눈에 띄는 정도: 황동색이 사막 모래색과 비슷해서 대비가 약하고 빛기둥도 노란색이라 사막에서는 눈에 덜 띈다. 성 마을·숲은 확인 못 함. 필요하면 탄환을 더 키우거나 빛기둥 색을 바꾼다(맵마다 다르게).
+- 장전 상태 표시 등 2D UI(BulletIndicatorUI)는 3D 모델과 별개라 그대로다.
