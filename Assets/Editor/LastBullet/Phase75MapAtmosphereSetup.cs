@@ -72,25 +72,25 @@ namespace LastBullet.EditorTools
                 switch (kind)
                 {
                     case "forest":
-                        day.Add(Make(root.transform, new Spec { name = "Pollen", material = mote, count = 200, size = new Vector2(0.12f, 0.24f),
+                        day.Add(Make(root.transform, new Spec { name = "Pollen", material = mote, count = 90, size = new Vector2(0.12f, 0.24f),
                             colorA = new Color(1f, 0.93f, 0.45f, 0.6f), colorB = new Color(1f, 0.85f, 0.3f, 0.9f), drift = new Vector3(0.25f, 0.05f, 0.1f), noiseStrength = 0.35f }));
-                        day.Add(Make(root.transform, new Spec { name = "Leaves", material = leaf, count = 45, lifetime = new Vector2(9f, 14f), size = new Vector2(0.28f, 0.45f),
+                        day.Add(Make(root.transform, new Spec { name = "Leaves", material = leaf, count = 20, lifetime = new Vector2(9f, 14f), size = new Vector2(0.28f, 0.45f),
                             colorA = new Color(0.45f, 0.65f, 0.2f, 1f), colorB = new Color(0.9f, 0.7f, 0.2f, 1f), area = new Vector3(44f, 4f, 44f), centerY = 9f,
                             drift = new Vector3(0.8f, -0.6f, 0.3f), driftRandom = new Vector3(0.4f, 0.2f, 0.3f), noiseStrength = 0.7f, spin = 2f }));
-                        night.Add(Make(root.transform, new Spec { name = "Fireflies", material = glow, count = 90, lifetime = new Vector2(7f, 12f), size = new Vector2(0.35f, 0.6f),
+                        night.Add(Make(root.transform, new Spec { name = "Fireflies", material = glow, count = 45, lifetime = new Vector2(7f, 12f), size = new Vector2(0.35f, 0.6f),
                             colorA = new Color(0.75f, 1f, 0.25f, 1f), colorB = new Color(1f, 0.95f, 0.35f, 1f), area = new Vector3(36f, 4f, 36f), centerY = 2.2f,
                             drift = Vector3.zero, driftRandom = new Vector3(0.15f, 0.1f, 0.15f), noiseStrength = 0.9f, noiseFrequency = 0.25f, pulse = true }));
                         break;
                     case "castle":
-                        day.Add(Make(root.transform, new Spec { name = "Dust", material = mote, count = 170, size = new Vector2(0.13f, 0.24f),
+                        day.Add(Make(root.transform, new Spec { name = "Dust", material = mote, count = 80, size = new Vector2(0.13f, 0.24f),
                             colorA = new Color(0.8f, 0.68f, 0.45f, 0.55f), colorB = new Color(0.9f, 0.78f, 0.55f, 0.9f), drift = new Vector3(0.2f, 0.02f, 0.1f) }));
-                        day.Add(Make(root.transform, new Spec { name = "Petals", material = leaf, count = 32, lifetime = new Vector2(10f, 16f), size = new Vector2(0.2f, 0.33f),
+                        day.Add(Make(root.transform, new Spec { name = "Petals", material = leaf, count = 14, lifetime = new Vector2(10f, 16f), size = new Vector2(0.2f, 0.33f),
                             colorA = new Color(1f, 0.85f, 0.9f, 1f), colorB = new Color(1f, 1f, 1f, 1f), area = new Vector3(44f, 4f, 44f), centerY = 8f,
                             drift = new Vector3(0.7f, -0.45f, 0.3f), driftRandom = new Vector3(0.3f, 0.15f, 0.3f), noiseStrength = 0.6f, spin = 2.5f }));
-                        night.Add(Make(root.transform, new Spec { name = "Embers", material = glow, count = 55, lifetime = new Vector2(6f, 10f), size = new Vector2(0.18f, 0.32f),
+                        night.Add(Make(root.transform, new Spec { name = "Embers", material = glow, count = 28, lifetime = new Vector2(6f, 10f), size = new Vector2(0.18f, 0.32f),
                             colorA = new Color(1f, 0.45f, 0.1f, 1f), colorB = new Color(1f, 0.75f, 0.25f, 1f), area = new Vector3(40f, 3f, 40f), centerY = 1.5f,
                             drift = new Vector3(0.1f, 0.5f, 0.05f), driftRandom = new Vector3(0.2f, 0.25f, 0.2f), noiseStrength = 0.5f, pulse = true }));
-                        night.Add(Make(root.transform, new Spec { name = "NightDust", material = mote, count = 80, size = new Vector2(0.08f, 0.15f),
+                        night.Add(Make(root.transform, new Spec { name = "NightDust", material = mote, count = 35, size = new Vector2(0.08f, 0.15f),
                             colorA = new Color(0.7f, 0.8f, 1f, 0.25f), colorB = new Color(0.8f, 0.85f, 1f, 0.4f), drift = new Vector3(0.15f, 0.02f, 0.08f) }));
                         break;
                     case "desert":
