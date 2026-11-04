@@ -10,7 +10,7 @@ namespace LastBullet.EditorTools
 {
     // 미술관 입구 안내판과 안내 팝업을 만든다 (2026-11-05 사용자 요청: 처음 들어온 사람에게 조작을 알려 주는 튜토리얼).
     //   Canvas/GuidePopup: 전투 장소 선택 팝업과 같은 모양(어두운 배경 + Popup_Panel 창 + Button_Close)의 안내 창.
-    //                      왼쪽 "조작", 오른쪽 "이렇게 해요"는 글자가 아니라 그림이다: Assets/UI/Guide_Controls.png, Guide_Flow.png (사용자가 같은 이름으로 덮어써서 바꾼다).
+    //                      왼쪽 "조작", 오른쪽 "규칙"(메인 화면 도움말과 같은 내용. 나중에 이 안내판은 스토리 보기로 쓸 예정 — 2026-11-05 사용자)은 글자가 아니라 그림이다: Assets/UI/Guide_Controls.png, Guide_Flow.png (사용자가 같은 이름으로 덮어써서 바꾼다).
     //   Canvas/Prompt_Guide: 가까이 가면 뜨는 "[E] 안내판 읽기".
     //   GuideSign: 입구(시작 위치 왼쪽 앞)에 서 있는 나무 안내판. 판의 앞면 그림은 Assets/Textures/GuideSign_Board.png (머티리얼 GuideSign_Board의 Base Map). 처음 들어오면 팝업이 저절로 한 번 열린다.
     //   그림 파일(PNG)이 없으면 만들지 않는다 (있는 그림을 덮어쓰지 않는다).
@@ -63,7 +63,7 @@ namespace LastBullet.EditorTools
                     Object.DestroyImmediate(t.gameObject);
             }
             ((RectTransform)panel.transform).sizeDelta = new Vector2(1500f, 900f);
-            panel.transform.Find("Title").GetComponent<TMP_Text>().text = "안내";
+            panel.transform.Find("Title").GetComponent<TMP_Text>().text = "도움말";
             var title = (RectTransform)panel.transform.Find("Title");
             title.anchoredPosition = new Vector2(0f, -70f);
 
@@ -79,7 +79,7 @@ namespace LastBullet.EditorTools
             // ── 안내 문구 "[E] 안내판 읽기": 다른 안내 문구를 복사해서 글자만 바꾼다 ──
             var prompt = Object.Instantiate(stagePrompt.gameObject, canvas.transform, false);
             prompt.name = "Prompt_Guide";
-            prompt.GetComponent<TMP_Text>().text = "[E] 안내판 읽기";
+            prompt.GetComponent<TMP_Text>().text = "[E] 도움말 보기";
             prompt.SetActive(false);
 
             // ── 안내판 ──
@@ -88,10 +88,10 @@ namespace LastBullet.EditorTools
             var boardTexture = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Textures/GuideSign_Board.png");
             if (boardTexture != null && boardMat.GetTexture("_BaseMap") == null)
             {
-                boardMat.SetTexture("_BaseMap", boardTexture); // 이미 그림을 넣어 둔 머티리얼은 그대로 둔다
-                // 큐브의 이 면은 그림이 위아래로 뒤집혀 보이므로 세로를 뒤집어 입힌다 (그림 파일은 원래 모양 그대로 그리면 된다)
-                boardMat.SetTextureScale("_BaseMap", new Vector2(1f, -1f));
-                boardMat.SetTextureOffset("_BaseMap", new Vector2(0f, 1f));
+                // 그림은 뒤집지 않고 그대로 입힌다 (실제 게임 화면에서 바르게 보인다). 이미 그림을 넣어 둔 머티리얼은 그대로 둔다.
+                boardMat.SetTexture("_BaseMap", boardTexture);
+                boardMat.SetTextureScale("_BaseMap", Vector2.one);
+                boardMat.SetTextureOffset("_BaseMap", Vector2.zero);
             }
             var sign = new GameObject("GuideSign");
             Vector3 position = new Vector3(-2.6f, 0f, 0.9f);
