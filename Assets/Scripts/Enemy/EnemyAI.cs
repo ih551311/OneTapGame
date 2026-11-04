@@ -17,7 +17,7 @@ namespace LastBullet.Enemy
         enum AttackPhase { Windup, Dash, Recover }
 
         [Header("감지 (기본값)")]
-        [SerializeField] float detectRange = 25f;      // 이 거리 안에 플레이어가 오면 쫓아온다 (2026-10-30 사용자 요청: 15 → 25)
+        [SerializeField] float detectRange = 45f;      // 이 거리 안에 플레이어가 오면 쫓아온다 (2026-10-30 사용자 요청: 15 → 25, 2026-11-05 사용자 요청: 25 → 45)
 
         [Header("추적 (기본값)")]
         [SerializeField] float chaseSpeed = 4f;        // m/s
@@ -159,6 +159,9 @@ namespace LastBullet.Enemy
 
         void OnDamaged(EnemyHealth _)
         {
+            // 아직 모르고 있던 적이 맞으면 거리와 상관없이 바로 플레이어를 알아챈다 (먼 곳에서 쏴도 쫓아온다)
+            if (State == AIState.Idle)
+                State = AIState.Chase;
             if (hitStunTime <= 0f)
                 return; // 연사에 계속 멈칫하지 않는다 (2026-11-04 데스티니식 전투)
             State = AIState.Hit;

@@ -18,7 +18,7 @@ namespace LastBullet.Enemy
         enum AIState { Idle, KeepDistance, Attack, Hit, Dead }
 
         [Header("감지 (기본값)")]
-        [SerializeField] float detectRange = 30f;       // (2026-10-30 사용자 요청: 22 → 30)
+        [SerializeField] float detectRange = 50f;       // (2026-10-30 사용자 요청: 22 → 30, 2026-11-05 사용자 요청: 30 → 50)
 
         [Header("거리 유지 (기본값)")]
         [SerializeField] float moveSpeed = 3f;          // m/s
@@ -192,6 +192,12 @@ namespace LastBullet.Enemy
 
         void OnDamaged(EnemyHealth _)
         {
+            // 아직 모르고 있던 적이 맞으면 거리와 상관없이 바로 플레이어를 알아챈다
+            if (state == AIState.Idle)
+            {
+                state = AIState.KeepDistance;
+                nextThrowTime = Time.time + 1f;
+            }
             if (hitStunTime <= 0f)
                 return; // 연사에 계속 멈칫하지 않는다 (2026-11-04 데스티니식 전투)
             state = AIState.Hit;
