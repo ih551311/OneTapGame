@@ -1,4 +1,4 @@
-# 내 그림 넣는 곳 (아트 슬롯)
+﻿# 내 그림 넣는 곳 (아트 슬롯)
 
 게임에 나오는 그림과 겉모습은 모두 아래 파일 중 하나로 정해진다.
 지금 들어 있는 것은 **임시 그림**이다. 직접 그린 것으로 바꾸면 게임에 바로 반영된다.
@@ -196,4 +196,8 @@ Enemy_Charger            ← 기능 (EnemyHealth, EnemyAI, EnemyDrop, NavMeshAge
 | `Materials/ShellCasing.mat` | **탄피**: 황동색 작은 막대 파티클 `ShellCasing` (총 오른쪽 위 배출구에서 튀어 중력으로 떨어짐). 모양을 바꾸려면 파티클의 Renderer > Mesh를 바꾼다 | - | 4개 씬 |
 | `Assets/Audio/Combat/Hit_Body.wav`, `Hit_Crit.wav`, `Hit_Kill.wav` | **맞은 소리**: 몸 "틱" / 머리(크리티컬) "딩" / 처치 "퍽". 코드로 만든 임시 소리라서 같은 이름으로 덮어쓰면 바뀐다. `Player/HitSound`(2D)로 재생 | 0.07~0.32초 | 4개 씬 |
 | `Assets/Effects/DeathPop.png` + `Materials/DeathPop.mat` + `Prefabs/DeathPop.prefab` | **적 처치 때 몸이 터지는 연출**: 물감 방울 28개(Blobs)와 둥근 번쩍임(Flash). 색은 그 적의 물감 색으로 코드가 바꾼다. 적 프리팹의 `EnemyDeathEffect` > Pop Prefab에 연결 | 64×64 | 적 프리팹 4개 |
-
+| `Assets/Effects/LightShaft.png` + `Materials/LightShaft.mat` + `Assets/Models/LightShaftCone.asset` | **미술관 빛 줄기**: 천장 등(갓 높이)에서 바닥으로 퍼지는 원뿔 8개 (`Atmosphere/LightShafts`). 그림은 위가 밝고 아래로 사라지는 흰색 그라데이션, 색·세기는 머티리얼에서 | 32×128 | 1_Museum |
+| `Assets/Effects/Dust.png` + `Materials/Dust.mat` | **미술관 먼지**: 전시장 안을 천천히 떠다니는 작은 알갱이 (`Atmosphere/DustMotes` 파티클) | 32×32 | 1_Museum |
+| `Assets/UI/PaintBlob.png` | **색 번짐 전환**의 물감 얼룩 (`Canvas/PaintTransition` 아래 40개). 흰색 그림이고 색은 코드가 그 맵의 물감 3색으로 입힌다 | 256×256 | 미술관·숲·성 마을·사막 |
+| `Materials/WallClock_Face.mat`, `WallClock_Rim.mat`, `WallClock_Hands.mat` | **미술관 벽시계**(`WallClock`, 북쪽 벽 가운데 액자 위): 상아색 판 · 황동 테두리 · 검은 바늘/눈금. 컴퓨터 시각대로 바늘이 움직인다. 모양을 바꿀 때는 `WallClock` 아래 부품을 바꾼다 | - | 1_Museum |
+| `Assets/Audio/Museum/Clock_Tick.wav`, `Clock_Tock.wav`, `Creak_01~03.wav` | **미술관 작은 소리**: 시계 똑·딱(1초마다 번갈아, 3D)과 가끔 플레이어 근처에서 나는 마룻바닥 삐걱(3D). 코드로 만든 임시 소리라 같은 이름으로 덮어쓰면 바뀐다 | 0.1초, 0.7~1.1초 | 1_Museum |
