@@ -466,3 +466,13 @@ Phase 1에서 한 일 (2026-10-29):
 - 값(인스펙터 `ThirdPersonCamera`): Recoil Pitch Kick 3.0, Recoil Yaw Kick 0.5, Recoil Rise Speed 40, Recoil Recover Speed 6, Recoil Aim Scale 0.55. 끊김 때 반동이 한 번에 사라지지 않게 프레임 시간을 0.05초로 제한.
 - 1인칭 총의 반동(`FirstPersonGun`: 총이 뒤로 밀리고 총구가 들림)과는 따로 같이 일어난다.
 - 확인: 사막 플레이에서 쏘는 호출로 카메라 반동이 생기고 0으로 돌아오는 것을 수치로 확인, 60fps 계산상 약 2.2° 정점 후 0.6초 내 정착. 실제 마우스로 쏠 때의 느낌(세기·길이)은 사용자가 확인해야 한다.
+
+## 2026-11-04 전투 방향 전환 — A단계: 연사 총 (Phase 59, 60)
+- 사용자 결정(claude.ai 인계 문서 `CHANGES_HANDOFF.md`): 전투를 데스티니식으로 바꾼다. 한 발 탄환·탄환 회수·7초 복귀·헤드샷 원탭을 없애고 탄창+재장전+연사(탄 무한), 적 HP+크리티컬, 데미지 숫자, 적 체력바, 탄약 표시로. 순서 A 총 → B 적 HP·크리티컬 → C 원탭 코드 정리 → D 난이도 → E 무기 교체·스킬. 미술관·그림·재료·합성·저장·엔딩은 그대로. 제목은 "리크로마(ReChroma)"로 확정(아직 productName은 안 바꿈 — 바꾸면 저장 위치가 바뀌어서 옛 저장을 옮기는 작업과 같이 해야 한다).
+- 미정(묻고 진행): 근접·보스, 체력 회복 방식(지금 처치 회복 유지), 크리티컬 배수·적 HP·탄창 크기, 물감 드롭 조건(지금 헤드샷 처치만), 스토리 A/B안.
+- **A단계(이번)**: `Combat/AutoGun.cs` — 좌클릭 누르고 있으면 연사(0.11초 간격, 초당 약 9발), 탄창 30, 재장전 1.6초(R키 또는 탄창이 비면 자동), 탄 무한, 사거리 80m. 맞히는 방식(카메라 조준점 → 총구 레이 → Hitbox)은 예전과 같고 아직 적은 맞으면 바로 처치(HP는 B단계). 재장전 소리: Handgun/Reload의 magOut·magIn·charge(Player/ReloadSound, 2D). 이벤트 Fired·ReloadStarted·ReloadFinished·AmmoChanged.
+  - 메뉴 `Phase 59 연사 총으로 바꾸기`(4개 씬): OneBulletGun 컴포넌트 제거·AutoGun 연결(총구·탄도선·맞은 점·발사 소리 옮김), PlayerAnimator·FirstPersonGun 재연결, 탄환 위치 안내(BulletIndicatorUI, ReturnGauge, BulletArrow) 삭제, `Canvas/AmmoDisplay`(UI/AmmoDisplay.cs) 추가.
+  - 다른 스크립트(PlayerControlLock, PlayerHealth, PlayerAnimator, ThirdPersonCamera, FirstPersonGun)는 AutoGun을 본다. 카메라 반동은 연사용으로 약하게(한 발 0.9°, 좌우 0.25°, 최대 4.5°까지 쌓임), 1인칭 총 반동도 쌓이되 1까지. 1인칭 총은 재장전 때 아래로 내려갔다 올라온다.
+  - **아직 남아 있는 옛 코드(C단계에서 지움)**: `OneBulletGun.cs`, `BulletPickup.cs`, `BulletAutoReturn.cs`, `BulletIndicatorUI.cs`, `Prefabs/DroppedBullet.prefab`, `LightPillar.mat`, Phase3·58 메뉴, 탄환 안내 PNG. 지금은 쓰이지 않는다.
+- **총 모양**(사용자: 처음 캐릭터 총 그대로): 메뉴 `Phase 60 총을 캐릭터 원래 총으로 되돌리기` — 3인칭은 `modelGun` 다시 켜고 pistol1(ThirdPersonPistol) 삭제. 1인칭은 pistol1 대신 `modelGun`을 총 쥔 자세(Wait01)로 떼어 낸 메시(`Models/FirstPerson/FirstPersonArm_Gun.asset`, 재질 복사 `FirstPersonGun_Original.mat`)를 `Arm/Gun`으로 붙임(총신이 손의 앞과 거의 같아 2°만 돌림). 원래 총이 커서 Model 0.7배, Rest Position (0.25,-0.22,0.8), Aim (0.16,-0.17,0.8) — 세 크기를 캡처해 비교해 고름. pistol1 에셋(Low Poly Guns)과 `ThirdPersonGunPose`·Phase 49·50 메뉴는 이제 안 쓴다.
+- 확인: 4개 씬 연결(총·소리·UI·옛 컴포넌트 없음·missing 0). 사막 플레이: 6초간 누르고 있으니 30발 연사 → 재장전 시작(탄 0) → 1.6초 뒤 30발 → 계속 연사. 3인칭 원래 총, 1인칭 원래 총+손, 탄약 표시("30 / 30", "재장전 62%" 빨간 0/30) 캡처 확인. 실제 마우스 느낌·소리는 사용자 확인 필요.

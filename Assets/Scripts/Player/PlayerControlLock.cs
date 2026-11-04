@@ -14,7 +14,7 @@ namespace LastBullet.Player
             IsLocked = locked;
             SetEnabled<PlayerMovement>(!locked);
             SetEnabled<ThirdPersonCamera>(!locked);
-            SetEnabled<OneBulletGun>(!locked);
+            SetEnabled<AutoGun>(!locked);
             Cursor.lockState = locked ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = locked;
         }

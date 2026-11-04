@@ -32,16 +32,19 @@ namespace LastBullet.Player
 
         [Header("발사 반동 (발로란트 느낌, 기본값)")]
         [Tooltip("쏠 때 화면이 위로 튀는 각도 (도)")]
-        [SerializeField] float recoilPitchKick = 3.0f;
+        [SerializeField] float recoilPitchKick = 0.9f;
 
         [Tooltip("쏠 때 화면이 좌우로 랜덤하게 흔들리는 최대 각도 (도). 오른쪽·왼쪽 중 무작위")]
-        [SerializeField] float recoilYawKick = 0.5f;
+        [SerializeField] float recoilYawKick = 0.25f;
 
         [Tooltip("튀어 오르는 빠르기 (클수록 순식간에 튄다)")]
         [SerializeField] float recoilRiseSpeed = 40f;
 
-        [Tooltip("원래 자리로 돌아오는 빠르기 (클수록 빨리 돌아온다)")]
+        [Tooltip("연사할 때 화면이 올라갈 수 있는 한계 각도 (도)")]
         [SerializeField] float recoilRecoverSpeed = 6f;
+
+        [Tooltip("연사할 때 화면이 올라갈 수 있는 한계 각도 (도)")]
+        [SerializeField] float recoilPitchMax = 4.5f;
 
         [Tooltip("우클릭 조준 중에는 반동이 이 비율로 줄어든다")]
         [Range(0f, 1f)]
@@ -51,12 +54,12 @@ namespace LastBullet.Player
         // 마우스로 정한 방향(yaw, pitch)은 바뀌지 않는다 (화면만 흔들리고 손은 그대로).
         float recoilPitchTarget, recoilYawTarget;
         float recoilPitchCurrent, recoilYawCurrent;
-        OneBulletGun gun;
+        AutoGun gun;
         AimController aim;
 
         void OnEnable()
         {
-            gun = GetComponent<OneBulletGun>();
+            gun = GetComponent<AutoGun>();
             aim = GetComponent<AimController>();
             if (gun != null)
                 gun.Fired += OnFired;
@@ -71,7 +74,7 @@ namespace LastBullet.Player
         void OnFired()
         {
             float scale = aim != null && aim.IsAiming ? recoilAimScale : 1f;
-            recoilPitchTarget += recoilPitchKick * scale;
+            recoilPitchTarget = Mathf.Min(recoilPitchTarget + recoilPitchKick * scale, recoilPitchMax); // 연사해도 일정 높이까지만 올라간다
             recoilYawTarget += Random.Range(-recoilYawKick, recoilYawKick) * scale;
         }
 

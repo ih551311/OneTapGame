@@ -83,7 +83,7 @@ namespace LastBullet.Player
             // 조작을 막는다 (카메라는 계속 돌릴 수 있다)
             if (movement != null)
                 movement.enabled = false;
-            var gun = GetComponent<OneBulletGun>();
+            var gun = GetComponent<AutoGun>();
             if (gun != null)
                 gun.enabled = false;
 

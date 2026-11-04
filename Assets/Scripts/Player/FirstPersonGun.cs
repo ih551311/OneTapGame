@@ -14,7 +14,7 @@ namespace LastBullet.Player
     public class FirstPersonGun : MonoBehaviour
     {
         [SerializeField] CameraZoom zoom;
-        [SerializeField] OneBulletGun gun;
+        [SerializeField] AutoGun gun;
         [SerializeField] PlayerHealth health;
         [SerializeField] AimController aim;
         [SerializeField] CharacterController controller;
@@ -31,9 +31,9 @@ namespace LastBullet.Player
 
         [Header("움직임 (기본값)")]
         [Tooltip("쏠 때 뒤로 밀리는 거리 (m)")]
-        [SerializeField] float recoilBack = 0.07f;
+        [SerializeField] float recoilBack = 0.04f;
         [Tooltip("쏠 때 총구가 들리는 각도 (도)")]
-        [SerializeField] float recoilPitch = 7f;
+        [SerializeField] float recoilPitch = 4f;
         [Tooltip("반동이 돌아오는 빠르기 (클수록 빠름)")]
         [SerializeField] float recoilRecover = 14f;
         [Tooltip("걸을 때 흔들리는 크기 (m)")]
@@ -71,7 +71,7 @@ namespace LastBullet.Player
 
         void OnFired()
         {
-            recoil = 1f;
+            recoil = Mathf.Min(1f, recoil + 0.5f); // 연사하면 쌓이지만 한계가 있다
         }
 
         void LateUpdate()
@@ -99,6 +99,9 @@ namespace LastBullet.Player
 
             Vector3 position = Vector3.Lerp(restPosition, aimPosition, aimBlend) + sway;
             position += new Vector3(0f, -(1f - t) * 0.35f, -recoil * recoilBack);
+            // 재장전: 총이 아래로 내려갔다가 올라온다 (진행도 0~1에서 sin 곡선)
+            float reloadDip = gun != null && gun.IsReloading ? Mathf.Sin(gun.ReloadProgress * Mathf.PI) : 0f;
+            position += new Vector3(0.03f * reloadDip, -0.16f * reloadDip, 0f);
             // 시야각이 줄면(조준) 같은 거리에서도 크게 보이므로, 크기와 자리를 같은 비율로 줄여서 화면에서 똑같이 보이게 한다
             float fovScale = 1f;
             if (mainCamera == null)
@@ -107,7 +110,7 @@ namespace LastBullet.Player
                 fovScale = Mathf.Clamp(Mathf.Tan(mainCamera.fieldOfView * 0.5f * Mathf.Deg2Rad) / Mathf.Tan(normalFieldOfView * 0.5f * Mathf.Deg2Rad), 0.3f, 1.5f);
             transform.localScale = Vector3.one * fovScale;
             transform.localPosition = position * fovScale;
-            transform.localRotation = Quaternion.Euler(-recoil * recoilPitch - restPitch, restYaw, 0f);
+            transform.localRotation = Quaternion.Euler(-recoil * recoilPitch - restPitch + 28f * reloadDip, restYaw, 14f * reloadDip);
         }
 
         void SetShown(bool show)

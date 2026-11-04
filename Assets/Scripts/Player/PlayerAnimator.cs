@@ -15,7 +15,7 @@ namespace LastBullet.Player
         [SerializeField] PlayerMovement movement;
         [SerializeField] CharacterController controller;
         [SerializeField] PlayerHealth health;
-        [SerializeField] OneBulletGun gun;
+        [SerializeField] AutoGun gun;
 
         [Tooltip("이 속도(m/s)를 넘으면 달리기 동작. 걷기 5.05, 달리기 7.85의 가운데쯤")]
         [SerializeField] float smoothTime = 0.08f;

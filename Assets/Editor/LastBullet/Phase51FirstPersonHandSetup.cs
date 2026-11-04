@@ -242,7 +242,7 @@ namespace LastBullet.EditorTools
         }
 
         // 한 정점(또는 법선)을 현재 뼈 자세로 월드 좌표에 옮긴다
-        static Vector3 Skin(int v, BoneWeight[] weights, Transform[] bones, Matrix4x4[] bindposes, Vector3[] data, bool point)
+        internal static Vector3 Skin(int v, BoneWeight[] weights, Transform[] bones, Matrix4x4[] bindposes, Vector3[] data, bool point)
         {
             var w = weights[v];
             Vector3 result = Vector3.zero;
