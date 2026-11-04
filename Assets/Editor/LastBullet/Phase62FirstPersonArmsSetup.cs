@@ -22,6 +22,8 @@ namespace LastBullet.EditorTools
     {
         const float HolderScale = 1.15f;     // 1인칭 총·팔 크기 (이전: 총 약 0.9배 → 사용자 요청으로 조금 키움. 1.5는 화면을 너무 가렸다)
         static readonly Vector3 GripInGun = new Vector3(0f, -0.04f, -0.157f);
+        static readonly Vector3 LeftHandEuler = new Vector3(0f, 0f, 90f);
+        static readonly Vector3 LeftFistInHand = new Vector3(-0.02f, -0.055f, 0.10f);
         static readonly Vector3 RestPosition = new Vector3(0.28f, -0.25f, 0.6f);
         static readonly Vector3 AimPosition = new Vector3(0.1f, -0.19f, 0.58f);
 
@@ -73,6 +75,11 @@ namespace LastBullet.EditorTools
                     if (clip.name == "Wait01")
                         clip.SampleAnimation(animator.gameObject, clip.length * 0.5f);
                 var pose = thirdGun.GetComponent<ThirdPersonGunPose>();
+                // 왼손 방향: 손바닥이 총(오른쪽)을 향해야 한다 (2026-11-04 사용자: 손이 반대로 보인다)
+                var handSo = new SerializedObject(pose);
+                handSo.FindProperty("leftHandEuler").vector3Value = LeftHandEuler;
+                handSo.FindProperty("leftFistInHand").vector3Value = LeftFistInHand;
+                handSo.ApplyModifiedPropertiesWithoutUndo();
                 typeof(ThirdPersonGunPose).GetMethod("LateUpdate", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).Invoke(pose, null);
 
                 if (meshes.Count == 0)
