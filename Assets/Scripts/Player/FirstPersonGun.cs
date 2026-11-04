@@ -110,7 +110,9 @@ namespace LastBullet.Player
                 fovScale = Mathf.Clamp(Mathf.Tan(mainCamera.fieldOfView * 0.5f * Mathf.Deg2Rad) / Mathf.Tan(normalFieldOfView * 0.5f * Mathf.Deg2Rad), 0.3f, 1.5f);
             transform.localScale = Vector3.one * fovScale;
             transform.localPosition = position * fovScale;
-            transform.localRotation = Quaternion.Euler(-recoil * recoilPitch - restPitch + 7f * reloadDip, restYaw, -9f * reloadDip);
+            // 조준 중에는 총이 똑바로 앞을 보게 한다 (조준점과 총의 가늠쇠가 일직선이 되도록)
+            float hold = 1f - aimBlend;
+            transform.localRotation = Quaternion.Euler(-recoil * recoilPitch - restPitch * hold + 7f * reloadDip, restYaw * hold, -9f * reloadDip);
         }
 
         void SetShown(bool show)

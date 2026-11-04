@@ -25,7 +25,7 @@ namespace LastBullet.EditorTools
         static readonly Vector3 LeftHandEuler = new Vector3(0f, 0f, 90f);
         static readonly Vector3 LeftFistInHand = new Vector3(-0.02f, -0.055f, 0.10f);
         static readonly Vector3 RestPosition = new Vector3(0.28f, -0.25f, 0.6f);
-        static readonly Vector3 AimPosition = new Vector3(0.1f, -0.19f, 0.58f);
+        static readonly Vector3 AimPosition = new Vector3(0.011f, -0.157f, 0.58f); // 조준: 가늠쇠 끝이 조준점(화면 가운데) 바로 아래에 오는 자리 (2026-11-04)
 
         static readonly string[] ArmParts =
         {
