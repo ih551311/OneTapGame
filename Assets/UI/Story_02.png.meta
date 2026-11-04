@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 55c49dc565b1cf5449125bc36ed57495
+guid: 2ee802b41673ac3428679c4a4eeed7b8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8378001070841495966
-    second: Guide_Controls_0
+      213: 2706164711234064035
+    second: Story_02_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Guide_Controls_0
+      name: Story_02_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 640
-        height: 700
+        width: 1300
+        height: 560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e91895bd593a44470800000000000000
-      internalID: 8378001070841495966
+      spriteID: 3aecdcc877a3e8520800000000000000
+      internalID: 2706164711234064035
       vertices: []
       indices: 
       edges: []
