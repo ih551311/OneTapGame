@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 namespace LastBullet.UI
 {
-    // 적 머리 위 체력바 (2026-11-04, 데스티니식): 총알을 맞힌 적의 머리 위에 이름과 체력바가 몇 초 동안 보인다.
-    //   체력바는 판(EnemyBar_Back.png)과 채움(EnemyBar_Fill.png, Image.Type.Filled)이다. 이름은 TextMeshPro(글꼴 font1).
+    // 적 머리 위 체력바 (2026-11-04, 데스티니식): 총알을 맞힌 적의 머리 위에 체력바가 몇 초 동안 보인다 (2026-11-05 사용자 요청으로 이름 글자는 지웠다).
+    //   체력바는 판(EnemyBar_Back.png)과 채움(EnemyBar_Fill.png, Image.Type.Filled)이다.
     //   마지막으로 맞은 뒤 showTime초가 지나면 사라지고, 적이 죽으면 바로 사라진다. 카메라 뒤에 있으면 숨긴다.
     // 붙일 곳: Canvas/EnemyHealthBars (전체 화면 크기의 빈 오브젝트) (메뉴 LastBullet > Phase 63 데스티니식 전투 화면 만들기)
     public class EnemyHealthBars : MonoBehaviour
@@ -28,7 +28,6 @@ namespace LastBullet.UI
         {
             public RectTransform root;
             public Image fill;
-            public TextMeshProUGUI name;
             public EnemyHealth enemy;
             public Transform anchor;
             public float lastHit;
@@ -66,7 +65,6 @@ namespace LastBullet.UI
                 bar.root.gameObject.SetActive(true);
                 bar.enemy = info.enemy;
                 bar.anchor = FindHead(info.enemy);
-                bar.name.text = info.enemy.DisplayName;
                 bar.shownRatio = Mathf.Clamp01((info.enemy.Health + info.damage) / info.enemy.MaxHealth);
                 bars[info.enemy] = bar;
             }
@@ -102,22 +100,7 @@ namespace LastBullet.UI
             fill.fillOrigin = 0;
             fill.raycastTarget = false;
 
-            var text = new GameObject("Name", typeof(RectTransform), typeof(TextMeshProUGUI)).GetComponent<TextMeshProUGUI>();
-            text.transform.SetParent(root, false);
-            var textRect = text.rectTransform;
-            textRect.anchorMin = new Vector2(0f, 1f);
-            textRect.anchorMax = new Vector2(1f, 1f);
-            textRect.pivot = new Vector2(0.5f, 0f);
-            textRect.anchoredPosition = new Vector2(0f, 2f);
-            textRect.sizeDelta = new Vector2(0f, 28f);
-            if (font != null)
-                text.font = font;
-            text.fontSize = 22f;
-            text.alignment = TextAlignmentOptions.Bottom;
-            text.color = new Color(1f, 1f, 1f, 0.95f);
-            text.raycastTarget = false;
-            text.textWrappingMode = TextWrappingModes.NoWrap;
-            return new Bar { root = root, fill = fill, name = text };
+            return new Bar { root = root, fill = fill };
         }
 
         static void Stretch(RectTransform rect)
@@ -155,7 +138,6 @@ namespace LastBullet.UI
                 bar.fill.fillAmount = bar.shownRatio;
                 float fade = Time.unscaledTime - bar.lastHit > showTime - 0.5f ? Mathf.Clamp01((showTime - (Time.unscaledTime - bar.lastHit)) / 0.5f) : 1f;
                 bar.fill.color = new Color(1f, 1f, 1f, fade);
-                bar.name.alpha = fade * 0.95f;
             }
             foreach (var key in remove)
             {

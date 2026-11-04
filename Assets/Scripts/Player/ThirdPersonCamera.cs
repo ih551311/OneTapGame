@@ -50,6 +50,12 @@ namespace LastBullet.Player
         [Range(0f, 1f)]
         [SerializeField] float recoilAimScale = 0.55f;
 
+        [Tooltip("한 발 쏠 때 화면이 떨리는 크기 (도). 0이면 떨리지 않는다")]
+        [SerializeField] float shotShake = 0.5f;
+
+        [Tooltip("한 발의 떨림이 이어지는 시간 (초)")]
+        [SerializeField] float shotShakeTime = 0.08f;
+
         // 반동: 목표값이 순식간에 튀고(target), 화면은 그 뒤를 따라가며(current) 목표값은 천천히 0으로 돌아간다.
         // 마우스로 정한 방향(yaw, pitch)은 바뀌지 않는다 (화면만 흔들리고 손은 그대로).
         float recoilPitchTarget, recoilYawTarget;
@@ -76,6 +82,7 @@ namespace LastBullet.Player
             float scale = aim != null && aim.IsAiming ? recoilAimScale : 1f;
             recoilPitchTarget = Mathf.Min(recoilPitchTarget + recoilPitchKick * scale, recoilPitchMax); // 연사해도 일정 높이까지만 올라간다
             recoilYawTarget += Random.Range(-recoilYawKick, recoilYawKick) * scale;
+            Shake(shotShake * scale, shotShakeTime); // 한 발마다 화면이 짧게 떨린다
         }
 
         float shakeAmplitude; // 흔들림 크기 (도)
