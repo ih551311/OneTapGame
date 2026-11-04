@@ -195,4 +195,7 @@ Enemy_Charger            ← 기능 (EnemyHealth, EnemyAI, EnemyDrop, NavMeshAge
 | `Assets/UI/EnemyBar_Back.png`, `EnemyBar_Fill.png` | **적 체력바** 판과 채움(채움은 `Image.Type.Filled`). 맞힌 적 머리 위에 3.5초 보임. `Canvas/EnemyHealthBars`가 필요할 때 만들어 쓴다 | 64×8 | 4개 씬 |
 | `Assets/UI/Weapon_Icon.png` | 탄약 표시 옆 **총 아이콘**(소총 옆모습, 흰색). `Canvas/AmmoDisplay/WeaponIcon` | 128×48 | 4개 씬 |
 | 데미지 숫자 | 글자만 쓴다(TextMeshPro, 글꼴 font1). `Canvas/DamageNumbers`에서 크기·색·시간 조정 | - | 4개 씬 |
+| `Assets/Effects/MuzzleFlash.png` + `Materials/MuzzleFlash.mat` | **총구 불꽃**: 별 모양 흰색 그림(128×128). 밝게 겹쳐 보이는 머티리얼. 3인칭·1인칭 총 아래 `MuzzleFlash` 파티클 | 128×128 | 4개 씬 `ThirdPersonGun`·`Ak47Holder`/MuzzleFlash |
+| `Materials/ShellCasing.mat` | **탄피**: 황동색 작은 막대 파티클 `ShellCasing` (총 오른쪽 위 배출구에서 튀어 중력으로 떨어짐). 모양을 바꾸려면 파티클의 Renderer > Mesh를 바꾼다 | - | 4개 씬 |
+| `Assets/Audio/Combat/Hit_Body.wav`, `Hit_Crit.wav`, `Hit_Kill.wav` | **맞은 소리**: 몸 "틱" / 머리(크리티컬) "딩" / 처치 "퍽". 코드로 만든 임시 소리라서 같은 이름으로 덮어쓰면 바뀐다. `Player/HitSound`(2D)로 재생 | 0.07~0.32초 | 4개 씬 |
 
