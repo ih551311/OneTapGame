@@ -23,8 +23,24 @@ namespace LastBullet.Player
         [Range(0.5f, 1f)]
         [SerializeField] float firstPersonThreshold = 0.92f;
 
-        // 맵을 옮겨도 마지막으로 정한 거리를 기억한다
-        static float savedTarget;
+        [Tooltip("전투 맵이면 켠다: 처음 들어갈 때 1인칭으로 시작한다 (2026-11-05). 미술관은 끄면 3인칭으로 시작한다")]
+        [SerializeField] bool startFirstPerson;
+
+        // 마지막으로 정한 거리를 기억한다. 전투 맵끼리, 그 밖의 맵끼리 따로 기억한다 (-1 = 아직 안 정함)
+        static float savedBattleTarget = -1f;
+        static float savedOtherTarget = -1f;
+
+        float SavedTarget
+        {
+            get => startFirstPerson ? savedBattleTarget : savedOtherTarget;
+            set
+            {
+                if (startFirstPerson)
+                    savedBattleTarget = value;
+                else
+                    savedOtherTarget = value;
+            }
+        }
 
         // 0 = 기본 3인칭, 1 = 1인칭 (부드럽게 움직이는 현재 값)
         public float Zoom { get; private set; }
@@ -50,7 +66,7 @@ namespace LastBullet.Player
 
         void Start()
         {
-            target = savedTarget;
+            target = SavedTarget >= 0f ? SavedTarget : (startFirstPerson ? 1f : 0f);
             Zoom = target;
             ApplyVisibility();
         }
@@ -73,7 +89,7 @@ namespace LastBullet.Player
                 if (Mathf.Abs(scroll) > 0.01f)
                 {
                     target = Mathf.Clamp01(target + (scroll > 0f ? stepPerNotch : -stepPerNotch));
-                    savedTarget = target;
+                    SavedTarget = target;
                 }
             }
 
@@ -115,7 +131,8 @@ namespace LastBullet.Player
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void ResetOnPlay()
         {
-            savedTarget = 0f;
+            savedBattleTarget = -1f;
+            savedOtherTarget = -1f;
         }
     }
 }
