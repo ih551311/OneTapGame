@@ -22,7 +22,7 @@ namespace LastBullet.Combat
         [SerializeField] Vector3 slideDirection = Vector3.down;
 
         [Tooltip("탄창이 빠지는 거리 (총 모델 단위 m)")]
-        [SerializeField] float travel = 0.22f;
+        [SerializeField] float travel = RifleReloadTimeline.MagazineTravel;
 
         Vector3 restPosition;
         Renderer[] renderers;
@@ -41,17 +41,7 @@ namespace LastBullet.Combat
                 return;
 
             float p = gun.IsReloading ? gun.ReloadProgress : 0f;
-            float offset = 0f;
-            bool visible = true;
-            if (p >= 0.05f && p < 0.25f)
-                offset = Ease((p - 0.05f) / 0.20f);
-            else if (p >= 0.25f && p < 0.45f)
-            {
-                offset = 1f;
-                visible = false;
-            }
-            else if (p >= 0.45f && p < 0.70f)
-                offset = 1.3f * (1f - Ease((p - 0.45f) / 0.25f));
+            float offset = RifleReloadTimeline.MagazineOffset(p, out bool visible);
 
             magazine.localPosition = restPosition + slideDirection.normalized * (travel * offset);
             foreach (var r in renderers)
@@ -59,10 +49,5 @@ namespace LastBullet.Combat
                     r.enabled = visible;
         }
 
-        static float Ease(float t)
-        {
-            t = Mathf.Clamp01(t);
-            return t * t * (3f - 2f * t);
-        }
-    }
+   }
 }

@@ -101,7 +101,7 @@ namespace LastBullet.Player
             position += new Vector3(0f, -(1f - t) * 0.35f, -recoil * recoilBack);
             // 재장전: 총이 아래로 내려갔다가 올라온다 (진행도 0~1에서 sin 곡선)
             float reloadDip = gun != null && gun.IsReloading ? Mathf.Sin(gun.ReloadProgress * Mathf.PI) : 0f;
-            position += new Vector3(0.03f * reloadDip, -0.16f * reloadDip, 0f);
+            position += new Vector3(0.0f, -0.05f * reloadDip, 0f); // 재장전: 총이 살짝 내려가고 (왼팔은 ArmReloadSlide가 시간표대로 움직인다)
             // 시야각이 줄면(조준) 같은 거리에서도 크게 보이므로, 크기와 자리를 같은 비율로 줄여서 화면에서 똑같이 보이게 한다
             float fovScale = 1f;
             if (mainCamera == null)
@@ -110,7 +110,7 @@ namespace LastBullet.Player
                 fovScale = Mathf.Clamp(Mathf.Tan(mainCamera.fieldOfView * 0.5f * Mathf.Deg2Rad) / Mathf.Tan(normalFieldOfView * 0.5f * Mathf.Deg2Rad), 0.3f, 1.5f);
             transform.localScale = Vector3.one * fovScale;
             transform.localPosition = position * fovScale;
-            transform.localRotation = Quaternion.Euler(-recoil * recoilPitch - restPitch + 28f * reloadDip, restYaw, 14f * reloadDip);
+            transform.localRotation = Quaternion.Euler(-recoil * recoilPitch - restPitch + 7f * reloadDip, restYaw, -9f * reloadDip);
         }
 
         void SetShown(bool show)

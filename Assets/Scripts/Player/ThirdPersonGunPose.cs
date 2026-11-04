@@ -51,7 +51,13 @@ namespace LastBullet.Player
         [SerializeField] AutoGun gun;
 
         [Tooltip("재장전 때 총구가 위로 드는 각도 (도)")]
-        [SerializeField] float reloadTilt = 32f;
+        [SerializeField] float reloadTilt = 12f;
+
+        [Tooltip("탄창 자리 (총 모델 안 좌표, 왼손이 탄창을 잡으러 가는 곳)")]
+        [SerializeField] Vector3 magazineInGun = new Vector3(0f, -0.08f, 0.0f);
+
+        [Tooltip("장전 손잡이 자리 (총 모델 안 좌표)")]
+        [SerializeField] Vector3 chargeInGun = new Vector3(0.03f, 0.05f, -0.02f);
 
         static readonly Quaternion RightHandInGun = Quaternion.LookRotation(Vector3.forward, Vector3.left); // 손의 앞(+Z) = 총구, 손의 -X = 총 위
 
@@ -90,7 +96,9 @@ namespace LastBullet.Player
             // 왼손: 총 앞쪽 받침을 받친다
             if (leftUpper != null && leftMid != null && leftHand != null)
             {
-                Vector3 leftGripWorld = gunPosition + rotation * (leftGripInGun * scale);
+                float reloadProgress = gun != null && gun.IsReloading ? gun.ReloadProgress : 0f;
+                Vector3 leftInGun = RifleReloadTimeline.LeftHand(reloadProgress, leftGripInGun, magazineInGun, chargeInGun);
+                Vector3 leftGripWorld = gunPosition + rotation * (leftInGun * scale);
                 Quaternion leftRotation = rotation * Quaternion.Euler(leftHandEuler);
                 Vector3 leftTarget = leftGripWorld - leftRotation * leftFistInHand;
                 Vector3 leftPole = -right * 0.6f - Vector3.up * 0.8f - forward * 0.2f;

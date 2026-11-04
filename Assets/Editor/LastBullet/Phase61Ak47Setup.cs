@@ -116,7 +116,7 @@ namespace LastBullet.EditorTools
         }
 
         // 총 모델을 만들고 (총구가 +Z로 가게 Y 90도 돌림), 재장전 모션을 붙인다
-        static GameObject PlaceAk(GameObject prefab, Transform parent, AutoGun gun, ShadowCastingMode shadows)
+        internal static GameObject PlaceAk(GameObject prefab, Transform parent, AutoGun gun, ShadowCastingMode shadows)
         {
             var ak = (GameObject)PrefabUtility.InstantiatePrefab(prefab, parent);
             ak.name = "Ak47";
