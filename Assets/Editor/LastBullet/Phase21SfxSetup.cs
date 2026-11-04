@@ -9,7 +9,7 @@ using UnityEngine;
 namespace LastBullet.EditorTools
 {
     // 총소리를 연결한다 (2026-10-31 사용자 요청, 에셋 Free Weapon Sound Effects의 핸드건).
-    //  - 플레이어: 사격할 때 핸드건 소리 (2D, 크게) — 플레이어(OneBulletGun)가 있는 모든 씬
+    //  - 플레이어: 사격할 때 핸드건 소리 (2D, 크게) — 플레이어(AutoGun)가 있는 모든 씬
     //  - 원거리 적: 공격(던지기)할 때 같은 핸드건 소리를 작게 (3D: 멀수록 더 작게, 기본 40% 크기)
     // 소리는 변형 3개 중 무작위 + 여운 2개 중 하나를 깐다 (플레이어만. 적은 여운 없이 가볍게).
     // 메뉴: LastBullet > Phase 21 총소리 넣기
@@ -62,7 +62,7 @@ namespace LastBullet.EditorTools
             foreach (var scenePath in Scenes)
             {
                 var scene = EditorSceneManager.OpenScene(scenePath);
-                var gun = Object.FindFirstObjectByType<OneBulletGun>();
+                var gun = Object.FindFirstObjectByType<AutoGun>();
                 if (gun == null || gun.GetComponent<SfxPlayer>() != null)
                     continue;
 

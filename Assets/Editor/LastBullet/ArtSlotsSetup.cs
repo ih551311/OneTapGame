@@ -1,4 +1,4 @@
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,8 +36,6 @@ namespace LastBullet.EditorTools
             if (oldCrosshair != null)
                 Undo.DestroyObjectImmediate(oldCrosshair.gameObject);
             Phase2CameraSetup.BuildCrosshair(hud.transform);
-            SetUiImage(hud.transform.Find("ReturnGauge"), "Assets/UI/Ring.png");
-            SetUiImage(hud.transform.Find("BulletArrow"), "Assets/UI/Arrow.png");
 
             // 2. 오브젝트: 전용 머티리얼
             var playerMaterial = ArtSlots.GetOrCreateMaterial("Player", new Color32(0xE5, 0xE5, 0xE5, 0xFF));
@@ -55,8 +53,6 @@ namespace LastBullet.EditorTools
                 SetMaterial(root.transform.Find("Body"), statueMaterial);
                 SetMaterial(root.transform.Find("Head"), statueMaterial);
             });
-            var bulletMaterial = ArtSlots.GetOrCreateMaterial("Bullet", new Color32(0xFA, 0xCC, 0x15, 0xFF));
-            EditPrefab("Assets/Prefabs/DroppedBullet.prefab", root => SetMaterial(root.transform.Find("Model"), bulletMaterial));
 
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);

@@ -274,7 +274,7 @@ namespace LastBullet.EditorTools
             so.FindProperty("movement").objectReferenceValue = player;
             so.FindProperty("controller").objectReferenceValue = player.GetComponent<CharacterController>();
             so.FindProperty("health").objectReferenceValue = player.GetComponent<PlayerHealth>();
-            so.FindProperty("gun").objectReferenceValue = player.GetComponent<OneBulletGun>();
+            so.FindProperty("gun").objectReferenceValue = player.GetComponent<AutoGun>();
             so.ApplyModifiedPropertiesWithoutUndo();
 
             EditorSceneManager.MarkSceneDirty(scene);

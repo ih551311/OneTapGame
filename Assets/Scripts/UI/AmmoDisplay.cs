@@ -7,7 +7,7 @@ namespace LastBullet.UI
     // 화면 왼쪽 아래의 탄약 표시 (2026-11-04, 데스티니식). 총 아이콘 + 큰 숫자(탄창에 남은 탄) + 작은 ∞(예비 탄은 무한).
     //  - 탄이 적으면(탄창의 25% 이하) 빨갛게, 재장전 중에는 "재장전" 글자와 진행 %를 보여 준다.
     //  - 글자는 TextMeshPro(글꼴 font1). 판 그림은 Assets/UI/Hud_Name.png라서 바꿔 끼울 수 있다.
-    // 붙일 곳: Canvas/AmmoDisplay (메뉴 LastBullet > Phase 59 연사 총으로 바꾸기)
+    // 붙일 곳: Canvas/AmmoDisplay (메뉴 LastBullet > Phase 63 데스티니식 전투 화면 만들기)
     public class AmmoDisplay : MonoBehaviour
     {
         [Tooltip("남은 탄 / 탄창 크기 글자")]

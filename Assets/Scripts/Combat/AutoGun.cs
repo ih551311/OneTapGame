@@ -6,13 +6,13 @@ using UnityEngine.InputSystem;
 
 namespace LastBullet.Combat
 {
-    // 연사 총 (2026-11-04 사용자 결정: 전투를 데스티니식으로 바꾼다 — 한 발 탄환(OneBulletGun)을 없애고 이 총으로 교체).
+    // 연사 총 (2026-11-04 사용자 결정: 전투를 데스티니식으로 바꾼다. 예전 한 발 탄환 총은 2026-11-05에 지웠다).
     //  - 탄은 무한이고, 탄창(magazineSize발)을 다 쏘면 재장전한다. 좌클릭을 누르고 있으면 연사, R키로 미리 재장전, 탄창이 비면 저절로 재장전한다.
     //  - 쏘는 방식은 예전과 같다: 화면 가운데(카메라)에서 레이를 쏴 조준점을 구하고, 총구에서 그 점으로 다시 쏴서 실제로 맞은 곳을 정한다.
-    //  - 맞은 적의 처치는 지금은 Hitbox·EnemyHealth가 정한다 (적 HP·크리티컬은 다음 단계에서 넣는다).
+    //  - 맞은 적의 피해·크리티컬은 Hitbox → EnemyHealth가 정한다.
     //  - 재장전 소리: 탄창 빼기 → 탄창 넣기 → 장전 (Handgun/Reload 소리, 시점은 reloadClipTimes).
     // 화면의 탄약 표시(AmmoDisplay), 1인칭 총(FirstPersonGun), 캐릭터 동작(PlayerAnimator), 카메라 반동(ThirdPersonCamera)이 이 총의 이벤트를 듣는다.
-    // 붙일 곳: Player (메뉴 LastBullet > Phase 59 연사 총으로 바꾸기)
+    // 붙일 곳: Player (전투 맵 씬 3개. 미술관에는 없다)
     public class AutoGun : MonoBehaviour
     {
         [Header("연결")]

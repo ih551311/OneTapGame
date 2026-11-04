@@ -1,4 +1,4 @@
-using LastBullet.Combat;
+﻿using LastBullet.Combat;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -37,10 +37,10 @@ namespace LastBullet.EditorTools
             foreach (var scenePath in Scenes)
             {
                 var scene = EditorSceneManager.OpenScene(scenePath);
-                var gun = Object.FindFirstObjectByType<OneBulletGun>();
+                var gun = Object.FindFirstObjectByType<AutoGun>();
                 if (gun == null)
                 {
-                    Debug.LogWarning($"[LastBullet] {scene.name}: OneBulletGun이 없어서 건너뜀");
+                    Debug.LogWarning($"[LastBullet] {scene.name}: AutoGun이 없어서 건너뜀");
                     continue;
                 }
                 var so = new SerializedObject(gun);

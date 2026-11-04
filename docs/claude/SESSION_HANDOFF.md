@@ -519,3 +519,10 @@ Phase 1에서 한 일 (2026-10-29):
 - (이어서, 사용자: 가만히 있을 때 위아래로 너무 움직임) UnarmedArmPose 대기 때 위아래 움직임 0.006→0.0015m(idleSway). 못 본 것: 줄어든 뒤의 실제 모습, 몸통 자체의 대기 동작(원래 동작 파일)이 위아래로 흔들리는 건 그대로.
 
 - (2026-11-04) 적 처치 연출 (Phase 67, 사용자 요청: 터지는 효과·물감 튀는 효과·쓰러지는 동작): EnemyDeathEffect — 처치 순간 AI·소리·충돌을 멈추고 총 맞은 반대쪽(플레이어에게서 멀어지는 쪽)으로 0.5초 동안 점점 빨리 쓰러지고(뒤로 0.7m 밀림), 다 쓰러지면 몸 한가운데에서 그 적의 물감 색 방울(DeathPop 프리팹)이 터지고 0.15초 만에 줄어들며 사라진다. 머리에서 튀는 물감과 바닥 자국은 예전 PaintBurst 그대로. EnemyHealth는 연출 시간(0.65초)만큼 기다렸다가 지운다. 보상·분열·체력 회복은 처치 순간에 바로 처리. 메뉴 'Phase 67 처치 연출 만들기'(적 프리팹 4개). 확인: 사막에서 돌진병 처치 캡처 — 쓰러짐 → 방울 → 사라짐, 오류 없음. 못 본 것: 투척병·분열체·작은 분열체의 쓰러짐, 쓰러지는 소리, 쓰러지는 몸이 벽·바닥에 파묻히는지(바닥 높이 보정 없음).
+
+## 2026-11-05 C단계 정리: 한 발 탄환 코드·에셋·메뉴 삭제 (사용자 요청)
+- 지운 것: 코드 `OneBulletGun`, `BulletPickup`, `BulletAutoReturn`, `BulletIndicatorUI` / 프리팹 `DroppedBullet`, 재질 `LightPillar` / UI 그림 `Ring.png`(복귀 게이지), `Arrow.png`(방향 화살표) / 에디터 메뉴 스크립트 `Phase3FireSetup`, `Phase3DropSetup`, `Phase3ReturnSetup`, `Phase3IndicatorSetup`, `Phase48FirstPersonGunSetup`, `Phase58BulletModelSetup`, `Phase59AutoGunSetup`, `Phase60OriginalGunSetup`. (Phase 59 등은 이미 씬에 적용된 변환 도구라 다시 쓸 일이 없다. 옛 만들기 메뉴 Phase 61·62·63·64는 남겼다.)
+- 고친 것: `Phase21SfxSetup`·`ImpactMarkerSetup`·`Phase28PlayerCharacterSetup`·`ArtSlotsSetup`이 `AutoGun`을 보거나 탄환 줄을 빼도록 수정. 도움말(타이틀 씬 `HelpPopup`)의 규칙·조작 글을 새 방식으로 바꿈(연사·재장전·크리티컬). 기획서(`LAST_BULLET_Plan.md`)의 2.1~2.5, 3.3~3.4, Phase 3~4, 리스크 표, `CLAUDE.md`·`PROGRESS_SUMMARY.md`·`PROJECT_INSTRUCTIONS.md`·`ART_SLOTS.md` 갱신.
+- 남겨 둔 것: `Assets/3Dmake/BULIT.fbx`(사용자가 가져온 탄환 모델, 보관용), 기획서 2.11의 스토리 문구('낡은 신호총과 탄환 한 발' — 스토리 A/B안 미정), 기획서 제목 `LAST BULLET : 마지막 탄환`.
+- 확인: 컴파일 오류 없음, 5개 씬과 적·플레이어 프리팹에 빠진 스크립트(Missing) 0개, 사막 실행 후 연사 시험에서 새 오류 없음. 못 본 것: 타이틀 도움말 화면의 실제 모습, 전체 플레이 한 판.
+- 다음: 전투 맵 1인칭 기본, 피격 화면 효과·맞은 방향 표시, D 난이도, E 무기 교체·스킬.

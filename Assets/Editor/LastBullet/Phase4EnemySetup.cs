@@ -30,7 +30,7 @@ namespace LastBullet.EditorTools
                 return;
             }
 
-            // 1. 돌진형 적 프리팹: 몸(상자)과 머리(공)에 Hitbox, 맨 위에 EnemyHealth (헤드샷 원탭)
+            // 1. 돌진형 적 프리팹: 몸(상자)과 머리(공)에 Hitbox, 맨 위에 EnemyHealth (2026-11-04부터 HP 방식)
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);
             if (prefab == null)
             {

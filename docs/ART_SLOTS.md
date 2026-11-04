@@ -1,4 +1,4 @@
-﻿# 내 그림 넣는 곳 (아트 슬롯)
+# 내 그림 넣는 곳 (아트 슬롯)
 
 게임에 나오는 그림과 겉모습은 모두 아래 파일 중 하나로 정해진다.
 지금 들어 있는 것은 **임시 그림**이다. 직접 그린 것으로 바꾸면 게임에 바로 반영된다.
@@ -15,8 +15,6 @@
 | 파일 | 어디에 나오나 | 권장 크기 | 비고 |
 |---|---|---|---|
 | `Assets/UI/Crosshair.png` | 화면 가운데 조준점 | 64×64 | 가운데가 정확히 조준 위치 |
-| `Assets/UI/Ring.png` | 탄환 자동 복귀 게이지 (조준점 둘레) | 128×128 | 남은 시간만큼 시계 방향으로 사라진다. 고리 모양 권장 |
-| `Assets/UI/Arrow.png` | 화면 밖 탄환 방향 화살표 | 64×64 | **위쪽을 가리키게** 그린다. 게임이 알아서 돌린다 |
 | `Assets/UI/HealthBar_Back.png` | 체력바 배경 (왼쪽 아래) | 256×32 | 화면에서는 400×40으로 보인다 |
 | `Assets/UI/HealthBar_Fill.png` | 체력바 채움 | 256×32 | 체력만큼 왼쪽부터 채워진다. 배경 테두리 안쪽에 맞게 그린다 |
 | `Assets/UI/HealthBar_Gain.png` | 처치 회복으로 체력이 찰 때 체력바에서 늘어난 만큼을 1초쯤 다른 색(연두)으로 보여 주는 채움. 체력바 채움(Fill) 바로 뒤에 놓이는 `HealthBar/HealGain` | 256×32 | 채움과 같은 크기·모양으로 그린다 |
@@ -86,10 +84,9 @@ UI는 모두 각 씬의 **`Canvas`** 오브젝트 아래에 있다. 위치나 �
 | `Materials/Player.mat` | 주인공 | `Player/Body`, `Player/Front` |
 | `Materials/Gun.mat` | 총 | `Player/Gun` (바꾸면 `Player/Muzzle`을 총구 끝으로 옮긴다) |
 | `Materials/Enemy_Charger.mat` | 돌진형 적 (회색 조각상) | 프리팹 `Prefabs/Enemy_Charger`의 `Body`, `Head` (Hitbox 콜라이더 크기도 맞춘다) |
-| `Assets/3Dmake/BULIT.fbx` (탄환 모델, 재질 GameBullet_brass·copper·darkBrass·primer는 모델 안에 들어 있음) | **바닥에 떨어진 탄환** 모양 (실제 크기 4.6cm를 6배로 키워 옆으로 눕힘). 멀리서 찾도록 빛기둥(`LightPillar`)은 그대로. 모델을 바꿀 때는 `Prefabs/DroppedBullet/Model` 아래의 `Bullet`만 바꾼다. E키 회수·7초 복귀는 맨 위 `BulletPickup`·`BulletAutoReturn`이 한다 | `Prefabs/DroppedBullet`의 `Model/Bullet` |
-| `Materials/LightPillar.mat` | 탄환 위 빛 기둥 (반투명) | 프리팹 `Prefabs/DroppedBullet`의 `LightPillar` |
+| `Assets/3Dmake/BULIT.fbx` (탄환 모델, 재질은 모델 안에 들어 있음) | 지금은 게임에 쓰지 않는 보관용 탄환 모델 (예전 "바닥에 떨어진 탄환"). 나중에 탄피나 탄약 아이콘에 쓸 수 있다 | - |
 | `Materials/Tracer.mat` | 탄도선 | `Player/BulletTracer` |
-| `Materials/ImpactMarker.mat` | 맞은 자리에 0.4초 보이는 점 | 프리팹 `Prefabs/ImpactMarker`의 `Model` (총 `OneBulletGun`의 `Impact Marker Prefab`) |
+| `Materials/ImpactMarker.mat` | 맞은 자리에 0.4초 보이는 점 | 프리팹 `Prefabs/ImpactMarker`의 `Model` (총 `AutoGun`의 `Impact Marker Prefab`) |
 | `Materials/Ground.mat` | 바닥 | `Ground` |
 | `Assets/3Dmake/Untitled.fbx` (포털 모델, 재질 Portal_walnut·brass·brassDark·dark·carpet은 모델 안에 들어 있음) + `Materials/PortalMirror.mat` | 미술관 전투 장소 이동 장치 (거울 포털 문). 거울 면은 3ds Max용 셰이더라 URP에서 투명해서 `PortalMirror.mat`로 바꿨고, 이 머티리얼은 진짜 거울 셰이더(`Assets/Shaders/PlanarMirror.shader`)를 쓴다: `StageMap`의 `PlanarMirror`(반사 카메라)가 거울 앞 장면을 그려 입힌다. 은빛 색 `Tint`·밝기 `Brightness`는 머티리얼에서 고친다. 모델을 바꿀 때는 `StageMap/Portal`만 바꾸고, 충돌(BoxCollider)은 `StageMap`에 있다 | `1_Museum` 씬의 `StageMap/Portal` |
 | `Assets/3Dmake/paper.fbx` (종이 복원 작업대 모델, 재질 Restoration_* 10종은 모델 안에 들어 있음) | 미술관 종이 합성대 (서랍 달린 작업대 + 종이 압착기, 종이조각 5개 → 그림용 종이 1장). 서랍 쪽이 플레이어 시작 자리를 향한다. 모델을 바꿀 때는 `PaperCraftTable/Press`만 바꾸고, 충돌(BoxCollider)은 `PaperCraftTable`에 있다 | `1_Museum` 씬의 `PaperCraftTable/Press` |
