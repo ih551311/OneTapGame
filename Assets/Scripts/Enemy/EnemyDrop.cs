@@ -65,9 +65,9 @@ namespace LastBullet.Enemy
         {
             PaintColor color = dropColor;
 
-            // 헤드샷으로 잡았을 때만 물감을 준다 (2026-10-31 사용자 결정). 몸샷 처치는 종이조각만.
+            // 처치하면 물감과 종이조각을 준다. 마지막 한 발이 크리티컬(머리)이면 물감이 1.5배다 (2026-11-04 데스티니식 전투: HP 방식에서 물감 조건을 이렇게 정했다. 바꾸려면 알려 주세요).
             bool headshot = GetComponent<EnemyHealth>().KilledByHeadshot;
-            int paint = headshot ? paintAmount : 0;
+            int paint = headshot ? Mathf.RoundToInt(paintAmount * 1.5f) : paintAmount;
 
             // 전투 가방이 없는 씬(예: 테스트)에서는 재료를 주지 않고 연출만 한다
             if (RunBag.Current != null)
@@ -82,7 +82,7 @@ namespace LastBullet.Enemy
                 PaintBurstEffect.Spawn(burstPrefab, head, transform.position, PaintColors.Colors[(int)color]);
 
             // 물감 방울이 화면 오른쪽 위 전투 가방으로 날아간다 (연출이 없는 씬에서는 아무 일도 없다)
-            if (RunBag.Current != null && headshot)
+            if (RunBag.Current != null && paint > 0)
                 PaintCollectEffect.Play(color, head);
         }
     }

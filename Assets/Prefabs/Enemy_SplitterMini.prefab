@@ -350,8 +350,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eb7e1a3fcebb1148a8075fe9e06825d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Enemy.EnemyHealth
+  displayName: "\uC791\uC740 \uBD84\uC5F4\uCCB4"
+  maxHealth: 30
   hitFlashTime: 0.1
-  bodyShotKills: 1
 --- !u!195 &5689047955541431933
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -397,7 +398,7 @@ MonoBehaviour:
   attackDamage: 8
   contactRange: 0.9
   turnSpeed: 0
-  hitStunTime: 0.25
+  hitStunTime: 0
 --- !u!114 &1571627698520832080
 MonoBehaviour:
   m_ObjectHideFlags: 0

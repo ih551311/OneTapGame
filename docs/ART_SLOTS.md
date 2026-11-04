@@ -189,5 +189,10 @@ Enemy_Charger            ← 기능 (EnemyHealth, EnemyAI, EnemyDrop, NavMeshAge
 - 맵 입장 안내 "사막 · 밤"은 `MapIntroBanner`가 맵 이름 + 낮/밤으로 만들고, "얻는 물감 ● …"은 맵의 물감 표(`StageColors`)에서 색 점까지 글자로 만든다.
 - 도움말 내용은 `Canvas/HelpPopup`의 `Content/Controls`, `Content/Rules` 글자에서 고친다.
 - 예전 메뉴 스크립트(`TitleSetup`, `Phase*Setup` 등)는 글자 그림을 만들던 코드라, 이미 바뀐 화면에서 다시 실행하면 글자 그림이 빠진 채로 만들어진다. 다시 실행하지 말고 글자는 씬에서 직접 고친다.
-| `Assets/UI/Hud_Name.png` (재사용) | **탄약 표시** 판 (`Canvas/AmmoDisplay`, 9-slice 14px, 오른쪽 아래). 글자 `AmmoText`("27 / 30", 탄이 4분의 1 이하면 빨강)와 `StatusText`("재장전 62%")는 TextMeshPro | 미술관·숲·성 마을·사막 `Canvas/AmmoDisplay` |
+| `Assets/UI/Hud_Name.png` (재사용) | **탄약 표시** (`Canvas/AmmoDisplay`, 왼쪽 아래 프로필 옆. 판 없이 총 아이콘 + 큰 숫자 + 작은 ∞). 글자 `AmmoText`(탄창에 남은 탄, 4분의 1 이하면 빨강)와 `StatusText`("재장전 62%")는 TextMeshPro | 미술관·숲·성 마을·사막 `Canvas/AmmoDisplay` |
 | `Assets/Models/FirstPerson/FirstPersonArm_Skin_R.asset`, `FirstPersonArm_Skin_L.asset` + `Materials/FirstPersonArm_Skin.mat` | **1인칭 양팔·양손** (캐릭터가 소총을 두 손으로 든 자세에서 오른팔·왼팔의 팔꿈치 아래~손을 총 기준 좌표로 떼어 낸 메시 + 끊긴 자리에 이어 붙인 같은 굵기의 팔 모양 통). `Main Camera/FirstPersonGun/Model/Ak47Holder/RightArm·LeftArm`. 왼팔은 `ArmReloadSlide`가 재장전 때 시간표(`RifleReloadTimeline`)대로 움직인다. 직접 만든 손 모델로 바꿀 때는 `RightArm`·`LeftArm`의 메시와 머티리얼을 바꾼다 (캐릭터·자세가 바뀌면 Phase 62 메뉴를 다시 실행) | 숲·성 마을·사막·미술관 |
+| `Assets/UI/HitMarker.png` | **힛마커**: 적을 맞히면 조준점에서 번쩍이는 ×. 흰색 그림이고 색은 코드가 입힌다(일반 흰색·크리티컬 노랑·처치 빨강). `Canvas/HitMarker` | 64×64 | 4개 씬 |
+| `Assets/UI/EnemyBar_Back.png`, `EnemyBar_Fill.png` | **적 체력바** 판과 채움(채움은 `Image.Type.Filled`). 맞힌 적 머리 위에 3.5초 보임. `Canvas/EnemyHealthBars`가 필요할 때 만들어 쓴다 | 64×8 | 4개 씬 |
+| `Assets/UI/Weapon_Icon.png` | 탄약 표시 옆 **총 아이콘**(소총 옆모습, 흰색). `Canvas/AmmoDisplay/WeaponIcon` | 128×48 | 4개 씬 |
+| 데미지 숫자 | 글자만 쓴다(TextMeshPro, 글꼴 font1). `Canvas/DamageNumbers`에서 크기·색·시간 조정 | - | 4개 씬 |
+

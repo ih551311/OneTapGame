@@ -192,6 +192,8 @@ namespace LastBullet.Enemy
 
         void OnDamaged(EnemyHealth _)
         {
+            if (hitStunTime <= 0f)
+                return; // 연사에 계속 멈칫하지 않는다 (2026-11-04 데스티니식 전투)
             state = AIState.Hit;
             phaseEndTime = Time.time + hitStunTime;
             StopMoving();

@@ -35,6 +35,12 @@ namespace LastBullet.Combat
         [Tooltip("한 발 쏘고 다음 발까지 걸리는 시간 (초). 0.11이면 초당 약 9발")]
         [SerializeField] float fireInterval = 0.11f;
 
+        [Tooltip("한 발의 피해 (몸에 맞았을 때, 기본값). 적 체력은 돌진형 60 · 원거리형 40 · 분열 적 140 · 작은 분열체 30")]
+        [SerializeField] float damage = 10f;
+
+        [Tooltip("머리에 맞으면(크리티컬) 피해가 몇 배가 되는지 (기본값)")]
+        [SerializeField] float headshotMultiplier = 2f;
+
         [Tooltip("재장전에 걸리는 시간 (초)")]
         [SerializeField] float reloadTime = 1.6f;
 
@@ -154,8 +160,7 @@ namespace LastBullet.Combat
                 var hitbox = muzzleHit.collider.GetComponent<Hitbox>();
                 if (hitbox != null)
                 {
-                    var result = hitbox.TakeHit(origin);
-                    Debug.Log($"[AutoGun] {(result == HitResult.Killed ? "헤드샷" : result == HitResult.KilledBody ? "몸샷 처치" : "몸 명중")}: {hitbox.transform.parent.name}");
+                    hitbox.TakeHit(damage, headshotMultiplier, impact);
                 }
             }
 

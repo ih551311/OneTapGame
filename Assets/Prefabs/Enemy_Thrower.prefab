@@ -384,8 +384,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eb7e1a3fcebb1148a8075fe9e06825d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Enemy.EnemyHealth
+  displayName: "\uD22C\uCC99\uBCD1"
+  maxHealth: 40
   hitFlashTime: 0.1
-  bodyShotKills: 1
 --- !u!195 &5689047955541431933
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -448,7 +449,7 @@ MonoBehaviour:
   recoverTime: 0.4
   projectileSpeed: 16
   attackDamage: 12
-  hitStunTime: 0.25
+  hitStunTime: 0
   projectilePrefab: {fileID: 6169165339338938041, guid: 208124c4e28c7a948911235210a2fa9e, type: 3}
   throwPoint: {fileID: 3846494556957574035}
   attackSound: {fileID: 9176780148433874168}
