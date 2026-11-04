@@ -105,7 +105,9 @@ namespace LastBullet.Enemy
         {
             IsDead = true; // 먼저 표시해서 처치가 두 번 처리되지 않게 한다
             Died?.Invoke(this);
-            Destroy(gameObject);
+            // 처치 연출(쓰러지고 터지는 동안)이 있으면 그 시간만큼 기다렸다가 지운다
+            var deathEffect = GetComponent<EnemyDeathEffect>();
+            Destroy(gameObject, deathEffect != null ? deathEffect.Duration : 0f);
         }
 
         void Flash()

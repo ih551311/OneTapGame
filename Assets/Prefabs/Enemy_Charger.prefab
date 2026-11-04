@@ -312,6 +312,7 @@ GameObject:
   - component: {fileID: 5554725401284255698}
   - component: {fileID: 1571627698520832080}
   - component: {fileID: 6142434335116553368}
+  - component: {fileID: 809454251905659663}
   m_Layer: 0
   m_Name: Enemy_Charger
   m_TagString: Enemy
@@ -429,6 +430,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Enemy.EnemyAnimator
   animator: {fileID: 610657572110548245}
   smoothTime: 0.1
+--- !u!114 &809454251905659663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8279691657505643053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422fd9233711b3744a4747ee93304b63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Enemy.EnemyDeathEffect
+  fallTime: 0.5
+  vanishTime: 0.15
+  pushBack: 0.7
+  popPrefab: {fileID: 6122750506244538707, guid: 35b2560c62952d64e82b8070f7f4a39b, type: 3}
 --- !u!1001 &5835134348182731460
 PrefabInstance:
   m_ObjectHideFlags: 0

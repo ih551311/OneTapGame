@@ -198,4 +198,5 @@ Enemy_Charger            ← 기능 (EnemyHealth, EnemyAI, EnemyDrop, NavMeshAge
 | `Assets/Effects/MuzzleFlash.png` + `Materials/MuzzleFlash.mat` | **총구 불꽃**: 별 모양 흰색 그림(128×128). 밝게 겹쳐 보이는 머티리얼. 3인칭·1인칭 총 아래 `MuzzleFlash` 파티클 | 128×128 | 4개 씬 `ThirdPersonGun`·`Ak47Holder`/MuzzleFlash |
 | `Materials/ShellCasing.mat` | **탄피**: 황동색 작은 막대 파티클 `ShellCasing` (총 오른쪽 위 배출구에서 튀어 중력으로 떨어짐). 모양을 바꾸려면 파티클의 Renderer > Mesh를 바꾼다 | - | 4개 씬 |
 | `Assets/Audio/Combat/Hit_Body.wav`, `Hit_Crit.wav`, `Hit_Kill.wav` | **맞은 소리**: 몸 "틱" / 머리(크리티컬) "딩" / 처치 "퍽". 코드로 만든 임시 소리라서 같은 이름으로 덮어쓰면 바뀐다. `Player/HitSound`(2D)로 재생 | 0.07~0.32초 | 4개 씬 |
+| `Assets/Effects/DeathPop.png` + `Materials/DeathPop.mat` + `Prefabs/DeathPop.prefab` | **적 처치 때 몸이 터지는 연출**: 물감 방울 28개(Blobs)와 둥근 번쩍임(Flash). 색은 그 적의 물감 색으로 코드가 바꾼다. 적 프리팹의 `EnemyDeathEffect` > Pop Prefab에 연결 | 64×64 | 적 프리팹 4개 |
 
