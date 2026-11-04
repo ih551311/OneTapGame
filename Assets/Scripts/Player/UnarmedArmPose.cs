@@ -34,6 +34,9 @@ namespace LastBullet.Player
         [Tooltip("팔이 몸 옆에서 바깥으로 벌어진 거리 (m)")]
         [SerializeField] float sideOffset = 0.17f;
 
+        [Tooltip("가만히 있을 때 팔이 위아래로 움직이는 폭 (m). 0이면 안 움직인다")]
+        [SerializeField] float idleSway = 0.0015f;
+
         [Tooltip("손이 몸 앞쪽으로 나온 거리 (m). 치마에 가려지지 않게 살짝 앞으로")]
         [SerializeField] float forwardOffset = 0.05f;
 
@@ -112,7 +115,7 @@ namespace LastBullet.Player
             Vector3 shoulder = arm.upper.position;
             // 손이 닿을 자리: 몸 옆으로 늘어뜨리고 앞뒤로 흔든다. 앞으로 갈 때는 손이 조금 올라가고, 달리면 팔꿈치가 굽어 손이 올라온다.
             // 팔꿈치가 살짝 굽도록 완전히 펴지 않는다 (쭉 뻗은 팔은 로봇 같다). 숨 쉬듯 아주 조금 위아래로도 움직인다.
-            float breath = Mathf.Sin(Time.time * 1.6f + side) * 0.006f;
+            float breath = Mathf.Sin(Time.time * 1.2f + side) * idleSway;
             Vector3 target = shoulder + Vector3.down * (length * (0.94f - run * 0.05f) + breath) + sideRight * (side * sideOffset) + forward * (wave * swing + forwardOffset);
             target += Vector3.up * (Mathf.Max(0f, wave) * swing * 0.5f + run * 0.12f);
             Vector3 pole = -forward * 0.5f + sideRight * (side * 0.6f);
