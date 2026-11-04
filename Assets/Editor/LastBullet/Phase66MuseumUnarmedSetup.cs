@@ -34,6 +34,8 @@ namespace LastBullet.EditorTools
             so.FindProperty("leftMid").objectReferenceValue = Find(player, "L.ForeArm");
             so.FindProperty("leftHand").objectReferenceValue = Find(player, "L.Hand");
             so.FindProperty("controller").objectReferenceValue = player.GetComponent<CharacterController>();
+            so.FindProperty("sideOffset").floatValue = 0.17f;   // 치마 밖으로 손이 나오게
+            so.FindProperty("forwardOffset").floatValue = 0.05f;
             so.ApplyModifiedPropertiesWithoutUndo();
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);

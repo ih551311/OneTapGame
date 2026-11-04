@@ -688,7 +688,8 @@ MonoBehaviour:
   walkSwing: 0.16
   runSwing: 0.28
   stepRate: 1.3
-  sideOffset: 0.07
+  sideOffset: 0.17
+  forwardOffset: 0.05
 --- !u!1 &4384362
 GameObject:
   m_ObjectHideFlags: 0

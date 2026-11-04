@@ -32,7 +32,10 @@ namespace LastBullet.Player
         [SerializeField] float stepRate = 1.3f;
 
         [Tooltip("팔이 몸 옆에서 바깥으로 벌어진 거리 (m)")]
-        [SerializeField] float sideOffset = 0.07f;
+        [SerializeField] float sideOffset = 0.17f;
+
+        [Tooltip("손이 몸 앞쪽으로 나온 거리 (m). 치마에 가려지지 않게 살짝 앞으로")]
+        [SerializeField] float forwardOffset = 0.05f;
 
         class Arm
         {
@@ -108,7 +111,7 @@ namespace LastBullet.Player
             float length = arm.a + arm.b;
             Vector3 shoulder = arm.upper.position;
             // 손이 닿을 자리: 몸 옆으로 늘어뜨리고 앞뒤로 흔든다. 앞으로 갈 때는 손이 조금 올라가고, 달리면 팔꿈치가 굽어 손이 올라온다.
-            Vector3 target = shoulder + Vector3.down * (length * 0.96f) + sideRight * (side * sideOffset) + forward * (wave * swing);
+            Vector3 target = shoulder + Vector3.down * (length * 0.96f) + sideRight * (side * sideOffset) + forward * (wave * swing + forwardOffset);
             target += Vector3.up * (Mathf.Max(0f, wave) * swing * 0.5f + run * 0.12f);
             Vector3 pole = -forward * 0.5f + sideRight * (side * 0.6f);
 
