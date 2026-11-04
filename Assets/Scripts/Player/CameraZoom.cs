@@ -86,6 +86,19 @@ namespace LastBullet.Player
             SetHidden(IsFirstPerson);
         }
 
+        // 거울(PlanarMirror)이 반사 그림을 찍는 동안만 내 모습을 다시 보이게 한다 (1인칭에서도 거울에는 내가 비쳐야 한다)
+        public void SetMirrorView(bool on)
+        {
+            if (!hidden)
+                return;
+            for (int i = 0; i < renderers.Count; i++)
+            {
+                if (renderers[i] == null)
+                    continue;
+                renderers[i].shadowCastingMode = on ? originalShadows[i] : UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+            }
+        }
+
         void SetHidden(bool hide)
         {
             if (hide == hidden)

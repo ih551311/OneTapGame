@@ -119,6 +119,14 @@ namespace LastBullet.Player
             transform.localRotation = Quaternion.Euler(-recoil * recoilPitch * recoilScale - restPitch * hold + 7f * reloadDip, restYaw * hold, -9f * reloadDip);
         }
 
+        // 거울 반사 그림을 찍는 동안은 1인칭 총·팔을 숨긴다 (거울에는 캐릭터 모습이 비치므로, 카메라에 붙은 1인칭 팔이 같이 비치면 이상하다)
+        public void SetMirrorHidden(bool hide)
+        {
+            foreach (var r in renderers)
+                if (r != null)
+                    r.enabled = !hide && shown;
+        }
+
         void SetShown(bool show)
         {
             if (show == shown)

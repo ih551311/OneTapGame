@@ -6,7 +6,7 @@ namespace LastBullet.Stage
     // 거울 면 건너편에 "반사 카메라"를 두고(주 카메라를 거울 면에 대칭으로 옮긴 위치) 장면을 그림(RenderTexture)으로 찍어,
     // 거울 면 머티리얼(셰이더 LastBullet/PlanarMirror)에 화면 좌표 그대로 입힌다. 그래서 캐릭터와 방이 거울 속에 보인다.
     //  - 거울 앞쪽에 있고, 거울이 화면 안에 있고, 멀지 않을 때만 그린다 (그 밖에는 멈춰서 성능을 아낀다).
-    //  - 1인칭에서는 내 모습을 숨기므로(CameraZoom) 거울에도 내 모습이 안 비친다 (그림자만).
+    //  - 1인칭에서는 내 모습을 숨기지만(CameraZoom) 거울을 찍는 동안만 다시 보이게 하고, 카메라에 붙은 1인칭 팔·총은 숨긴다 (2026-11-04).
     //  - 반사 그림 크기는 화면의 절반 (resolution)이다. 더 선명하게 하려면 1에 가깝게 (대신 무거워진다).
     // 붙일 곳: StageMap (거울 면 Mirror_Surface가 자식에 있다. 메뉴 LastBullet > Phase 55 포털 거울에 모습 비추기)
     [DefaultExecutionOrder(200)]
@@ -28,6 +28,8 @@ namespace LastBullet.Stage
         static readonly int ReflectionTex = Shader.PropertyToID("_ReflectionTex");
 
         Camera mainCamera;
+        LastBullet.Player.CameraZoom zoom;
+        LastBullet.Player.FirstPersonGun firstPersonGun;
         Camera reflectionCamera;
         RenderTexture target;
         MaterialPropertyBlock block;
@@ -84,8 +86,23 @@ namespace LastBullet.Stage
             var clipPlane = new Vector4(clipNormalCam.x, clipNormalCam.y, clipNormalCam.z, -Vector3.Dot(clipPointCam, clipNormalCam));
             reflectionCamera.projectionMatrix = mainCamera.CalculateObliqueMatrix(clipPlane);
 
+            // 1인칭이어도 거울에는 캐릭터 모습이 비치고, 카메라에 붙은 1인칭 팔은 비치지 않게 한다
+            if (zoom == null)
+                zoom = FindFirstObjectByType<LastBullet.Player.CameraZoom>();
+            if (firstPersonGun == null)
+                firstPersonGun = FindFirstObjectByType<LastBullet.Player.FirstPersonGun>(FindObjectsInactive.Include);
+            if (zoom != null)
+                zoom.SetMirrorView(true);
+            if (firstPersonGun != null)
+                firstPersonGun.SetMirrorHidden(true);
+
             GL.invertCulling = true; // 거울에 비친 장면은 앞뒤가 뒤집혀 보인다 (끄면 바닥 같은 한 겹짜리 면이 사라진다)
             reflectionCamera.Render();
+
+            if (zoom != null)
+                zoom.SetMirrorView(false);
+            if (firstPersonGun != null)
+                firstPersonGun.SetMirrorHidden(false);
 
             if (block == null)
                 block = new MaterialPropertyBlock();
