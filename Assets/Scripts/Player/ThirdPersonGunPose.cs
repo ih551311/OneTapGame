@@ -1,3 +1,4 @@
+using LastBullet.Combat;
 using UnityEngine;
 
 namespace LastBullet.Player
@@ -6,8 +7,10 @@ namespace LastBullet.Player
     // 캐릭터 동작(대기·걷기·달리기)은 "큰 총을 가슴 앞에 안은" 자세라서, 총을 손에 그대로 붙이면 총구가 몸 왼쪽 아래를 향해 몸에 가려진다.
     // 그래서 총을 주먹 가운데에 쥐게 두고(손잡이가 주먹을 뚫고 지나는 축 = 손의 X축은 그대로), 그 축을 중심으로만 돌려서
     // 총구가 캐릭터의 앞을 향하게 한다 (손목을 돌리는 것과 같다). 동작이 끝난 뒤(LateUpdate)에 맞춘다.
-    // 겉모습(pistol1 모델)은 이 오브젝트 아래 메시다. 총을 바꿀 때는 gripInMesh(모델 안에서 손으로 쥘 점)를 새 모델에 맞춘다.
-    // 붙일 곳: R.Hand 아래의 ThirdPersonPistol (메뉴 LastBullet > Phase 50 3인칭 총을 pistol1로 바꾸기)
+    // 겉모습(총 모델)은 이 오브젝트 아래 메시다. 총을 바꿀 때는 gripInMesh(모델 안에서 손으로 쥘 점)를 새 모델에 맞춘다.
+    // 이 오브젝트의 방향 기준: 앞 = 총구 방향(+Z), 위 = +Y (총 모델이 다른 방향이면 자식 모델을 돌려서 맞춘다).
+    // 재장전 모션(2026-11-04): 재장전 중에는 총구가 위로 들렸다가 내려온다 (탄창이 빠지는 모션은 MagazineReloadMotion).
+    // 붙일 곳: R.Hand 아래의 ThirdPersonGun (메뉴 LastBullet > Phase 61 AK47로 바꾸기)
     public class ThirdPersonGunPose : MonoBehaviour
     {
         [SerializeField] Transform hand;
@@ -22,6 +25,12 @@ namespace LastBullet.Player
         [Tooltip("겨누는 정도 (0 = 동작 그대로, 1 = 완전히 앞)")]
         [Range(0f, 1f)]
         [SerializeField] float aimWeight = 1f;
+
+        [Tooltip("재장전 모션을 만들 총 (있으면 재장전 중에 총구가 위로 들렸다가 내려온다)")]
+        [SerializeField] AutoGun gun;
+
+        [Tooltip("재장전 때 총구가 위로 드는 각도 (도)")]
+        [SerializeField] float reloadTilt = 32f;
 
         void LateUpdate()
         {
@@ -39,7 +48,12 @@ namespace LastBullet.Player
             if (forward.sqrMagnitude < 0.0001f)
                 forward = handForward;
 
-            transform.rotation = Quaternion.LookRotation(forward.normalized, up);
+            Quaternion rotation = Quaternion.LookRotation(forward.normalized, up);
+            // 재장전: 총구가 위로 들렸다가 내려온다 (진행도 0~1의 sin 곡선)
+            float reload = gun != null && gun.IsReloading ? Mathf.Sin(gun.ReloadProgress * Mathf.PI) : 0f;
+            if (reload > 0f)
+                rotation = Quaternion.AngleAxis(-reloadTilt * reload, rotation * Vector3.right) * rotation;
+            transform.rotation = rotation;
             // 쥘 점이 주먹 가운데에 오도록 위치를 맞춘다
             transform.position = hand.TransformPoint(fistInHand) - transform.rotation * (gripInMesh * transform.lossyScale.x);
         }

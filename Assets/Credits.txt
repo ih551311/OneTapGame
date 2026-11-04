@@ -20,3 +20,4 @@ Free Pack - Stick Man 1.0 | PolyOne Studio | Unity Asset Store (Free Pack - Stic
 
 Low Poly Guns (pistol1) | (제작자 확인 필요) | 사용자가 직접 가져옴 (출처·라이선스는 사용자 확인 필요) | (출처 URL 확인 필요) | 1인칭 총 모양 (Assets/Low Poly Guns/Models/Guns/pistol1, 1.4m짜리를 0.22배로 줄여 사용. 원본 머티리얼은 URP용 FirstPersonGun_Pistol.mat으로 따로 만듦)
 Sci-Fi Music Pack 1 1.0 | pdkmusic | Unity Asset Store (Sci-Fi Music Pack 1, 무료, 2017-12-19) | Standard Unity Asset Store EULA | 전투 맵 배경음악: 숲 Buying crap_2, 성 마을 Illusion, 사막 Zero8 _2 (Assets/Sci-Fi Music Pack 1/Loops의 LOOP 버전 3곡만 GitHub에 올림. 나머지는 프로젝트에는 있지만 .gitignore로 제외. 전체 364MB는 Package Manager에서 다시 받을 수 있음). 에셋 설명에 따라 리뷰를 남기면 제작자에게 도움이 된다
+Free Pack - Gun 0.0.1 | PolyOne Studio | Unity Asset Store (Free Pack - Gun, 무료, 2025-02-10) | Standard Unity Asset Store EULA | 플레이어 총 모양: AK47 (Assets/PolyOne/Free Gun/Prefabs/SM_Ak47.prefab, 색 그림은 T_PropsFreeGun_BaseColor.png). 같은 팩의 M16A1·MP5·Barrett M82A1·FN Five-seven은 다음에 총을 바꿀 때 쓸 수 있다

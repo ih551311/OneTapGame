@@ -476,3 +476,11 @@ Phase 1에서 한 일 (2026-10-29):
   - **아직 남아 있는 옛 코드(C단계에서 지움)**: `OneBulletGun.cs`, `BulletPickup.cs`, `BulletAutoReturn.cs`, `BulletIndicatorUI.cs`, `Prefabs/DroppedBullet.prefab`, `LightPillar.mat`, Phase3·58 메뉴, 탄환 안내 PNG. 지금은 쓰이지 않는다.
 - **총 모양**(사용자: 처음 캐릭터 총 그대로): 메뉴 `Phase 60 총을 캐릭터 원래 총으로 되돌리기` — 3인칭은 `modelGun` 다시 켜고 pistol1(ThirdPersonPistol) 삭제. 1인칭은 pistol1 대신 `modelGun`을 총 쥔 자세(Wait01)로 떼어 낸 메시(`Models/FirstPerson/FirstPersonArm_Gun.asset`, 재질 복사 `FirstPersonGun_Original.mat`)를 `Arm/Gun`으로 붙임(총신이 손의 앞과 거의 같아 2°만 돌림). 원래 총이 커서 Model 0.7배, Rest Position (0.25,-0.22,0.8), Aim (0.16,-0.17,0.8) — 세 크기를 캡처해 비교해 고름. pistol1 에셋(Low Poly Guns)과 `ThirdPersonGunPose`·Phase 49·50 메뉴는 이제 안 쓴다.
 - 확인: 4개 씬 연결(총·소리·UI·옛 컴포넌트 없음·missing 0). 사막 플레이: 6초간 누르고 있으니 30발 연사 → 재장전 시작(탄 0) → 1.6초 뒤 30발 → 계속 연사. 3인칭 원래 총, 1인칭 원래 총+손, 탄약 표시("30 / 30", "재장전 62%" 빨간 0/30) 캡처 확인. 실제 마우스 느낌·소리는 사용자 확인 필요.
+
+## 2026-11-04 총 모양을 AK47로, 재장전 모션 (Phase 61)
+- 사용자가 에셋 Free Pack - Gun(PolyOne Studio, `Assets/PolyOne/Free Gun`, AK47·M16A1·MP5·Barrett·FN Five-seven 5종)을 가져와 AK47로 바꾸고 재장전 모션을 넣어 달라고 했다. 메뉴 `LastBullet > Phase 61 AK47로 바꾸기`(4개 씬, 다시 실행하면 새로 만듦).
+- 3인칭: `R.Hand/ThirdPersonGun`(`ThirdPersonGunPose`) 아래 `Ak47`. 캐릭터 원래 총(`modelGun`)은 다시 끔. 1인칭: `Arm/Ak47Holder/Ak47`, 옛 `Arm/Gun`(원래 총 메시)은 지움. AK47은 총신이 -X쪽이라 Y 90도 돌려 총구를 +Z로, 손잡이(모델 안 (0.157,-0.04,0)→(0,-0.04,-0.157))를 주먹 가운데에 쥠. 크기 0.95(실제 0.78m).
+- 색: 모델 파일 안 재질(`Props_Gun_M`)에는 그림이 없어 흰색으로 나왔다 → 팩의 `Props_FreeGun_M`(색 그림 있음)을 복사한 전용 `Assets/Materials/Ak47.mat`로 바꿨다. 목재 개머리판·검은 금속이 나온다.
+- 재장전 모션: `MagazineReloadMotion.cs` — 재장전 진행도 0.05~0.25 탄창이 아래로 빠짐(0.22m), 0.25~0.45 사라짐, 0.45~0.70 새 탄창이 올라와 끼워짐, 이후 제자리(소리 시점 0.05·0.55·0.85와 맞춤). `ThirdPersonGunPose`는 재장전 중 총구가 위로 32° 들렸다 내려옴, `FirstPersonGun`은 총이 아래로 내려갔다 올라옴(Phase 59).
+- 확인: 4개 씬 모두 AK47·색 그림·재장전 연결. 진행도를 고정해 탄창 위치를 수치로 확인(0 → -0.11 → -0.22 사라짐 → -0.134 → 0). 3인칭 AK47이 손에 들리고 총구가 앞을 향함, 1인칭은 손이 총을 쥠. **못 본 것**: 재장전 중 실제 화면(캡처하는 동안 사용자가 같은 에디터에서 플레이 중이라 화면이 3인칭으로 바뀌고 시험이 겹쳤다), 1인칭에서 AK47이 화면에서 적당한 크기·위치인지(Rest Position은 원래 총 기준 값 그대로).
+- 이 에셋의 안 쓰는 부분(Demo 씬, 다른 총 4종, 스카이박스)은 그대로 두었다. 라이선스는 `Credits.txt`에 적었으나 확인 필요.
