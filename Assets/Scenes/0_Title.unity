@@ -12772,12 +12772,12 @@ RectTransform:
   - {fileID: 1594200577}
   - {fileID: 1412948852}
   - {fileID: 1822905570}
+  - {fileID: 2042494181}
   - {fileID: 741257680}
   - {fileID: 1772462335}
   - {fileID: 1575578942}
   - {fileID: 1551676462}
   - {fileID: 1662559372}
-  - {fileID: 2042494181}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -14239,7 +14239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
