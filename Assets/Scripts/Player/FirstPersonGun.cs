@@ -34,6 +34,8 @@ namespace LastBullet.Player
         [SerializeField] float recoilBack = 0.04f;
         [Tooltip("쏠 때 총구가 들리는 각도 (도)")]
         [SerializeField] float recoilPitch = 4f;
+        [Tooltip("조준(우클릭) 중 총 반동의 세기 (1 = 평소와 같음, 0.4 = 40%)")]
+        [SerializeField] float aimRecoilScale = 0.4f;
         [Tooltip("반동이 돌아오는 빠르기 (클수록 빠름)")]
         [SerializeField] float recoilRecover = 14f;
         [Tooltip("걸을 때 흔들리는 크기 (m)")]
@@ -98,7 +100,9 @@ namespace LastBullet.Player
             var sway = new Vector3(Mathf.Sin(bobPhase) * bobAmount, -Mathf.Abs(Mathf.Cos(bobPhase)) * bobAmount, 0f) * bob;
 
             Vector3 position = Vector3.Lerp(restPosition, aimPosition, aimBlend) + sway;
-            position += new Vector3(0f, -(1f - t) * 0.35f, -recoil * recoilBack);
+            // 조준 중에는 총이 덜 튄다 (가늠쇠가 조준점에서 멀어지면 조준이 어렵다)
+            float recoilScale = Mathf.Lerp(1f, aimRecoilScale, aimBlend);
+            position += new Vector3(0f, -(1f - t) * 0.35f, -recoil * recoilBack * recoilScale);
             // 재장전: 총이 아래로 내려갔다가 올라온다 (진행도 0~1에서 sin 곡선)
             float reloadDip = gun != null && gun.IsReloading ? Mathf.Sin(gun.ReloadProgress * Mathf.PI) : 0f;
             position += new Vector3(0.0f, -0.05f * reloadDip, 0f); // 재장전: 총이 살짝 내려가고 (왼팔은 ArmReloadSlide가 시간표대로 움직인다)
@@ -112,7 +116,7 @@ namespace LastBullet.Player
             transform.localPosition = position * fovScale;
             // 조준 중에는 총이 똑바로 앞을 보게 한다 (조준점과 총의 가늠쇠가 일직선이 되도록)
             float hold = 1f - aimBlend;
-            transform.localRotation = Quaternion.Euler(-recoil * recoilPitch - restPitch * hold + 7f * reloadDip, restYaw * hold, -9f * reloadDip);
+            transform.localRotation = Quaternion.Euler(-recoil * recoilPitch * recoilScale - restPitch * hold + 7f * reloadDip, restYaw * hold, -9f * reloadDip);
         }
 
         void SetShown(bool show)
