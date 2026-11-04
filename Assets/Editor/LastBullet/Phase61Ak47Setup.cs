@@ -1,4 +1,4 @@
-using LastBullet.Combat;
+﻿using LastBullet.Combat;
 using LastBullet.Player;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -9,7 +9,7 @@ namespace LastBullet.EditorTools
 {
     // 총 모양을 AK47로 바꾸고 재장전 모션을 넣는다 (2026-11-04 사용자 요청, 에셋 Free Pack - Gun / PolyOne Studio).
     //   모델: Assets/PolyOne/Free Gun/Prefabs/SM_Ak47.prefab (몸통 AK47_Body, 탄창 Ak47_Magazine, 총알 AK47_Bullet). 총신이 -X쪽, 위가 +Y다.
-    //   3인칭: R.Hand 아래 ThirdPersonGun(ThirdPersonGunPose)에 AK47을 넣는다. 캐릭터의 원래 총(modelGun)은 다시 끈다.
+    //   3인칭: R.Hand 아래 ThirdPersonGun(ThirdPersonGunPose)에 AK47을 넣는다. 캐릭터의 원래 총(modelGun)은 다시 끈다. 총은 가슴 앞에 두 손으로 든다(양팔 IK).
     //          AK47을 Y로 90도 돌려서 총구가 앞(+Z)을 보게 하고, 손잡이(모델 안 (0.157, -0.04, 0))를 주먹 가운데에 쥐게 한다.
     //   1인칭: Main Camera/FirstPersonGun/Model/Arm 아래 Ak47Holder에 같은 방식으로 넣는다 (손 뼈 기준 좌표). 옛 Arm/Gun(원래 총 메시)은 지운다.
     //   재장전 모션: AK47마다 MagazineReloadMotion — 탄창이 아래로 빠졌다가 새 탄창이 올라와 끼워진다. 3인칭 총은 총구가 위로 들렸다 내려오고(ThirdPersonGunPose),
@@ -26,7 +26,8 @@ namespace LastBullet.EditorTools
         // 총 모델(+Z 총구, +Y 위로 돌린 뒤) 안에서 손으로 쥘 점: AK47 안 (0.157, -0.04, 0) → Y 90도 회전 → (0, -0.04, -0.157)
         static readonly Vector3 GripInModel = new Vector3(0f, -0.04f, -0.157f);
 
-        const float Scale = 0.95f; // 손 뼈 기준 크기 (캐릭터가 머리 큰 만화 체형이라 실제(0.78m)보다 조금 크게)
+        const float ThirdScale = 1.6f; // 3인칭 총 크기 (캐릭터가 머리 큰 만화 체형이라 실제(0.78m)보다 크게. 2026-11-04 사용자: 총이 너무 작다)
+        const float Scale = 1.3f;      // 1인칭 총·손 기준 크기
 
         static readonly string[] Scenes =
         {
@@ -81,13 +82,18 @@ namespace LastBullet.EditorTools
                 float parentScale = hand.lossyScale.x > 0f ? hand.lossyScale.x : 1f;
                 var third = new GameObject("ThirdPersonGun").transform;
                 third.SetParent(hand, false);
-                third.localScale = Vector3.one * (Scale / parentScale);
+                third.localScale = Vector3.one * (ThirdScale / parentScale);
                 var pose = third.gameObject.AddComponent<ThirdPersonGunPose>();
                 var poseSo = new SerializedObject(pose);
-                poseSo.FindProperty("hand").objectReferenceValue = hand;
                 poseSo.FindProperty("body").objectReferenceValue = player.transform;
-                poseSo.FindProperty("fistInHand").vector3Value = FistInHand;
-                poseSo.FindProperty("gripInMesh").vector3Value = GripInModel;
+                poseSo.FindProperty("chest").objectReferenceValue = Find(player, "Chest");
+                poseSo.FindProperty("rightUpper").objectReferenceValue = Find(player, "R.Arm");
+                poseSo.FindProperty("rightMid").objectReferenceValue = Find(player, "R.ForeArm");
+                poseSo.FindProperty("rightHand").objectReferenceValue = hand;
+                poseSo.FindProperty("leftUpper").objectReferenceValue = Find(player, "L.Arm");
+                poseSo.FindProperty("leftMid").objectReferenceValue = Find(player, "L.ForeArm");
+                poseSo.FindProperty("leftHand").objectReferenceValue = Find(player, "L.Hand");
+                poseSo.FindProperty("gripInGun").vector3Value = GripInModel;
                 poseSo.FindProperty("gun").objectReferenceValue = autoGun;
                 poseSo.ApplyModifiedPropertiesWithoutUndo();
                 var thirdAk = PlaceAk(prefab, third, autoGun, ShadowCastingMode.On);
@@ -151,6 +157,14 @@ namespace LastBullet.EditorTools
                 return existing;
             AssetDatabase.CopyAsset("Assets/PolyOne/Free Gun/Materials/Props_FreeGun_M.mat", path);
             return AssetDatabase.LoadAssetAtPath<Material>(path);
+        }
+
+        static Transform Find(GameObject root, string name)
+        {
+            foreach (var t in root.GetComponentsInChildren<Transform>(true))
+                if (t.name == name)
+                    return t;
+            return null;
         }
 
         static void Remove(Transform parent, string name)
