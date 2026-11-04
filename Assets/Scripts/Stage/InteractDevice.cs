@@ -19,7 +19,10 @@ namespace LastBullet.Stage
 
         Transform player;
 
-        void Start()
+        // 이 장치가 여는 팝업 (GuideSign처럼 장치를 확장하는 쪽이 쓴다)
+        protected PopupBase Popup => popup;
+
+        protected virtual void Start()
         {
             var playerObject = GameObject.FindWithTag("Player");
             if (playerObject != null)
