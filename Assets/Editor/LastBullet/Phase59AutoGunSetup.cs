@@ -1,4 +1,4 @@
-using LastBullet.Combat;
+﻿using LastBullet.Combat;
 using LastBullet.Player;
 using LastBullet.UI;
 using TMPro;
@@ -22,7 +22,6 @@ namespace LastBullet.EditorTools
 
         static readonly string[] Scenes =
         {
-            "Assets/Scenes/1_Museum.unity",
             "Assets/Scenes/2_Forest.unity",
             "Assets/Scenes/3_CastleVillage.unity",
             "Assets/Scenes/4_Desert.unity",
