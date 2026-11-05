@@ -24,4 +24,19 @@ namespace LastBullet.Stage
             return table.TryGetValue(sceneName, out var colors) ? colors : null;
         }
     }
+
+    // 전투 장소(맵) 이름 (화면에 보이는 글자라 한글. 로딩 화면이 쓴다)
+    public static class StageNames
+    {
+        public static string For(string sceneName)
+        {
+            switch (sceneName)
+            {
+                case SceneNames.Forest: return "숲";
+                case SceneNames.CastleVillage: return "성 마을";
+                case SceneNames.Desert: return "사막";
+                default: return sceneName;
+            }
+        }
+    }
 }

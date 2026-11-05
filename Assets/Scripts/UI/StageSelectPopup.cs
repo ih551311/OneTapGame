@@ -32,7 +32,7 @@ namespace LastBullet.UI
         static void LoadStage(string sceneName)
         {
             Debug.Log($"[StageSelectPopup] {sceneName}(으)로 이동");
-            PaintTransition.Load(sceneName); // 물감 얼룩이 번져 화면을 덮은 뒤 씬을 옮긴다 (연출이 없는 씬이면 바로 옮김)
+            LoadingScreen.Load(sceneName); // 로딩 화면(맵 이름·물감 색·내 그림·아재개그)을 거쳐 씬을 옮긴다 (로딩 화면이 없으면 색 번짐 전환)
         }
     }
 }
