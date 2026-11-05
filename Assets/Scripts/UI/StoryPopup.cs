@@ -29,6 +29,9 @@ namespace LastBullet.UI
         [Tooltip("'1 / 6' 같은 쪽 번호 글자")]
         [SerializeField] TMP_Text pageNumber;
 
+        [Tooltip("열면 '이야기를 봤다'고 기억한다 (입구 이야기 안내판용). 할아버지 일기장처럼 다른 곳에 이 창을 쓰면 끈다")]
+        [SerializeField] bool rememberSeen = true;
+
         int index;
 
         // 이야기를 한 번이라도 열어 봤는지
@@ -55,6 +58,8 @@ namespace LastBullet.UI
         {
             index = 0;
             Show();
+            if (!rememberSeen)
+                return;
             try
             {
                 PlayerPrefs.SetInt(SeenKey, 1);

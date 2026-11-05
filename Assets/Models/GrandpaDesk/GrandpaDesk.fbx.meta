@@ -3,7 +3,67 @@ guid: a5484539335ab68458b29acb19baa782
 ModelImporter:
   serializedVersion: 24300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrandpaDesk_BookBlue
+    second: {fileID: 2100000, guid: 27866ab8beee746479c30db9a52216bc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrandpaDesk_BookGreen
+    second: {fileID: 2100000, guid: 2dacf26a6efdf8b41aa20acbca3745e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrandpaDesk_Brass
+    second: {fileID: 2100000, guid: 2286ce9f8b697924cb52e9986d397c42, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrandpaDesk_Candle
+    second: {fileID: 2100000, guid: c9534aaa6783941428dd7dab976c4e44, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrandpaDesk_Feather
+    second: {fileID: 2100000, guid: bca9d572b251fed40a514a38dde0a9a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrandpaDesk_Flame
+    second: {fileID: 2100000, guid: b901bff1f24f95a47bb0289f21c6b193, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrandpaDesk_Ink
+    second: {fileID: 2100000, guid: eea2eb086a5d2254398ebd9ec7597186, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrandpaDesk_Leather
+    second: {fileID: 2100000, guid: f4a275f9d793a4647ab5bba7ce77ac03, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrandpaDesk_Paper
+    second: {fileID: 2100000, guid: 4cbba914d3b92ef4ea2e6b3177987906, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrandpaDesk_Ribbon
+    second: {fileID: 2100000, guid: 929201f399b93e94e9e2127b9dd4286b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrandpaDesk_Wood
+    second: {fileID: 2100000, guid: 9b17692552d747048af1846d1b2e097a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrandpaDesk_WoodDark
+    second: {fileID: 2100000, guid: a5c165b185da0c9468bc15b671812c40, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
