@@ -34,10 +34,8 @@ namespace LastBullet.Player
         [SerializeField] float turnSpeed = 720f;
 
         [Header("움직임 느낌 (2026-11-06 사용자 요청: 미술관)")]
-        [Tooltip("켜면 걸을 때 시점이 살짝 흔들리고(1인칭에서 가장 크게), 달리면 시야가 넓어진다. 미술관만 켠다")]
+        [Tooltip("켜면 걸을 때 시점이 살짝 흔들린다(1인칭에서 가장 크게). 미술관만 켠다. (달릴 때 시야 넓어지기는 사용자가 별로라고 해서 지웠다)")]
         [SerializeField] bool movementFeel;
-        [Tooltip("달릴 때 시야각이 더 넓어지는 양 (도)")]
-        [SerializeField] float runFovBonus = 9f;
         [Tooltip("걸을 때 시점이 위아래로 흔들리는 폭 (m, 1인칭 기준)")]
         [SerializeField] float bobHeight = 0.045f;
         [Tooltip("걸을 때 시점이 좌우로 흔들리는 폭 (m, 1인칭 기준)")]
@@ -48,9 +46,8 @@ namespace LastBullet.Player
         float normalFov, normalDistance, normalShoulderX, normalShoulderY, normalShoulderZ, normalArm;
         float amount; // 0 = 평소, 1 = 완전히 조준
         CameraZoom zoom; // 휠로 3인칭 ↔ 1인칭 (없으면 늘 3인칭)
-        PlayerMovement movement;
         CharacterController controller;
-        float bobPhase, moveAmount, runBlend;
+        float bobPhase, moveAmount;
 
         public bool IsAiming => amount > 0.5f;
 
@@ -63,7 +60,6 @@ namespace LastBullet.Player
             normalShoulderZ = follow.ShoulderOffset.z;
             normalArm = follow.VerticalArmLength;
             zoom = GetComponent<CameraZoom>();
-            movement = GetComponent<PlayerMovement>();
             controller = GetComponent<CharacterController>();
         }
 
@@ -79,8 +75,8 @@ namespace LastBullet.Player
             float baseDistance = Mathf.Lerp(normalDistance, 0f, z);
             float baseShoulderX = Mathf.Lerp(normalShoulderX, 0f, z);
 
-            // 움직임 느낌: 걸음 박자에 맞춘 흔들림, 달릴 때 넓어지는 시야 (조준 중에는 줄인다)
-            float bobX = 0f, bobY = 0f, runFov = 0f;
+            // 움직임 느낌: 걸음 박자에 맞춘 시점 흔들림 (조준 중에는 줄인다)
+            float bobX = 0f, bobY = 0f;
             if (movementFeel && controller != null)
             {
                 var velocity = controller.velocity;
@@ -91,14 +87,10 @@ namespace LastBullet.Player
                 float scale = Mathf.Lerp(0.25f, 1f, z) * (1f - eased * 0.8f); // 3인칭은 아주 약하게, 1인칭에서 가장 크게
                 bobY = Mathf.Sin(bobPhase * 2f) * bobHeight * moveAmount * scale; // 한 걸음마다 한 번 출렁
                 bobX = Mathf.Sin(bobPhase) * bobSway * moveAmount * scale;        // 좌우는 두 걸음에 한 번
-                bool running = movement != null && movement.IsRunning && Time.timeScale > 0f;
-                runBlend = Mathf.MoveTowards(runBlend, running ? 1f : 0f, Time.unscaledDeltaTime * 3f);
-                float smoothRun = runBlend * runBlend * (3f - 2f * runBlend);
-                runFov = runFovBonus * smoothRun * (1f - eased);
             }
 
             var lens = followCamera.Lens;
-            lens.FieldOfView = Mathf.Lerp(normalFov + runFov, aimFieldOfView, eased);
+            lens.FieldOfView = Mathf.Lerp(normalFov, aimFieldOfView, eased);
             followCamera.Lens = lens;
             follow.CameraDistance = Mathf.Lerp(baseDistance, Mathf.Min(baseDistance, aimDistance), eased);
             follow.VerticalArmLength = Mathf.Lerp(normalArm, 0f, z);

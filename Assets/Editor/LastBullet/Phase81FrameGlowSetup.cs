@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace LastBullet.EditorTools
 {
-    // 미술관 움직임 느낌 (2026-11-06 사용자 요청: 걸을 때 시점이 살짝 흔들리고, 달릴 때 시야가 넓어진다).
+    // 미술관 움직임 느낌 (2026-11-06 사용자 요청: 걸을 때 시점이 살짝 흔들린다).
     //   플레이어의 AimController에 "움직임 느낌"(movementFeel)을 켠다 (미술관만. 전투 맵은 조준이 흔들리지 않게 그대로).
-    //   (작품 앞에 서면 액자가 빛나는 효과도 만들었지만 사용자가 별로라고 해서 지웠다.)
+    //   (작품 앞에 서면 액자가 빛나는 효과와 달릴 때 시야가 넓어지는 효과는 사용자가 별로라고 해서 지웠다.)
     // 메뉴: LastBullet > Phase 81 미술관 움직임 느낌 켜기
     public static class Phase81FrameGlowSetup
     {
