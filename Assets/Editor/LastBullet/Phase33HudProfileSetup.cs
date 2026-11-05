@@ -117,7 +117,7 @@ namespace LastBullet.EditorTools
             var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontPath);
             text.font = font != null ? font : TMP_Settings.defaultFontAsset;
             text.fontStyle = FontStyles.Normal;
-            text.color = new Color32(0xEE, 0xE6, 0xDA, 0xFF); // 어두운 판 위의 부드러운 크림색 (튀지 않게)
+            text.color = Phase78HudNamePaper.TextColor; // 종이 쪽지 이름 칸 위의 어두운 갈색 (2026-11-06 Phase 78)
             text.alignment = TextAlignmentOptions.Center;
             text.raycastTarget = false;
             text.textWrappingMode = TextWrappingModes.NoWrap;

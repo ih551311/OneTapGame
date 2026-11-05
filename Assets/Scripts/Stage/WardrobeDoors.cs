@@ -35,6 +35,11 @@ namespace LastBullet.Stage
         [Tooltip("안내 글자 (Canvas/Prompt_Wardrobe, 장롱끼리 같이 쓴다)")]
         [SerializeField] TMP_Text prompt;
 
+        [Header("소리 (Assets/Audio/Museum/Door_Open.wav, Door_Close.wav — 같은 이름으로 덮어쓰면 바뀐다)")]
+        [SerializeField] AudioSource audioSource;
+        [SerializeField] AudioClip openClip;
+        [SerializeField] AudioClip closeClip;
+
         // 지금 안내 글자를 켜 둔 장롱 (여러 장롱이 서로 끄고 켜지 않게)
         static WardrobeDoors promptOwner;
 
@@ -93,6 +98,7 @@ namespace LastBullet.Stage
                     if (open && InDoorway())
                         return;
                     open = !open;
+                    PlaySound(open ? openClip : closeClip);
                 }
             }
             else if (promptOwner == this)
@@ -101,6 +107,13 @@ namespace LastBullet.Stage
                 if (prompt != null)
                     prompt.gameObject.SetActive(false);
             }
+        }
+
+        // 문 소리 (장롱 위치에서 입체로 들린다)
+        void PlaySound(AudioClip clip)
+        {
+            if (audioSource != null && clip != null)
+                audioSource.PlayOneShot(clip);
         }
 
         // 플레이어가 문 앞 충돌 상자 자리(문턱)에 겹쳐 있는지
