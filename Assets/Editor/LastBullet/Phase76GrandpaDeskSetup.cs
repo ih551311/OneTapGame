@@ -17,8 +17,11 @@ namespace LastBullet.EditorTools
     public static class Phase76GrandpaDeskSetup
     {
         const string ModelPath = "Assets/Models/GrandpaDesk/GrandpaDesk.fbx";
-        const float DeskDepth = 0.7f;      // 모델 원래 깊이 (m)
-        const float DeskScale = 1.5f;      // 책상을 키우는 배율 (2026-11-05 사용자 요청: 책상이 작아 보인다). 1.4×1.06×0.7m → 약 2.1×1.6×1.05m
+        // 2026-11-05 사용자 요청으로 모델을 종이 합성대와 비슷한 크기로 다시 만들었다(윗판 2.1×1.04m, 윗면 높이 1.2m). 그래서 배율은 1.
+        const float DeskDepth = 1.04f;     // 모델 깊이 (m)
+        const float DeskWidth = 2.1f;      // 모델 가로 (m)
+        const float DeskHeight = 1.2f;     // 모델 높이 (m, 윗면까지)
+        const float DeskScale = 1.0f;      // 추가 배율 (모델이 작아 보이면 올린다)
         static readonly Vector3 DefaultPosition = new Vector3(-17.25f, 0f, 0.5f);
 
         [MenuItem("LastBullet/Phase 76 할아버지 일기장 책상 놓기")]
@@ -104,10 +107,10 @@ namespace LastBullet.EditorTools
             // 지나가다 통과하지 않게 (맨 위 물체는 축 변환으로 기울어 있어서, 똑바로 선 자식에 붙인다)
             var blockerGo = new GameObject("Blocker");
             blockerGo.transform.SetParent(desk.transform, false);
-            blockerGo.transform.SetPositionAndRotation(position + Vector3.up * 0.53f * DeskScale, Quaternion.Euler(0f, 90f, 0f));
+            blockerGo.transform.SetPositionAndRotation(position + Vector3.up * DeskHeight * 0.5f * DeskScale, Quaternion.Euler(0f, 90f, 0f));
             blockerGo.transform.localScale = Vector3.one;   // 부모(책상)의 배율이 그대로 곱해져 상자도 같이 커진다
             var blocker = blockerGo.AddComponent<BoxCollider>();
-            blocker.size = new Vector3(1.4f, 1.06f, DeskDepth);
+            blocker.size = new Vector3(DeskWidth, DeskHeight, DeskDepth);
 
             var device = desk.AddComponent<InteractDevice>();
             var deviceSo = new SerializedObject(device);

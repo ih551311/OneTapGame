@@ -47,6 +47,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: GrandpaDesk_Mat
+    second: {fileID: 2100000, guid: 7fe864f2c9f5bb54497b921a7d37fc58, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: GrandpaDesk_Paper
     second: {fileID: 2100000, guid: 4cbba914d3b92ef4ea2e6b3177987906, type: 2}
   - first:
