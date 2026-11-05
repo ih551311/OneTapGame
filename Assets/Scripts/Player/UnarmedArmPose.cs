@@ -55,10 +55,21 @@ namespace LastBullet.Player
         float phase;
         float smoothSpeed;
 
+        Transform rightFoot, leftFoot;
+
         void Awake()
         {
             right = Capture(rightUpper, rightMid, rightHand);
             left = Capture(leftUpper, leftMid, leftHand);
+            // 발 뼈 (모델 안에서 이름으로 찾는다. 없으면 예전처럼 걸은 거리로 박자를 센다)
+            if (body != null)
+            {
+                foreach (var t in body.root.GetComponentsInChildren<Transform>(true))
+                {
+                    if (t.name == "R.Foot") rightFoot = t;
+                    else if (t.name == "L.Foot") leftFoot = t;
+                }
+            }
         }
 
         // 애니메이터가 움직이기 전, 모델이 만들어진 자세를 기억해 둔다
@@ -105,8 +116,16 @@ namespace LastBullet.Player
             forward.Normalize();
             Vector3 sideRight = Vector3.Cross(Vector3.up, forward);
 
-            Pose(right, 1f, Mathf.Sin(phase), swing, run, forward, sideRight);
-            Pose(left, -1f, Mathf.Sin(phase + Mathf.PI), swing, run, forward, sideRight);
+            // 팔은 다리와 반대로 흔든다: 왼발이 앞이면 오른팔이 앞. 발 위치를 직접 재서 다리 동작과 박자가 어긋나지 않게 한다 (2026-11-06).
+            float wave = Mathf.Sin(phase);
+            if (rightFoot != null && leftFoot != null)
+            {
+                float legs = Vector3.Dot(leftFoot.position - rightFoot.position, forward); // 왼발이 앞서면 +
+                float reach = Mathf.Lerp(0.30f, 0.50f, run);                               // 걸을 때/달릴 때 두 발 사이 최대 거리쯤
+                wave = Mathf.Clamp(legs / reach, -1f, 1f);
+            }
+            Pose(right, 1f, wave, swing, run, forward, sideRight);
+            Pose(left, -1f, -wave, swing, run, forward, sideRight);
         }
 
         void Pose(Arm arm, float side, float wave, float swing, float run, Vector3 forward, Vector3 sideRight)
