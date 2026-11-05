@@ -17,7 +17,8 @@ namespace LastBullet.EditorTools
     public static class Phase76GrandpaDeskSetup
     {
         const string ModelPath = "Assets/Models/GrandpaDesk/GrandpaDesk.fbx";
-        const float DeskDepth = 0.7f;
+        const float DeskDepth = 0.7f;      // 모델 원래 깊이 (m)
+        const float DeskScale = 1.5f;      // 책상을 키우는 배율 (2026-11-05 사용자 요청: 책상이 작아 보인다). 1.4×1.06×0.7m → 약 2.1×1.6×1.05m
         static readonly Vector3 DefaultPosition = new Vector3(-17.25f, 0f, 0.5f);
 
         [MenuItem("LastBullet/Phase 76 할아버지 일기장 책상 놓기")]
@@ -99,11 +100,12 @@ namespace LastBullet.EditorTools
             desk.name = "GrandpaDesk";
             // 모델 앞면(+Z)이 +X(전시장 안쪽)를 보게. 3ds Max FBX는 맨 위에 축 변환 회전(-90°)이 있어서 그 위에 더한다
             desk.transform.SetPositionAndRotation(position, Quaternion.Euler(0f, 90f, 0f) * model.transform.rotation);
+            desk.transform.localScale *= DeskScale;
             // 지나가다 통과하지 않게 (맨 위 물체는 축 변환으로 기울어 있어서, 똑바로 선 자식에 붙인다)
             var blockerGo = new GameObject("Blocker");
             blockerGo.transform.SetParent(desk.transform, false);
-            blockerGo.transform.SetPositionAndRotation(position + Vector3.up * 0.53f, Quaternion.Euler(0f, 90f, 0f));
-            blockerGo.transform.localScale = Vector3.one;
+            blockerGo.transform.SetPositionAndRotation(position + Vector3.up * 0.53f * DeskScale, Quaternion.Euler(0f, 90f, 0f));
+            blockerGo.transform.localScale = Vector3.one;   // 부모(책상)의 배율이 그대로 곱해져 상자도 같이 커진다
             var blocker = blockerGo.AddComponent<BoxCollider>();
             blocker.size = new Vector3(1.4f, 1.06f, DeskDepth);
 
@@ -136,7 +138,7 @@ namespace LastBullet.EditorTools
                 }
             }
             if (!float.IsNegativeInfinity(wallX))
-                p.x = wallX + DeskDepth * 0.5f + 0.02f;
+                p.x = wallX + DeskDepth * DeskScale * 0.5f + 0.02f;
 
             if (Physics.Raycast(new Vector3(p.x, 3f, p.z), Vector3.down, out var hit, 5f, ~0, QueryTriggerInteraction.Ignore))
                 p.y = hit.point.y;
