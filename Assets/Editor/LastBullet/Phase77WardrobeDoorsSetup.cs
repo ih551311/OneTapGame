@@ -31,7 +31,7 @@ namespace LastBullet.EditorTools
                 return;
             }
 
-            var openClip = EnsureSound("Door_Open", MakeCreak);
+            var openClip = EnsureSound("Door_Open", MakeThud); // 2026-11-06 사용자 요청: 열 때도 닫을 때와 같은 소리 (삐걱 소리 MakeCreak은 이상하다고 해서 안 씀)
             var closeClip = EnsureSound("Door_Close", MakeThud);
 
             // 안내 글자
