@@ -55,29 +55,27 @@ namespace LastBullet.EditorTools
             // 내 그림 액자 (살짝 기울여 벽에서 내려 놓은 사진처럼)
             var frame = NewImage("PaintingFrame", root, "Assets/UI/Loading_Frame.png", 20f);
             frame.type = Image.Type.Sliced;
-            Place(frame.rectTransform, new Vector2(-520f, 160f), new Vector2(520f, 560f));
+            Place(frame.rectTransform, new Vector2(-520f, 90f), new Vector2(500f, 500f));
             frame.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -3f);
             var painting = NewImage("Painting", frame.rectTransform, "Assets/UI/Profile_Empty.png", 0f);
-            Place(painting.rectTransform, new Vector2(0f, 32f), new Vector2(440f, 440f));
-            var label = NewText("PaintingLabel", frame.rectTransform, font, "내 그림", 34f, Brown, TextAlignmentOptions.Center);
-            Place(label.rectTransform, new Vector2(0f, -232f), new Vector2(440f, 56f));
+            Place(painting.rectTransform, new Vector2(0f, 0f), new Vector2(440f, 440f));
 
             // 맵 이름
-            var mapName = NewText("MapName", root, font, "숲", 120f, Cream, TextAlignmentOptions.Center);
-            Place(mapName.rectTransform, new Vector2(330f, 250f), new Vector2(900f, 170f));
+            var mapName = NewText("MapName", root, font, "숲", 130f, Cream, TextAlignmentOptions.Center);
+            Place(mapName.rectTransform, new Vector2(330f, 130f), new Vector2(900f, 180f));
 
-            // 얻는 물감 (작게)
-            var colorTitle = NewText("ColorsTitle", root, font, "여기서 얻는 물감", 32f, CreamDim, TextAlignmentOptions.Center);
-            Place(colorTitle.rectTransform, new Vector2(330f, 120f), new Vector2(700f, 50f));
+            // 얻는 물감: 오른쪽 위 구석에 작게 (2026-11-06 사용자 요청). 제목 + (아이콘 + 이름) 3개를 한 줄로.
+            var colorTitle = NewText("ColorsTitle", root, font, "얻는 물감", 24f, CreamDim, TextAlignmentOptions.Center);
+            Place(colorTitle.rectTransform, new Vector2(506f, 466f), new Vector2(120f, 40f));
             var icons = new Image[3];
             var names = new TMP_Text[3];
             for (int i = 0; i < 3; i++)
             {
-                float x = 330f + (i - 1) * 230f;
+                float x = 626f + i * 125f;
                 icons[i] = NewImage($"ColorIcon_{i}", root, "Assets/UI/Icon_Paint_Red.png", 0f);
-                Place(icons[i].rectTransform, new Vector2(x, 30f), new Vector2(96f, 96f));
-                names[i] = NewText($"ColorName_{i}", root, font, "빨강", 34f, Cream, TextAlignmentOptions.Center);
-                Place(names[i].rectTransform, new Vector2(x, -50f), new Vector2(200f, 50f));
+                Place(icons[i].rectTransform, new Vector2(x - 32f, 466f), new Vector2(48f, 48f));
+                names[i] = NewText($"ColorName_{i}", root, font, "빨강", 26f, Cream, TextAlignmentOptions.Center);
+                Place(names[i].rectTransform, new Vector2(x + 30f, 466f), new Vector2(80f, 40f));
             }
 
             // 아재개그 판
