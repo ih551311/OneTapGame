@@ -32,6 +32,17 @@ namespace LastBullet.Combat
         Light activeLight;
         float lightEnd;
 
+        // 지금 보이는 총의 총구 자리 (1인칭이면 1인칭 총, 아니면 3인칭 캐릭터 총). 총알과 탄도선이 여기서 나간다. 없으면 null.
+        public Transform ActiveMuzzle
+        {
+            get
+            {
+                bool firstPerson = zoom != null && zoom.IsFirstPerson;
+                var set = firstPerson ? first : third;
+                return set != null && set.flash != null ? set.flash.transform : null;
+            }
+        }
+
         void OnEnable()
         {
             if (gun != null)

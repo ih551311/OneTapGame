@@ -82,6 +82,7 @@ namespace LastBullet.Combat
         public event Action AmmoChanged;
 
         Camera cam;
+        GunEffects effects;
         ThirdPersonCamera look;
         readonly RaycastHit[] hits = new RaycastHit[16];
         float tracerEndTime;
@@ -147,8 +148,11 @@ namespace LastBullet.Combat
                 ? cameraHit.point
                 : cameraRay.origin + cameraRay.direction * maxRange;
 
-            // 2) 총구 → 조준점
-            Vector3 origin = muzzle.position;
+            // 2) 총구 → 조준점. 총알은 지금 화면에 보이는 총의 총구에서 나간다 (GunEffects가 있으면 그 총구, 없으면 Player 아래 Muzzle)
+            if (effects == null)
+                effects = GetComponent<GunEffects>();
+            var visibleMuzzle = effects != null ? effects.ActiveMuzzle : null;
+            Vector3 origin = visibleMuzzle != null ? visibleMuzzle.position : muzzle.position;
             Vector3 toAim = aimPoint - origin;
             bool hit = RaycastIgnoringSelf(origin, toAim.normalized, toAim.magnitude + 0.01f, out var muzzleHit);
             Vector3 impact = hit ? muzzleHit.point : aimPoint;
