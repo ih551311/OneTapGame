@@ -20,9 +20,9 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.4, g: 0.33, b: 0.27, a: 1}
-  m_AmbientEquatorColor: {r: 0.34, g: 0.27, b: 0.21, a: 1}
-  m_AmbientGroundColor: {r: 0.22, g: 0.17, b: 0.12, a: 1}
+  m_AmbientSkyColor: {r: 0.17999999, g: 0.1485, b: 0.1215, a: 0.45}
+  m_AmbientEquatorColor: {r: 0.153, g: 0.1215, b: 0.0945, a: 0.45}
+  m_AmbientGroundColor: {r: 0.099, g: 0.0765, b: 0.053999998, a: 0.45}
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
@@ -35,7 +35,7 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 1
+  m_ReflectionIntensity: 0.3
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_UseRadianceAmbientProbe: 0
@@ -728,7 +728,6 @@ MonoBehaviour:
   blendSpeed: 12
   turnSpeed: 720
   movementFeel: 1
-  runFovBonus: 9
   bobHeight: 0.045
   bobSway: 0.03
   bobCyclesPerMeter: 0.37
@@ -15221,7 +15220,7 @@ Light:
   serializedVersion: 12
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.15
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
