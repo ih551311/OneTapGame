@@ -90,6 +90,10 @@ namespace LastBullet.EditorTools
                 ("dashSpeed", 13f), ("dashTime", 0.7f), ("recoverTime", 1.4f), ("attackDamage", 30), ("contactRange", 3.4f),
                 ("turnSpeed", 120f), ("hitStunTime", 0f));
             Set(root.GetComponent<EnemyDrop>(), ("paperScraps", 0), ("paintAmount", 0));
+            // 발소리: 몸집이 커서 걸음이 크고(걸음 거리 2배), 낮고 묵직하며, 더 멀리서도 들린다 (2026-11-06 적 어색한 부분 고치기)
+            var footsteps = root.GetComponent<EnemyFootsteps>();
+            if (footsteps != null)
+                Set(footsteps, ("walkStride", 4.5f), ("runStride", 6f), ("pitch", 0.6f), ("volume", 0.5f), ("hearRange", 38f));
 
             // 경고 원 (바닥에 눕히는 쿼드)
             var ring = GameObject.CreatePrimitive(PrimitiveType.Quad);

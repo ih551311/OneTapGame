@@ -87,11 +87,25 @@ namespace LastBullet.Player
             if (gun != null)
                 gun.enabled = false;
 
-            // 쓰러진다 (임시 연출)
-            transform.rotation *= Quaternion.Euler(-80f, 0f, 0f);
+            // 쓰러진다: 뒤로 천천히 기울다가 점점 빨라지며 눕는다 (예전에는 한 프레임에 눕는 모습으로 바뀌어 어색했다)
+            StartCoroutine(FallOver());
 
             Died?.Invoke();
             StartCoroutine(ShowResultAfterDelay(lost));
+        }
+
+        IEnumerator FallOver()
+        {
+            Quaternion start = transform.rotation;
+            Quaternion end = start * Quaternion.Euler(-80f, 0f, 0f);
+            const float duration = 0.55f;
+            for (float t = 0f; t < duration; t += Time.deltaTime)
+            {
+                float k = t / duration;
+                transform.rotation = Quaternion.Slerp(start, end, k * k); // 처음엔 천천히, 끝으로 갈수록 빠르게 (넘어지는 느낌)
+                yield return null;
+            }
+            transform.rotation = end;
         }
 
         // 쓰러진 뒤 잠시 있다가 "쓰러졌어요" 결과 창(잃은 재료)을 보여 준다. [미술관으로]를 누르면 미술관으로 돌아간다.

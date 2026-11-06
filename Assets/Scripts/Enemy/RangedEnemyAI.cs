@@ -26,6 +26,9 @@ namespace LastBullet.Enemy
         [SerializeField] float keepMaxDistance = 14f;   // 이보다 멀면 다가온다
         [SerializeField] float retreatStep = 6f;        // 물러날 때 한 번에 정하는 거리
 
+        [Tooltip("1초에 돌 수 있는 각도 (거리 유지 중 몸 돌리기, 기본값)")]
+        [SerializeField] float turnRate = 420f;
+
         [Header("공격 (기본값)")]
         [SerializeField] float attackInterval = 2.5f;   // 던지는 간격
         [SerializeField] float throwRange = 18f;        // 이 거리 안이면 던진다
@@ -115,7 +118,17 @@ namespace LastBullet.Enemy
 
         void UpdateKeepDistance(float distance)
         {
-            FaceTowards(player.position, 0f);
+            // 물러나는 동안에는 가는 쪽을 보고 걷는다 (플레이어를 본 채 뒷걸음치면 달리기 동작이 거꾸로 미끄러져 어색하다). 멈추면 다시 플레이어를 본다.
+            if (distance < keepMinDistance)
+            {
+                Vector3 away = transform.position - player.position;
+                away.y = 0f;
+                FaceTowardsSmooth(transform.position + away, 0f);
+            }
+            else
+            {
+                FaceTowardsSmooth(player.position, 0f);
+            }
 
             if (distance > keepMaxDistance)
             {
@@ -161,7 +174,7 @@ namespace LastBullet.Enemy
             {
                 // 예고: 플레이어를 보면서 점점 뒤로 젖힌다
                 float progress = 1f - (phaseEndTime - Time.time) / windupTime;
-                FaceTowards(player.position, leanAngle * Mathf.Clamp01(progress));
+                FaceTowardsSmooth(player.position, leanAngle * Mathf.Clamp01(progress)); // 물러나다 멈춘 직후라도 휙 돌지 않게 부드럽게
                 if (Time.time >= phaseEndTime)
                 {
                     Throw();
@@ -221,6 +234,17 @@ namespace LastBullet.Enemy
             if (direction.sqrMagnitude < 0.0001f)
                 return;
             transform.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(-lean, 0f, 0f);
+        }
+
+        // 몸을 부드럽게 돌린다 (초당 turnRate도). 예고·던지기처럼 바로 돌아야 할 때는 FaceTowards를 쓴다.
+        void FaceTowardsSmooth(Vector3 target, float lean)
+        {
+            Vector3 direction = target - transform.position;
+            direction.y = 0f;
+            if (direction.sqrMagnitude < 0.0001f)
+                return;
+            Quaternion targetRotation = Quaternion.LookRotation(direction) * Quaternion.Euler(-lean, 0f, 0f);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnRate * Time.deltaTime);
         }
 
         float FlatDistance(Vector3 target)
