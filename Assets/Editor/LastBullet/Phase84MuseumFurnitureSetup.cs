@@ -79,7 +79,7 @@ namespace LastBullet.EditorTools
                 string n = child.name;
                 if (n == "GlassTable" || n == "OldChair" || n == "StrawChair")
                     toDelete.Add(child.gameObject);
-                else if (n.StartsWith("Wardrobe_") && child.position.z < 10f)
+                else if (n.StartsWith("Wardrobe_") && !n.StartsWith("Wardrobe_South"))
                     toDelete.Add(child.gameObject);
             }
             foreach (var go in toDelete)

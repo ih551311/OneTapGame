@@ -29132,19 +29132,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2385854789390304529, guid: 44e28f436fe43eb4eae2d5e878c31f25, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.211222
+      value: -16.85
       objectReference: {fileID: 0}
     - target: {fileID: 2385854789390304529, guid: 44e28f436fe43eb4eae2d5e878c31f25, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.10085083
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2385854789390304529, guid: 44e28f436fe43eb4eae2d5e878c31f25, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.002752
+      value: -7.27
       objectReference: {fileID: 0}
     - target: {fileID: 2385854789390304529, guid: 44e28f436fe43eb4eae2d5e878c31f25, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2385854789390304529, guid: 44e28f436fe43eb4eae2d5e878c31f25, type: 3}
       propertyPath: m_LocalRotation.x
@@ -29152,7 +29152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2385854789390304529, guid: 44e28f436fe43eb4eae2d5e878c31f25, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7071068
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2385854789390304529, guid: 44e28f436fe43eb4eae2d5e878c31f25, type: 3}
       propertyPath: m_LocalRotation.z
@@ -29172,7 +29172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4766866230007665898, guid: 44e28f436fe43eb4eae2d5e878c31f25, type: 3}
       propertyPath: m_Name
-      value: Wardrobe_West
+      value: Wardrobe_South_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -38786,19 +38786,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2385854789390304529, guid: 44e28f436fe43eb4eae2d5e878c31f25, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.211222
+      value: -14.65
       objectReference: {fileID: 0}
     - target: {fileID: 2385854789390304529, guid: 44e28f436fe43eb4eae2d5e878c31f25, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.10085083
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2385854789390304529, guid: 44e28f436fe43eb4eae2d5e878c31f25, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.997248
+      value: -7.27
       objectReference: {fileID: 0}
     - target: {fileID: 2385854789390304529, guid: 44e28f436fe43eb4eae2d5e878c31f25, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2385854789390304529, guid: 44e28f436fe43eb4eae2d5e878c31f25, type: 3}
       propertyPath: m_LocalRotation.x
@@ -38806,7 +38806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2385854789390304529, guid: 44e28f436fe43eb4eae2d5e878c31f25, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7071068
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2385854789390304529, guid: 44e28f436fe43eb4eae2d5e878c31f25, type: 3}
       propertyPath: m_LocalRotation.z
@@ -38826,7 +38826,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4766866230007665898, guid: 44e28f436fe43eb4eae2d5e878c31f25, type: 3}
       propertyPath: m_Name
-      value: Wardrobe_East
+      value: Wardrobe_South_2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
