@@ -21,7 +21,7 @@ namespace LastBullet.UI
         [SerializeField] Sprite[] pages;
 
         [Header("글 쪽 (2026-11-06 사용자 요청: 그림 대신 글로 쓰고 싶다)")]
-        [Tooltip("글로 된 쪽들이 들어 있는 메모장 파일 (Assets/UI/StoryPages.txt). 줄에 --- 만 있으면 거기서 쪽이 나뉜다. 비워 두면 위 쪽 그림을 쓴다")]
+        [Tooltip("글로 된 쪽들이 들어 있는 메모장 파일 (Assets/UI/0_StoryPages.txt). 줄에 --- 만 있으면 거기서 쪽이 나뉜다. 비워 두면 위 쪽 그림을 쓴다")]
         [SerializeField] TextAsset textPages;
 
         [Tooltip("글 쪽을 보여 주는 글자 칸")]
