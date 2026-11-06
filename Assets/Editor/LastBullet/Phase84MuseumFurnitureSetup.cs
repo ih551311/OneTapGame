@@ -40,36 +40,21 @@ namespace LastBullet.EditorTools
         {
             var list = new List<Piece>
             {
+                // 2026-11-06 사용자 요청 "미술관처럼 꾸며": 식탁·서랍장·의자 세트는 집 같아서 빼고,
+                // 벽에는 그림 액자(Phase 85), 가운데에는 작품을 보며 쉬는 낮은 의자와 벽 소파만 둔다.
                 // ── 서쪽 벽 (앞면이 동쪽을 본다) ──
-                P("Drawers/Drawer36", "Furn_DresserWest", 0, -5.4f, 90, Wall.West),
                 P("Sofas/Sofa23", "Furn_SofaWest", 0, 5.3f, 90, Wall.West),
-                P("Tables/Table36", "Furn_CoffeeTableWest", -15.0f, 5.3f, 0),
                 P("Chairs/Chair01", "Furn_DeskChair", -15.3f, 0.5f, 270),
                 // ── 동쪽 벽 (앞면이 서쪽을 본다) ──
-                P("Drawers/Drawer35", "Furn_DresserEast", 0, -5.4f, 270, Wall.East),
                 P("Sofas/Sofa13", "Furn_SofaEast", 0, 0.5f, 270, Wall.East),
-                P("Tables/Table34", "Furn_CoffeeTableEast", 14.0f, 0.5f, 270),
-                P("Drawers/Drawer39", "Furn_DrawerEast", 0, 6.4f, 270, Wall.East),
-                // ── 서쪽 가운데: 둥근 탁자 + 안락의자 ──
-                P("Tables/Table24", "Furn_RoundTable", -9.5f, 8.0f, 0),
-                P("Chairs/Chair14", "Furn_ArmchairA", -11.9f, 8.0f, 90),
-                P("Chairs/Chair16", "Furn_ArmchairB", -7.1f, 8.0f, 270),
-                P("Chairs/Chair06", "Furn_RoundChairA", -9.5f, 5.7f, 0),
-                P("Chairs/Chair06", "Furn_RoundChairB", -9.5f, 10.3f, 180),
-                // ── 동쪽 가운데: 긴 탁자 + 의자 6개 ──
-                P("Tables/Table13", "Furn_LongTable", 9.5f, 8.0f, 0),
-                P("Chairs/Chair05", "Furn_LongChairA", 8.6f, 9.6f, 180),
-                P("Chairs/Chair05", "Furn_LongChairB", 10.4f, 9.6f, 180),
-                P("Chairs/Chair05", "Furn_LongChairC", 8.6f, 6.4f, 0),
-                P("Chairs/Chair05", "Furn_LongChairD", 10.4f, 6.4f, 0),
-                P("Chairs/Chair06", "Furn_LongChairE", 7.2f, 8.0f, 90),
-                P("Chairs/Chair06", "Furn_LongChairF", 11.8f, 8.0f, 270),
-                // (액자 앞 벤치는 등받이가 높아서 액자를 가려 뺐다)
                 // ── 남쪽(입구) 벽 쉼터 ──
                 P("Sofas/Sofa26", "Furn_SofaSouthWest", -9.5f, 0, 0, Wall.South),
                 P("Sofas/Sofa27", "Furn_SofaSouthEast", 9.5f, 0, 0, Wall.South),
-                P("Tables/Table33", "Furn_TableSouthWest", -9.5f, -4.9f, 0),
-                P("Tables/Table33", "Furn_TableSouthEast", 9.5f, -4.9f, 0),
+                // ── 액자를 보며 쉬는 낮은 의자(등받이 없는 푸프) 4개: 북쪽 액자를 바라보는 자리 ──
+                P("Sofas/Sofa04", "Furn_PoufA", -12.8f, 9.6f, 0),
+                P("Sofas/Sofa04", "Furn_PoufB", -6.4f, 9.6f, 0),
+                P("Sofas/Sofa04", "Furn_PoufC", 6.4f, 9.6f, 0),
+                P("Sofas/Sofa04", "Furn_PoufD", 12.8f, 9.6f, 0),
             };
             return list;
         }
