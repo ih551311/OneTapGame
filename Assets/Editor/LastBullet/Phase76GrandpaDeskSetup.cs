@@ -21,7 +21,7 @@ namespace LastBullet.EditorTools
         const float DeskDepth = 1.04f;     // 모델 깊이 (m)
         const float DeskWidth = 2.1f;      // 모델 가로 (m)
         const float DeskHeight = 1.2f;     // 모델 높이 (m, 윗면까지)
-        const float DeskScale = 1.0f;      // 추가 배율 (모델이 작아 보이면 올린다)
+        const float DeskScale = 1.35f;     // 추가 배율 (2026-11-06 사용자 요청 "책상을 조금 더 크게": 1.0 → 1.35. 모델 크기 2.1×1.04×1.2m가 윗판 기준 약 2.8×1.4×1.6m가 된다)
         static readonly Vector3 DefaultPosition = new Vector3(-17.25f, 0f, 0.5f);
 
         [MenuItem("LastBullet/Phase 76 할아버지 일기장 책상 놓기")]
