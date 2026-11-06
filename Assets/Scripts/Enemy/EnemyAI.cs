@@ -41,6 +41,9 @@ namespace LastBullet.Enemy
 
         public AIState State { get; private set; } = AIState.Idle;
 
+        // 켜면 이 적은 제자리에 멈춘다 (보스가 내려치기 준비를 하는 동안 BossSlam이 켠다)
+        public bool Paused { get; set; }
+
         NavMeshAgent agent;
         EnemyHealth health;
         Transform player;
@@ -77,6 +80,13 @@ namespace LastBullet.Enemy
             if (playerHealth != null && playerHealth.IsDead)
             {
                 StopMoving(); // 플레이어가 쓰러지면 멈춘다
+                return;
+            }
+
+            if (Paused && State == AIState.Chase)
+            {
+                StopMoving();
+                FaceTowards(player.position, 0f);
                 return;
             }
 
