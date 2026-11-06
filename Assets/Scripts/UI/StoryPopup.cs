@@ -17,8 +17,15 @@ namespace LastBullet.UI
 
         [SerializeField] Image pageImage;
 
-        [Tooltip("쪽 그림들 (순서대로). 쪽을 늘리려면 여기에 그림을 더 넣는다")]
+        [Tooltip("쪽 그림들 (순서대로). 쪽을 늘리려면 여기에 그림을 더 넣는다 (글 메모장을 쓰면 이 그림은 안 쓴다)")]
         [SerializeField] Sprite[] pages;
+
+        [Header("글 쪽 (2026-11-06 사용자 요청: 그림 대신 글로 쓰고 싶다)")]
+        [Tooltip("글로 된 쪽들이 들어 있는 메모장 파일 (Assets/UI/StoryPages.txt). 줄에 --- 만 있으면 거기서 쪽이 나뉜다. 비워 두면 위 쪽 그림을 쓴다")]
+        [SerializeField] TextAsset textPages;
+
+        [Tooltip("글 쪽을 보여 주는 글자 칸")]
+        [SerializeField] TMP_Text pageText;
 
         [SerializeField] Button prevButton;
         [SerializeField] Button nextButton;
@@ -44,7 +51,42 @@ namespace LastBullet.UI
             }
         }
 
-        int LastIndex => Mathf.Max(0, (pages != null ? pages.Length : 0) - 1);
+        // 글 쪽 목록: 메모장 파일을 "---" 줄로 나눈다 (빈 쪽은 뺀다)
+        string[] TextPageList()
+        {
+            if (textPages == null || pageText == null)
+                return null;
+            var list = new System.Collections.Generic.List<string>();
+            var current = new System.Text.StringBuilder();
+            foreach (var raw in textPages.text.Replace("\r\n", "\n").Split('\n'))
+            {
+                if (raw.Trim() == "---")
+                {
+                    list.Add(current.ToString().Trim());
+                    current.Clear();
+                }
+                else
+                {
+                    current.AppendLine(raw);
+                }
+            }
+            list.Add(current.ToString().Trim());
+            list.RemoveAll(string.IsNullOrEmpty);
+            return list.Count > 0 ? list.ToArray() : null;
+        }
+
+        int PageCount
+        {
+            get
+            {
+                var texts = TextPageList();
+                if (texts != null)
+                    return texts.Length;
+                return pages != null ? pages.Length : 0;
+            }
+        }
+
+        int LastIndex => Mathf.Max(0, PageCount - 1);
 
         protected override void OnFirstOpen()
         {
@@ -101,11 +143,25 @@ namespace LastBullet.UI
 
         void Show()
         {
-            int count = pages != null ? pages.Length : 0;
-            if (pageImage != null)
+            var texts = TextPageList();
+            int count = texts != null ? texts.Length : (pages != null ? pages.Length : 0);
+            if (texts != null)
             {
-                pageImage.sprite = count > 0 ? pages[Mathf.Clamp(index, 0, count - 1)] : null;
-                pageImage.enabled = pageImage.sprite != null;
+                // 글 쪽: 메모장 글을 보여 주고 쪽 그림은 숨긴다
+                pageText.gameObject.SetActive(true);
+                pageText.text = texts[Mathf.Clamp(index, 0, count - 1)];
+                if (pageImage != null)
+                    pageImage.enabled = false;
+            }
+            else
+            {
+                if (pageText != null)
+                    pageText.gameObject.SetActive(false);
+                if (pageImage != null)
+                {
+                    pageImage.sprite = count > 0 ? pages[Mathf.Clamp(index, 0, count - 1)] : null;
+                    pageImage.enabled = pageImage.sprite != null;
+                }
             }
             if (pageNumber != null)
                 pageNumber.text = $"{Mathf.Min(index + 1, Mathf.Max(1, count))} / {Mathf.Max(1, count)}";
