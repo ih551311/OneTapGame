@@ -423,19 +423,7 @@ namespace LastBullet.EditorTools
                 float n = (Noise(x * 0.7f, y * 0.7f) - 0.5f) * 0.07f;
                 return new Color(c.r + n, c.g + n, c.b + n, 1f);
             });
-            // 바느질 (점선)
-            for (int i = 0; i < 40; i++)
-            {
-                float t = i / 40f * 4f;
-                float px, py;
-                float s = 36f; // 중심에서 36px 안쪽의 네모
-                if (t < 1f) { px = 48 - s + 2 * s * t; py = 48 + s; }
-                else if (t < 2f) { px = 48 + s; py = 48 + s - 2 * s * (t - 1f); }
-                else if (t < 3f) { px = 48 + s - 2 * s * (t - 2f); py = 48 - s; }
-                else { px = 48 - s; py = 48 - s + 2 * s * (t - 3f); }
-                if (i % 2 == 0)
-                    Paint(plate, Circle(px, py, 1.1f), Solid(new Color32(0xD8, 0xB8, 0x78, 0xFF)));
-            }
+            // (2026-11-08 사용자 요청: 가장자리의 작은 점 무늬(바느질)는 없앴다)
             Save(plate, "Profile_NamePlate");
         }
 
