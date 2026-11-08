@@ -26,6 +26,13 @@ namespace LastBullet.Enemy
         [Tooltip("몸이 터질 때의 물감 방울 연출 (Prefabs/DeathPop). 비우면 터지지 않고 그냥 사라진다")]
         [SerializeField] GameObject popPrefab;
 
+        [Header("소리 (2026-11-08)")]
+        [Tooltip("몸이 터질 때(다 쓰러졌을 때) 나는 소리 (Assets/Audio/Combat/Enemy_Death.wav). 비우면 소리 없음. 같은 이름으로 덮어쓰면 바뀐다")]
+        [SerializeField] AudioClip popSound;
+
+        [Range(0f, 1f)]
+        [SerializeField] float popVolume = 0.55f;
+
         public float Duration => fallTime + vanishTime;
 
         void Awake()
@@ -99,6 +106,9 @@ namespace LastBullet.Enemy
                 }
                 Destroy(pop, 2f);
             }
+            // 터지는 소리: 몸이 있던 자리에서 나는 3D 소리 (멀면 작게 들린다)
+            if (popSound != null)
+                AudioSource.PlayClipAtPoint(popSound, BodyCenter(), popVolume);
 
             // 순식간에 줄어들며 사라진다
             Vector3 startScale = transform.localScale;

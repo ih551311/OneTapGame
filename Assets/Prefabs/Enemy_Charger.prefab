@@ -430,6 +430,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LastBullet.Enemy.EnemyAnimator
   animator: {fileID: 610657572110548245}
   smoothTime: 0.1
+  matchFeet: 1
+  speedRange: {x: 0.5, y: 1.6}
 --- !u!114 &809454251905659663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,6 +448,8 @@ MonoBehaviour:
   vanishTime: 0.15
   pushBack: 0.7
   popPrefab: {fileID: 6122750506244538707, guid: 35b2560c62952d64e82b8070f7f4a39b, type: 3}
+  popSound: {fileID: 8300000, guid: be36f471ff7fa4e4a9b85ee66450bbbd, type: 3}
+  popVolume: 0.55
 --- !u!1001 &5835134348182731460
 PrefabInstance:
   m_ObjectHideFlags: 0

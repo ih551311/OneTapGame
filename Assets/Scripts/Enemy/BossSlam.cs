@@ -34,6 +34,16 @@ namespace LastBullet.Enemy
         [Tooltip("내려친 뒤 숨 고르는 시간 (초)")]
         [SerializeField] float recoverTime = 0.8f;
 
+        [Header("소리 (2026-11-08)")]
+        [Tooltip("내려치기를 준비하는 동안 커지는 낮은 울림 (Assets/Audio/Combat/Boss_SlamWarn.wav)")]
+        [SerializeField] AudioClip warnSound;
+
+        [Tooltip("충격파가 터지는 소리 (Assets/Audio/Combat/Boss_Slam.wav)")]
+        [SerializeField] AudioClip slamSound;
+
+        [Range(0f, 1f)]
+        [SerializeField] float soundVolume = 0.9f;
+
         EnemyAI ai;
         EnemyHealth health;
         Transform player;
@@ -104,6 +114,8 @@ namespace LastBullet.Enemy
                 ring.position = new Vector3(transform.position.x, transform.position.y + 0.06f, transform.position.z);
                 ring.rotation = Quaternion.Euler(90f, 0f, 0f);
             }
+            if (warnSound != null)
+                AudioSource.PlayClipAtPoint(warnSound, transform.position, soundVolume * 0.8f);
             for (float t = 0f; t < windupTime; t += Time.deltaTime)
             {
                 if (health.IsDead)
@@ -125,6 +137,8 @@ namespace LastBullet.Enemy
                         playerHealth.TakeDamage(damage, transform.position);
                 }
                 SetRing(radius * 2f, 1f); // 번쩍
+                if (slamSound != null)
+                    AudioSource.PlayClipAtPoint(slamSound, transform.position, soundVolume);
                 yield return new WaitForSeconds(0.15f);
             }
 
