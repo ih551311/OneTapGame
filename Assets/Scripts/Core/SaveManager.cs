@@ -62,7 +62,53 @@ namespace LastBullet.Core
     {
         static SaveData data;
 
-        public static string FolderPath => Path.Combine(Application.persistentDataPath, "SavedData");
+        static bool migrationChecked;
+
+        public static string FolderPath
+        {
+            get
+            {
+                string folder = Path.Combine(Application.persistentDataPath, "SavedData");
+                if (!migrationChecked)
+                {
+                    migrationChecked = true;
+                    MigrateFromOldProductName(folder);
+                }
+                return folder;
+            }
+        }
+
+        // 게임 이름을 My project에서 ReChroma로 바꿨을 때 (2026-11-08): 옛 폴더(…/DefaultCompany/My project/SavedData)의
+        // 그림·진행 상황을 새 폴더로 한 번 복사한다. 새 폴더가 이미 있으면 아무것도 하지 않고, 옛 파일은 지우지 않는다.
+        static void MigrateFromOldProductName(string newFolder)
+        {
+            try
+            {
+                if (Directory.Exists(newFolder))
+                    return;
+                string root = Directory.GetParent(Application.persistentDataPath)?.FullName;
+                if (string.IsNullOrEmpty(root))
+                    return;
+                string oldFolder = Path.Combine(root, "My project", "SavedData");
+                if (!Directory.Exists(oldFolder))
+                    return;
+                CopyFolder(oldFolder, newFolder);
+                Debug.Log("[저장] 옛 저장 폴더에서 복사했어요: " + oldFolder);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning("[저장] 옛 저장 복사 실패 (새로 시작해요): " + e.Message);
+            }
+        }
+
+        static void CopyFolder(string from, string to)
+        {
+            Directory.CreateDirectory(to);
+            foreach (var file in Directory.GetFiles(from))
+                File.Copy(file, Path.Combine(to, Path.GetFileName(file)), false);
+            foreach (var dir in Directory.GetDirectories(from))
+                CopyFolder(dir, Path.Combine(to, Path.GetFileName(dir)));
+        }
         public static string SavePath => Path.Combine(FolderPath, "save.json");
 
         public static SaveData Data
