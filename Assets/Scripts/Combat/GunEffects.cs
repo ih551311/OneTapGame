@@ -26,6 +26,14 @@ namespace LastBullet.Combat
         [SerializeField] Set third;
         [SerializeField] Set first;
 
+        [Header("바주카 (2026-11-08)")]
+        [Tooltip("바주카를 들고 있는지 알려 주는 컴포넌트 (Player)")]
+        [SerializeField] BazookaWeapon bazooka;
+        [Tooltip("1인칭 바주카의 총구 불꽃 (탄피 없음)")]
+        [SerializeField] Set bazookaFirst;
+        [Tooltip("3인칭 바주카의 총구 불꽃 (탄피 없음)")]
+        [SerializeField] Set bazookaThird;
+
         [Tooltip("총구 불빛이 켜져 있는 시간 (초)")]
         [SerializeField] float lightTime = 0.04f;
 
@@ -37,10 +45,18 @@ namespace LastBullet.Combat
         {
             get
             {
-                bool firstPerson = zoom != null && zoom.IsFirstPerson;
-                var set = firstPerson ? first : third;
+                var set = CurrentSet();
                 return set != null && set.flash != null ? set.flash.transform : null;
             }
+        }
+
+        // 지금 보이는 무기(소총/바주카)와 시점(1인칭/3인칭)에 맞는 효과 묶음
+        Set CurrentSet()
+        {
+            bool firstPerson = zoom != null && zoom.IsFirstPerson;
+            if (bazooka != null && bazooka.Active)
+                return firstPerson ? bazookaFirst : bazookaThird;
+            return firstPerson ? first : third;
         }
 
         void OnEnable()
@@ -57,8 +73,7 @@ namespace LastBullet.Combat
 
         void OnFired()
         {
-            bool firstPerson = zoom != null && zoom.IsFirstPerson;
-            var set = firstPerson ? first : third;
+            var set = CurrentSet();
             if (set == null)
                 return;
             if (set.flash != null)

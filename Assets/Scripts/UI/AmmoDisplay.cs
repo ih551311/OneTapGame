@@ -25,6 +25,14 @@ namespace LastBullet.UI
         [SerializeField] Color normalColor = new Color(0.93f, 0.9f, 0.85f, 1f);
         [SerializeField] Color lowColor = new Color(1f, 0.35f, 0.3f, 1f);
 
+        [Header("무기 그림 (2026-11-08)")]
+        [Tooltip("무기 그림 칸 (Canvas/AmmoDisplay/WeaponIcon의 Image)")]
+        [SerializeField] UnityEngine.UI.Image weaponIcon;
+        [Tooltip("소총일 때 그림 (Assets/UI/Weapon_Icon.png)")]
+        [SerializeField] Sprite rifleSprite;
+        [Tooltip("바주카일 때 그림 (Assets/UI/Weapon_Bazooka.png)")]
+        [SerializeField] Sprite bazookaSprite;
+
         AutoGun gun;
 
         void Start()
@@ -44,6 +52,12 @@ namespace LastBullet.UI
         {
             if (gun == null)
                 return;
+            if (weaponIcon != null)
+            {
+                var wanted = gun.IsBazooka ? bazookaSprite : rifleSprite;
+                if (wanted != null && weaponIcon.sprite != wanted)
+                    weaponIcon.sprite = wanted;
+            }
             // 큰 숫자 = 탄창에 남은 탄, 작은 ∞ = 예비 탄(무한)
             ammoText.text = $"{gun.Ammo}<size=40%> ∞</size>";
             bool low = gun.Ammo <= Mathf.Max(1, gun.MagazineSize / 4);

@@ -67,11 +67,18 @@ namespace LastBullet.Combat
         [SerializeField] float reloadVolume = 0.5f;
 
         public int Ammo { get; private set; }
-        public int MagazineSize => magazineSize;
+        public int MagazineSize => Bazooka != null && Bazooka.Active ? Bazooka.Magazine : magazineSize;
         public bool IsReloading { get; private set; }
 
+        // 바주카포 (2026-11-08): 켜져 있으면 탄창·연사 속도·재장전 시간·재장전 소리가 바주카 값이 되고, 쏘면 직선 로켓이 나간다
+        public BazookaWeapon Bazooka { get; private set; }
+        public bool IsBazooka => Bazooka != null && Bazooka.Active;
+        float CurrentReloadTime => IsBazooka ? Bazooka.ReloadTime : reloadTime;
+        float CurrentFireInterval => IsBazooka ? Bazooka.FireInterval : fireInterval;
+        int rifleAmmo = -1, bazookaAmmo = -1; // 무기를 바꿔도 각 무기의 남은 탄을 기억한다
+
         // 재장전 진행도 0~1 (재장전 중이 아니면 0)
-        public float ReloadProgress => IsReloading ? Mathf.Clamp01((Time.time - reloadStartTime) / reloadTime) : 0f;
+        public float ReloadProgress => IsReloading ? Mathf.Clamp01((Time.time - reloadStartTime) / CurrentReloadTime) : 0f;
 
         // 총을 쏜 순간 (캐릭터 사격 동작, 카메라 반동, 1인칭 총 반동이 듣는다)
         public event Action Fired;
@@ -80,6 +87,9 @@ namespace LastBullet.Combat
 
         // 탄 수가 바뀔 때 (화면 표시가 듣는다)
         public event Action AmmoChanged;
+
+        // 무기를 바꾼 순간 (캐릭터 동작·화면 표시가 듣는다)
+        public event Action WeaponChanged;
 
         Camera cam;
         GunEffects effects;
@@ -94,6 +104,7 @@ namespace LastBullet.Combat
         {
             cam = Camera.main;
             look = GetComponent<ThirdPersonCamera>();
+            Bazooka = GetComponent<BazookaWeapon>();
             Ammo = magazineSize;
             if (tracer != null)
                 tracer.enabled = false;
@@ -113,12 +124,14 @@ namespace LastBullet.Combat
             if (mouse == null || Cursor.lockState != CursorLockMode.Locked || Time.timeScale <= 0f)
                 return;
 
-            if (keyboard != null && keyboard.rKey.wasPressedThisFrame && !IsReloading && Ammo < magazineSize)
+            if (keyboard != null && keyboard.rKey.wasPressedThisFrame && !IsReloading && Ammo < MagazineSize)
                 StartReload();
 
             if (IsReloading)
                 return;
-            if (mouse.leftButton.isPressed && Time.time >= nextFireTime)
+            // 바주카는 누를 때마다 한 발 (연사 아님)
+            bool trigger = IsBazooka ? mouse.leftButton.wasPressedThisFrame : mouse.leftButton.isPressed;
+            if (trigger && Time.time >= nextFireTime)
             {
                 if (Ammo <= 0)
                     StartReload(); // 빈 탄창으로 쏘려 하면 재장전
@@ -129,10 +142,12 @@ namespace LastBullet.Combat
 
         void Fire()
         {
-            nextFireTime = Time.time + fireInterval;
+            nextFireTime = Time.time + CurrentFireInterval;
             Ammo--;
             AmmoChanged?.Invoke();
-            if (shotSound != null)
+            if (IsBazooka)
+                Bazooka.PlayFireSound();
+            else if (shotSound != null)
                 shotSound.Play();
             Fired?.Invoke();
 
@@ -154,6 +169,14 @@ namespace LastBullet.Combat
             var visibleMuzzle = effects != null ? effects.ActiveMuzzle : null;
             Vector3 origin = visibleMuzzle != null ? visibleMuzzle.position : muzzle.position;
             Vector3 toAim = aimPoint - origin;
+            if (IsBazooka)
+            {
+                // 바주카: 총구에서 조준점 방향으로 직선 로켓을 보낸다 (맞은 곳에서 터진다)
+                Bazooka.Launch(origin, toAim.sqrMagnitude > 0.01f ? toAim.normalized : cameraRay.direction, maxRange);
+                if (Ammo <= 0)
+                    StartReload();
+                return;
+            }
             bool hit = RaycastIgnoringSelf(origin, toAim.normalized, toAim.magnitude + 0.01f, out var muzzleHit);
             Vector3 impact = hit ? muzzleHit.point : aimPoint;
 
@@ -175,7 +198,7 @@ namespace LastBullet.Combat
         // 재장전을 시작한다 (이미 재장전 중이거나 탄창이 가득이면 아무 일도 없다)
         public void StartReload()
         {
-            if (IsReloading || Ammo >= magazineSize)
+            if (IsReloading || Ammo >= MagazineSize)
                 return;
             IsReloading = true;
             reloadStartTime = Time.time;
@@ -186,19 +209,36 @@ namespace LastBullet.Combat
         void UpdateReload()
         {
             float progress = ReloadProgress;
-            while (reloadClips != null && nextReloadClip < reloadClips.Length && nextReloadClip < reloadClipTimes.Length
-                   && progress >= reloadClipTimes[nextReloadClip])
+            var clips = IsBazooka ? Bazooka.ReloadClips : reloadClips;
+            var times = IsBazooka ? Bazooka.ReloadClipTimes : reloadClipTimes;
+            while (clips != null && times != null && nextReloadClip < clips.Length && nextReloadClip < times.Length
+                   && progress >= times[nextReloadClip])
             {
-                if (reloadAudio != null && reloadClips[nextReloadClip] != null)
-                    reloadAudio.PlayOneShot(reloadClips[nextReloadClip], reloadVolume);
+                if (reloadAudio != null && clips[nextReloadClip] != null)
+                    reloadAudio.PlayOneShot(clips[nextReloadClip], reloadVolume);
                 nextReloadClip++;
             }
             if (progress < 1f)
                 return;
             IsReloading = false;
-            Ammo = magazineSize;
+            Ammo = MagazineSize;
             AmmoChanged?.Invoke();
             ReloadFinished?.Invoke();
+        }
+
+        // 무기를 바꾼다 (BazookaWeapon이 부른다). 재장전은 취소되고, 각 무기의 남은 탄은 기억한다.
+        public void SwitchWeapon(bool toBazooka)
+        {
+            if (toBazooka)
+                rifleAmmo = Ammo;
+            else
+                bazookaAmmo = Ammo;
+            IsReloading = false;
+            int saved = toBazooka ? bazookaAmmo : rifleAmmo;
+            Ammo = saved >= 0 ? saved : (toBazooka ? Bazooka.Magazine : magazineSize);
+            nextFireTime = Time.time + 0.45f; // 꺼내는 동안은 못 쏜다
+            AmmoChanged?.Invoke();
+            WeaponChanged?.Invoke();
         }
 
         // 레이에 걸린 것 중 플레이어 자신을 빼고 가장 가까운 것을 찾는다.

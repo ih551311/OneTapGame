@@ -111,7 +111,7 @@ namespace LastBullet.Player
         }
 
         // 두 뼈 IK: 어깨(upper)에서 팔꿈치(mid)를 거쳐 손(end)이 목표에 닿게 한다. 팔꿈치는 poleDirection 쪽으로 굽는다.
-        static void SolveTwoBone(Transform upper, Transform mid, Transform end, Vector3 target, Vector3 poleDirection)
+        internal static void SolveTwoBone(Transform upper, Transform mid, Transform end, Vector3 target, Vector3 poleDirection)
         {
             float a = Vector3.Distance(upper.position, mid.position);
             float b = Vector3.Distance(mid.position, end.position);
