@@ -151,7 +151,7 @@ namespace LastBullet.Enemy
                     if (!dashHit && playerHealth != null && FlatDistance(player.position) <= contactRange)
                     {
                         dashHit = true; // 회피 무적으로 피했어도 이번 돌진은 끝
-                        playerHealth.TakeDamage(attackDamage);
+                        playerHealth.TakeDamage(attackDamage, transform.position);
                     }
                     if (Time.time >= phaseEndTime)
                     {

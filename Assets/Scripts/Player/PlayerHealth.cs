@@ -25,6 +25,7 @@ namespace LastBullet.Player
 
         public event Action Changed; // 체력바가 듣는다
         public event Action<int> Damaged; // 피해를 받을 때 (피해량). 피격 효과(HitFeedback)가 듣는다
+        public event Action<Vector3> DamagedFrom; // 어디서 맞았는지 알 때 (공격한 쪽의 위치). 맞은 방향 표시(HitDirectionIndicator)가 듣는다
         public event Action Died;
 
         PlayerMovement movement;
@@ -35,8 +36,8 @@ namespace LastBullet.Player
             movement = GetComponent<PlayerMovement>();
         }
 
-        // 피해를 받았으면 true. 회피 무적이거나 이미 죽었으면 false.
-        public bool TakeDamage(int damage)
+        // 피해를 받았으면 true. 회피 무적이거나 이미 죽었으면 false. source는 공격한 쪽의 위치 (알면 넣는다 — 맞은 방향 표시용)
+        public bool TakeDamage(int damage, Vector3? source = null)
         {
             if (IsDead)
                 return false;
@@ -50,6 +51,8 @@ namespace LastBullet.Player
             Debug.Log($"[PlayerHealth] 피해 {damage} → 체력 {Hp}/{maxHp}");
             Changed?.Invoke();
             Damaged?.Invoke(damage);
+            if (source.HasValue)
+                DamagedFrom?.Invoke(source.Value);
             if (Hp == 0)
                 Die();
             return true;

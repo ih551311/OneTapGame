@@ -21,6 +21,7 @@ namespace LastBullet.Enemy
         float speed;
         int damage;
         float endTime;
+        Vector3 origin; // 던져진 자리 (맞은 방향 표시용)
 
         // 던질 때 부른다
         public void Launch(Vector3 flightDirection, float flightSpeed, int hitDamage)
@@ -29,6 +30,7 @@ namespace LastBullet.Enemy
             speed = flightSpeed;
             damage = hitDamage;
             endTime = Time.time + lifetime;
+            origin = transform.position;
             transform.rotation = Quaternion.LookRotation(direction);
         }
 
@@ -50,7 +52,7 @@ namespace LastBullet.Enemy
 
                 var player = hit.collider.GetComponentInParent<PlayerHealth>();
                 if (player != null)
-                    player.TakeDamage(damage);
+                    player.TakeDamage(damage, origin); // 던진 자리 쪽에서 맞은 것으로 표시한다
                 Destroy(gameObject);
                 return;
             }

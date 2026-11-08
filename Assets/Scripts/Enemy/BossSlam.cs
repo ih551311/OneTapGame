@@ -122,7 +122,7 @@ namespace LastBullet.Enemy
                     offset.y = 0f;
                     bool grounded = playerController == null || playerController.isGrounded;
                     if (offset.magnitude <= radius && grounded)
-                        playerHealth.TakeDamage(damage);
+                        playerHealth.TakeDamage(damage, transform.position);
                 }
                 SetRing(radius * 2f, 1f); // 번쩍
                 yield return new WaitForSeconds(0.15f);
