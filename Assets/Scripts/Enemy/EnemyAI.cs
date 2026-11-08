@@ -44,6 +44,17 @@ namespace LastBullet.Enemy
         // 켜면 이 적은 제자리에 멈춘다 (보스가 내려치기 준비를 하는 동안 BossSlam이 켠다)
         public bool Paused { get; set; }
 
+        // 느려짐 (플레이어의 물감 폭탄 구역 안에 있는 동안, PaintPuddle이 부른다). factor 0.45 = 평소의 45% 속도.
+        float slowEndTime;
+        float slowFactor = 1f;
+        public float SpeedMultiplier => Time.time < slowEndTime ? slowFactor : 1f;
+
+        public void ApplySlow(float factor, float duration)
+        {
+            slowFactor = Mathf.Min(Time.time < slowEndTime ? slowFactor : 1f, factor);
+            slowEndTime = Mathf.Max(slowEndTime, Time.time + duration);
+        }
+
         NavMeshAgent agent;
         EnemyHealth health;
         Transform player;
@@ -100,6 +111,7 @@ namespace LastBullet.Enemy
 
                 case AIState.Chase:
                     agent.isStopped = false;
+                    agent.speed = chaseSpeed * SpeedMultiplier;
                     agent.SetDestination(player.position);
                     FaceTowards(player.position, 0f);
                     if (distance <= attackRange)
@@ -147,7 +159,7 @@ namespace LastBullet.Enemy
                     break;
 
                 case AttackPhase.Dash:
-                    agent.Move(dashDirection * dashSpeed * Time.deltaTime); // NavMesh 밖으로는 나가지 않는다
+                    agent.Move(dashDirection * dashSpeed * SpeedMultiplier * Time.deltaTime); // NavMesh 밖으로는 나가지 않는다
                     if (!dashHit && playerHealth != null && FlatDistance(player.position) <= contactRange)
                     {
                         dashHit = true; // 회피 무적으로 피했어도 이번 돌진은 끝

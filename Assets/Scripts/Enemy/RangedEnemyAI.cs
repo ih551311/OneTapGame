@@ -116,8 +116,20 @@ namespace LastBullet.Enemy
             }
         }
 
+        // 느려짐 (플레이어의 물감 폭탄 구역 안에 있는 동안, PaintPuddle이 부른다)
+        float slowEndTime;
+        float slowFactor = 1f;
+        float SpeedMultiplier => Time.time < slowEndTime ? slowFactor : 1f;
+
+        public void ApplySlow(float factor, float duration)
+        {
+            slowFactor = Mathf.Min(Time.time < slowEndTime ? slowFactor : 1f, factor);
+            slowEndTime = Mathf.Max(slowEndTime, Time.time + duration);
+        }
+
         void UpdateKeepDistance(float distance)
         {
+            agent.speed = moveSpeed * SpeedMultiplier;
             // 물러나는 동안에는 가는 쪽을 보고 걷는다 (플레이어를 본 채 뒷걸음치면 달리기 동작이 거꾸로 미끄러져 어색하다). 멈추면 다시 플레이어를 본다.
             if (distance < keepMinDistance)
             {
