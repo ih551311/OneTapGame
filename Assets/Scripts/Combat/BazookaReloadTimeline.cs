@@ -41,6 +41,32 @@ namespace LastBullet.Combat
             return Vector3.Lerp(grab, rest, Smooth((progress - 0.8f) / 0.2f));
         }
 
+        // 1인칭 왼팔(블렌드 셰이프 두 개)의 섞는 비율 0~1. reach = 로켓을 잡으러 뻗은 팔(진행도 0.3 자세), push = 로켓을 밀어 넣은 팔(진행도 0.8 자세).
+        // 평소 팔(앞 손잡이)에 두 값을 더한 것이다: 뻗고(0~25%), 잡고(~40%), 밀어 넣고(~80%), 돌아온다(~100%).
+        public static void ArmBlend(float progress, out float reach, out float push)
+        {
+            reach = 0f;
+            push = 0f;
+            if (progress <= 0f || progress >= 1f)
+                return;
+            if (progress < 0.25f)
+                reach = Smooth(progress / 0.25f);
+            else if (progress < 0.4f)
+                reach = 1f;
+            else if (progress < 0.8f)
+            {
+                float w = Smooth((progress - 0.4f) / 0.4f);
+                reach = 1f - w;
+                push = w;
+            }
+            else
+                push = 1f - Smooth((progress - 0.8f) / 0.2f);
+        }
+
+        // 1인칭 팔 모양을 뽑는 재장전 진행도 (뻗은 자세, 밀어 넣은 자세)
+        public const float ReachPose = 0.3f;
+        public const float PushPose = 0.8f;
+
         static float Smooth(float t)
         {
             return t * t * (3f - 2f * t);

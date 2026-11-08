@@ -71,6 +71,7 @@ namespace LastBullet.EditorTools
             }
             var burstPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/PaintBurst.prefab")?.GetComponent<PaintBurstEffect>();
             var rifleIcon = ArtSlots.LoadSprite("Assets/UI/Weapon_Icon.png");
+            Mesh rightArmMesh = null, leftArmMesh = null; // 첫 씬에서 한 번 뽑아 세 씬이 같이 쓴다
 
             foreach (var path in Scenes)
             {
@@ -101,7 +102,9 @@ namespace LastBullet.EditorTools
 
                 var thirdPose = thirdRifle.GetComponent<ThirdPersonGunPose>();
                 var thirdRoot = BuildThird(prefab, material, hand, player, thirdPose, autoGun, out var thirdRocket, out var thirdFlash);
-                var firstRoot = BuildFirst(prefab, material, model, rifleFirst, autoGun, out var firstRocket, out var firstFlash);
+                if (leftArmMesh == null)
+                    MakeArmMeshes(player, thirdRoot, thirdRoot.GetComponent<ThirdPersonBazookaPose>(), out rightArmMesh, out leftArmMesh);
+                var firstRoot = BuildFirst(prefab, material, model, rifleFirst, autoGun, rightArmMesh, leftArmMesh, out var firstRocket, out var firstFlash);
 
                 // Player: BazookaWeapon
                 var weapon = player.AddComponent<BazookaWeapon>();
@@ -187,7 +190,7 @@ namespace LastBullet.EditorTools
 
         // 1인칭: Model 아래 BazookaHolder (뒤 손잡이가 Model 원점 근처에 온다)
         static Transform BuildFirst(GameObject prefab, Material material, Transform model, Transform rifleHolder, AutoGun gun,
-            out Transform rocket, out ParticleSystem flash)
+            Mesh rightArmMesh, Mesh leftArmMesh, out Transform rocket, out ParticleSystem flash)
         {
             var holder = new GameObject("BazookaHolder").transform;
             holder.SetParent(model, false);
@@ -196,43 +199,103 @@ namespace LastBullet.EditorTools
 
             rocket = PlaceRpg(prefab, material, holder, ShadowCastingMode.Off);
 
-            // 양팔: 소총용으로 뽑아 둔 팔 메시를 복사해서 바주카 손잡이 자리로 옮긴다 (팔 메시는 소총 손 자리 기준이다)
-            foreach (var side in new[] { "RightArm", "LeftArm" })
-            {
-                var source = rifleHolder.Find(side);
-                if (source == null)
-                    continue;
-                var arm = new GameObject(side).transform;
-                arm.SetParent(holder, false);
-                foreach (Transform part in source)
-                {
-                    var filter = part.GetComponent<MeshFilter>();
-                    var renderer = part.GetComponent<MeshRenderer>();
-                    if (filter == null || renderer == null)
-                        continue;
-                    var go = new GameObject(part.name, typeof(MeshFilter), typeof(MeshRenderer));
-                    go.transform.SetParent(arm, false);
-                    go.GetComponent<MeshFilter>().sharedMesh = filter.sharedMesh;
-                    var r = go.GetComponent<MeshRenderer>();
-                    r.sharedMaterial = renderer.sharedMaterial;
-                    r.shadowCastingMode = ShadowCastingMode.Off;
-                    r.receiveShadows = false;
-                }
-                if (side == "RightArm")
-                {
-                    arm.localPosition = RearGrip - RifleRightGrip;
-                }
-                else
-                {
-                    arm.localPosition = FrontGrip - RifleLeftGrip;
-                    var slide = arm.gameObject.AddComponent<BazookaArmSlide>();
-                    var sso = new SerializedObject(slide);
-                    sso.FindProperty("gun").objectReferenceValue = gun;
-                    sso.ApplyModifiedPropertiesWithoutUndo();
-                }
-            }
+            // 양팔: 3인칭 바주카 자세에서 뽑은 팔 메시 (MakeArmMeshes). 오른팔은 고정, 왼팔은 블렌드 셰이프(Reach·Push)로 재장전 때 움직인다.
+            var skinMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/FirstPersonArm_Skin.mat");
+            var rightArm = new GameObject("RightArm", typeof(MeshFilter), typeof(MeshRenderer));
+            rightArm.transform.SetParent(holder, false);
+            rightArm.GetComponent<MeshFilter>().sharedMesh = rightArmMesh;
+            var rightRenderer = rightArm.GetComponent<MeshRenderer>();
+            rightRenderer.sharedMaterial = skinMaterial;
+            rightRenderer.shadowCastingMode = ShadowCastingMode.Off;
+            rightRenderer.receiveShadows = false;
+
+            var leftArm = new GameObject("LeftArm", typeof(SkinnedMeshRenderer));
+            leftArm.transform.SetParent(holder, false);
+            var leftRenderer = leftArm.GetComponent<SkinnedMeshRenderer>();
+            leftRenderer.sharedMesh = leftArmMesh;
+            leftRenderer.sharedMaterial = skinMaterial;
+            leftRenderer.shadowCastingMode = ShadowCastingMode.Off;
+            leftRenderer.receiveShadows = false;
+            leftRenderer.updateWhenOffscreen = true;
+            var slide = leftArm.AddComponent<BazookaArmSlide>();
+            var sso = new SerializedObject(slide);
+            sso.FindProperty("gun").objectReferenceValue = gun;
+            sso.FindProperty("arm").objectReferenceValue = leftRenderer;
+            sso.ApplyModifiedPropertiesWithoutUndo();
             flash = MakeFlash(holder, rifleHolder.Find("MuzzleFlash"), 2.2f);
             return holder;
+        }
+
+        // 3인칭 바주카 자세(어깨에 얹고 두 손잡이)를 세 가지 재장전 진행도로 잡아서, 팔꿈치 아래~손을 바주카 모델 좌표의 메시로 뽑는다.
+        //   오른팔: 평소 자세 한 장. 왼팔: 평소 자세 + 블렌드 셰이프 Reach(로켓 잡으러 뻗음)·Push(밀어 넣음). 세 자세의 정점 순서·개수는 같다.
+        static void MakeArmMeshes(GameObject player, Transform thirdRoot, ThirdPersonBazookaPose pose, out Mesh right, out Mesh left)
+        {
+            right = left = null;
+            var animator = player.GetComponentInChildren<Animator>();
+            AnimationClip wait = null;
+            foreach (var clip in animator.runtimeAnimatorController.animationClips)
+                if (clip.name == "Wait01")
+                    wait = clip;
+            SkinnedMeshRenderer body = null;
+            foreach (var r in player.GetComponentsInChildren<SkinnedMeshRenderer>(true))
+                if (r.name == "modelBody")
+                    body = r;
+            if (wait == null || body == null)
+            {
+                Debug.LogWarning("[LastBullet] 팔 메시를 뽑지 못했어요 (Wait01 동작 또는 modelBody가 없음)");
+                return;
+            }
+            var update = typeof(ThirdPersonBazookaPose).GetMethod("LateUpdate", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            Mesh Extract(float progress, string side)
+            {
+                pose.ForcedReloadProgress = progress;
+                wait.SampleAnimation(animator.gameObject, wait.length * 0.5f);
+                update.Invoke(pose, null);
+                Matrix4x4 toGun = thirdRoot.worldToLocalMatrix; // 바주카 모델 단위 좌표
+                Vector3 handPos = toGun.MultiplyPoint3x4(Phase62FirstPersonArmsSetup.Find(player, side + ".Hand").position);
+                Vector3 elbowPos = toGun.MultiplyPoint3x4(Phase62FirstPersonArmsSetup.Find(player, side + ".ForeArm").position);
+                return Phase62FirstPersonArmsSetup.ExtractArm(body, toGun, side, Phase62FirstPersonArmsSetup.ForearmParts, handPos, elbowPos);
+            }
+
+            var rightRest = Extract(0f, "R");
+            var leftRest = Extract(0f, "L");
+            var leftReach = Extract(BazookaReloadTimeline.ReachPose, "L");
+            var leftPush = Extract(BazookaReloadTimeline.PushPose, "L");
+            pose.ForcedReloadProgress = -1f;
+            wait.SampleAnimation(animator.gameObject, wait.length * 0.5f); // 뼈를 원래 동작으로 되돌린다
+            if (rightRest == null || leftRest == null || leftReach == null || leftPush == null
+                || leftReach.vertexCount != leftRest.vertexCount || leftPush.vertexCount != leftRest.vertexCount)
+            {
+                Debug.LogWarning("[LastBullet] 왼팔 세 자세의 정점 수가 달라 블렌드 셰이프를 못 만들었어요");
+                return;
+            }
+
+            // 왼팔 = 평소 모양 + 블렌드 셰이프 두 개 (정점 이동량)
+            var baseVertices = leftRest.vertices;
+            var zeros = new Vector3[baseVertices.Length];
+            leftRest.ClearBlendShapes();
+            foreach (var (name, target) in new[] { ("Reach", leftReach), ("Push", leftPush) })
+            {
+                var targetVertices = target.vertices;
+                var delta = new Vector3[baseVertices.Length];
+                for (int i = 0; i < delta.Length; i++)
+                    delta[i] = targetVertices[i] - baseVertices[i];
+                leftRest.AddBlendShapeFrame(name, 100f, delta, zeros, zeros);
+            }
+
+            Directory.CreateDirectory("Assets/Models/FirstPerson");
+            right = SaveMesh(rightRest, "Assets/Models/FirstPerson/BazookaArm_R.asset");
+            left = SaveMesh(leftRest, "Assets/Models/FirstPerson/BazookaArm_L.asset");
+            Debug.Log($"[LastBullet] 바주카 1인칭 팔 메시: 오른팔 정점 {rightRest.vertexCount}, 왼팔 정점 {leftRest.vertexCount} (+Reach·Push)");
+        }
+
+        static Mesh SaveMesh(Mesh mesh, string path)
+        {
+            mesh.name = Path.GetFileNameWithoutExtension(path);
+            AssetDatabase.DeleteAsset(path);
+            AssetDatabase.CreateAsset(mesh, path);
+            return AssetDatabase.LoadAssetAtPath<Mesh>(path);
         }
 
         // RPG7 모델 (총구가 -Z라서 Y 180도 돌려 바주카 앞이 +Z가 되게 한다). 로켓(Rocket) 자식을 돌려준다.

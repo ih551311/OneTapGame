@@ -2,31 +2,43 @@ using UnityEngine;
 
 namespace LastBullet.Combat
 {
-    // 1인칭 바주카의 왼팔 재장전 움직임 (2026-11-08 만듦, 2026-11-09 사용자 지적으로 고침: "장전할 때 손이 이상하게 보여").
-    // 1인칭 팔은 한 덩어리 메시(어깨 쪽에 굵은 통이 이어져 있다)라서 손을 앞으로 뻗게 옮기면 화면 밖에 있던 굵은 팔 끝이 화면에 들어와 막대·큰 덩어리로 보인다
-    // (처음엔 팔 전체를 옮겼고, 다음엔 어깨 쪽 끝을 고정하고 돌려 봤지만 둘 다 어색했다).
-    // 그래서 1인칭에서는 왼손이 앞 손잡이를 잡은 채로 있고, 재장전 때는 발사관 전체가 살짝 내려갔다 오는 것(FirstPersonGun)과 로켓이 앞에서 밀려 들어오는 것(BazookaWeapon)으로 보여 준다.
-    // 손이 로켓을 잡으러 뻗는 움직임은 3인칭(ThirdPersonBazookaPose)에만 있다 (3인칭은 뼈를 구부리는 IK라서 자연스럽다).
-    // 이 컴포넌트는 팔이 항상 제자리(앞 손잡이)에 있게 하고, 재장전 중에는 아주 살짝만 아래로 눌러 손이 로켓을 받치는 느낌만 준다.
+    // 1인칭 바주카의 왼팔 재장전 움직임 (2026-11-08 만듦, 2026-11-09 사용자 지적 "장전할 때 손이 이상하다"로 다시 만듦).
+    // 1인칭 팔은 한 덩어리 그림(메시)이라 관절을 구부릴 수 없다. 팔을 통째로 옮기거나 돌리면 어색해서(굵은 팔 끝이 화면에 들어온다),
+    // 메뉴 Phase 93이 3인칭 캐릭터의 진짜 바주카 자세(ThirdPersonBazookaPose, 뼈 IK)에서 왼팔 모양을 세 번 뽑아 둔다:
+    //   기본(앞 손잡이) · Reach(로켓을 잡으러 뻗음, 재장전 30%) · Push(로켓을 밀어 넣음, 80%)
+    // 이 오브젝트의 SkinnedMeshRenderer에 Reach·Push 블렌드 셰이프(모양 섞기)로 들어 있고, 여기서 재장전 진행도에 맞춰 섞는다 (BazookaReloadTimeline.ArmBlend).
+    // 그래서 1인칭 왼손도 3인칭처럼 앞 손잡이를 놓고 로켓을 잡아 끼운 뒤 돌아온다.
+    // 팔 메시: Assets/Models/FirstPerson/BazookaArm_L.asset (캐릭터·자세가 바뀌면 메뉴 Phase 93을 다시 실행한다)
     // 붙일 곳: BazookaHolder 아래의 LeftArm (메뉴 LastBullet > Phase 93 바주카포 만들기)
     public class BazookaArmSlide : MonoBehaviour
     {
         [SerializeField] AutoGun gun;
+        [SerializeField] SkinnedMeshRenderer arm;
 
-        [Tooltip("재장전 중 왼팔이 아래로 눌리는 최대 거리 (바주카 모델 단위)")]
-        [SerializeField] float dip = 0.02f;
-
-        Vector3 restPosition;
+        int reachIndex = -1, pushIndex = -1;
 
         void Awake()
         {
-            restPosition = transform.localPosition;
+            if (arm == null)
+                arm = GetComponentInChildren<SkinnedMeshRenderer>(true);
+            if (arm != null && arm.sharedMesh != null)
+            {
+                reachIndex = arm.sharedMesh.GetBlendShapeIndex("Reach");
+                pushIndex = arm.sharedMesh.GetBlendShapeIndex("Push");
+                arm.updateWhenOffscreen = true; // 블렌드 셰이프로 모양이 바뀌어도 화면 밖으로 판정되어 사라지지 않게
+            }
         }
 
         void LateUpdate()
         {
+            if (arm == null)
+                return;
             float p = gun != null && gun.IsReloading ? gun.ReloadProgress : 0f;
-            transform.localPosition = restPosition + Vector3.down * (dip * Mathf.Sin(p * Mathf.PI));
+            BazookaReloadTimeline.ArmBlend(p, out float reach, out float push);
+            if (reachIndex >= 0)
+                arm.SetBlendShapeWeight(reachIndex, reach * 100f);
+            if (pushIndex >= 0)
+                arm.SetBlendShapeWeight(pushIndex, push * 100f);
         }
     }
 }

@@ -57,6 +57,9 @@ namespace LastBullet.Player
         [SerializeField] float recoilPitch = 7f;
         [SerializeField] float recoilRecover = 7f;
 
+        // 에디터 도구용: 0 이상이면 총 대신 이 값을 재장전 진행도로 쓴다 (1인칭 팔 모양을 뽑을 때, 메뉴 Phase 93)
+        [System.NonSerialized] public float ForcedReloadProgress = -1f;
+
         static readonly Quaternion RightHandInGun = Quaternion.LookRotation(Vector3.forward, Vector3.left);
         float recoil;
 
@@ -90,7 +93,9 @@ namespace LastBullet.Player
             Vector3 right = Vector3.Cross(Vector3.up, forward);
 
             float reloadProgress = gun != null && gun.IsReloading ? gun.ReloadProgress : 0f;
-            float reload = gun != null && gun.IsReloading ? Mathf.Sin(reloadProgress * Mathf.PI) : 0f;
+            if (ForcedReloadProgress >= 0f)
+                reloadProgress = ForcedReloadProgress;
+            float reload = reloadProgress > 0f ? Mathf.Sin(reloadProgress * Mathf.PI) : 0f;
 
             Quaternion rotation = Quaternion.LookRotation(forward, Vector3.up);
             float pitch = restPitch + recoil * recoilPitch + reload * reloadTilt;

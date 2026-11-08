@@ -31,7 +31,7 @@ namespace LastBullet.EditorTools
         {
             "Shoulder", "Arm", "Arm_Roll_1", "Arm_Roll_2", "ForeArm", "ForeArm_Roll_1", "ForeArm_Roll_2", "Hand", "Hand_End",
         };
-        static readonly string[] ForearmParts = { "ForeArm", "ForeArm_Roll_1", "ForeArm_Roll_2", "Hand", "Hand_End" };
+        internal static readonly string[] ForearmParts = { "ForeArm", "ForeArm_Roll_1", "ForeArm_Roll_2", "Hand", "Hand_End" };
         static readonly string[] Fingers = { "Thumb", "Index", "Middle", "Ring", "Pinky" };
 
         static readonly string[] Scenes =
@@ -187,7 +187,7 @@ namespace LastBullet.EditorTools
         }
 
         // 한쪽(R/L) 팔 뼈에 70% 이상 붙은 삼각형만, 현재 자세 그대로 toFrame 좌표의 새 메시로 만든다
-        static Transform Find(GameObject root, string name)
+        internal static Transform Find(GameObject root, string name)
         {
             foreach (var t in root.GetComponentsInChildren<Transform>(true))
                 if (t.name == name)
@@ -195,7 +195,7 @@ namespace LastBullet.EditorTools
             return null;
         }
 
-        static Mesh ExtractArm(SkinnedMeshRenderer renderer, Matrix4x4 toFrame, string side, string[] parts, Vector3 handPos, Vector3 elbowPos)
+        internal static Mesh ExtractArm(SkinnedMeshRenderer renderer, Matrix4x4 toFrame, string side, string[] parts, Vector3 handPos, Vector3 elbowPos)
         {
             var source = renderer.sharedMesh;
             var bones = renderer.bones;
