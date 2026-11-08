@@ -99,8 +99,8 @@ namespace LastBullet.EditorTools
                 var root = new GameObject("SkillE", typeof(RectTransform));
                 root.transform.SetParent(canvas.transform, false);
                 var rect = (RectTransform)root.transform;
-                rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0f, 0f);
-                rect.anchoredPosition = new Vector2(745f, 40f); // 탄약 숫자 바로 옆 (2026-11-08 사용자 요청으로 왼쪽으로 옮김)
+                rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(1f, 0f); // 화면 오른쪽 아래 끝
+                rect.anchoredPosition = new Vector2(-50f, 40f); // 탄약 숫자 바로 옆 (2026-11-08 사용자 요청으로 왼쪽으로 옮김)
                 rect.sizeDelta = new Vector2(84f, 84f);
 
                 var icon = NewImage("Icon", rect, iconSprite, Color.white);
