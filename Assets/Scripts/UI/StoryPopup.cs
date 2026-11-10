@@ -39,7 +39,21 @@ namespace LastBullet.UI
         [Tooltip("열면 '이야기를 봤다'고 기억한다 (입구 이야기 안내판용). 할아버지 일기장처럼 다른 곳에 이 창을 쓰면 끈다")]
         [SerializeField] bool rememberSeen = true;
 
+        [Tooltip("마지막 쪽에서 [다음]을 누르면 이 창이 이어서 열린다 (결말 → 내 그림 모음). 비워 두면 마지막 쪽은 [닫기]다")]
+        [SerializeField] PopupBase nextPopup;
+
         int index;
+
+        // '이야기를 봤다'는 기억을 지운다 (다시하기: 처음 입장 때 이야기가 다시 저절로 열리게)
+        public static void ForgetSeen()
+        {
+            try
+            {
+                PlayerPrefs.DeleteKey(SeenKey);
+                PlayerPrefs.Save();
+            }
+            catch { }
+        }
 
         // 이야기를 한 번이라도 열어 봤는지
         public static bool Seen
@@ -127,6 +141,8 @@ namespace LastBullet.UI
             if (index >= LastIndex)
             {
                 Close();
+                if (nextPopup != null)
+                    nextPopup.Open();
                 return;
             }
             index++;
@@ -168,7 +184,7 @@ namespace LastBullet.UI
             if (prevButton != null)
                 prevButton.interactable = index > 0;
             if (nextLabel != null)
-                nextLabel.text = index >= LastIndex ? "닫기" : "다음";
+                nextLabel.text = index >= LastIndex && nextPopup == null ? "닫기" : "다음";
         }
     }
 }

@@ -135,6 +135,13 @@ namespace LastBullet.Inventory
                 save.paints[i] = paints[i];
         }
 
+        // 저장 내용(SaveManager.Data)에서 수량을 다시 읽는다 (다시하기로 저장이 처음으로 돌아갔을 때)
+        public void ReloadFromSave()
+        {
+            Awake();
+            Changed?.Invoke();
+        }
+
         void OnApplicationQuit()
         {
             quitting = true;

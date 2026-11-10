@@ -64,6 +64,15 @@ namespace LastBullet.Drawing
             Changed?.Invoke();
         }
 
+        // 액자 9칸을 모두 비우고 저장한다 (다시하기)
+        public static void ClearAll()
+        {
+            for (int i = 0; i < SlotCount; i++)
+                Data.frames[i] = "";
+            Save();
+            Changed?.Invoke();
+        }
+
         // 걸린 서로 다른 작품 수 (같은 그림이 여러 칸에 있어도 한 번만 센다). 엔딩 조건은 이 값이 9일 때다.
         public static int DistinctCount()
         {

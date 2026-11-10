@@ -209,6 +209,19 @@ namespace LastBullet.Core
             Save();
         }
 
+        // 다시하기 (2026-11-11, 결말의 [다시하기]): 진행 상황(종이·물감·해금·결말 봄·타이틀 액자)을 처음으로 되돌리고 저장한다.
+        // 닉네임은 남긴다. 프로필 사진은 타이틀에서 직접 그린 것("drawn")만 남기고, 작품을 쓴 것은 작품이 지워지므로 비운다.
+        public static void ResetProgress()
+        {
+            var old = Data;
+            data = new SaveData
+            {
+                nickname = old.nickname,
+                profilePicture = old.profilePicture == "drawn" ? "drawn" : "",
+            };
+            Save();
+        }
+
         // 저장 파일을 지운다 (테스트 메뉴, 나중에 '새 게임'에서 쓴다)
         public static void DeleteSave()
         {

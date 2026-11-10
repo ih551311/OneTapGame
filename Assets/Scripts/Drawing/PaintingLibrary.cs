@@ -158,6 +158,33 @@ namespace LastBullet.Drawing
             }
         }
 
+        // 모든 작품을 지운다 (다시하기, 2026-11-11). 목록을 비우고 PNG 파일을 지운다. 되돌릴 수 없다.
+        // 액자·타이틀 액자·프로필은 부르는 쪽(GameReset)이 따로 비운다.
+        public static void DeleteAll()
+        {
+            try
+            {
+                var list = LoadList();
+                File.WriteAllText(ListPath, JsonUtility.ToJson(new PaintingList(), true));
+                foreach (var info in list)
+                {
+                    string path = Path.Combine(PaintingsFolder, info.fileName);
+                    if (File.Exists(path))
+                        File.Delete(path);
+                }
+                foreach (var texture in textureCache.Values)
+                    if (texture != null)
+                        UnityEngine.Object.Destroy(texture);
+                textureCache.Clear();
+                Debug.Log($"[PaintingLibrary] 작품 {list.Count}개를 모두 지웠어요 (다시하기)");
+                Changed?.Invoke();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[PaintingLibrary] 작품 모두 지우기 실패: {e.Message}");
+            }
+        }
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void ResetOnPlay()
         {
