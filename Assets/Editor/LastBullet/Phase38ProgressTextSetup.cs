@@ -41,11 +41,17 @@ namespace LastBullet.EditorTools
             if (oldLabel != null)
                 Object.DestroyImmediate(oldLabel.gameObject);
 
+            // 2026-11-11 사용자 요청: "서로 다른 작품" 글자는 없애고 숫자("0 / 9")만, 화면 왼쪽 위에 둔다
             var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontPath);
-            var label = Text(progress, "Label", font, new Vector2(-70f, 0f), new Vector2(360f, 64f), 34f);
-            label.text = "서로 다른 작품";
+            var progressRect = (RectTransform)progress;
+            progressRect.anchorMin = progressRect.anchorMax = progressRect.pivot = new Vector2(0f, 1f);
+            progressRect.anchoredPosition = new Vector2(510f, -30f); // 왼쪽 위로 옮긴 창고 표시(InventoryPanel, 30~494) 바로 오른쪽
+            progressRect.sizeDelta = new Vector2(200f, 90f);
 
             var count = progress.Find("Count").GetComponent<TextMeshProUGUI>();
+            count.rectTransform.anchoredPosition = Vector2.zero;
+            count.rectTransform.sizeDelta = new Vector2(180f, 64f);
+            count.alignment = TextAlignmentOptions.Center;
             count.font = font != null ? font : TMP_Settings.defaultFontAsset;
             count.fontStyle = FontStyles.Normal;
             count.fontSize = 44f;

@@ -50,53 +50,7 @@ namespace LastBullet.EditorTools
             var root = new GameObject("Details").transform;
             root.SetParent(hall.transform, false);
 
-            // ① 액자 이름표
-            var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontPath);
-            var brass = ArtSlots.GetOrCreateMaterial("Plaque_Brass", new Color(0.86f, 0.70f, 0.38f));
-            brass.SetFloat("_Smoothness", 0.35f);
-            brass.SetFloat("_Metallic", 0.2f);
-            brass.EnableKeyword("_EMISSION"); // 어두운 미술관에서도 이름표가 보이게 은은하게 빛난다
-            brass.SetColor("_EmissionColor", new Color(0.30f, 0.22f, 0.10f));
-            brass.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
-            EditorUtility.SetDirty(brass);
-            var frames = GameObject.Find("PictureFrames");
-            string[] numerals = { "제1작", "제2작", "제3작", "제4작", "제5작", "제6작", "제7작", "제8작", "제9작" };
-            if (frames != null)
-            {
-                int index = 0;
-                foreach (Transform frame in frames.transform)
-                {
-                    if (index >= 9)
-                        break;
-                    var plaque = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    plaque.name = $"Plaque_{index + 1}";
-                    Object.DestroyImmediate(plaque.GetComponent<Collider>());
-                    plaque.transform.SetParent(root, false);
-                    // 액자 앞 그림 면이 -Z쪽을 보고, 벽은 +Z쪽: 액자 아래 가운데, 벽에서 조금 나오게
-                    Vector3 p = frame.position;
-                    plaque.transform.position = new Vector3(p.x, 0.33f, p.z - 0.06f);
-                    plaque.transform.localScale = new Vector3(1.15f, 0.3f, 0.04f);
-                    plaque.GetComponent<Renderer>().sharedMaterial = brass;
-                    plaque.GetComponent<Renderer>().shadowCastingMode = ShadowCastingMode.Off;
-
-                    // 글자는 이름표의 자식이 아니라 같은 자리에 따로 둔다 (배율이 얽히지 않게). 이름표 앞면(-Z쪽)에서 조금 앞으로.
-                    var textGo = new GameObject($"Label_{index + 1}", typeof(RectTransform));
-                    textGo.transform.SetParent(root, false);
-                    textGo.transform.position = new Vector3(p.x, 0.33f, p.z - 0.095f);
-                    textGo.transform.rotation = Quaternion.identity; // 글자 앞면이 -Z(방 안쪽)를 본다
-                    var rect = (RectTransform)textGo.transform;
-                    rect.sizeDelta = new Vector2(1.15f, 0.3f);
-                    var text = textGo.AddComponent<TextMeshPro>();
-                    text.font = font != null ? font : TMP_Settings.defaultFontAsset;
-                    text.text = numerals[index];
-                    text.fontSize = 2.4f;
-                    text.alignment = TextAlignmentOptions.Center;
-                    text.verticalAlignment = VerticalAlignmentOptions.Middle;
-                    text.textWrappingMode = TextWrappingModes.NoWrap;
-                    text.color = new Color32(0x2A, 0x1A, 0x0C, 0xFF); // 놋쇠 위에 새긴 어두운 갈색 글자
-                    index++;
-                }
-            }
+            // ① 액자 이름표("제1작 … 제9작")는 2026-11-11 사용자 요청으로 없앴다 (이 메뉴를 다시 눌러도 만들지 않는다)
 
             // ② 바닥에 튄 물감 자국
             var rnd = new System.Random(2026);
@@ -115,7 +69,7 @@ namespace LastBullet.EditorTools
 
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
-            Debug.Log($"[LastBullet] 1_Museum: 이름표 {numerals.Length}개와 바닥 물감 자국 {spots.Count}개를 더했어요.");
+            Debug.Log($"[LastBullet] 1_Museum: 바닥 물감 자국 {spots.Count}개를 더했어요.");
         }
 
         // ───────────── 전투 맵 ─────────────
