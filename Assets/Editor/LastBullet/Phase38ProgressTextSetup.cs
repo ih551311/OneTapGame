@@ -45,7 +45,7 @@ namespace LastBullet.EditorTools
             var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontPath);
             var progressRect = (RectTransform)progress;
             progressRect.anchorMin = progressRect.anchorMax = progressRect.pivot = new Vector2(1f, 1f); // 오른쪽 위 끝 (창고 표시 InventoryPanel은 왼쪽 위)
-            progressRect.anchoredPosition = new Vector2(-30f, -30f);
+            progressRect.anchoredPosition = new Vector2(-510f, -30f); // 오른쪽 위, 창고 표시(InventoryPanel, 오른쪽 끝 464 너비) 바로 왼쪽
             progressRect.sizeDelta = new Vector2(200f, 90f);
 
             var count = progress.Find("Count").GetComponent<TextMeshProUGUI>();
