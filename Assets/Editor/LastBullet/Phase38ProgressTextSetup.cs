@@ -44,8 +44,8 @@ namespace LastBullet.EditorTools
             // 2026-11-11 사용자 요청: "서로 다른 작품" 글자는 없애고 숫자("0 / 9")만, 화면 왼쪽 위에 둔다
             var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontPath);
             var progressRect = (RectTransform)progress;
-            progressRect.anchorMin = progressRect.anchorMax = progressRect.pivot = new Vector2(0f, 1f);
-            progressRect.anchoredPosition = new Vector2(510f, -30f); // 왼쪽 위로 옮긴 창고 표시(InventoryPanel, 30~494) 바로 오른쪽
+            progressRect.anchorMin = progressRect.anchorMax = progressRect.pivot = new Vector2(1f, 1f); // 오른쪽 위 끝 (창고 표시 InventoryPanel은 왼쪽 위)
+            progressRect.anchoredPosition = new Vector2(-30f, -30f);
             progressRect.sizeDelta = new Vector2(200f, 90f);
 
             var count = progress.Find("Count").GetComponent<TextMeshProUGUI>();
