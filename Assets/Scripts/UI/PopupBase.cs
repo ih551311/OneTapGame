@@ -21,6 +21,9 @@ namespace LastBullet.UI
         static readonly List<PopupBase> openStack = new List<PopupBase>();
         static int escHandledFrame = -1;
 
+        // 열려 있는 팝업이 하나라도 있는가 (장치 안내 "[E] …"가 다른 창 위로 비치지 않게 하는 데 쓴다)
+        public static bool AnyOpen => openStack.Count > 0;
+
         PlayerControlLock playerLock;
         bool initialized;
 

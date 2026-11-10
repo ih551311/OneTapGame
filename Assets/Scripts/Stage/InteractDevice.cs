@@ -37,7 +37,8 @@ namespace LastBullet.Stage
 
             Vector3 offset = player.position - transform.position;
             offset.y = 0f;
-            bool near = offset.magnitude <= range && !popup.IsOpen;
+            // 다른 창(같은 책상의 결말 창 등)이 열려 있을 때도 안내를 숨기고 E를 듣지 않는다
+            bool near = offset.magnitude <= range && !popup.IsOpen && !PopupBase.AnyOpen;
             prompt.SetActive(near);
 
             // 일시정지 중(Time.timeScale 0)에는 E로 열리지 않게 한다
