@@ -35,6 +35,26 @@ namespace LastBullet.Enemy
 
         public float Duration => fallTime + vanishTime;
 
+        // 폭발에 맞아 처치된 적이 쓰러지는 동안 같이 날아가게 한다 (2026-11-11, EnemyKnockback.Apply가 부른다).
+        // displacement = 쓰러지는 동안 밀려나는 거리(수평), hop = 뜨는 높이. 처음엔 빠르고 점점 느려지며, 멀리 날릴수록 더 뒤집힌다.
+        Vector3 launchDisplacement;
+        float launchHop;
+
+        public void SetLaunch(Vector3 displacement, float hop)
+        {
+            launchDisplacement = displacement;
+            launchHop = hop;
+        }
+
+        // 날아간 정도(0~1)에 따라 쓰러지는 각도에 더해지는 회전 (멀리 날아가면 한 바퀴 반 가까이 뒤집힌다)
+        float LaunchSpin => 70f * Mathf.Clamp01(launchDisplacement.magnitude / 4f);
+
+        // 쓰러지기 시작한 지 t초 뒤까지 날아간 비율 (0~1)
+        float LaunchFraction(float t)
+        {
+            return Mathf.Clamp01((1f - Mathf.Exp(-3f * t)) / (1f - Mathf.Exp(-3f * fallTime)));
+        }
+
         void Awake()
         {
             GetComponent<EnemyHealth>().Died += OnDied;
@@ -84,12 +104,15 @@ namespace LastBullet.Enemy
             {
                 float k = Mathf.Clamp01(t / fallTime);
                 float eased = k * k; // 처음엔 천천히, 갈수록 빨리 (중력)
-                transform.rotation = Quaternion.AngleAxis(90f * eased, axis) * startRotation;
-                transform.position = startPosition + away * (pushBack * k);
+                // 폭발에 날아갔다면(SetLaunch) 그만큼 더 밀려나고 뜨고 뒤집힌다
+                float spin = LaunchSpin;
+                transform.rotation = Quaternion.AngleAxis((90f + spin) * eased, axis) * startRotation;
+                transform.position = startPosition + away * (pushBack * k) + launchDisplacement * LaunchFraction(t)
+                    + Vector3.up * (launchHop * Mathf.Sin(Mathf.PI * k));
                 yield return null;
             }
-            transform.rotation = Quaternion.AngleAxis(90f, axis) * startRotation;
-            transform.position = startPosition + away * pushBack;
+            transform.rotation = Quaternion.AngleAxis(90f + LaunchSpin, axis) * startRotation;
+            transform.position = startPosition + away * pushBack + launchDisplacement;
 
             // 터지는 연출: 몸 한가운데에서 그 적의 물감 색 방울
             if (popPrefab != null)

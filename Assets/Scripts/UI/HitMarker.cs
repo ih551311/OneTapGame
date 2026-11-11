@@ -41,6 +41,8 @@ namespace LastBullet.UI
                 return;
             current = info.killed ? killColor : info.critical ? criticalColor : normalColor;
             startScale = info.killed ? 1.6f : info.critical ? 1.3f : 1.1f;
+            // 큰 피해(바주카 폭발 등 40 이상)는 마커도 더 크게 번쩍인다 (2026-11-11 게임 주스)
+            startScale *= Mathf.Lerp(1f, 1.9f, Mathf.InverseLerp(30f, 90f, info.damage));
             endTime = Time.unscaledTime + showTime;
             image.enabled = true;
         }

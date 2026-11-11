@@ -30,6 +30,7 @@ namespace LastBullet.UI
             public Vector2 offset;
             public float start;
             public bool critical;
+            public Color color;
         }
 
         readonly List<Entry> active = new List<Entry>();
@@ -59,8 +60,10 @@ namespace LastBullet.UI
             TextMeshProUGUI text = pool.Count > 0 ? pool.Pop() : CreateText();
             text.gameObject.SetActive(true);
             text.text = Mathf.RoundToInt(info.damage).ToString();
-            text.fontSize = info.critical ? criticalSize : normalSize;
-            text.color = info.critical ? criticalColor : normalColor;
+            // 피해가 클수록 숫자가 커지고(바주카 폭발 80~90이면 약 2배) 주황빛이 돈다 (2026-11-11 게임 주스)
+            float big = Mathf.InverseLerp(25f, 90f, info.damage);
+            text.fontSize = (info.critical ? criticalSize : normalSize) * Mathf.Lerp(1f, 2.1f, big);
+            text.color = info.critical ? criticalColor : Color.Lerp(normalColor, new Color(1f, 0.62f, 0.2f, 1f), big);
             active.Add(new Entry
             {
                 text = text,
@@ -68,6 +71,7 @@ namespace LastBullet.UI
                 offset = new Vector2(Random.Range(-28f, 28f), Random.Range(0f, 24f)),
                 start = Time.unscaledTime,
                 critical = info.critical,
+                color = text.color,
             });
         }
 
@@ -113,7 +117,7 @@ namespace LastBullet.UI
                 float ease = 1f - (1f - t) * (1f - t);
                 Vector2 position = (Vector2)screen + (e.offset + Vector2.up * (riseHeight * ease)) * scale;
                 e.text.rectTransform.position = position;
-                var color = e.critical ? criticalColor : normalColor;
+                var color = e.color;
                 color.a = t < 0.6f ? 1f : 1f - (t - 0.6f) / 0.4f;
                 e.text.color = color;
                 float pop = t < 0.12f ? Mathf.Lerp(1.5f, 1f, t / 0.12f) : 1f;

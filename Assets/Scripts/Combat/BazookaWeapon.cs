@@ -78,9 +78,35 @@ namespace LastBullet.Combat
         [Tooltip("터질 때 튀는 물감 방울 (Prefabs/PaintBurst)")]
         [SerializeField] PaintBurstEffect burstPrefab;
 
+        [Header("연출 그림 (2026-11-11 게임 주스)")]
+        [Tooltip("먼지 구름 머티리얼 (Assets/Materials/AtmoSandPuff.mat)")]
+        [SerializeField] Material dustMaterial;
+        [Tooltip("불꽃 알갱이·불빛 번짐 머티리얼, 더하기 (Assets/Materials/AtmoGlow.mat)")]
+        [SerializeField] Material glowMaterial;
+        [Tooltip("충격파 링의 바탕 머티리얼 (Assets/Materials/BossSlamRing.mat, 링 그림은 코드가 만든다)")]
+        [SerializeField] Material ringMaterial;
+        [Tooltip("파편 머티리얼 (Assets/Materials/PaintBurst.mat, 색은 코드가 입힌다)")]
+        [SerializeField] Material debrisMaterial;
+
+        [Header("폭발 느낌 (2026-11-11, 기본값)")]
+        [Tooltip("폭발이 바로 옆(0m)일 때 화면이 떨리는 크기 (도)")]
+        [SerializeField] float blastShakeNear = 3.4f;
+        [Tooltip("폭발이 이 거리(m) 이상 멀면 화면이 거의 안 떨린다")]
+        [SerializeField] float blastShakeFar = 30f;
+        [Tooltip("적을 맞혔을 때 멈칫하는 시간 (초, 실제 시간). 처치한 수가 늘면 조금씩 길어진다")]
+        [SerializeField] float hitStopTime = 0.055f;
+        [Tooltip("멈칫하는 동안의 시간 속도 (0.03 = 거의 멈춤)")]
+        [SerializeField] float hitStopScale = 0.03f;
+        [Tooltip("한 번에 이만큼 이상 처치하면 짧은 슬로모션")]
+        [SerializeField] int slowMotionKills = 3;
+        [Tooltip("적이 폭발에 밀리는 최대 거리 (m, 폭발 가까이일 때). 가장자리는 이것의 1/3")]
+        [SerializeField] float knockbackDistance = 5.5f;
+
         [Header("소리")]
         [SerializeField] AudioClip fireSound;
         [SerializeField] AudioClip boomSound;
+        [Tooltip("로켓이 날아가는 동안 반복되는 '쉬익' 소리 (Assets/Audio/Combat/Bazooka_Whoosh.wav)")]
+        [SerializeField] AudioClip whooshSound;
         [SerializeField] AudioClip[] reloadClips;
         [Tooltip("재장전 소리 시점 (재장전 진행도 0~1)")]
         [SerializeField] float[] reloadClipTimes = { 0.3f, 0.75f };
@@ -107,12 +133,20 @@ namespace LastBullet.Combat
 
         AutoGun gun;
         PlayerHealth health;
+        ThirdPersonCamera look;
+        AimController aim;
         int colorIndex;
 
         void Awake()
         {
             gun = GetComponent<AutoGun>();
             health = GetComponent<PlayerHealth>();
+            look = GetComponent<ThirdPersonCamera>();
+            aim = GetComponent<AimController>();
+            BlastFx.Dust = dustMaterial;
+            BlastFx.Glow = glowMaterial;
+            BlastFx.Ring = ringMaterial;
+            BlastFx.DebrisMat = debrisMaterial;
             Apply(false);
         }
 
@@ -196,7 +230,16 @@ namespace LastBullet.Combat
             var colors = StageColors.For(SceneManager.GetActiveScene().name);
             PaintColor color = colors != null && colors.Count > 0 ? colors[colorIndex % colors.Count] : (PaintColor)(colorIndex % PaintColors.Count);
             colorIndex++;
-            BazookaRocket.Spawn(this, origin, direction, rocketSpeed, range, PaintColors.Colors[(int)color], (int)color, rocketMaterial, paintMaterial);
+            BazookaRocket.Spawn(this, origin, direction, rocketSpeed, range, PaintColors.Colors[(int)color], (int)color, rocketMaterial, paintMaterial, whooshSound);
+
+            // 발사 연출: 발사관 뒤로 뿜는 연기와 불꽃, 앞으로 퍼지는 연기와 불꽃 (2026-11-11)
+            Vector3 back = -direction;
+            BlastFx.Puff(origin + back * 0.9f, back, 28f, 22, 3f, 8f, 0.6f, 1.3f, 0.7f, 1.3f,
+                new Color(0.95f, 0.95f, 0.92f, 0.7f), new Color(0.7f, 0.7f, 0.7f, 0.7f), 0.7f, 0.04f);
+            BlastFx.Sparks(origin + back * 0.9f, back, 22f, 14, 6f, 14f);
+            BlastFx.Puff(origin + direction * 0.3f, direction, 20f, 10, 4f, 10f, 0.35f, 0.8f, 0.45f, 0.9f,
+                new Color(1f, 0.95f, 0.85f, 0.6f), new Color(0.8f, 0.8f, 0.78f, 0.6f), 0.6f, 0.02f);
+            BlastFx.Sparks(origin + direction * 0.3f, direction, 18f, 12, 10f, 22f);
         }
 
         // 로켓이 터진다 (BazookaRocket이 부른다)
@@ -213,6 +256,16 @@ namespace LastBullet.Combat
                 ExplosionDecal.Spawn(point, normal, paint, material, blastRadius, 2.5f);
             ExplosionFlash.Spawn(point, paint, blastRadius, paintMaterial);
 
+            // 폭발 연출 (2026-11-11 게임 주스): 충격파 링, 먼지 구름(지면 쪽으로 낮게 + 위로 뭉게), 파편, 불꽃 알갱이
+            float s = blastRadius / 5f;
+            BlastFx.ShockRing(point, normal, blastRadius, paint);
+            BlastFx.Puff(point + normal * 0.2f, normal, 82f, 34, 3f, 9f * s, 1.3f * s, 3.0f * s, 0.9f, 1.7f,
+                new Color(0.72f, 0.64f, 0.52f, 0.75f), new Color(0.5f, 0.46f, 0.42f, 0.75f), 0.75f, 0.07f);
+            BlastFx.Puff(point + normal * 0.5f, normal, 28f, 14, 2f, 6f * s, 1.6f * s, 3.4f * s, 1.1f, 2.0f,
+                new Color(0.35f, 0.33f, 0.31f, 0.65f), Color.Lerp(new Color(0.4f, 0.38f, 0.36f, 0.65f), paint, 0.3f), 0.65f, 0.1f); // 위로 솟는 검은 연기
+            BlastFx.Debris(point + normal * 0.2f, normal, 20, paint);
+            BlastFx.Sparks(point + normal * 0.3f, normal, 70f, 40, 8f * s, 22f * s);
+
             // 범위 피해: 적의 몸에서 폭발 중심까지 가장 가까운 거리로 정한다 (1.5m 안은 전부, 가장자리는 edgeDamage 비율)
             var best = new Dictionary<EnemyHealth, float>();
             foreach (var hit in Physics.OverlapSphere(point, blastRadius, ~0, QueryTriggerInteraction.Ignore))
@@ -226,21 +279,51 @@ namespace LastBullet.Combat
                 if (!best.TryGetValue(enemy, out float old) || distance < old)
                     best[enemy] = distance;
             }
+            int hitCount = 0, kills = 0;
+            Transform playerTransform = transform;
             foreach (var pair in best)
             {
                 float t = Mathf.InverseLerp(1.5f, blastRadius, pair.Value);
                 float scale = Mathf.Lerp(1f, edgeDamage, t);
-                if (pair.Key.IsDead)
+                var enemy = pair.Key;
+                if (enemy.IsDead)
                     continue;
-                pair.Key.ApplyDamage(damage * scale, false, pair.Key.transform.position + Vector3.up * 1.2f);
+                enemy.ApplyDamage(damage * scale, false, enemy.transform.position + Vector3.up * 1.2f);
+                hitCount++;
+                bool killed = enemy.IsDead;
+                if (killed)
+                    kills++;
+
+                // 폭발 반대쪽으로 날아간다 (가까울수록 멀리·높이). 처치된 적은 더 멀리 날아가며 쓰러진다.
+                Vector3 away = enemy.transform.position - point;
+                away.y = 0f;
+                float push = Mathf.Lerp(knockbackDistance, knockbackDistance * 0.33f, t) * (killed ? 1.3f : 1f);
+                float hop = Mathf.Lerp(1.1f, 0.35f, t) * (killed ? 1.4f : 1f);
+                EnemyKnockback.Apply(enemy, away, push, hop);
+                if (!killed)
+                    enemy.FlashColor(new Color(1f, 0.93f, 0.7f), 0.22f); // 하얗게 달아오름
             }
+
+            // 화면 흔들림: 폭발이 가까울수록 크게 (멀리서 터져도 약하게는 느껴진다)
+            float distanceToPlayer = Vector3.Distance(playerTransform.position, point);
+            float closeness = Mathf.Pow(1f - Mathf.Clamp01(distanceToPlayer / blastShakeFar), 1.5f);
+            if (look != null)
+                look.Shake(Mathf.Lerp(0.25f, blastShakeNear, closeness), Mathf.Lerp(0.25f, 0.55f, closeness));
+            if (aim != null)
+                aim.KickFov(Mathf.Lerp(0f, 3f, closeness));
+
+            // 적을 맞혔으면 터지는 순간 멈칫 (히트스톱), 여러 마리를 잡으면 짧은 슬로모션
+            if (kills >= slowMotionKills)
+                HitStop.Do(0.45f, 0.25f);
+            else if (hitCount > 0)
+                HitStop.Do(hitStopTime + 0.02f * Mathf.Min(kills, 3), hitStopScale);
         }
     }
 
     // 폭발 순간 번쩍이는 물감색 공 + 불빛 (0.25초)
     class ExplosionFlash : MonoBehaviour
     {
-        Transform ball;
+        Transform ball, core;
         Light flashLight;
         float radius, start;
         const float Life = 0.25f;
@@ -273,8 +356,22 @@ namespace LastBullet.Combat
             flash.flashLight.type = LightType.Point;
             flash.flashLight.color = Color.Lerp(color, new Color(1f, 0.8f, 0.5f), 0.5f);
             flash.flashLight.range = radius * 2.2f;
-            flash.flashLight.intensity = 14f;
+            flash.flashLight.intensity = 30f;
             flash.flashLight.shadows = LightShadows.None;
+
+            // 한가운데의 하얀 불덩이 (더 작고 더 빨리 사라진다)
+            var coreSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            Object.Destroy(coreSphere.GetComponent<Collider>());
+            coreSphere.transform.SetParent(go.transform, false);
+            coreSphere.transform.localScale = Vector3.zero;
+            var coreRenderer = coreSphere.GetComponent<MeshRenderer>();
+            if (material != null)
+                coreRenderer.sharedMaterial = material;
+            coreRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            var coreBlock = new MaterialPropertyBlock();
+            coreBlock.SetColor("_BaseColor", new Color(1f, 0.97f, 0.85f, 1f));
+            coreRenderer.SetPropertyBlock(coreBlock);
+            flash.core = coreSphere.transform;
         }
 
         void Update()
@@ -287,7 +384,12 @@ namespace LastBullet.Combat
             }
             float eased = 1f - (1f - t) * (1f - t);
             ball.localScale = Vector3.one * radius * 1.4f * eased * (1f - t * 0.5f);
-            flashLight.intensity = 14f * (1f - t);
+            if (core != null)
+            {
+                float coreT = Mathf.Clamp01(t * 2.2f); // 절반도 안 되는 시간에 커졌다 사라진다
+                core.localScale = coreT >= 1f ? Vector3.zero : Vector3.one * radius * 0.9f * (1f - (1f - coreT) * (1f - coreT)) * (1f - coreT * 0.6f);
+            }
+            flashLight.intensity = 30f * (1f - t) * (1f - t);
         }
     }
 

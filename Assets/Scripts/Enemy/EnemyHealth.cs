@@ -110,6 +110,19 @@ namespace LastBullet.Enemy
             Destroy(gameObject, deathEffect != null ? deathEffect.Duration : 0f);
         }
 
+        // 지정한 색으로 잠깐 번쩍인다 (폭발에 맞은 적이 하얗게 달아오르는 연출, 2026-11-11). 끝나면 원래 몸 색으로 돌아온다.
+        public void FlashColor(Color color, float time)
+        {
+            if (IsDead || time <= 0f)
+                return;
+            var block = new MaterialPropertyBlock();
+            block.SetColor("_BaseColor", color);
+            foreach (var r in renderers)
+                if (r != null)
+                    r.SetPropertyBlock(block);
+            flashEndTime = Time.time + time;
+        }
+
         void Flash()
         {
             if (hitFlashTime <= 0f)

@@ -11,13 +11,13 @@ namespace LastBullet.Combat
     {
         BazookaWeapon owner;
         Transform ownerRoot;
-        float speed, remaining;
+        float speed, remaining, born;
         Color paint;
         int colorId;
         readonly RaycastHit[] hits = new RaycastHit[8];
 
         public static BazookaRocket Spawn(BazookaWeapon owner, Vector3 origin, Vector3 direction, float speed, float range,
-            Color paint, int colorId, Material bodyMaterial, Material paintMaterial)
+            Color paint, int colorId, Material bodyMaterial, Material paintMaterial, AudioClip whoosh = null)
         {
             var go = new GameObject("BazookaRocket");
             go.transform.position = origin;
@@ -62,6 +62,23 @@ namespace LastBullet.Combat
             var block = new MaterialPropertyBlock();
             block.SetColor("_BaseColor", paint);
             trail.SetPropertyBlock(block);
+
+            // 연기 꼬리 + 꽁무니 불꽃 + 은은한 주황 불빛 (2026-11-11 게임 주스)
+            BlastFx.AttachRocketTrail(go.transform, paint);
+
+            // 날아가는 소리: 로켓을 따라다니는 3D '쉬익' (반복)
+            if (whoosh != null)
+            {
+                var source = go.AddComponent<AudioSource>();
+                source.clip = whoosh;
+                source.loop = true;
+                source.spatialBlend = 1f;
+                source.minDistance = 4f;
+                source.maxDistance = 60f;
+                source.volume = 0.8f;
+                source.Play();
+            }
+            rocket.born = Time.time;
             return rocket;
         }
 
@@ -81,7 +98,9 @@ namespace LastBullet.Combat
 
         void Update()
         {
-            float step = Mathf.Min(speed * Time.deltaTime, remaining);
+            // 점화 느낌: 나가는 순간은 느리다가 0.3초 만에 최고 속도로 (발사관에서 "푸슉" 하고 가속)
+            float currentSpeed = Mathf.Lerp(speed * 0.4f, speed, Mathf.Clamp01((Time.time - born) / 0.3f));
+            float step = Mathf.Min(currentSpeed * Time.deltaTime, remaining);
             Vector3 direction = transform.forward;
             int count = Physics.SphereCastNonAlloc(transform.position, 0.12f, direction, hits, step, ~0, QueryTriggerInteraction.Ignore);
             float best = float.MaxValue;
@@ -118,6 +137,13 @@ namespace LastBullet.Combat
             {
                 trailObject.SetParent(null);
                 Destroy(trailObject.gameObject, 0.5f);
+            }
+            // 연기·불꽃은 새로 만들지 않고 남은 알갱이가 사라질 때까지 둔다
+            foreach (var system in GetComponentsInChildren<ParticleSystem>())
+            {
+                system.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                system.transform.SetParent(null);
+                Destroy(system.gameObject, 2.5f);
             }
             Destroy(gameObject);
         }
