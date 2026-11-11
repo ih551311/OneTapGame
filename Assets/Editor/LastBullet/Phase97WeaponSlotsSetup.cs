@@ -64,10 +64,10 @@ namespace LastBullet.EditorTools
                 var root = new GameObject("WeaponSlots", typeof(RectTransform));
                 root.transform.SetParent(canvas.transform, false);
                 var rootRect = (RectTransform)root.transform;
-                // 2026-11-11 사용자 요청: 탄약 표시(총 그림 + 숫자, x 500~) 바로 오른쪽에, 세로는 탄약 표시 가운데에 맞춘다.
+                // 2026-11-11 사용자 요청: 무기 칸이 왼쪽(x 500, 프로필 바로 옆), 탄약 표시(총 그림 + 숫자)가 그 오른쪽(x 742). 세로는 탄약 표시 가운데에 맞춘다.
                 rootRect.anchorMin = rootRect.anchorMax = new Vector2(0f, 0f);
                 rootRect.pivot = new Vector2(0f, 0f);
-                rootRect.anchoredPosition = new Vector2(800f, 58f);
+                rootRect.anchoredPosition = new Vector2(500f, 58f);
                 rootRect.sizeDelta = new Vector2(230f, 66f);
 
                 var slots = new WeaponSlotsUI.Slot[2];
