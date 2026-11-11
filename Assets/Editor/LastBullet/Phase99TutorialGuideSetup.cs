@@ -32,9 +32,11 @@ namespace LastBullet.EditorTools
             var canvas = ArtSlots.FindCanvas();
             var desk = GameObject.Find("GrandpaDesk");
             var diary = canvas != null ? canvas.transform.Find("DiaryPopup") : null;
-            if (canvas == null || desk == null || diary == null)
+            var mailbox = GameObject.Find("Mailbox");
+            var letter = canvas != null ? canvas.transform.Find("StoryPopup") : null;
+            if (canvas == null || desk == null || diary == null || mailbox == null || letter == null)
             {
-                Debug.LogWarning("[LastBullet] 1_Museum: 일기장 책상(GrandpaDesk)·일기장 창(DiaryPopup)·Canvas 중 없는 것이 있어 건너뜀 (먼저 Phase 76).");
+                Debug.LogWarning("[LastBullet] 1_Museum: 일기장 책상(GrandpaDesk)·일기장 창(DiaryPopup)·우체통(Mailbox)·편지 창(StoryPopup)·Canvas 중 없는 것이 있어 건너뜀 (먼저 Phase 76·100).");
                 return;
             }
 
@@ -84,6 +86,8 @@ namespace LastBullet.EditorTools
             var guide = go.AddComponent<TutorialGuide>();
             var so = new SerializedObject(guide);
             so.FindProperty("desk").objectReferenceValue = desk.transform;
+            so.FindProperty("mailbox").objectReferenceValue = mailbox.transform;
+            so.FindProperty("letterPopup").objectReferenceValue = letter.GetComponent<PopupBase>();
             so.FindProperty("arrowMaterial").objectReferenceValue = arrowMaterial;
             so.FindProperty("ringMaterial").objectReferenceValue = ringMaterial;
             so.FindProperty("diaryPopup").objectReferenceValue = diary.GetComponent<PopupBase>();

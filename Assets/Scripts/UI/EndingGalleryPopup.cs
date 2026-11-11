@@ -146,8 +146,7 @@ namespace LastBullet.UI
             if (InventoryManager.Exists)
                 InventoryManager.Instance.ReloadFromSave();
             StoryPopup.ForgetSeen();
-            OpeningStory.ForgetSeen(); // 새로 시작하면 시작 이야기가 다시 뜬다
-            LastBullet.Stage.TutorialGuide.ForgetDone(); // 일기장으로 가는 길 안내도 다시
+            LastBullet.Stage.TutorialGuide.ForgetDone(); // 우체통 → 일기장 길 안내를 다시 처음부터
             Debug.Log("[다시하기] 진행 상황과 그림을 처음으로 되돌렸어요. 타이틀로 돌아가요.");
             Time.timeScale = 1f;
             Cursor.lockState = CursorLockMode.None;
