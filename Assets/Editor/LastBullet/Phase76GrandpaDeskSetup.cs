@@ -67,7 +67,7 @@ namespace LastBullet.EditorTools
                 title.GetComponent<TMP_Text>().text = "할아버지의 일기장";
 
             var pages = new List<Sprite>();
-            for (int n = 1; n < 100; n++)
+            for (int n = 1; n < 100; n++) // Diary_01.png … 있는 만큼 (2026-11-11: 10쪽)
             {
                 string path = $"Assets/UI/Diary_{n:00}.png";
                 if (AssetDatabase.LoadAssetAtPath<Object>(path) == null)
