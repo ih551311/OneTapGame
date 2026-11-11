@@ -43,7 +43,7 @@ namespace LastBullet.EditorTools
             popupGo.transform.SetSiblingIndex(storyPopup.GetSiblingIndex() + 1);
             var title = popupGo.transform.Find("Panel/Title");
             if (title != null)
-                title.GetComponent<TMP_Text>().text = "처음 이야기";
+                title.GetComponent<TMP_Text>().text = "부모님의 편지"; // 2026-11-11: 처음 이야기는 부모님이 쓴 편지 (튜토리얼: 일기장으로 안내)
             var popup = popupGo.GetComponent<StoryPopup>();
             var so = new SerializedObject(popup);
             so.FindProperty("textPages").objectReferenceValue = text;
