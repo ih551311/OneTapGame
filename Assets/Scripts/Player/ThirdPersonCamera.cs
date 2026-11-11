@@ -80,6 +80,17 @@ namespace LastBullet.Player
         void OnFired()
         {
             float scale = aim != null && aim.IsAiming ? recoilAimScale : 1f;
+            if (gun != null && gun.IsBazooka)
+            {
+                // 바주카: 한 발이 소총 연사 여러 발만큼 크게 튄다 (값은 BazookaWeapon 인스펙터)
+                var bazooka = gun.Bazooka;
+                recoilPitchTarget = Mathf.Min(recoilPitchTarget + bazooka.CameraKick * scale, bazooka.CameraKickMax);
+                recoilYawTarget += Random.Range(-recoilYawKick, recoilYawKick) * 2f * scale;
+                Shake(bazooka.CameraShake * scale, bazooka.CameraShakeTime);
+                if (aim != null)
+                    aim.KickFov(bazooka.FovKick);
+                return;
+            }
             recoilPitchTarget = Mathf.Min(recoilPitchTarget + recoilPitchKick * scale, recoilPitchMax); // 연사해도 일정 높이까지만 올라간다
             recoilYawTarget += Random.Range(-recoilYawKick, recoilYawKick) * scale;
             Shake(shotShake * scale, shotShakeTime); // 한 발마다 화면이 짧게 떨린다

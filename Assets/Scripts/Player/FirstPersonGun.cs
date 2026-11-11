@@ -73,7 +73,8 @@ namespace LastBullet.Player
 
         void OnFired()
         {
-            recoil = Mathf.Min(1f, recoil + 0.5f); // 연사하면 쌓이지만 한계가 있다
+            // 바주카는 한 발에 최대 반동 (소총은 연사하면 쌓이지만 한계가 있다)
+            recoil = gun != null && gun.IsBazooka ? 1f : Mathf.Min(1f, recoil + 0.5f);
         }
 
         void LateUpdate()
@@ -86,7 +87,13 @@ namespace LastBullet.Player
                 return;
 
             aimBlend = Mathf.MoveTowards(aimBlend, aim != null && aim.IsAiming ? 1f : 0f, Time.unscaledDeltaTime * moveSpeed * 0.5f);
-            recoil = Mathf.MoveTowards(recoil, 0f, Time.unscaledDeltaTime * recoilRecover * Mathf.Max(0.3f, recoil));
+            // 바주카는 반동이 더 크고(뒤로·위로) 더 천천히 돌아온다 (배율은 BazookaWeapon 인스펙터)
+            bool bazooka = gun != null && gun.IsBazooka;
+            var bz = bazooka ? gun.Bazooka : null;
+            float backScale = bazooka ? bz.ViewRecoilBackScale : 1f;
+            float pitchScale = bazooka ? bz.ViewRecoilPitchScale : 1f;
+            float recoverScale = bazooka ? bz.ViewRecoilRecoverScale : 1f;
+            recoil = Mathf.MoveTowards(recoil, 0f, Time.unscaledDeltaTime * recoilRecover * recoverScale * Mathf.Max(0.3f, recoil));
 
             float speed = 0f;
             if (controller != null)
@@ -102,7 +109,7 @@ namespace LastBullet.Player
             Vector3 position = Vector3.Lerp(restPosition, aimPosition, aimBlend) + sway;
             // 조준 중에는 총이 덜 튄다 (가늠쇠가 조준점에서 멀어지면 조준이 어렵다)
             float recoilScale = Mathf.Lerp(1f, aimRecoilScale, aimBlend);
-            position += new Vector3(0f, -(1f - t) * 0.35f, -recoil * recoilBack * recoilScale);
+            position += new Vector3(0f, -(1f - t) * 0.35f, -recoil * recoilBack * backScale * recoilScale);
             // 재장전: 총이 아래로 내려갔다가 올라온다 (진행도 0~1에서 sin 곡선)
             float reloadDip = gun != null && gun.IsReloading ? Mathf.Sin(gun.ReloadProgress * Mathf.PI) : 0f;
             position += new Vector3(0.0f, -0.05f * reloadDip, 0f); // 재장전: 총이 살짝 내려가고 (왼팔은 ArmReloadSlide가 시간표대로 움직인다)
@@ -116,7 +123,7 @@ namespace LastBullet.Player
             transform.localPosition = position * fovScale;
             // 조준 중에는 총이 똑바로 앞을 보게 한다 (조준점과 총의 가늠쇠가 일직선이 되도록)
             float hold = 1f - aimBlend;
-            transform.localRotation = Quaternion.Euler(-recoil * recoilPitch * recoilScale - restPitch * hold + 7f * reloadDip, restYaw * hold, -9f * reloadDip);
+            transform.localRotation = Quaternion.Euler(-recoil * recoilPitch * pitchScale * recoilScale - restPitch * hold + 7f * reloadDip, restYaw * hold, -9f * reloadDip);
         }
 
         // 거울 반사 그림을 찍는 동안은 1인칭 총·팔을 숨긴다 (거울에는 캐릭터 모습이 비치므로, 카메라에 붙은 1인칭 팔이 같이 비치면 이상하다)

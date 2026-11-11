@@ -36,6 +36,24 @@ namespace LastBullet.Combat
         [Tooltip("로켓 속도 (m/초)")]
         [SerializeField] float rocketSpeed = 55f;
 
+        [Header("발사 느낌 (2026-11-11 사용자 요청: 쏘는 맛, 기본값)")]
+        [Tooltip("쏠 때 화면이 위로 튀는 각도 (도). 소총은 한 발에 0.9도")]
+        [SerializeField] float cameraKick = 4.5f;
+        [Tooltip("화면이 올라갈 수 있는 한계 각도 (도)")]
+        [SerializeField] float cameraKickMax = 7f;
+        [Tooltip("한 발에 화면이 떨리는 크기 (도). 소총은 0.5")]
+        [SerializeField] float cameraShake = 1.8f;
+        [Tooltip("그 떨림이 이어지는 시간 (초). 소총은 0.08")]
+        [SerializeField] float cameraShakeTime = 0.28f;
+        [Tooltip("쏘는 순간 시야각이 넓어졌다 돌아오는 양 (도)")]
+        [SerializeField] float fovKick = 5f;
+        [Tooltip("1인칭 바주카가 뒤로 밀리는 배율 (소총 1)")]
+        [SerializeField] float viewRecoilBackScale = 2f; // 더 크게 하면 1인칭에서 발사관 뒤 끝이 카메라에 파묻힌다 (가까운 면 0.1m)
+        [Tooltip("1인칭 바주카 총구가 들리는 배율 (소총 1)")]
+        [SerializeField] float viewRecoilPitchScale = 3f;
+        [Tooltip("1인칭 바주카 반동이 돌아오는 빠르기 배율 (소총 1, 작을수록 천천히 돌아온다)")]
+        [SerializeField] float viewRecoilRecoverScale = 0.45f;
+
         [Header("연결 - 무기 모양")]
         [Tooltip("1인칭 바주카 (Main Camera/FirstPersonGun/Model/BazookaHolder)")]
         [SerializeField] GameObject firstHolder;
@@ -66,6 +84,16 @@ namespace LastBullet.Combat
         [SerializeField] AudioClip[] reloadClips;
         [Tooltip("재장전 소리 시점 (재장전 진행도 0~1)")]
         [SerializeField] float[] reloadClipTimes = { 0.3f, 0.75f };
+
+        // 쏠 때 카메라·1인칭 총이 얼마나 튀는지 (ThirdPersonCamera, AimController, FirstPersonGun이 읽는다)
+        public float CameraKick => cameraKick;
+        public float CameraKickMax => cameraKickMax;
+        public float CameraShake => cameraShake;
+        public float CameraShakeTime => cameraShakeTime;
+        public float FovKick => fovKick;
+        public float ViewRecoilBackScale => viewRecoilBackScale;
+        public float ViewRecoilPitchScale => viewRecoilPitchScale;
+        public float ViewRecoilRecoverScale => viewRecoilRecoverScale;
 
         public bool Active { get; private set; }
         public int Magazine => magazine;

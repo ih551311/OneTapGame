@@ -51,6 +51,13 @@ namespace LastBullet.Player
 
         public bool IsAiming => amount > 0.5f;
 
+        // 쏘는 순간 시야각이 잠깐 넓어졌다 돌아온다 (바주카 발사 느낌, 2026-11-11)
+        float fovKick;
+        public void KickFov(float degrees)
+        {
+            fovKick = Mathf.Max(fovKick, degrees);
+        }
+
         void Start()
         {
             normalFov = followCamera.Lens.FieldOfView;
@@ -90,7 +97,8 @@ namespace LastBullet.Player
             }
 
             var lens = followCamera.Lens;
-            lens.FieldOfView = Mathf.Lerp(normalFov, aimFieldOfView, eased);
+            fovKick = Mathf.MoveTowards(fovKick, 0f, Mathf.Max(0.5f, fovKick * 6f) * Time.unscaledDeltaTime); // 빠르게 줄다가 끝은 천천히
+            lens.FieldOfView = Mathf.Lerp(normalFov, aimFieldOfView, eased) + fovKick;
             followCamera.Lens = lens;
             follow.CameraDistance = Mathf.Lerp(baseDistance, Mathf.Min(baseDistance, aimDistance), eased);
             follow.VerticalArmLength = Mathf.Lerp(normalArm, 0f, z);
