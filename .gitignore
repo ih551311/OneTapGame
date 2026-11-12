@@ -146,3 +146,6 @@ InitTestScene*.unity*
 # 에셋 Furniture Mega Pack - Free(1.7GB). 통째로는 올리지 않고, 미술관에서 쓰는 파일만 git add -f 로 올린다 (docs/claude/SESSION_HANDOFF.md 2026-11-06 참고)
 /Assets/Furniture Mega Pack/
 /Assets/Furniture Mega Pack.meta
+
+# 빌드 결과 (2026-11-12)
+/Builds/
