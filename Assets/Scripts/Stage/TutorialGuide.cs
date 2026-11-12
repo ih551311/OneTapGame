@@ -1,38 +1,46 @@
+using System;
+using LastBullet.Drawing;
+using LastBullet.Inventory;
 using LastBullet.UI;
 using TMPro;
 using UnityEngine;
 
 namespace LastBullet.Stage
 {
-    // 처음 들어왔을 때의 길 안내 (2026-11-11 사용자 요청, 2026-11-12 사용자 요청으로 2단계로 고침: 시작 편지를 우체통으로 옮김).
-    //  - 1단계: 시작하자마자 바닥의 호박색 화살표가 플레이어 발밑에서 우체통(엄마의 편지) 앞까지 이어지고, 우체통 앞 바닥에서는 고리가 숨 쉬듯 커졌다 작아진다.
-    //    화면 위에는 "바닥의 화살표를 따라 우체통으로 가 보세요". 편지 창(엄마의 편지)을 열면 1단계가 끝난다.
-    //  - 2단계: 편지를 닫으면 화살표가 일기장 책상 쪽으로 바뀐다. "이번에는 할아버지의 일기장으로 가 보세요". 일기장 창을 열면 안내가 모두 끝난다.
-    //  - 일기장을 먼저 열면 바로 끝난다. 다른 창이 열려 있는 동안에는 표시를 숨긴다. 진행은 PlayerPrefs에 기억하고, 다시하기를 하면 처음부터 다시 한다.
+    // 미술관의 길 안내 (2026-11-11 사용자 요청: 튜토리얼 느낌으로 바닥에 표시, 2026-11-12: 편지를 우체통으로, 그 뒤 순서까지 늘림).
+    // 단계를 차례로 안내한다. 각 단계: 바닥의 호박색 화살표가 플레이어 발밑에서 목적지 앞까지 흐르고, 목적지 앞 바닥에 고리가 숨 쉬듯 커졌다 작아지며,
+    // 화면 위에 안내 글이 뜬다. 목적지의 창(popup)을 열면 그 단계가 끝나고 다음 단계로 간다.
+    //   1 우체통(엄마의 편지) → 2 할아버지 일기장 → 3 지도 탁자(갈 곳 고르기) → 4 종이 합성대(종이조각 5개가 모이면)
+    //   → 5 그림 작업대(종이가 생기면) → 6 액자(그림을 그렸으면)
+    //  - 뒤 단계의 창을 먼저 열면 앞 단계는 끝난 것으로 친다. 이미 액자에 그림을 건 적이 있는 사람(익숙한 사람)에게는 안내하지 않는다.
+    //  - 시작 조건(StartWhen)이 안 맞으면(예: 종이조각이 5개 미만) 안내를 쉬었다가 조건이 되면 다시 시작한다.
+    //  - 다른 창이 열려 있는 동안에는 표시를 숨긴다. 진행은 PlayerPrefs에 기억하고, 다시하기를 하면 처음부터 다시 한다.
     //  - 화살표·고리 그림은 Assets/UI/Guide_Arrow.png, Guide_Ring.png (머티리얼 Assets/Materials/FloorGuide_Arrow.mat, FloorGuide_Ring.mat)라서 바꿔 끼울 수 있다.
     // 붙일 곳: 미술관 TutorialGuide 오브젝트 (메뉴 LastBullet > Phase 99 첫 입장 길 안내 만들기, 먼저 Phase 76·100)
     public class TutorialGuide : MonoBehaviour
     {
-        const string LetterKey = "ReChroma.GuideLetterDone";
-        const string DoneKey = "ReChroma.GuideDone";
+        public enum StartCondition { Always, HasScrapsForPaper, HasPaper, HasPainting }
 
-        [Tooltip("1단계 목적지: 우체통 (Mailbox)")]
-        [SerializeField] Transform mailbox;
+        [Serializable]
+        public class Step
+        {
+            [Tooltip("단계 이름 (기억하는 이름이라 바꾸면 처음부터 다시 안내한다)")]
+            public string id;
+            [Tooltip("이 창을 열면 단계가 끝난다")]
+            public PopupBase popup;
+            [Tooltip("서 있어야 할 자리 (월드 좌표, 바닥)")]
+            public Vector3 stand;
+            [Tooltip("화면 위 안내 글")]
+            public string hint;
+            [Tooltip("이 단계를 시작하는 조건")]
+            public StartCondition startWhen;
+        }
 
-        [Tooltip("엄마의 편지 창 (열면 1단계가 끝난다)")]
-        [SerializeField] PopupBase letterPopup;
+        const string KeyPrefix = "ReChroma.Guide.";
+        const string LegacyLetterKey = "ReChroma.GuideLetterDone"; // 옛 방식(2단계 안내) 기억: 우체통 단계
+        const string LegacyDoneKey = "ReChroma.GuideDone";         // 옛 방식: 일기장 단계
 
-        [Tooltip("2단계 목적지: 일기장 책상 (GrandpaDesk)")]
-        [SerializeField] Transform desk;
-
-        [Tooltip("일기장 창 (열면 안내가 모두 끝난다)")]
-        [SerializeField] PopupBase diaryPopup;
-
-        [Tooltip("책상 앞에서 서야 할 자리 (월드 좌표 기준으로 책상 위치에서 더하는 m, 책상 앞면이 월드 +X를 본다)")]
-        [SerializeField] Vector3 standOffset = new Vector3(2.0f, 0f, 0f);
-
-        [Tooltip("우체통 앞에서 서야 할 자리 (우체통 앞쪽으로 m)")]
-        [SerializeField] float mailboxStand = 1.3f;
+        [SerializeField] Step[] steps;
 
         [SerializeField] Material arrowMaterial;
         [SerializeField] Material ringMaterial;
@@ -43,7 +51,7 @@ namespace LastBullet.Stage
         [Header("화살표 (기본값)")]
         [SerializeField] float spacing = 1.7f;
         [SerializeField] float arrowSize = 1.1f;
-        [Tooltip("화살표가 목적지 쪽으로 흘러가는 속도 (m/초)")]
+        [Tooltip("화살표가 목적지 쪽으로 흐르는 속도 (m/초)")]
         [SerializeField] float flowSpeed = 1.6f;
         [SerializeField] Color color = new Color(0.95f, 0.69f, 0.2f, 1f);
 
@@ -54,25 +62,47 @@ namespace LastBullet.Stage
         MaterialPropertyBlock ringBlock;
         TMP_Text hintText;
         float baseY;
+        float nextPaintingCheck;
+        int paintingCount;
         const int MaxArrows = 16;
 
-        public static bool Done => GetFlag(DoneKey);
-        public static bool LetterRead => GetFlag(LetterKey);
-
-        static bool GetFlag(string key)
-        {
-            try { return PlayerPrefs.GetInt(key, 0) == 1; }
-            catch { return true; } // 저장소를 못 읽으면 안내가 계속 뜨지 않게 끝난 것으로 친다
-        }
-
-        static void SetFlag(string key)
+        static bool IsDone(string id)
         {
             try
             {
-                PlayerPrefs.SetInt(key, 1);
+                if (PlayerPrefs.GetInt(KeyPrefix + id, 0) == 1)
+                    return true;
+                if (id == "mailbox")
+                    return PlayerPrefs.GetInt(LegacyLetterKey, 0) == 1;
+                if (id == "diary")
+                    return PlayerPrefs.GetInt(LegacyDoneKey, 0) == 1;
+                return false;
+            }
+            catch { return true; } // 저장소를 못 읽으면 안내가 계속 뜨지 않게 끝난 것으로 친다
+        }
+
+        static void SetDone(string id)
+        {
+            try
+            {
+                PlayerPrefs.SetInt(KeyPrefix + id, 1);
                 PlayerPrefs.Save();
             }
             catch { }
+        }
+
+        // 안내가 모두 끝났는지 (설명용)
+        public bool AllDone
+        {
+            get
+            {
+                if (steps == null)
+                    return true;
+                foreach (var step in steps)
+                    if (!IsDone(step.id))
+                        return false;
+                return true;
+            }
         }
 
         // 진행 기억을 지운다 (다시하기)
@@ -80,8 +110,10 @@ namespace LastBullet.Stage
         {
             try
             {
-                PlayerPrefs.DeleteKey(DoneKey);
-                PlayerPrefs.DeleteKey(LetterKey);
+                foreach (var id in new[] { "mailbox", "diary", "map", "craft", "paint", "frame" })
+                    PlayerPrefs.DeleteKey(KeyPrefix + id);
+                PlayerPrefs.DeleteKey(LegacyLetterKey);
+                PlayerPrefs.DeleteKey(LegacyDoneKey);
                 PlayerPrefs.Save();
             }
             catch { }
@@ -104,6 +136,11 @@ namespace LastBullet.Stage
             ring = MakeQuad("Ring", ringMaterial);
             ringBlock = new MaterialPropertyBlock();
             SetShown(false);
+
+            // 이미 액자에 그림을 걸어 본 사람은 게임을 아는 사람이라 안내하지 않는다
+            if (steps != null && GalleryStore.DistinctCount() > 0)
+                foreach (var step in steps)
+                    SetDone(step.id);
         }
 
         Transform MakeQuad(string name, Material material)
@@ -120,45 +157,70 @@ namespace LastBullet.Stage
             return go.transform;
         }
 
+        bool ConditionMet(StartCondition condition)
+        {
+            switch (condition)
+            {
+                case StartCondition.HasScrapsForPaper:
+                    return InventoryManager.Instance.CanCraftPaper;
+                case StartCondition.HasPaper:
+                    return InventoryManager.Instance.DrawingPaper > 0;
+                case StartCondition.HasPainting:
+                    if (Time.unscaledTime >= nextPaintingCheck) // 파일을 읽으므로 1초에 한 번만
+                    {
+                        nextPaintingCheck = Time.unscaledTime + 1f;
+                        paintingCount = PaintingLibrary.LoadList().Count;
+                    }
+                    return paintingCount > 0;
+                default:
+                    return true;
+            }
+        }
+
         void Update()
         {
-            if (player == null || desk == null || mailbox == null)
+            if (player == null || steps == null)
                 return;
-            if (Done)
+
+            // 지금 열린 창이 어느 단계의 창이면 그 단계(와 앞 단계들)를 끝낸다
+            for (int i = steps.Length - 1; i >= 0; i--)
+            {
+                if (steps[i].popup != null && steps[i].popup.IsOpen)
+                {
+                    for (int j = 0; j <= i; j++)
+                        SetDone(steps[j].id);
+                    break;
+                }
+            }
+
+            // 아직 안 끝난 첫 단계가 지금 안내할 단계
+            Step current = null;
+            foreach (var step in steps)
+            {
+                if (!IsDone(step.id))
+                {
+                    current = step;
+                    break;
+                }
+            }
+            if (current == null)
             {
                 SetShown(false);
-                enabled = false;
+                enabled = false; // 모두 끝났다
                 return;
             }
-            // 일기장을 열면 (어느 단계든) 모두 끝
-            if (diaryPopup != null && diaryPopup.IsOpen)
-            {
-                SetFlag(LetterKey);
-                SetFlag(DoneKey);
-                SetShown(false);
-                enabled = false;
-                return;
-            }
-            // 편지 창을 열면 1단계 끝
-            bool letterRead = LetterRead;
-            if (!letterRead && letterPopup != null && letterPopup.IsOpen)
-            {
-                SetFlag(LetterKey);
-                letterRead = true;
-            }
-            // 창이 열려 있는 동안(편지 읽는 중 등)에는 숨긴다
-            if (PopupBase.AnyOpen)
+            // 창이 열려 있는 동안(편지 읽는 중 등)과 시작 조건이 안 맞을 때는 숨긴다
+            if (PopupBase.AnyOpen || !ConditionMet(current.startWhen))
             {
                 SetShown(false);
                 return;
             }
             SetShown(true);
             if (hintText != null)
-                hintText.text = letterRead ? "이번에는 할아버지의 일기장으로 가 보세요" : "바닥의 화살표를 따라 우체통으로 가 보세요";
+                hintText.text = current.hint;
 
             baseY = player.position.y; // 플레이어 발 높이
-            // 우체통 앞은 우체통이 보는 쪽, 책상 앞은 월드 +X (책상 오브젝트는 3ds Max 축 변환으로 기울어 있어 TransformPoint를 쓰면 방향이 틀어진다)
-            Vector3 target = letterRead ? desk.position + standOffset : mailbox.position + mailbox.forward * mailboxStand;
+            Vector3 target = current.stand;
             target.y = FloorY(target);
             Vector3 start = player.position;
             start.y = baseY;

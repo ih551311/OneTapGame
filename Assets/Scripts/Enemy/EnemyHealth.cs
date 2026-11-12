@@ -67,6 +67,9 @@ namespace LastBullet.Enemy
 
         void Awake()
         {
+            // 전투가 길어질수록 새로 나오는 적이 단단해진다 (BattleDifficulty). 보스(체력 500 초과)는 그대로.
+            if (maxHealth <= 500f)
+                maxHealth *= BattleDifficulty.HealthMultiplier;
             Health = maxHealth;
             renderers = GetComponentsInChildren<Renderer>();
             flashBlock = new MaterialPropertyBlock();

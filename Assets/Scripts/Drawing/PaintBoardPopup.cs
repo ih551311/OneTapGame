@@ -42,6 +42,9 @@ namespace LastBullet.Drawing
         [Tooltip("\"내 그림\" 버튼. 완성한 그림들을 보는 팝업을 연다")]
         [SerializeField] Button galleryButton;
 
+        [Tooltip("되돌리기 버튼 (Ctrl+Z도 같다). 마지막 획을 지우고 그때 쓴 물감을 돌려준다 (2026-11-12)")]
+        [SerializeField] Button undoButton;
+
         [Tooltip("완성한 그림을 보는 팝업 (보기 전용 GalleryPopup)")]
         [SerializeField] PopupBase galleryPopup;
 
@@ -68,6 +71,17 @@ namespace LastBullet.Drawing
         const float PaintPerPixelArea = 0.01f;
         const float AutoSaveSeconds = 5f; // 그리는 동안 물감 잔량을 저장하는 간격 (기획서 3.7)
 
+        // 되돌리기: 획을 시작하기 전의 그림과 그 획에서 쓴 물감. 최대 40번까지 되돌린다 (256×256 그림 40장은 약 10MB).
+        sealed class Snapshot
+        {
+            public Color32[] pixels;
+            public int spent;
+            public PaintColor color;
+        }
+        const int MaxUndo = 40;
+        readonly System.Collections.Generic.List<Snapshot> undoStack = new System.Collections.Generic.List<Snapshot>();
+        Snapshot activeStroke;
+
         Color32[] pixels;
         float paintDebt;
         bool drawing;
@@ -89,6 +103,8 @@ namespace LastBullet.Drawing
                 colorButtons[i].onClick.AddListener(() => SelectColor(color));
             }
             doneButton.onClick.AddListener(Complete);
+            if (undoButton != null)
+                undoButton.onClick.AddListener(Undo);
             galleryButton.onClick.AddListener(() =>
             {
                 drawing = false;
@@ -180,9 +196,14 @@ namespace LastBullet.Drawing
             if (mouse == null || confirmDialog.activeSelf || galleryPopup.IsOpen)
                 return; // 확인창이나 "내 그림"이 떠 있는 동안은 그릴 수 없다
 
+            var keyboard = Keyboard.current;
+            if (keyboard != null && keyboard.zKey.wasPressedThisFrame && (keyboard.leftCtrlKey.isPressed || keyboard.rightCtrlKey.isPressed))
+                Undo();
+
             bool hasPoint = TryGetCanvasPoint(mouse.position.ReadValue(), out Vector2 point, out bool inside);
             if (mouse.leftButton.wasPressedThisFrame && hasPoint && inside)
             {
+                BeginStroke();
                 drawing = true;
                 blocked = false;
                 lastPoint = point;
@@ -199,7 +220,43 @@ namespace LastBullet.Drawing
             }
 
             if (!mouse.leftButton.isPressed)
+            {
                 drawing = false;
+                activeStroke = null;
+            }
+        }
+
+        // 획을 시작하기 전의 그림을 되돌리기 목록에 담는다
+        void BeginStroke()
+        {
+            activeStroke = new Snapshot { pixels = (Color32[])pixels.Clone(), color = CurrentColor };
+            undoStack.Add(activeStroke);
+            if (undoStack.Count > MaxUndo)
+                undoStack.RemoveAt(0);
+            RefreshUndoButton();
+        }
+
+        // 마지막 획을 지우고 그 획에서 쓴 물감을 돌려준다 (물감이 최대치를 넘는 양은 버린다)
+        public void Undo()
+        {
+            if (undoStack.Count == 0 || confirmDialog.activeSelf)
+                return;
+            var snapshot = undoStack[undoStack.Count - 1];
+            undoStack.RemoveAt(undoStack.Count - 1);
+            pixels = (Color32[])snapshot.pixels.Clone();
+            canvasDirty = true;
+            drawing = false;
+            activeStroke = null;
+            paintDebt = 0f;
+            blocked = false;
+            InventoryManager.Instance.RefundPaint(snapshot.color, snapshot.spent);
+            RefreshUndoButton();
+        }
+
+        void RefreshUndoButton()
+        {
+            if (undoButton != null)
+                undoButton.interactable = undoStack.Count > 0;
         }
 
         // 화면 좌표 → 캔버스 픽셀 좌표 (0 ~ 256). 캔버스 밖이어도 좌표는 돌려준다.
@@ -249,6 +306,8 @@ namespace LastBullet.Drawing
                             blocked = true; // 물감이 없으면 그리기 차단
                             return;
                         }
+                        if (activeStroke != null)
+                            activeStroke.spent++; // 되돌리면 돌려줄 물감
                         debt -= 1f;
                     }
                     paintDebt = debt;
@@ -297,6 +356,9 @@ namespace LastBullet.Drawing
             paintDebt = 0f;
             drawing = false;
             canvasDirty = false;
+            undoStack.Clear();
+            activeStroke = null;
+            RefreshUndoButton();
             nextSaveTime = Time.unscaledTime + AutoSaveSeconds;
         }
 

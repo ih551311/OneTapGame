@@ -112,6 +112,16 @@ namespace LastBullet.Inventory
             return true;
         }
 
+        // 그림판 되돌리기: 쓴 물감을 돌려준다 (최대치를 넘는 양은 버린다. 파일에는 쓰지 않고 화면에만 알린다. 저장은 CommitToSave()가 한다)
+        public void RefundPaint(PaintColor color, int amount)
+        {
+            if (amount <= 0)
+                return;
+            int index = (int)color;
+            paints[index] = Mathf.Min(PaintMax, paints[index] + amount);
+            Changed?.Invoke();
+        }
+
         // 지금 수량을 save.json에 쓴다 (그림판이 5초마다, 닫을 때 부른다)
         public void CommitToSave()
         {

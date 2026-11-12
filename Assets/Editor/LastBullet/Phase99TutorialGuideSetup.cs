@@ -60,7 +60,7 @@ namespace LastBullet.EditorTools
             var hintRect = (RectTransform)hint.transform;
             hintRect.anchorMin = hintRect.anchorMax = hintRect.pivot = new Vector2(0.5f, 1f);
             hintRect.anchoredPosition = new Vector2(0f, -40f);
-            hintRect.sizeDelta = new Vector2(820f, 84f);
+            hintRect.sizeDelta = new Vector2(1240f, 84f); // 가장 긴 안내 글(종이 합성대 단계)이 한 줄에 들어가게
             var plate = hint.GetComponent<Image>();
             plate.sprite = ArtSlots.LoadSprite(PlatePath, 24f);
             plate.type = Image.Type.Sliced;
@@ -82,22 +82,62 @@ namespace LastBullet.EditorTools
             textRect.offsetMin = textRect.offsetMax = Vector2.zero;
             hint.SetActive(false);
 
+            // ── 단계 목록: 우체통 → 일기장 → 지도 탁자 → 종이 합성대 → 그림 작업대 → 액자 ──
+            // 서 있을 자리: 우체통은 앞쪽 1.3m, 일기장 책상은 전시장 쪽(월드 +X) 2m, 나머지는 입구 쪽(월드 -Z) 1.8m.
+            var steps = new System.Collections.Generic.List<(string id, PopupBase popup, Vector3 stand, string hint, TutorialGuide.StartCondition when)>();
+            steps.Add(("mailbox", letter.GetComponent<PopupBase>(), mailbox.transform.position + mailbox.transform.forward * 1.3f,
+                "바닥의 화살표를 따라 우체통으로 가 보세요", TutorialGuide.StartCondition.Always));
+            steps.Add(("diary", diary.GetComponent<PopupBase>(), desk.transform.position + new Vector3(2f, 0f, 0f),
+                "이번에는 할아버지의 일기장으로 가 보세요", TutorialGuide.StartCondition.Always));
+            AddDeviceStep(steps, "map", "StageMap", "지도 탁자에서 거울 너머로 갈 곳을 골라 보세요", TutorialGuide.StartCondition.Always);
+            AddDeviceStep(steps, "craft", "PaperCraftTable", "종이조각이 모였어요. 종이 합성대에서 그림 종이를 만들어 보세요", TutorialGuide.StartCondition.HasScrapsForPaper);
+            AddDeviceStep(steps, "paint", "PaintWorkbench", "그림 작업대에서 그림을 그려 보세요", TutorialGuide.StartCondition.HasPaper);
+            var galleryManager = Object.FindFirstObjectByType<GalleryManager>();
+            var frame5 = GameObject.Find("PictureFrame_05");
+            if (galleryManager != null && frame5 != null)
+            {
+                var picker = new SerializedObject(galleryManager).FindProperty("picker").objectReferenceValue as PopupBase;
+                steps.Add(("frame", picker, frame5.transform.position + new Vector3(0f, 0f, -1.8f),
+                    "다 그렸다면 액자 앞에서 E로 걸어 보세요", TutorialGuide.StartCondition.HasPainting));
+            }
+
             var go = new GameObject("TutorialGuide");
             var guide = go.AddComponent<TutorialGuide>();
             var so = new SerializedObject(guide);
-            so.FindProperty("desk").objectReferenceValue = desk.transform;
-            so.FindProperty("mailbox").objectReferenceValue = mailbox.transform;
-            so.FindProperty("letterPopup").objectReferenceValue = letter.GetComponent<PopupBase>();
+            var array = so.FindProperty("steps");
+            array.arraySize = steps.Count;
+            for (int i = 0; i < steps.Count; i++)
+            {
+                var element = array.GetArrayElementAtIndex(i);
+                element.FindPropertyRelative("id").stringValue = steps[i].id;
+                element.FindPropertyRelative("popup").objectReferenceValue = steps[i].popup;
+                element.FindPropertyRelative("stand").vector3Value = steps[i].stand;
+                element.FindPropertyRelative("hint").stringValue = steps[i].hint;
+                element.FindPropertyRelative("startWhen").enumValueIndex = (int)steps[i].when;
+            }
             so.FindProperty("arrowMaterial").objectReferenceValue = arrowMaterial;
             so.FindProperty("ringMaterial").objectReferenceValue = ringMaterial;
-            so.FindProperty("diaryPopup").objectReferenceValue = diary.GetComponent<PopupBase>();
             so.FindProperty("hint").objectReferenceValue = hint;
             so.ApplyModifiedPropertiesWithoutUndo();
 
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
             AssetDatabase.SaveAssets();
-            Debug.Log("[LastBullet] 1_Museum: 첫 입장 길 안내(바닥 화살표 + 책상 앞 고리 + 안내 글)를 만들었어요.");
+            Debug.Log($"[LastBullet] 1_Museum: 길 안내({steps.Count}단계: 우체통 → 일기장 → 지도 탁자 → 종이 합성대 → 그림 작업대 → 액자)를 만들었어요.");
+        }
+
+        // 미술관의 장치(InteractDevice) 이름으로 창과 위치를 찾아 단계에 더한다
+        static void AddDeviceStep(System.Collections.Generic.List<(string id, PopupBase popup, Vector3 stand, string hint, TutorialGuide.StartCondition when)> steps,
+            string id, string objectName, string hintText, TutorialGuide.StartCondition when)
+        {
+            var device = GameObject.Find(objectName);
+            if (device == null)
+            {
+                Debug.LogWarning($"[LastBullet] 길 안내: {objectName} 오브젝트가 없어 '{id}' 단계를 건너뜀");
+                return;
+            }
+            var popup = new SerializedObject(device.GetComponent<InteractDevice>()).FindProperty("popup").objectReferenceValue as PopupBase;
+            steps.Add((id, popup, device.transform.position + new Vector3(0f, 0f, -1.8f), hintText, when));
         }
 
         static Material GetMaterial(string name, string pngPath)
