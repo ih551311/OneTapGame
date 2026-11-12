@@ -19,7 +19,7 @@ namespace LastBullet.Enemy
     public class EnemyDrop : MonoBehaviour
     {
         [SerializeField] int paperScraps = 1;
-        [SerializeField] int paintAmount = 30;
+        [SerializeField] int paintAmount = 25; // 2026-11-12 사용자 요청으로 30 → 25 (작은 분열체는 프리팹에서 15 → 12)
 
         [Tooltip("처치 때 터지는 물감 연출 (Prefabs/PaintBurst). 비우면 연출 없음")]
         [SerializeField] PaintBurstEffect burstPrefab;
