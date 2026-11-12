@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using LastBullet.Drawing;
 using LastBullet.Inventory;
 using LastBullet.Stage;
@@ -34,30 +34,36 @@ namespace LastBullet.UI
         [Tooltip("물감 9색 아이콘 (빨강 주황 노랑 초록 파랑 보라 핑크 하양 검정 순서)")]
         [SerializeField] Sprite[] paintIcons;
 
-        [Header("아재개그 (한 줄에 질문|답)")]
+        // 2026-11-12 사용자 요청: 아재개그 대신 게임 팁과 할아버지의 메모를 번갈아 보여 준다. 한 줄에 "제목|글" (제목은 윗줄, 글은 아랫줄에 바로 나온다).
+        // (칸 이름이 jokes인 것은 씬에 저장된 연결을 지키려고 그대로 둔 것이다.)
+        [Header("로딩 문구 (한 줄에 제목|글)")]
         [SerializeField] string[] jokes =
         {
-            "바나나가 웃으면?|바나나킥!",
-            "오리가 얼면?|언덕!",
-            "왕이 넘어지면?|킹콩!",
-            "소가 웃는 소리는?|우하하(牛하하)!",
-            "세상에서 가장 빠른 닭은?|후다닭!",
-            "자동차를 발로 차면?|카놀라유!",
-            "경찰이 제일 좋아하는 아이스크림은?|누가바!",
-            "달걀이 놀라면?|에그머니!",
-            "도둑이 제일 좋아하는 아이스크림은?|보석바!",
-            "세상에서 가장 뜨거운 바다는?|열바다!",
+            "게임 팁|머리를 맞히면 피해 2배, 물감도 1.5배예요.",
+            "게임 팁|Q로 구르는 동안은 잠깐 공격을 맞지 않아요.",
+            "게임 팁|E 물감 폭탄의 물감 구역 안에서는 적이 느려지고 계속 피해를 입어요.",
+            "게임 팁|바주카는 폭발 범위가 넓어요. 적이 모였을 때 쏘세요.",
+            "게임 팁|죽으면 모은 재료를 잃어요. ESC에서 귀환하면 정산돼요.",
+            "게임 팁|종이조각 5개로 그림 종이 1장을 만들 수 있어요.",
+            "게임 팁|적을 잡으면 그 적 몸 색의 물감이 나와요.",
+            "게임 팁|1, 2 키로 소총과 바주카를 바꿀 수 있어요. F로도 바꿔요.",
+            "게임 팁|그림판에서 Ctrl+Z로 되돌리면 쓴 물감도 돌아와요.",
+            "게임 팁|맵 한가운데 보스의 내려치기는 점프나 Q로 피할 수 있어요.",
+            "할아버지의 메모|아침마다 액자의 먼지를 턴다. 아홉 개를 다 털면 한 시간이 간다.",
+            "할아버지의 메모|비 오는 날엔 할머니가 오신다. 늘 아홉 번째 액자 앞에 서 계신다.",
+            "할아버지의 메모|색은 처음 짜 놓았을 때가 제일 곱다.",
+            "할아버지의 메모|창고 안쪽에 큰 거울이 있다. 낮에는 그냥 거울이다.",
         };
 
         [Header("시간 (기본값)")]
-        [Tooltip("로딩 화면을 최소한 이만큼은 보여 준다 (초)")]
-        [SerializeField] float minTime = 3.5f;
+        [Tooltip("로딩 화면을 최소한 이만큼은 보여 준다 (초). 2026-11-12 사용자 요청으로 3.5 → 1.5")]
+        [SerializeField] float minTime = 1.5f;
 
-        [Tooltip("아재개그의 답이 나오는 때 (초)")]
-        [SerializeField] float answerDelay = 1.8f;
+        [Tooltip("(안 씀) 예전 아재개그의 답이 나오던 때")]
+        [SerializeField] float answerDelay = 0f;
 
         [Tooltip("화면이 서서히 나타나는 시간 (초)")]
-        [SerializeField] float fadeTime = 0.3f;
+        [SerializeField] float fadeTime = 0.2f;
 
         static LoadingScreen instance;
 
@@ -141,7 +147,7 @@ namespace LastBullet.UI
                 yield return null;
             }
 
-            yield return new WaitForSecondsRealtime(0.15f);
+            yield return new WaitForSecondsRealtime(0.05f);
             operation.allowSceneActivation = true;
         }
 
@@ -173,11 +179,11 @@ namespace LastBullet.UI
             {
                 string[] parts = jokes[Random.Range(0, jokes.Length)].Split('|');
                 if (jokeQuestion != null)
-                    jokeQuestion.text = "Q. " + parts[0].Trim();
+                    jokeQuestion.text = parts[0].Trim();                       // 제목 (게임 팁 / 할아버지의 메모)
                 if (jokeAnswer != null)
                 {
-                    jokeAnswer.text = parts.Length > 1 ? "A. " + parts[1].Trim() : "";
-                    jokeAnswer.gameObject.SetActive(false); // 답은 잠시 뒤에
+                    jokeAnswer.text = parts.Length > 1 ? parts[1].Trim() : ""; // 글은 바로 보인다
+                    jokeAnswer.gameObject.SetActive(true);
                 }
             }
 
