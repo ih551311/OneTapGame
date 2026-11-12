@@ -98,6 +98,7 @@ namespace LastBullet.Stage
 
             GL.invertCulling = true; // 거울에 비친 장면은 앞뒤가 뒤집혀 보인다 (끄면 바닥 같은 한 겹짜리 면이 사라진다)
             reflectionCamera.Render();
+            GL.invertCulling = false; // 꼭 되돌린다 (안 되돌리면 빌드에서 주 카메라 그림까지 뒤집혀 바닥이 사라지고 캐릭터·물건이 이상하게 보인다. 2026-11-12)
 
             if (zoom != null)
                 zoom.SetMirrorView(false);

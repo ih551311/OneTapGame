@@ -812,3 +812,8 @@ Phase 1에서 한 일 (2026-10-29):
 ## 2026-11-12 빌드 테스트
 - Windows 64비트 빌드 성공 (오류 0, 경고 0, 337MB, 50초). 위치 Builds/ReChroma/ReChroma.exe (.gitignore에 /Builds/ 추가).
 - 실행하면 타이틀까지 뜨고 20초간 로그에 오류 없음. 저장 위치는 AppData/LocalLow/DefaultCompany/ReChroma. 아직 안 해본 것: 빌드에서 실제 플레이, 숲/성/사막 진입, 성능(FPS), 소리.
+
+## 2026-11-12 빌드에서만 바닥이 사라지고 캐릭터가 이상하던 문제
+- 원인: Assets/Scripts/Stage/PlanarMirror.cs가 반사 화면을 그리려고 GL.invertCulling = true 를 켠 뒤 끄지 않았다. 에디터에서는 가려졌지만 빌드에서는 그 상태가 주 카메라까지 남아, 한 겹짜리 바닥(Plane)이 안 그려지고 캐릭터·물건이 안팎 뒤집혀 보였다 (거울이 화면에 들어오는 순간부터).
+- 고침: Render() 바로 뒤에 GL.invertCulling = false. 빌드(Builds/ReChroma)로 확인: 바닥 널빤지와 캐릭터 옷이 정상.
+- 같은 증상이 있었던 임시 실험 코드(TempShot)는 지웠다.
