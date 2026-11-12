@@ -35,9 +35,9 @@ namespace LastBullet.UI
         [SerializeField] Sprite[] paintIcons;
 
         // 2026-11-12 사용자 요청: 아재개그 대신 게임 팁과 할아버지의 메모를 번갈아 보여 준다. 한 줄에 "제목|글" (제목은 윗줄, 글은 아랫줄에 바로 나온다).
-        // (칸 이름이 jokes인 것은 씬에 저장된 연결을 지키려고 그대로 둔 것이다.)
+        // (칸 이름을 jokes에서 messages로 바꿨다: 예전 씬에 저장된 아재개그 목록이 따라오지 않고, 아래 기본 목록이 그대로 쓰이게 하려고.)
         [Header("로딩 문구 (한 줄에 제목|글)")]
-        [SerializeField] string[] jokes =
+        [SerializeField] string[] messages =
         {
             "게임 팁|머리를 맞히면 피해 2배, 물감도 1.5배예요.",
             "게임 팁|Q로 구르는 동안은 잠깐 공격을 맞지 않아요.",
@@ -53,6 +53,20 @@ namespace LastBullet.UI
             "할아버지의 메모|비 오는 날엔 할머니가 오신다. 늘 아홉 번째 액자 앞에 서 계신다.",
             "할아버지의 메모|색은 처음 짜 놓았을 때가 제일 곱다.",
             "할아버지의 메모|창고 안쪽에 큰 거울이 있다. 낮에는 그냥 거울이다.",
+            // 사용자가 직접 쓴 글 (2026-11-12, 맞춤법도 쓴 그대로)
+            "개발자의 한마디|발로** 게임을 하면서 원탭에 재미를 느껴서 원탭하는 게임을 만들려 했다가 바뀜",
+            "개발자의 한마디|에셋 구하기가 힘들었고 그냥 힘들었다",
+            "개발자의 한마디|플레이어가 직접 그림을 그릴수있는거ㅎ",
+            "개발자의 한마디|모션, 사운드가 좀 많이 아쉽다",
+            "개발자의 한마디|욕은 하지 말아주세요 ㅠㅠ",
+            "개발자의 한마디|아쉽네요",
+            "개발자의 한마디|하늘색 이유-그냥이쁨",
+            "개발자의 한마디|캐릭터 모션이 어색한게 웃겻다",
+            "개발자의 한마디|난이도는 매우 쉽다고 생각합니다",
+            "개발자의 한마디|재믹게해주세요",
+            "개발자의 한마디|발로란트하실분연락주세요",
+            "개발자의 한마디|클로드를 99% 썼는데 클로드님께 감사하구요",
+            "개발자의 한마디|이 게임을 하신다면 재밋게 하시고 피드백을 해주시면 감사하겟습니다",
         };
 
         [Header("시간 (기본값)")]
@@ -175,9 +189,9 @@ namespace LastBullet.UI
 
             ShowRandomPainting();
 
-            if (jokes != null && jokes.Length > 0)
+            if (messages != null && messages.Length > 0)
             {
-                string[] parts = jokes[Random.Range(0, jokes.Length)].Split('|');
+                string[] parts = messages[Random.Range(0, messages.Length)].Split('|');
                 if (jokeQuestion != null)
                     jokeQuestion.text = parts[0].Trim();                       // 제목 (게임 팁 / 할아버지의 메모)
                 if (jokeAnswer != null)
